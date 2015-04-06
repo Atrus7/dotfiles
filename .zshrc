@@ -1,16 +1,18 @@
-
-##
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+export CC="`which gcc-4.9` -fdiagnostics-color=auto"
+export CXX="`which g++-4.9` -fdiagnostics-color=auto"
 
 MODE_INDICATOR="%{$fg_bold[blue]%}[%{$fg[blue]%}NORMAL]%{$reset_color%}"
 bindkey -M viins 'jk' vi-cmd-mode
+
 # bindkey '^P' up-history
 # bindkey '^N' down-history
 # bindkey '^?' backward-delete-char
 # bindkey '^h' backward-delete-char
 # bindkey '^w' backward-kill-word
-# bindkey '^r' history-incremental-search-backward
 
 echocolors() {
     #   This file echoes a bunch of color codes to the
@@ -34,6 +36,24 @@ echocolors() {
     done
     echo
   }
+       
+ git()
+ {
+    local tmp=`mktemp -t tmp`
+    local repo_name
+
+    if [ "$1" = clone ] ; then
+      /usr/bin/git "$@" 2>&1 | tee $tmp # 2>&1 | read tmp)" # | read $tmp | echo $tmp
+      repo_name=$(awk -F \' '/Cloning into/ {print $2}'  $tmp)
+      rm $tmp
+      printf "changing to directory %s\n" "$repo_name"
+      cd "$repo_name"
+      sh ~/Desktop/Directory/GitRepos/symlink.sh
+    else
+      /usr/bin/git "$@"
+    fi
+ }
+
   # Set name of the theme to load.
   # Look in ~/.oh-my-zsh/themes/
   # Optionally, if you set this to "random", it'll load a random theme each
@@ -43,7 +63,7 @@ echocolors() {
   CASE_SENSITIVE="false"
 
   # Uncomment the following line to disable bi-weekly auto-update checks.
-  DISABLE_AUTO_UPDATE="true"
+  # DISABLE_AUTO_UPDATE="true"
 
   # Uncomment the following line to change how often to auto-update (in days).
   #export UPDATE_ZSH_DAYS=14
@@ -77,7 +97,7 @@ echocolors() {
   # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
   # Example format: plugins=(rails git textmate ruby lighthouse)
   # Add wisely, as too many plugins slow down shell startup.
-  plugins=(git vi-mode)
+  plugins=(git vi-mode )
 
   source $ZSH/oh-my-zsh.sh
 
@@ -111,16 +131,23 @@ echocolors() {
   # Example aliases
   # alias zshconfig="mate ~/.zshrc"
   # alias ohmyzsh="mate ~/.oh-my-zsh"
-  alias @sob="cd ~/Desktop/Desktop\ Directory/StudyOnBoard\ Code/Github\ Repositories/StudyOnBoard"
-  alias @desk="cd ~/Desktop/Desktop\ Directory/"
-  alias @allen="cd /Users/Chris/Desktop/Desktop\ Directory/Programming/Allen\ Webb\ Research/dns_statistics/chris_project/"
-  alias @school="cd ~/Desktop/Desktop\ Directory/School/"
-  alias @code="cd ~/Desktop/Desktop\ Directory/Programming/"
+  alias @sob="cd ~/Desktop/Directory/StudyOnBoard\ Code/Github\ Repositories/StudyOnBoard"
+  alias @desk="cd ~/Desktop/Directory/"
+  alias @allen="cd /Users/Chris/Desktop/Directory/Programming/Allen\ Webb\ Research/dns_statistics/chris_project/"
+  alias @school="cd ~/Desktop/Directory/School/"
+  alias @code="cd ~/Desktop/Directory/Programming/"
+  alias @p3="cd ~/Desktop/Directory/Programming/C++/Project3/CSCE315-Project3/"
+  alias @git="cd ~/Desktop/Directory/GitRepos/"
   alias @gpp= "g++ -std=c++11"
   alias @vimrc="vim ~/.vimrc"
   alias @zshrc="vim ~/.zshrc"
-    alias ls='ls -a'
+  # alias ls='ls '
+  alias mv='mv -i'
+  # alias rm='rm ~/.Trash'
   #  alias @zshrc="vim ~/.zshrc"
   #  alias @hi="echo \"Hello World\" "
 
   DEFAULT_USER="Chris"
+
+source /Users/Chris/.iterm2_shell_integration.zsh
+source ~/.zshafterc

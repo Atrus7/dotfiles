@@ -14,7 +14,6 @@
    set nocompatible
  " set UNICODE so we can use special characters
    set fileencoding=utf-8
-   " set bomb
    inoremap jk <Esc>
    imap :w <Esc>:w<Enter>
    set backspace=2
@@ -38,8 +37,10 @@
    inoremap {<cr> {<cr>}<c-o>O<Tab>
 
  " Real programmers don't use TABs but spaces
-   set tabstop=2
-   set softtabstop=2
+   set tabstop=4
+" converts tabs
+   set softtabstop=4
+" auto-indent width
    set shiftwidth=2
    set shiftround
    set expandtab
@@ -77,6 +78,45 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+"------LightLine--------
+let g:lightline = {
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ], [ 'bufferline' ] ],
+  \ },
+  \ 'component': {
+  \   'bufferline': '%{bufferline#refresh_status()}%{g:bufferline_status_info.before . g:bufferline_status_info.current . g:bufferline_status_info.after}'
+  \ },
+\   'bufferline': '%{bufferline#refresh_status()}%{g:bufferline_status_info.before}%#TabLineSel#%{g:bufferline_status_info.current}%#LightLineLeft_active_3#%{g:bufferline_status_info.after}'
+  \ }
+
+"------Syntastic--------
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
+"------Buffers > Tabs-----
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nnoremap <leader>T :enew<cr>
+
+" Move to the next buffer
+nnoremap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nnoremap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nnoremap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nnoremap <leader>bl :ls<CR>
+set hidden
+
 "------Window/Screen------
 "
 " Always show line numbers, but only in current window.
@@ -109,19 +149,19 @@ autocmd BufWinEnter *.* silent loadview
 nnoremap zO zCzO
 
 function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
+  let line = getline(v:foldstart)
 
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
+  let nucolwidth = &fdc + &number * &numberwidth
+  let windowwidth = winwidth(0) - nucolwidth - 3
+  let foldedlinecount = v:foldend - v:foldstart
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+  " expand tabs into spaces
+  let onetab = strpart('          ', 0, &tabstop)
+  let line = substitute(line, '\t', onetab, 'g')
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+  let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+  return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
 "----------Splits---------------
@@ -146,40 +186,41 @@ endif
 :nnoremap <leader>sv :source $MYVIMRC<cr>
 
 "-----------------Syntax Stuff------------------------------
-  set t_Co=256
+set t_Co=256
 
 
 if has ("autocmd")
   filetype on
 endif
 
-  filetype plugin indent on
-  syntax on
+filetype plugin indent on
+syntax on
 " colorscheme solarized
 " colorscheme guardian
 "During the day, I want it dark. At night, I want the light version.
-noremap <Leader>c :let change_on_save=1<cr>,sv:w<cr>
+" noremap <Leader>c :let change_on_save=1<cr>,sv:w<cr>
 "HACKERY TO ALLOW FOR UNOBTRUSIVE /Noticeable/ CHANGES
-  try
-      silent echo change_on_save
-  catch
-      let change_on_save = 0
-  endtry
- autocmd VimEnter * :let change_on_save = 1
- let hour = strftime("%H")
+try
+  silent echo change_on_save
+catch
+  let change_on_save = 0
+endtry
+autocmd VimEnter * :let change_on_save = 1
+let hour = strftime("%H")
 
 
 if $TERM_PROGRAM =~ "iTerm"
-  if 15 <= hour && hour <= 20
+  " if 15 <= hour && hour <= 24
+  if 15 <= hour || hour <= 24
     colorscheme solarized
     set background=dark
     if change_on_save >= 1
-      : silent ! python ~/Desktop/Desktop\ Directory/Programming/iTerm2/instant_color.py "Solarized Dark"
+      : silent ! python ~/Desktop/Directory/Programming/iTerm2/instant_color.py "Solarized Dark"
       let change_on_save = 0
     endif
   elseif 20 < hour || hour < 6
     if change_on_save >= 1
-      : silent ! python ~/Desktop/Desktop\ Directory/Programming/iTerm2/instant_color.py "Gotham-stable"
+      : silent ! python ~/Desktop/Directory/Programming/iTerm2/instant_color.py "Gotham-stable"
       let change_on_save =0
     endif
     colorscheme gotham
@@ -188,7 +229,7 @@ if $TERM_PROGRAM =~ "iTerm"
     colorscheme solarized
     set background=light
     if change_on_save >= 1
-     : silent ! python ~/Desktop/Desktop\ Directory/Programming/iTerm2/instant_color.py "Solarized Light"
+      : silent ! python ~/Desktop/Directory/Programming/iTerm2/instant_color.py "Solarized Light"
       let change_on_save =0
     endif
   endif
@@ -196,11 +237,13 @@ else
   colorscheme gotham
 endif
 " Show whitespace
-  highlight SpecialKey ctermfg=DarkGray
-  set listchars=tab:>-,trail:·
-  set list
+highlight SpecialKey ctermfg=DarkGray
+set listchars=tab:>-,trail:·
+set list
 
-nnoremap <Leader>w :%s/\s\+$//e<Cr>:echo "Cleared Whitespace"<Cr>
+nnoremap <Leader>w :%s/\s\+$//e<Cr>:echo "Cleared Whitespace"<Cr><C-o>
+" nnoremap <Leader>m :%s/\r//g<Cr><C-o>
+nnoremap <Leader>m :!make<cr>
 
 
 :augroup whitespaceGroup
@@ -209,61 +252,61 @@ nnoremap <Leader>w :%s/\s\+$//e<Cr>:echo "Cleared Whitespace"<Cr>
 :augroup end
 
 " Showing line numbers and length
-  set number" show line numbers
-  set tw=80 " width of document (used by gd)
-  set wrap
-  set wrapmargin=0
+set number" show line numbers
+set tw=80 " width of document (used by gd)
+set wrap
+set wrapmargin=0
 
 "set nowrap" don't automatically wrap on load
-  set fo-=t " don't automatically wrap text when typing
-  set colorcolumn=80
+set fo-=t " don't automatically wrap text when typing
+set colorcolumn=80
 
 "------------History------------------
 " Useful settings
-  set history=1000
-  set undodir=~/.vim/undodir
-  set undofile
-  set undolevels=800
-  set undoreload=10000
+set history=1000
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=800
+set undoreload=10000
 "------------COMPLETION---------------
-  "Use TAB to complete when typing words, else inserts TABs as usual.
-  "Uses dictionary and source files to find matching words to complete.
+"Use TAB to complete when typing words, else inserts TABs as usual.
+"Uses dictionary and source files to find matching words to complete.
 
-  "See help completion for source,
-  "Note: usual completion is on <C-n> but more trouble to press all the time.
-  "Never type the same word twice and maybe learn a new spellings!
-  "Use the Linux dictionary when spelling is in doubt.
-  "Window users can copy the file to their machine.
-  function! Tab_Or_Complete()
-    if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-      return "\<C-N>"
-    else
-      return "\<Tab>"
-    endif
-  endfunction
-  :inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-  :set dictionary="/usr/dict/words"
+"See help completion for source,
+"Note: usual completion is on <C-n> but more trouble to press all the time.
+"Never type the same word twice and maybe learn a new spellings!
+"Use the Linux dictionary when spelling is in doubt.
+"Window users can copy the file to their machine.
+function! Tab_Or_Complete()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-N>"
+  else
+    return "\<Tab>"
+  endif
+endfunction
+:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+:set dictionary="/usr/dict/words"
 "---------------Backups------------------------
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
-  set backup                        " enable backups
-  set undodir=~/.vim/tmp/undo//     " undo files
-  set backupdir=~/.vim/tmp/backup// " backups
-  set directory=~/.vim/tmp/swap//   " swap files
-  set noswapfile
-  " Make those folders automatically if they don't already exist.
-  if !isdirectory(expand(&undodir))
-      call mkdir(expand(&undodir), "p")
-  endif
-  if !isdirectory(expand(&backupdir))
-      call mkdir(expand(&backupdir), "p")
-  endif
-  if !isdirectory(expand(&directory))
-      call mkdir(expand(&directory), "p")
-  endif
-  "--------------Misc---------------------
+set backup                        " enable backups
+set undodir=~/.vim/tmp/undo//     " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+set noswapfile
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+  call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+  call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+  call mkdir(expand(&directory), "p")
+endif
+"--------------Misc---------------------
 
-  nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<esc>
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<esc>
 " Insert new Line with Enter
 nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
@@ -278,12 +321,12 @@ function! NumberToggle()
   endif
 endfunc
 function! ShowColourSchemeName()
-    try
-        echo g:colors_name
-        return g:colors_name
-    catch /^Vim:E121/
-        return 0
-    endtry
+  try
+    echo g:colors_name
+    return g:colors_name
+  catch /^Vim:E121/
+    return 0
+  endtry
 endfunction
 nnoremap ;; $a;<esc>
 "--------Autocommands-------
@@ -294,14 +337,30 @@ nnoremap ;; $a;<esc>
 :augroup END
 
 "Header macro
-nnoremap <leader>head ggO*********************Author Info*************************<cr>@author    Christopher Findeisen                          <CR>@contact    <cfindeisen7@gmail.com>                              <CR>@date      <Esc>"=strftime("%c")<CR>Pa                                              <CR>*********************************************************<esc>gg$hl<C-v>4gjA*<esc>gglh<C-v>4gjI*<esc> gglhvjjjjzf<esc>:call MacroComment()<cr><cr>
+" Hm...I really need to get these asterisks down...
+nnoremap <leader>ghead ggO*********************Author Info*************************<cr>@author    Christopher Findeisen                          <CR>@contact    <cfindeisen7@gmail.com>                              <CR>@date      <Esc>"=strftime("%c")<CR>Pa                                              <CR>*********************************************************<esc>gg$hl<C-v>4gjA*<esc>gglh<C-v>4gjI*<esc> gglhvjjjjzf<esc>:call MacroComment()<cr><cr>
 function! MacroComment()
   normal gcc
 endfunction
 
+nnoremap <leader>start :.!cat ~/.vim/text/cpp.txt<cr>
+
+noremap <Leader>c :call ToggleHeader()<cr>
+function! ToggleHeader()
+  if (expand('%:e') == 'cpp' || expand('%:e') == 'cc')
+    :e %:r.h
+  elseif(expand('%:e') == 'h')
+    :e %:r.cpp
+  else
+    echo("Not in a cpp file")
+  endif
+endfunc
 "set splits intuitively
 set splitbelow
 set splitright
+
+
+
 
 
 "--------Commented-Maybe-One-Day----------------

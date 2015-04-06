@@ -1,0 +1,11 @@
+[user]
+	name = Christopher Findeisen
+	email = cfindeisen7@gmail.com
+[filter "media"]
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
+[credential]
+	helper = osxkeychain
+[push]
+	default = simple
