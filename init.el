@@ -10,17 +10,17 @@
 
 ; MELPA
 (require 'package)
- 
+
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
- 
+
 (when (not package-archive-contents)
   (package-refresh-contents))
- 
+
 (defvar my-packages '(evil company))
- 
+
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -49,8 +49,18 @@
 
 (show-paren-mode 1)
 (global-linum-mode 1) ; display line numbers
+(column-number-mode 1)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+
+;; Changes all yes/no questions to y/n type
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Tabs are evil
+;;(setq-default indent-tabs-mode nil)
 
 ;; Use company-mode in all buffers (more completion)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;;remember to byte-compile rainbow delimiters for speed whenever I am moving configs
@@ -77,6 +87,7 @@
 (define-key evil-motion-state-map (kbd "M-j") 'evil-window-down)
 (define-key evil-motion-state-map (kbd "M-k") 'evil-window-up)
 (define-key evil-motion-state-map (kbd "M-l") 'evil-window-right)
+(define-key evil-motion-state-map (kbd "M-e") 'eval-buffer)
 
 
 ;;remember what I had open
