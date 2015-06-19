@@ -28,8 +28,8 @@
 (require 'evil)
 (evil-mode 1)
 
-(add-to-list 'load-path "~/.emacs.d/chris-schmorgishborg/helm")
-(add-to-list 'load-path "~/.emacs.d/chris-schmorgishborg/emacs-async")
+(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/helm")
+(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
 
 (require 'helm-config)
 (helm-mode 1)
@@ -45,7 +45,7 @@
 (global-auto-revert-mode t)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'monokai t)
+(load-theme 'material t)
 
 (show-paren-mode 1)
 (global-linum-mode 1) ; display line numbers
@@ -67,6 +67,10 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
+(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
+(require 'yafolding)
+
+
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
@@ -75,9 +79,11 @@
 (require 'key-chord)
 (key-chord-mode 1)
 (key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
-
+(add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
+;;(setq backup-directory-alist '(("." . "~/.emacs-backups")))? Maybe later
 ;;stop littering with save files, put them here
-(setq backup-directory-alist '(("." . "~/.emacs-backups")))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
@@ -89,13 +95,39 @@
 (define-key evil-motion-state-map (kbd "M-l") 'evil-window-right)
 (define-key evil-motion-state-map (kbd "M-e") 'eval-buffer)
 
+(define-key helm-map (kbd "C-j") 'helm-next-line)
+(define-key helm-map (kbd "C-k") 'helm-previous-line)
+(define-key helm-map (kbd "C-h") 'helm-previous-source)
+(define-key helm-map (kbd "C-l") 'helm-next-source)
+
+;;FINALLY GOT SANE HELM Find-File MAPPINGS WOOHOO!
+(define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
+
+;;Window mappings
+
+
 
 ;;remember what I had open
 (desktop-save-mode 1)
 
 ;;Evil tabs
 (setq-default indent-tabs-mode nil)
+
+;(define-key yafolding-mode-map (kbd "<C-S-return>") nil)
+;(define-key yafolding-mode-map (kbd "<C-M-return>") nil)
+;(define-key yafolding-mode-map (kbd "<C-return>") nil)
+;(define-key yafolding-mode-map (kbd "C-c <C-M-return>") 'yafolding-toggle-all)
+;(define-key yafolding-mode-map (kbd "C-c <C-S-return>") 'yafolding-hide-parent-element)
+;(define-key yafolding-mode-map (kbd "zf") 'yafolding-toggle-element)
+
+;;(add-hook 'prog-mode-hook
+          ;;(lambda () (yafolding-mode 1)))
+
 (setq magit-auto-revert-mode nil)
+
+;(require 'autopair)
+;(autopair-global-mode 1)
 
 ;; Start to insert mode when editing commit messages
 (evil-set-initial-state 'magit-log-edit-mode 'insert)
@@ -260,13 +292,38 @@
 
 (global-evil-leader-mode 1)
 (evil-leader/set-leader "<SPC>")
+
 (evil-leader/set-key
   "e" 'eval-buffer
   "f" 'helm-find-files
   "b" 'helm-buffers-list
   "gs" 'magit-status
-  )
+  ;;window management
+  "ws" 'evil-window-split
+  "wv" 'evil-window-vsplit
+  "wd" 'evil-window-delete
+  "wu" 'winner-undo
+  "wr" 'winner-redo
 
+  )
+(load-library "p4")
+(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
 ;; Remember what I had open when I quit
 (desktop-save-mode 1)
 (winner-mode 1)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
+ '(magit-diff-use-overlays nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+ (setq magit-last-seen-setup-instructions "1.4.0")
