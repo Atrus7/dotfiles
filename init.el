@@ -137,6 +137,14 @@
 (define-key evil-motion-state-map (kbd "M-k") 'evil-window-up)
 (define-key evil-motion-state-map (kbd "M-l") 'evil-window-right)
 (define-key evil-motion-state-map (kbd "M-e") 'eval-buffer)
+(define-key evil-motion-state-map (kbd "M-;") 'append-semicolon)
+;;In progress...
+(defun append-semicolon()
+  "Puts a semicolon at the end of the current line"
+  (interactive)
+  (evil-end-of-line)
+  ;(evil-append ";")
+  )
 
 (define-key evil-motion-state-map "j" 'evil-next-visual-line)
 (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
@@ -153,6 +161,13 @@
 (require 'magit)
 (setq magit-auto-revert-mode nil)
 
+(require 'multiple-cursors)
+(global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
+    ;(kbd "M-N") 'mc/unmark-next-like-this
+    ;(kbd "M-p") 'mc/mark-previous-like-this
+    ;(kbd "M-P") 'mc/unmark-previous-like-this
+    ;(kbd "M-c") 'mc/edit-lines)
+;(autopair-global-mode 1)-
 
 ;; Start to insert mode when editing commit messages
 (evil-set-initial-state 'magit-log-edit-mode 'insert)
