@@ -134,8 +134,6 @@
 
 (setq magit-auto-revert-mode nil)
 
-(require 'golden-ratio)
-(golden-ratio-mode 1)
 (require 'multiple-cursors)
 (global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
     ;(kbd "M-N") 'mc/unmark-next-like-this
