@@ -6,80 +6,122 @@
 ;;
 ;;
 ;;; License: GPLv3
+
+;;; Detect OS
+
+
+;;; Package management
 (require 'cl-lib) ;common lisp
 
-; MELPA
-(require 'package)
+
+(require 'package) ; MELPA
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
+;;; Auto-install
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(evil company))
+(defvar required-packages
+  '(
+    magit
+    evil
+    helm
+    company
+    evil-surround
+    key-chord
+    solarized-theme
 
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+  ) "a list of packages to ensure are installed at launch.")
+; method to check if all packages are installed
+(defun packages-installed-p ()
+  (loop for p in required-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+; if not all packages are installed, check one by one and install the missing ones.
+(unless (packages-installed-p)
+  ; check for new packages (package versions)
+  (message "%s" "Emacs is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ; install the missing packages
+  (dolist (p required-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
 
-(require 'evil)
-(evil-mode 1)
 
-(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/helm")
+(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
 (add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
-
-(require 'helm-config)
-(helm-mode 1)
-
-;(global-set-key (kbd "SPC") SPC)
-;(global-set-key (kbd "SPC f") 'helm-buffers-list)
-;(global-set-key (kbd "SPC b") 'helm-buffers-list)
-
-
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/helm")
 
+;;; General sane settings
 
 (global-auto-revert-mode t)
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'material t)
 
 (show-paren-mode 1)
 (global-linum-mode 1) ; display line numbers
 (column-number-mode 1)
 (tool-bar-mode 0)
+(tool-bar-mode 0)
 (scroll-bar-mode 0)
+(setq visible-bell 1) ; visual rather than auditory
+(desktop-save-mode 1) ; remember what I had open
+(fset 'yes-or-no-p 'y-or-n-p) ; Changes all yes/no questions to y/n type
 
-;; Changes all yes/no questions to y/n type
-(fset 'yes-or-no-p 'y-or-n-p)
+;;; Nice but more opinionated Settings. Make it great!
+
+;; Great parens :)
+(require 'rainbow-delimiters); byte-compile rainbow delimiters for speed
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+
+(electric-pair-mode 1)
+(electric-indent-mode 1)
+
+;;; Theme -- I like colors.
+(load-theme 'solarized-dark t)
+(setq solarized-distinct-fringe-background t)
+
+;;; Evil -- We've joined the dark side.
+(require 'evil)
+(global-evil-leader-mode 1)
+(evil-leader/set-leader "<SPC>")
+(evil-mode 1)
+(key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
+
+(evil-leader/set-key
+  "e" 'eval-buffer
+  "f" 'helm-find-files
+  "b" 'helm-buffers-list
+  "gs" 'magit-status
+  ;;window management
+  "ws" 'evil-window-split
+  "wv" 'evil-window-vsplit
+  "wd" 'evil-window-delete
+  "wu" 'winner-undo
+  "wr" 'winner-redo
+)
+
 
 ;; Tabs are evil
-;;(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
 ;; Use company-mode in all buffers (more completion)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'after-init-hook 'global-company-mode)
 
-;;remember to byte-compile rainbow delimiters for speed whenever I am moving configs
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
-(require 'yafolding)
-
-
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
-(require 'magit)
 
 (require 'key-chord)
 (key-chord-mode 1)
-(key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
-(add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
 ;;(setq backup-directory-alist '(("." . "~/.emacs-backups")))? Maybe later
 ;;stop littering with save files, put them here
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -89,6 +131,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 
+;;Window mappings
 (define-key evil-motion-state-map (kbd "M-h") 'evil-window-left)
 (define-key evil-motion-state-map (kbd "M-j") 'evil-window-down)
 (define-key evil-motion-state-map (kbd "M-k") 'evil-window-up)
@@ -103,35 +146,19 @@
   ;(evil-append ";")
   )
 
-(define-key helm-map (kbd "C-j") 'helm-next-line)
-(define-key helm-map (kbd "C-k") 'helm-previous-line)
-(define-key helm-map (kbd "C-h") 'helm-previous-source)
-(define-key helm-map (kbd "C-l") 'helm-next-source)
+(define-key evil-motion-state-map "j" 'evil-next-visual-line)
+(define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+(my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
+(my-move-key evil-motion-state-map evil-normal-state-map " ")
 
-;;FINALLY GOT SANE HELM Find-File MAPPINGS WOOHOO!
-(define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
-(define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
 
-;;Window mappings
+; (require 'autopair)
+; (autopair-global-mode 1)
 
 
 
-;;remember what I had open
-(desktop-save-mode 1)
-
-;;Evil tabs
-(setq-default indent-tabs-mode nil)
-
-;(define-key yafolding-mode-map (kbd "<C-S-return>") nil)
-;(define-key yafolding-mode-map (kbd "<C-M-return>") nil)
-;(define-key yafolding-mode-map (kbd "<C-return>") nil)
-;(define-key yafolding-mode-map (kbd "C-c <C-M-return>") 'yafolding-toggle-all)
-;(define-key yafolding-mode-map (kbd "C-c <C-S-return>") 'yafolding-hide-parent-element)
-;(define-key yafolding-mode-map (kbd "zf") 'yafolding-toggle-element)
-
-;;(add-hook 'prog-mode-hook
-          ;;(lambda () (yafolding-mode 1)))
-
+;;; Magit - The git genie
+(require 'magit)
 (setq magit-auto-revert-mode nil)
 
 (require 'multiple-cursors)
@@ -294,36 +321,63 @@
   '(progn
      (require 'evil-magit-rebellion)))
 
+
+
+
+
+;; Remember what I had open when I quit
+(desktop-save-mode 1)
+(winner-mode 1)
+ (setq magit-last-seen-setup-instructions "1.4.0")
+
+
+ ;; Helm Config stuff
+(require 'helm-config)
+(helm-mode 1)
+(helm-autoresize-mode 1)
+(setq helm-display-source-at-screen-top nil)
+(setq helm-display-header-line t)
+(define-key helm-map (kbd "C-j") 'helm-next-line)
+(define-key helm-map (kbd "C-k") 'helm-previous-line)
+(define-key helm-map (kbd "C-h") 'helm-previous-source)
+(define-key helm-map (kbd "C-l") 'helm-next-source)
+
+;;FINALLY GOT SANE HELM Find-File MAPPINGS WOOHOO!
+(define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
+
+(setq helm-autoresize-max-height 30)
+(setq helm-autoresize-min-height 30)
+(setq helm-split-window-in-side-p t)
+
+;;; Mac specific
+(if (eq system-type "darwin")
+    (setq mac-command-key-is-meta t);apple = meta
+    (setq mac-pass-command-to-system nil);avoid hiding with M-h
+
+)
+
+;;;Linux specific
+(if (eq system-type 'gnu/linux)
+    message system-type
+    ;(load-library "p4")
+    ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
+)
+
+;;; Utility functions
+
 (defun my-move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another, deleting from the old location. "
   (define-key keymap-to key (lookup-key keymap-from key))
   (define-key keymap-from key nil))
 
-(my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
-(my-move-key evil-motion-state-map evil-normal-state-map " ")
+;;;Language specific
+;; C
+(add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
+;;Python
 
 
-(global-evil-leader-mode 1)
-(evil-leader/set-leader "<SPC>")
-
-(evil-leader/set-key
-  "e" 'eval-buffer
-  "f" 'helm-find-files
-  "b" 'helm-buffers-list
-  "gs" 'magit-status
-  ;;window management
-  "ws" 'evil-window-split
-  "wv" 'evil-window-vsplit
-  "wd" 'evil-window-delete
-  "wu" 'winner-undo
-  "wr" 'winner-redo
-
-  )
-(load-library "p4")
-(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
-;; Remember what I had open when I quit
-(desktop-save-mode 1)
-(winner-mode 1)
+;;;Emacs-Added(Customize vars)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -339,4 +393,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
- (setq magit-last-seen-setup-instructions "1.4.0")
