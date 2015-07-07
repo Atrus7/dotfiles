@@ -9,3 +9,5 @@
 	helper = osxkeychain
 [push]
 	default = simple
+[remote "origin"]
+	url = git@github.com:Atrus7/dotfiles.git

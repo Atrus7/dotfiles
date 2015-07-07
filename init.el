@@ -7,26 +7,9 @@
 ;;
 ;;; License: GPLv3
 
-;;; Detect OS
-
-
-;;; Package management
-(require 'cl-lib) ;common lisp
-
-
-(require 'package) ; MELPA
-
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(package-initialize)
-
-;;; Auto-install
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(defvar required-packages
+(setq required-packages
   '(
+    cl-lib
     magit
     evil
     helm
@@ -34,23 +17,32 @@
     evil-surround
     key-chord
     solarized-theme
+    crosshairs
+    theme-changer
+  ) )
 
-  ) "a list of packages to ensure are installed at launch.")
-; method to check if all packages are installed
-(defun packages-installed-p ()
-  (loop for p in required-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-; if not all packages are installed, check one by one and install the missing ones.
-(unless (packages-installed-p)
-  ; check for new packages (package versions)
-  (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ; install the missing packages
-  (dolist (p required-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
+;;; Package management
+(require 'cl-lib) ;common lisp
+
+
+(require 'package) ; MELPA
+
+
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(package-initialize)
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package required-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+
 
 
 (add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
@@ -70,9 +62,12 @@
 (tool-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(setq visible-bell 1) ; visual rather than auditory
 (desktop-save-mode 1) ; remember what I had open
 (fset 'yes-or-no-p 'y-or-n-p) ; Changes all yes/no questions to y/n type
+
+(setq visible-bell 1 ; visual rather than auditory
+smooth-scroll-margin 2
+)
 
 ;;; Nice but more opinionated Settings. Make it great!
 
@@ -80,14 +75,26 @@
 (require 'rainbow-delimiters); byte-compile rainbow delimiters for speed
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-
 (electric-pair-mode 1)
 (electric-indent-mode 1)
 
-;;; Theme -- I like colors.
-(load-theme 'solarized-dark t)
-(setq solarized-distinct-fringe-background t)
+;; Crosshairs for finding cursor
+(require 'crosshairs)
+(toggle-crosshairs-when-idle 1)
+(setq col-highlight-vline-face-flag  t
+      col-highlight-face             hl-line-face)
+(global-hl-line-mode 1)
+;;TODO: Get horizontal line to stay
 
+;;; Theme -- I like colors.
+(setq calendar-location-name "Austin, TX")
+(setq calendar-latitude 30.85)
+(setq calendar-longitude -90.85)
+(require 'theme-changer) ; Let it be stark when it's dark, and light when it's bright
+(change-theme 'solarized-light 'solarized-dark)
+(setq solarized-distinct-fringe-background nil)
+(setq solarized-high-contrast-mode-line t)
+(setq solarized-use-more-italic)
 ;;; Evil -- We've joined the dark side.
 (require 'evil)
 (global-evil-leader-mode 1)
@@ -106,6 +113,10 @@
   "wd" 'evil-window-delete
   "wu" 'winner-undo
   "wr" 'winner-redo
+  ;;frame-manage
+  "Fn" 'make-frame-command
+  ;"Fd" ;delete frame
+  ;"Fo" '
 )
 
 
@@ -143,13 +154,12 @@
   "Puts a semicolon at the end of the current line"
   (interactive)
   (evil-end-of-line)
-  ;(evil-append ";")
+  (insert ";")
+
   )
 
 (define-key evil-motion-state-map "j" 'evil-next-visual-line)
 (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-(my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
-(my-move-key evil-motion-state-map evil-normal-state-map " ")
 
 
 ; (require 'autopair)
@@ -322,9 +332,6 @@
      (require 'evil-magit-rebellion)))
 
 
-
-
-
 ;; Remember what I had open when I quit
 (desktop-save-mode 1)
 (winner-mode 1)
@@ -359,8 +366,7 @@
 
 ;;;Linux specific
 (if (eq system-type 'gnu/linux)
-    message system-type
-    ;(load-library "p4")
+    (load-library "p4")
     ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
 )
 
@@ -370,6 +376,8 @@
   "Moves key binding from one keymap to another, deleting from the old location. "
   (define-key keymap-to key (lookup-key keymap-from key))
   (define-key keymap-from key nil))
+(my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
+(my-move-key evil-motion-state-map evil-normal-state-map " ")
 
 ;;;Language specific
 ;; C
@@ -385,8 +393,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
- '(magit-diff-use-overlays nil))
+    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
+ '(magit-use-overlays nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
