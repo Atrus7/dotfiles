@@ -19,6 +19,10 @@
     solarized-theme
     crosshairs
     theme-changer
+    jedi
+    ;epc
+    deferred
+    ;company-jedi
   ) )
 
 ;;; Package management
@@ -31,6 +35,7 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 ; fetch the list of packages available
@@ -55,6 +60,9 @@
 
 (global-auto-revert-mode t)
 
+
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(global-set-key (kbd "C-c =") 'auto-fill-mode)
 
 (show-paren-mode 1)
 (global-linum-mode 1) ; display line numbers
@@ -91,10 +99,20 @@ smooth-scroll-margin 2
 (setq calendar-latitude 30.85)
 (setq calendar-longitude -90.85)
 (require 'theme-changer) ; Let it be stark when it's dark, and light when it's bright
-(change-theme 'solarized-light 'solarized-dark)
+(change-theme 'solarized-dark 'solarized-light)
 (setq solarized-distinct-fringe-background nil)
 (setq solarized-high-contrast-mode-line t)
 (setq solarized-use-more-italic)
+
+;; Spell checking :)
+(dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode -1))))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
 ;;; Evil -- We've joined the dark side.
 (require 'evil)
 (global-evil-leader-mode 1)
@@ -111,6 +129,10 @@ smooth-scroll-margin 2
   "ws" 'evil-window-split
   "wv" 'evil-window-vsplit
   "wd" 'evil-window-delete
+  "wj" (lambda() (interactive) ( evil-window-decrease-height 5 ))
+  "wk" (lambda() (interactive) ( evil-window-increase-height 5 ))
+  "wh" (lambda() (interactive) ( evil-window-decrease-width 5 ))
+  "wl" (lambda() (interactive) ( evil-window-increase-width 5 ))
   "wu" 'winner-undo
   "wr" 'winner-redo
   ;;frame-manage
@@ -123,9 +145,6 @@ smooth-scroll-margin 2
 ;; Tabs are evil
 (setq-default indent-tabs-mode nil)
 
-;; Use company-mode in all buffers (more completion)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'after-init-hook 'global-company-mode)
 
 (require 'evil-surround)
 (global-evil-surround-mode 1)
@@ -142,14 +161,34 @@ smooth-scroll-margin 2
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 
-;;Window mappings
+;;Window movement mappings. Global like the Wolf
 (define-key evil-motion-state-map (kbd "M-h") 'evil-window-left)
 (define-key evil-motion-state-map (kbd "M-j") 'evil-window-down)
 (define-key evil-motion-state-map (kbd "M-k") 'evil-window-up)
 (define-key evil-motion-state-map (kbd "M-l") 'evil-window-right)
+
 (define-key evil-motion-state-map (kbd "M-e") 'eval-buffer)
 (define-key evil-motion-state-map (kbd "M-;") 'append-semicolon)
-;;In progress...
+
+
+;;; Completion -- Welcome to the firm.
+(add-hook 'after-init-hook 'global-company-mode) ; All the buffers
+
+
+
+(defun indent-or-complete ()
+(interactive)
+(if (looking-at "\\_>")
+    (company-complete-common)
+    (indent-according-to-mode)))
+
+(define-key evil-insert-state-map "\t" 'indent-or-complete)
+
+(define-key company-active-map (kbd "C-j") #'company-select-next)
+(define-key company-active-map (kbd "C-k") #'company-select-previous)
+(define-key company-active-map (kbd "C-l") #'company-complete)
+
+;;;In progress..
 (defun append-semicolon()
   "Puts a semicolon at the end of the current line"
   (interactive)
@@ -188,6 +227,7 @@ smooth-scroll-margin 2
   (magit-key-mode-command nil))
 
 (evil-set-initial-state 'magit-mode 'motion)(evil-set-initial-state 'magit-commit-mode 'motion)
+(define-key magit-mode-map (kbd "M-h") nil)
 (evil-define-key 'motion magit-commit-mode-map
   "\C-c\C-b" 'magit-show-commit-backward
   "\C-c\C-f" 'magit-show-commit-forward)
@@ -366,8 +406,10 @@ smooth-scroll-margin 2
 
 ;;;Linux specific
 (if (eq system-type 'gnu/linux)
-    (load-library "p4")
+    ;(load-library "p4")
+    ;print "On Linux"
     ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
+    (setq nonsense "Linux")
 )
 
 ;;; Utility functions
@@ -382,8 +424,13 @@ smooth-scroll-margin 2
 ;;;Language specific
 ;; C
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
-;;Python
 
+;;Python
+(add-hook 'python-mode-hook 'run-python) ; starts inferior python process
+
+(setq jedi:server-command '( "/home/cfindeisen/.emacs.d/.python-environments/default/bin/jediepcserver" ))
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;;;Emacs-Added(Customize vars)
 (custom-set-variables
