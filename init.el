@@ -22,6 +22,8 @@
     jedi
     ;epc
     deferred
+    midnight
+    guide-key
     ;company-jedi
   ) )
 
@@ -86,6 +88,11 @@ smooth-scroll-margin 2
 (electric-pair-mode 1)
 (electric-indent-mode 1)
 
+;; Guide-key
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-c" "C-x"))
+(guide-key-mode 1)
+
 ;; Crosshairs for finding cursor
 (require 'crosshairs)
 (toggle-crosshairs-when-idle 1)
@@ -110,7 +117,13 @@ smooth-scroll-margin 2
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
     (add-hook hook (lambda () (flyspell-mode -1))))
 
+;; Remove whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'midnight)
+(midnight-delay-set 'midnight-delay "3:30am")
+
+
 
 
 ;;; Evil -- We've joined the dark side.
@@ -122,6 +135,7 @@ smooth-scroll-margin 2
 
 (evil-leader/set-key
   "e" 'eval-buffer
+  "d" 'dired
   "f" 'helm-find-files
   "b" 'helm-buffers-list
   "gs" 'magit-status
@@ -172,10 +186,7 @@ smooth-scroll-margin 2
 
 
 ;;; Completion -- Welcome to the firm.
-(add-hook 'after-init-hook 'global-company-mode) ; All the buffers
-
-
-
+(company-mode 1)
 (defun indent-or-complete ()
 (interactive)
 (if (looking-at "\\_>")
@@ -187,6 +198,7 @@ smooth-scroll-margin 2
 (define-key company-active-map (kbd "C-j") #'company-select-next)
 (define-key company-active-map (kbd "C-k") #'company-select-previous)
 (define-key company-active-map (kbd "C-l") #'company-complete)
+(add-hook 'after-init-hook 'global-company-mode) ; All the buffers
 
 ;;;In progress..
 (defun append-semicolon()
@@ -328,21 +340,12 @@ smooth-scroll-margin 2
   ;d  discard
   "e" 'magit-diff
   "f" 'magit-key-mode-popup-fetching
-  "g?" 'magit-describe-item
-  "g$" 'evil-end-of-visual-line
-  "g0" 'evil-beginning-of-visual-line
-  "gE" 'evil-backward-WORD-end
-  "g^" 'evil-first-non-blank-of-visual-line
-  "g_" 'evil-last-non-blank
-  "gd" 'evil-goto-definition
-  "ge" 'evil-backward-word-end
-  "gg" 'evil-goto-first-line
-  "gj" 'evil-next-visual-line
-  "gk" 'evil-previous-visual-line
-  "gm" 'evil-middle-of-visual-line
+  "g" 'magit-refresh
   "h" 'magit-key-mode-popup-rewriting
-  "j" 'magit-goto-next-section
-  "k" 'magit-goto-previous-section
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "]]" 'magit-goto-next-section
+  "[[" 'magit-goto-previous-section
   "l" 'magit-key-mode-popup-logging
   "m" 'magit-key-mode-popup-merging
   "t" 'magit-key-mode-popup-tagging
@@ -393,6 +396,7 @@ smooth-scroll-margin 2
 (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
 
+(setq helm-ff-auto-update-initial-value t)
 (setq helm-autoresize-max-height 30)
 (setq helm-autoresize-min-height 30)
 (setq helm-split-window-in-side-p t)
