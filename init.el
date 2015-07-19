@@ -34,20 +34,21 @@
     evil-surround
     key-chord
     solarized-theme
-
+    projectile
+    multiple-cursors
   ) "a list of packages to ensure are installed at launch.")
 ; method to check if all packages are installed
 (defun packages-installed-p ()
   (loop for p in required-packages
         when (not (package-installed-p p)) do (return nil)
         finally (return t)))
-; if not all packages are installed, check one by one and install the missing ones.
+ ;if not all packages are installed, check one by one and install the missing ones.
 (unless (packages-installed-p)
-  ; check for new packages (package versions)
+   check for new packages (package versions)
   (message "%s" "Emacs is now refreshing its package database...")
   (package-refresh-contents)
   (message "%s" " done.")
-  ; install the missing packages
+   install the missing packages
   (dolist (p required-packages)
     (when (not (package-installed-p p))
       (package-install p))))
@@ -148,8 +149,6 @@
 
 (define-key evil-motion-state-map "j" 'evil-next-visual-line)
 (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-(my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
-(my-move-key evil-motion-state-map evil-normal-state-map " ")
 
 
 ; (require 'autopair)
@@ -161,8 +160,8 @@
 (require 'magit)
 (setq magit-auto-revert-mode nil)
 
-(require 'multiple-cursors)
-(global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
+;(require 'multiple-cursors)
+;(global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
     ;(kbd "M-N") 'mc/unmark-next-like-this
     ;(kbd "M-p") 'mc/mark-previous-like-this
     ;(kbd "M-P") 'mc/unmark-previous-like-this
@@ -291,8 +290,8 @@
   "gk" 'evil-previous-visual-line
   "gm" 'evil-middle-of-visual-line
   "h" 'magit-key-mode-popup-rewriting
-  "j" 'magit-goto-next-section
-  "k" 'magit-goto-previous-section
+  "j" 'evil-previous-line
+  "k" 'evil-next-line
   "l" 'magit-key-mode-popup-logging
   "m" 'magit-key-mode-popup-merging
   "t" 'magit-key-mode-popup-tagging
@@ -370,6 +369,8 @@
   "Moves key binding from one keymap to another, deleting from the old location. "
   (define-key keymap-to key (lookup-key keymap-from key))
   (define-key keymap-from key nil))
+(my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
+(my-move-key evil-motion-state-map evil-normal-state-map " ")
 
 ;;;Language specific
 ;; C
