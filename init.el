@@ -7,26 +7,9 @@
 ;;
 ;;; License: GPLv3
 
-;;; Detect OS
-
-
-;;; Package management
-(require 'cl-lib) ;common lisp
-
-
-(require 'package) ; MELPA
-
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(package-initialize)
-
-;;; Auto-install
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(defvar required-packages
+(setq required-packages
   '(
+    cl-lib
     magit
     evil
     helm
@@ -34,24 +17,37 @@
     evil-surround
     key-chord
     solarized-theme
-    projectile
-    multiple-cursors
-  ) "a list of packages to ensure are installed at launch.")
-; method to check if all packages are installed
-(defun packages-installed-p ()
-  (loop for p in required-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-; if not all packages are installed, check one by one and install the missing ones.
-(unless (packages-installed-p)
-   check for new packages (package versions)
-  (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-   install the missing packages
-  (dolist (p required-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
+    crosshairs
+    theme-changer
+    jedi
+    ;epc
+    deferred
+    midnight
+    guide-key
+    ;company-jedi
+  ) )
+
+;;; Package management
+(require 'cl-lib) ;common lisp
+
+
+(require 'package) ; MELPA
+
+
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package required-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 
 (add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
@@ -65,15 +61,21 @@
 (global-auto-revert-mode t)
 
 
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(global-set-key (kbd "C-c =") 'auto-fill-mode)
+
 (show-paren-mode 1)
 (global-linum-mode 1) ; display line numbers
 (column-number-mode 1)
 (tool-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(setq visible-bell 1) ; visual rather than auditory
 (desktop-save-mode 1) ; remember what I had open
 (fset 'yes-or-no-p 'y-or-n-p) ; Changes all yes/no questions to y/n type
+
+(setq visible-bell 1 ; visual rather than auditory
+smooth-scroll-margin 2
+)
 
 ;;; Nice but more opinionated Settings. Make it great!
 
@@ -81,13 +83,46 @@
 (require 'rainbow-delimiters); byte-compile rainbow delimiters for speed
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-
 (electric-pair-mode 1)
 (electric-indent-mode 1)
 
+;; Guide-key
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-c" "C-x"))
+(guide-key-mode 1)
+
+;; Crosshairs for finding cursor
+(require 'crosshairs)
+(toggle-crosshairs-when-idle 1)
+(setq col-highlight-vline-face-flag  t
+      col-highlight-face             hl-line-face)
+(global-hl-line-mode 1)
+;;TODO: Get horizontal line to stay
+
 ;;; Theme -- I like colors.
-(load-theme 'solarized-dark t)
-(setq solarized-distinct-fringe-background t)
+(setq calendar-location-name "Austin, TX")
+(setq calendar-latitude 30.85)
+(setq calendar-longitude -90.85)
+(require 'theme-changer) ; Let it be stark when it's dark, and light when it's bright
+(change-theme 'solarized-dark 'solarized-light)
+(setq solarized-distinct-fringe-background nil)
+(setq solarized-high-contrast-mode-line t)
+(setq solarized-use-more-italic)
+
+;; Spell checking :)
+(dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode -1))))
+
+;; Remove whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'midnight)
+(midnight-delay-set 'midnight-delay "3:30am")
+
+
+
 
 ;;; Evil -- We've joined the dark side.
 (require 'evil)
@@ -98,6 +133,7 @@
 
 (evil-leader/set-key
   "e" 'eval-buffer
+  "d" 'dired
   "f" 'helm-find-files
   "b" 'helm-buffers-list
   "gs" 'magit-status
@@ -105,17 +141,22 @@
   "ws" 'evil-window-split
   "wv" 'evil-window-vsplit
   "wd" 'evil-window-delete
+  "wj" (lambda() (interactive) ( evil-window-decrease-height 5 ))
+  "wk" (lambda() (interactive) ( evil-window-increase-height 5 ))
+  "wh" (lambda() (interactive) ( evil-window-decrease-width 5 ))
+  "wl" (lambda() (interactive) ( evil-window-increase-width 5 ))
   "wu" 'winner-undo
   "wr" 'winner-redo
+  ;;frame-manage
+  "Fn" 'make-frame-command
+  ;"Fd" ;delete frame
+  ;"Fo" '
 )
 
 
 ;; Tabs are evil
 (setq-default indent-tabs-mode nil)
 
-;; Use company-mode in all buffers (more completion)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'after-init-hook 'global-company-mode)
 
 (require 'evil-surround)
 (global-evil-surround-mode 1)
@@ -132,19 +173,38 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 
-;;Window mappings
+;;Window movement mappings. Global like the Wolf
 (define-key evil-motion-state-map (kbd "M-h") 'evil-window-left)
 (define-key evil-motion-state-map (kbd "M-j") 'evil-window-down)
 (define-key evil-motion-state-map (kbd "M-k") 'evil-window-up)
 (define-key evil-motion-state-map (kbd "M-l") 'evil-window-right)
+
 (define-key evil-motion-state-map (kbd "M-e") 'eval-buffer)
 (define-key evil-motion-state-map (kbd "M-;") 'append-semicolon)
-;;In progress...
+
+
+;;; Completion -- Welcome to the firm.
+(company-mode 1)
+(defun indent-or-complete ()
+(interactive)
+(if (looking-at "\\_>")
+    (company-complete-common)
+    (indent-according-to-mode)))
+
+(define-key evil-insert-state-map "\t" 'indent-or-complete)
+
+(define-key company-active-map (kbd "C-j") #'company-select-next)
+(define-key company-active-map (kbd "C-k") #'company-select-previous)
+(define-key company-active-map (kbd "C-l") #'company-complete)
+(add-hook 'after-init-hook 'global-company-mode) ; All the buffers
+
+;;;In progress..
 (defun append-semicolon()
   "Puts a semicolon at the end of the current line"
   (interactive)
   (evil-end-of-line)
-  ;(evil-append ";")
+  (insert ";")
+
   )
 
 (define-key evil-motion-state-map "j" 'evil-next-visual-line)
@@ -177,6 +237,7 @@
   (magit-key-mode-command nil))
 
 (evil-set-initial-state 'magit-mode 'motion)(evil-set-initial-state 'magit-commit-mode 'motion)
+(define-key magit-mode-map (kbd "M-h") nil)
 (evil-define-key 'motion magit-commit-mode-map
   "\C-c\C-b" 'magit-show-commit-backward
   "\C-c\C-f" 'magit-show-commit-forward)
@@ -277,21 +338,12 @@
   ;d  discard
   "e" 'magit-diff
   "f" 'magit-key-mode-popup-fetching
-  "g?" 'magit-describe-item
-  "g$" 'evil-end-of-visual-line
-  "g0" 'evil-beginning-of-visual-line
-  "gE" 'evil-backward-WORD-end
-  "g^" 'evil-first-non-blank-of-visual-line
-  "g_" 'evil-last-non-blank
-  "gd" 'evil-goto-definition
-  "ge" 'evil-backward-word-end
-  "gg" 'evil-goto-first-line
-  "gj" 'evil-next-visual-line
-  "gk" 'evil-previous-visual-line
-  "gm" 'evil-middle-of-visual-line
+  "g" 'magit-refresh
   "h" 'magit-key-mode-popup-rewriting
-  "j" 'evil-previous-line
-  "k" 'evil-next-line
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "]]" 'magit-goto-next-section
+  "[[" 'magit-goto-previous-section
   "l" 'magit-key-mode-popup-logging
   "m" 'magit-key-mode-popup-merging
   "t" 'magit-key-mode-popup-tagging
@@ -321,9 +373,6 @@
      (require 'evil-magit-rebellion)))
 
 
-
-
-
 ;; Remember what I had open when I quit
 (desktop-save-mode 1)
 (winner-mode 1)
@@ -345,6 +394,7 @@
 (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
 
+(setq helm-ff-auto-update-initial-value t)
 (setq helm-autoresize-max-height 30)
 (setq helm-autoresize-min-height 30)
 (setq helm-split-window-in-side-p t)
@@ -358,9 +408,10 @@
 
 ;;;Linux specific
 (if (eq system-type 'gnu/linux)
-    message system-type
     ;(load-library "p4")
+    ;print "On Linux"
     ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
+    (setq nonsense "Linux")
 )
 
 ;;; Utility functions
@@ -375,8 +426,13 @@
 ;;;Language specific
 ;; C
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
-;;Python
 
+;;Python
+(add-hook 'python-mode-hook 'run-python) ; starts inferior python process
+
+(setq jedi:server-command '( "/home/cfindeisen/.emacs.d/.python-environments/default/bin/jediepcserver" ))
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;;;Emacs-Added(Customize vars)
 (custom-set-variables
@@ -386,8 +442,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
- '(magit-diff-use-overlays nil))
+    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
+ '(magit-use-overlays nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
