@@ -51,8 +51,6 @@
     (package-install package)))
 
 
-
-
 (add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
 (add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
 (add-to-list 'load-path "~/.emacs.d/config")
@@ -226,8 +224,8 @@ smooth-scroll-margin 2
 (require 'magit)
 (setq magit-auto-revert-mode nil)
 
-(require 'multiple-cursors)
-(global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
+;(require 'multiple-cursors)
+;(global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
     ;(kbd "M-N") 'mc/unmark-next-like-this
     ;(kbd "M-p") 'mc/mark-previous-like-this
     ;(kbd "M-P") 'mc/unmark-previous-like-this
