@@ -24,7 +24,8 @@
     deferred
     midnight
     guide-key
-    ;company-jedi
+    company-jedi
+    linum-relative
   ) )
 
 ;;; Package management
@@ -80,6 +81,9 @@ smooth-scroll-margin 2
 )
 
 ;;; Nice but more opinionated Settings. Make it great!
+;; Relative line numbering
+(require 'linum-relative)
+(setq linum-relative-current-symbol "")
 
 ;; Great parens :)
 (require 'rainbow-delimiters); byte-compile rainbow delimiters for speed
@@ -103,8 +107,8 @@ smooth-scroll-margin 2
 
 ;;; Theme -- I like colors.
 (setq calendar-location-name "Austin, TX")
-(setq calendar-latitude 30.85)
-(setq calendar-longitude -90.85)
+(setq calendar-latitude [30 18 north])
+(setq calendar-longitude [97 44 west])
 (require 'theme-changer) ; Let it be stark when it's dark, and light when it's bright
 (change-theme 'solarized-dark 'solarized-light)
 (setq solarized-distinct-fringe-background nil)
@@ -396,10 +400,16 @@ smooth-scroll-margin 2
 (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
 
-(setq helm-ff-auto-update-initial-value t)
 (setq helm-autoresize-max-height 30)
 (setq helm-autoresize-min-height 30)
 (setq helm-split-window-in-side-p t)
+
+;;Helm Ignore
+(add-hook 'helm-before-initialize-hook
+          (lambda ()
+            (add-to-list 'helm-boring-buffer-regexp-list "*.pyc$")
+            (add-to-list 'helm-boring-buffer-regexp-list "*.o$")))
+(setq helm-ff-skip-boring-files t)
 
 ;;; Mac specific
 (if (eq system-type "darwin")
@@ -410,10 +420,11 @@ smooth-scroll-margin 2
 
 ;;;Linux specific
 (if (eq system-type 'gnu/linux)
+    ;;Assuming work comp
+    (setq jedi:server-command '( "/home/cfindeisen/.emacs.d/.python-environments/default/bin/jediepcserver" ))
     ;(load-library "p4")
     ;print "On Linux"
     ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
-    (setq nonsense "Linux")
 )
 
 ;;; Utility functions
@@ -432,9 +443,12 @@ smooth-scroll-margin 2
 ;;Python
 (add-hook 'python-mode-hook 'run-python) ; starts inferior python process
 
-(setq jedi:server-command '( "/home/cfindeisen/.emacs.d/.python-environments/default/bin/jediepcserver" ))
-(add-hook 'python-mode-hook 'jedi:setup)
+(autoload 'jedi:setup "jedi" nil t)
+;;(add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
+(defun my/python-mode-hook()
+  (add-to-list 'company-backends 'company-jedi))
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 ;;;Emacs-Added(Customize vars)
 (custom-set-variables
