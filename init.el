@@ -26,6 +26,7 @@
     guide-key
     company-jedi
     linum-relative
+    flycheck
   ) )
 
 ;;; Package management
@@ -383,6 +384,11 @@ smooth-scroll-margin 2
  (setq magit-last-seen-setup-instructions "1.4.0")
 
 
+;;; Flycheck - It's perfect when my fingers aren't.
+(add-hook 'after-init-hook #'global-flycheck-mode)
+;(add-hook 'python-mode 'flycheck-mode)
+(setq flycheck-flake8-maximum-line-length 119)
+
  ;; Helm Config stuff
 (require 'helm-config)
 (helm-mode 1)
@@ -439,7 +445,8 @@ smooth-scroll-margin 2
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
 
 ;;Python
-(add-hook 'python-mode-hook 'run-python) ; starts inferior python process
+(add-hook 'python-mode 'run-python) ; starts inferior python process
+;(remove-hook 'python-mode-hook 'run-python)
 
 (autoload 'jedi:setup "jedi" nil t)
 ;;(add-hook 'python-mode-hook 'jedi:setup)
@@ -447,6 +454,9 @@ smooth-scroll-margin 2
 (defun my/python-mode-hook()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
+;(eval-after-load "company"
+  ;'(progn
+     ;(add-to-list 'company-backends 'company-jedi)))
 
 ;;;Emacs-Added(Customize vars)
 (custom-set-variables
