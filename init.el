@@ -70,7 +70,7 @@
 (global-linum-mode 1) ; display line numbers
 (column-number-mode 1)
 (tool-bar-mode 0)
-(tool-bar-mode 0)
+(menu-bar-mode 0)
 (scroll-bar-mode 0)
 (desktop-save-mode 1) ; remember what I had open
 (fset 'yes-or-no-p 'y-or-n-p) ; Changes all yes/no questions to y/n type
@@ -126,16 +126,20 @@ smooth-scroll-margin 2
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "3:30am")
 
-
-
-
 ;;; Evil -- We've joined the dark side.
 (require 'evil)
-(global-evil-leader-mode 1)
-(evil-leader/set-leader "<SPC>")
-(evil-mode 1)
+
 (key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
 
+(define-key evil-motion-state-map "j" 'evil-next-line)
+(define-key evil-motion-state-map "k" 'evil-previous-line)
+(define-key evil-normal-state-map (kbd "C-j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "C-k") 'evil-previous-visual-line)
+
+;;; Space -- Out of this world
+(global-evil-leader-mode 1)
+(evil-leader/set-leader "<SPC>")
+(evil-mode 1) ;; this line must be after we set the leader
 (evil-leader/set-key
   "e" 'eval-buffer
   "d" 'dired
@@ -212,14 +216,9 @@ smooth-scroll-margin 2
 
   )
 
-(define-key evil-motion-state-map "j" 'evil-next-visual-line)
-(define-key evil-motion-state-map "k" 'evil-previous-visual-line)
 
-
-; (require 'autopair)
-; (autopair-global-mode 1)
-
-
+;; The cousin of J
+(define-key evil-normal-state-map "S" 'electric-newline-and-maybe-indent)
 
 ;;; Magit - The git genie
 (require 'magit)
@@ -411,15 +410,13 @@ smooth-scroll-margin 2
 ;;Helm Ignore
 (add-hook 'helm-before-initialize-hook
           (lambda ()
-            (add-to-list 'helm-boring-buffer-regexp-list "*.pyc$")
-            (add-to-list 'helm-boring-buffer-regexp-list "*.o$")))
+            (add-to-list 'helm-boring-buffer-regexp-list "\\.pyc$")
+            (add-to-list 'helm-boring-buffer-regexp-list "\\.o$")))
 (setq helm-ff-skip-boring-files t)
 
 ;;; Mac specific
-(if (eq system-type "darwin")
-    (setq mac-command-key-is-meta t);apple = meta
-    (setq mac-pass-command-to-system nil);avoid hiding with M-h
-
+(when (eq system-type "darwin")
+  (require 'mac)
 )
 
 ;;;Linux specific
@@ -474,3 +471,5 @@ smooth-scroll-margin 2
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(provide 'init)
+;;; init.el ends here
