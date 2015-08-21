@@ -1,3 +1,6 @@
+;;; Commentary - My customizations for macs.
+;;; Code
+
 (setq mac-command-key-is-meta t) ; apple = meta
 (setq mac-pass-command-to-system nil) ; avoid hiding with M-h
 
