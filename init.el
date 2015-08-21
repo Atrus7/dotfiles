@@ -22,6 +22,7 @@
     theme-changer
     jedi
     ;epc
+    projectile
     deferred
     midnight
     guide-key
@@ -128,6 +129,10 @@ smooth-scroll-margin 2
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "3:30am")
 
+;;;Projectile --- Duck!
+(projectile-global-mode +1)
+(setq projectile-enable-caching t)
+(setq projectile-mode-line '(:eval (format " Proj[%s]" (projectile-project-name))))
 ;;; Evil -- We've joined the dark side.
 (require 'evil)
 
@@ -160,6 +165,8 @@ smooth-scroll-margin 2
   "wr" 'winner-redo
   ;;frame-manage
   "Fn" 'make-frame-command
+  "tl" (lambda() (interactive) (load-theme 'solarized-light 'NO-CONFIRM))
+  "td" (lambda() (interactive) (load-theme 'solarized-dark 'NO-CONFIRM))
   ;"Fd" ;delete frame
   ;"Fo" '
 )
@@ -484,7 +491,7 @@ smooth-scroll-margin 2
   ;'(progn
      ;(add-to-list 'company-backends 'company-jedi)))
 
-;;;Emacs-Added(Customize vars)
+;;; Emacs-Added(Customize vars)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
