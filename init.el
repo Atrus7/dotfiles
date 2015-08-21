@@ -10,6 +10,7 @@
 (setq required-packages
   '(
     cl-lib
+    slime
     magit
     evil
     helm
@@ -27,6 +28,7 @@
     company-jedi
     linum-relative
     flycheck
+    yasnippet
   ) )
 
 ;;; Package management
@@ -170,6 +172,8 @@ smooth-scroll-margin 2
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
+
+(setq inferior-lisp-program "clisp")
 
 (require 'key-chord)
 (key-chord-mode 1)
@@ -413,6 +417,31 @@ smooth-scroll-margin 2
             (add-to-list 'helm-boring-buffer-regexp-list "\\.pyc$")
             (add-to-list 'helm-boring-buffer-regexp-list "\\.o$")))
 (setq helm-ff-skip-boring-files t)
+
+
+;;; Yay Snippets
+(require 'yasnippet)
+(yas-global-mode 1)
+
+  (defun shk-yas/helm-prompt (prompt choices &optional display-fn)
+    "Use helm to select a snippet. Put this into `yas-prompt-functions.'"
+    (interactive)
+    (setq display-fn (or display-fn 'identity))
+    (if (require 'helm-config)
+        (let (tmpsource cands result rmap)
+          (setq cands (mapcar (lambda (x) (funcall display-fn x)) choices))
+          (setq rmap (mapcar (lambda (x) (cons (funcall display-fn x) x)) choices))
+          (setq tmpsource
+                (list
+                 (cons 'name prompt)
+                 (cons 'candidates cands)
+                 '(action . (("Expand" . (lambda (selection) selection))))
+                 ))
+          (setq result (helm-other-buffer '(tmpsource) "*helm-select-yasnippet"))
+          (if (null result)
+              (signal 'quit "user quit!")
+            (cdr (assoc result rmap))))
+      nil))
 
 ;;; Mac specific
 (when (eq system-type "darwin")
