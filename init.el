@@ -7,9 +7,22 @@
 ;;
 ;;; License: GPLv3
 
+
+;;TODOs
+;[] create system-wide hotkey for emacs http://xahlee.info/kbd/set_single_key_to_switch_app.html
+;[] take a closer look at.. http://www.howardism.org/Technical/Emacs/new-window-manager.html
+;[] aurora theme
+;
+;
+;
+;
+;
+
+
 (setq required-packages
   '(
     cl-lib
+    slime
     magit
     evil
     helm
@@ -28,6 +41,7 @@
     company-jedi
     linum-relative
     flycheck
+    yasnippet
   ) )
 ;;; Package management
 (require 'cl-lib) ;common lisp
@@ -95,7 +109,14 @@ smooth-scroll-margin 2
 
 ;; Guide-key
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-c" "C-x"))
+(setq guide-key/guide-key-sequence '("C-c" "C-x" "C-x r" "C-c p"))
+;(setq guide-key/highlight-command-regexp
+      ;'("rectangle"
+        ;("C" . "hot-pink")))
+(setq guide-key/highlight-command-regexp
+      '("rectangle"
+        ("register" . font-lock-type-face)
+        ("helm" . "hot pink")))
 (guide-key-mode 1)
 
 ;; Crosshairs for finding cursor
@@ -117,8 +138,8 @@ smooth-scroll-margin 2
 
 ;;; Theme -- I like colors.
 (setq calendar-location-name "Austin, TX")
-(setq calendar-latitude [30 18 north])
-(setq calendar-longitude [97 44 west])
+(setq calendar-latitude [30 18 north] )
+(setq calendar-longitude [97 44 west] )
 (require 'theme-changer) ; Let it be stark when it's dark, and light when it's bright
 (change-theme 'solarized-dark 'solarized-light)
 (setq solarized-distinct-fringe-background nil)
@@ -127,9 +148,9 @@ smooth-scroll-margin 2
 
 ;; Spell checking :)
 (dolist (hook '(text-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode 1))))
+  (add-hook hook (lambda () (flyspell-mode 1))))
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode -1))))
+  (add-hook hook (lambda () (flyspell-mode -1))))
 
 ;; Remove whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -156,12 +177,16 @@ smooth-scroll-margin 2
 (evil-leader/set-leader "<SPC>")
 (evil-mode 1) ;; this line must be after we set the leader
 (evil-leader/set-key
-  "e" 'eval-buffer
+    ;; Super important one-key spacecuts
+    "e" 'eval-buffer
   "d" 'dired
   "f" 'helm-find-files
   "b" 'helm-buffers-list
+
+  ;; Misc
   "gs" 'magit-status
-  ;;window management
+
+  ;; Window management
   "ws" 'evil-window-split
   "wv" 'evil-window-vsplit
   "wd" 'evil-window-delete
@@ -171,13 +196,19 @@ smooth-scroll-margin 2
   "wl" (lambda() (interactive) ( evil-window-increase-width 5 ))
   "wu" 'winner-undo
   "wr" 'winner-redo
-  ;;frame-manage
-  "Fn" 'make-frame-command
+
+  ;; Frame managmenent
+  "Fn" 'make-frame-command ; load Frame with buffers and layouts
+  "Fs" 'window-configuration-to-register ; Save Frame with buffer and layouts( not to disk...yet )
+  "Fl" 'jump-to-register
+
+
+  ;; Theme stuff
   "tl" (lambda() (interactive) (load-theme 'solarized-light 'NO-CONFIRM))
   "td" (lambda() (interactive) (load-theme 'solarized-dark 'NO-CONFIRM))
-  ;"Fd" ;delete frame
-  ;"Fo" '
-)
+                                        ;"Fd" ;delete frame
+                                        ;"Fo" '
+  )
 
 
 ;; Tabs are evil
@@ -187,6 +218,8 @@ smooth-scroll-margin 2
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
+
+(setq inferior-lisp-program "clisp")
 
 (require 'key-chord)
 (key-chord-mode 1)
@@ -199,7 +232,11 @@ smooth-scroll-margin 2
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 
-;;Window movement mappings. Global like the Wolf
+;; Window movement mappings. Global like the Wolf
+(dolist (key '("\M-h" "\M-j" "\M-k" "\M-l"))
+  (global-unset-key key))
+
+
 (define-key evil-motion-state-map (kbd "M-h") 'evil-window-left)
 (define-key evil-motion-state-map (kbd "M-j") 'evil-window-down)
 (define-key evil-motion-state-map (kbd "M-k") 'evil-window-up)
@@ -212,10 +249,10 @@ smooth-scroll-margin 2
 ;;; Completion -- Welcome to the firm.
 (company-mode 1)
 (defun indent-or-complete ()
-(interactive)
-(if (looking-at "\\_>")
-    (company-complete-common)
-    (indent-according-to-mode)))
+  (interactive)
+  (if (looking-at "\\_>")
+      (company-complete-common)
+      (indent-according-to-mode)))
 
 (define-key evil-insert-state-map "\t" 'indent-or-complete)
 
@@ -240,14 +277,14 @@ smooth-scroll-margin 2
 ;;; Magit - The git genie
 (require 'magit)
 (setq magit-auto-revert-mode nil)
-
-;(require 'multiple-cursors)
-;(global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
-    ;(kbd "M-N") 'mc/unmark-next-like-this
-    ;(kbd "M-p") 'mc/mark-previous-like-this
-    ;(kbd "M-P") 'mc/unmark-previous-like-this
-    ;(kbd "M-c") 'mc/edit-lines)
-;(autopair-global-mode 1)-
+;(after-load 'magit (add-hook 'magit-mode-hook (lambda () (local-unset-key [(kbd "M-h")]))))
+                                        ;(require 'multiple-cursors)
+                                        ;(global-set-key (kbd "M-n") 'mc/mark-next-word-like-this)
+                                        ;(kbd "M-N") 'mc/unmark-next-like-this
+                                        ;(kbd "M-p") 'mc/mark-previous-like-this
+                                        ;(kbd "M-P") 'mc/unmark-previous-like-this
+                                        ;(kbd "M-c") 'mc/edit-lines)
+                                        ;(autopair-global-mode 1)-
 
 ;; Start to insert mode when editing commit messages
 (evil-set-initial-state 'magit-log-edit-mode 'insert)
@@ -314,6 +351,7 @@ smooth-scroll-margin 2
   "\M-3" 'magit-show-level-3-all
   "\M-4" 'magit-show-level-4-all
   "\M-H" 'magit-show-only-files-all
+  "\M-o" 'magit-show-only-files
   "\M-S" 'magit-show-level-4-all
   "\M-h" 'magit-show-only-files
   "\M-s" 'magit-show-level-4
@@ -329,26 +367,26 @@ smooth-scroll-margin 2
   "<" 'magit-key-mode-popup-stashing
   "A" 'magit-cherry-pick-item
   "B" 'magit-key-mode-popup-bisecting
-  ;C  commit add log
+                                        ;C  commit add log
   "D" 'magit-revert-item
   "E" 'magit-ediff
   "F" 'magit-key-mode-popup-pulling
   "G" 'evil-goto-line
   "H" 'magit-rebase-step
-  ;I  ignore item locally
+                                        ;I  ignore item locally
   "J" 'magit-key-mode-popup-apply-mailbox
   "K" 'magit-key-mode-popup-dispatch
   "L" 'magit-add-change-log-entry
   "M" 'magit-key-mode-popup-remoting
   "N" 'evil-search-previous
-  ;O  undefined
+                                        ;O  undefined
   "P" 'magit-key-mode-popup-pushing
-  ;Q  undefined
+                                        ;Q  undefined
   "R" 'magit-refresh-all
   "S" 'magit-stage-all
-  ;T  change what branch tracks
+                                        ;T  change what branch tracks
   "U" 'magit-unstage-all
-  ;V  visual line
+                                        ;V  visual line
   "W" 'magit-diff-working-tree
   "X" 'magit-reset-working-tree
   "Y" 'magit-interactive-rebase
@@ -356,7 +394,7 @@ smooth-scroll-margin 2
   "a" 'magit-apply-item
   "b" 'magit-key-mode-popup-branching
   "c" 'magit-key-mode-popup-committing
-  ;d  discard
+                                        ;d  discard
   "e" 'magit-diff
   "f" 'magit-key-mode-popup-fetching
   "g" 'magit-refresh
@@ -391,21 +429,21 @@ smooth-scroll-margin 2
 (provide 'evil-magit-rebellion)
 (eval-after-load 'magit
   '(progn
-     (require 'evil-magit-rebellion)))
+    (require 'evil-magit-rebellion)))
 
 
 ;; Remember what I had open when I quit
 (desktop-save-mode 1)
 (winner-mode 1)
- (setq magit-last-seen-setup-instructions "1.4.0")
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 
 ;;; Flycheck - It's perfect when my fingers aren't.
 (add-hook 'after-init-hook #'global-flycheck-mode)
-;(add-hook 'python-mode 'flycheck-mode)
+                                        ;(add-hook 'python-mode 'flycheck-mode)
 (setq flycheck-flake8-maximum-line-length 119)
 
- ;; Helm Config stuff
+;; Helm Config stuff
 (require 'helm-config)
 (helm-mode 1)
 (helm-autoresize-mode 1)
@@ -432,6 +470,7 @@ smooth-scroll-margin 2
 (setq helm-ff-skip-boring-files t)
 
 
+<<<<<<< HEAD
 ;;; Mac specific
 (when (eq system-type 'darwin)
   (setq mac-command-key-is-meta t) ; apple = meta
@@ -445,6 +484,35 @@ smooth-scroll-margin 2
     (interactive)
     (shell-command (concat "open " (buffer-file-name))))
   (set-default-font "Monaco 10")
+=======
+;;; Yay Snippets
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(defun shk-yas/helm-prompt (prompt choices &optional display-fn)
+  "Use helm to select a snippet. Put this into `yas-prompt-functions.'"
+  (interactive)
+  (setq display-fn (or display-fn 'identity))
+  (if (require 'helm-config)
+      (let (tmpsource cands result rmap)
+        (setq cands (mapcar (lambda (x) (funcall display-fn x)) choices))
+        (setq rmap (mapcar (lambda (x) (cons (funcall display-fn x) x)) choices))
+        (setq tmpsource
+              (list
+               (cons 'name prompt)
+               (cons 'candidates cands)
+               '(action . (("Expand" . (lambda (selection) selection))))
+               ))
+        (setq result (helm-other-buffer '(tmpsource) "*helm-select-yasnippet"))
+        (if (null result)
+            (signal 'quit "user quit!")
+            (cdr (assoc result rmap))))
+      nil))
+
+;;; Mac specific
+(when (eq system-type "darwin")
+  (require 'mac)
+>>>>>>> 0bdee11d848c8ec938e60a8e08ab70b2215f6e45
   )
 
 ;;;Linux specific
@@ -454,7 +522,11 @@ smooth-scroll-margin 2
                                         ;(load-library "p4")
                                         ;print "On Linux"
                                         ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
+<<<<<<< HEAD
   )
+=======
+    )
+>>>>>>> 0bdee11d848c8ec938e60a8e08ab70b2215f6e45
 
 ;;; Utility functions
 
