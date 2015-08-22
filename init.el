@@ -29,7 +29,6 @@
     linum-relative
     flycheck
   ) )
-
 ;;; Package management
 (require 'cl-lib) ;common lisp
 
@@ -53,6 +52,7 @@
     (package-install package)))
 
 
+(add-to-list 'load-path "~/.emacs.d/my-lisp/")
 (add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
 (add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
 (add-to-list 'load-path "~/.emacs.d/config")
@@ -72,6 +72,7 @@
 (column-number-mode 1)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
+(display-battery-mode 1)
 (scroll-bar-mode 0)
 (desktop-save-mode 1) ; remember what I had open
 (fset 'yes-or-no-p 'y-or-n-p) ; Changes all yes/no questions to y/n type
@@ -104,6 +105,15 @@ smooth-scroll-margin 2
       col-highlight-face             hl-line-face)
 (global-hl-line-mode 1)
 ;;TODO: Get horizontal line to stay
+
+
+
+;; Mode line should look nicer...
+(require 'diminish)
+(diminish 'undo-tree-mode)
+(eval-after-load "company" '(diminish 'company-mode))
+(eval-after-load "helm" '(diminish 'helm-mode))
+
 
 ;;; Theme -- I like colors.
 (setq calendar-location-name "Austin, TX")
@@ -421,19 +431,30 @@ smooth-scroll-margin 2
             (add-to-list 'helm-boring-buffer-regexp-list "\\.o$")))
 (setq helm-ff-skip-boring-files t)
 
+
 ;;; Mac specific
-(when (eq system-type "darwin")
-  (require 'mac)
-)
+(when (eq system-type 'darwin)
+  (setq mac-command-key-is-meta t) ; apple = meta
+  (setq mac-pass-command-to-system nil) ; avoid hiding with M-h
+
+  ;; Ignore .DS_Store files with helm mode
+  (add-to-list 'helm-boring-buffer-regexp-list "\\.DS_Store$")
+
+  ;; Open files
+  (defun mac-open-current-file ()
+    (interactive)
+    (shell-command (concat "open " (buffer-file-name))))
+  (set-default-font "Monaco 10")
+  )
 
 ;;;Linux specific
 (if (eq system-type 'gnu/linux)
     ;;Assuming work comp
     (setq jedi:server-command '( "/home/cfindeisen/.emacs.d/.python-environments/default/bin/jediepcserver" ))
-    ;(load-library "p4")
-    ;print "On Linux"
-    ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
-)
+                                        ;(load-library "p4")
+                                        ;print "On Linux"
+                                        ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
+  )
 
 ;;; Utility functions
 
@@ -450,7 +471,7 @@ smooth-scroll-margin 2
 
 ;;Python
 (add-hook 'python-mode 'run-python) ; starts inferior python process
-;(remove-hook 'python-mode-hook 'run-python)
+                                        ;(remove-hook 'python-mode-hook 'run-python)
 
 (autoload 'jedi:setup "jedi" nil t)
 ;;(add-hook 'python-mode-hook 'jedi:setup)
@@ -458,9 +479,9 @@ smooth-scroll-margin 2
 (defun my/python-mode-hook()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
-;(eval-after-load "company"
-  ;'(progn
-     ;(add-to-list 'company-backends 'company-jedi)))
+                                        ;(eval-after-load "company"
+                                        ;'(progn
+                                        ;(add-to-list 'company-backends 'company-jedi)))
 
 ;;; Emacs-Added(Customize vars)
 (custom-set-variables
