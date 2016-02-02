@@ -10,11 +10,9 @@
 ;;TODOs
 ;[] create system-wide hotkey for emacs http://xahlee.info/kbd/set_single_key_to_switch_app.html
 ;[] take a closer look at.. http://www.howardism.org/Technical/Emacs/new-window-manager.html
-;[x] aurora theme
-;
-;
-;
-;
+;[] get register saving and getting bound to the leader key
+;[] get a spelling think that is suitable to what we want.
+;[]
 ;
 
 
@@ -49,7 +47,6 @@
 ;;; Package management
 (require 'cl-lib) ;common lisp
 
-
 (require 'package) ; MELPA
 
 
@@ -81,8 +78,7 @@
 
 ;;; General sane settings
 
-(global-auto-revert-mode t)
-
+;(global-auto-revert-mode)
 
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c =") 'auto-fill-mode)
@@ -138,10 +134,10 @@ smooth-scroll-margin 2
 
 
 ;; Mode line should look nicer...
-(require 'diminish)
-(diminish 'undo-tree-mode)
-(eval-after-load "company" '(diminish 'company-mode))
-(eval-after-load "helm" '(diminish 'helm-mode))
+;(require 'diminish)
+;;(diminish 'undo-tree-mode)
+;(eval-after-load "company" '(diminish 'company-mode))
+;(eval-after-load "helm" '(diminish 'helm-mode))
 
 
 ;;; Theme -- I like colors.
@@ -167,7 +163,7 @@ smooth-scroll-margin 2
 (midnight-delay-set 'midnight-delay "3:30am")
 
 ;;;Projectile --- Duck!
-(projectile-global-mode +1)
+(projectile-global-mode 1)
 (setq projectile-enable-caching t)
 ;(setq projectile-mode-line '(:eval (format " Proj[%s]" (projectile-project-name))))
 ;;; Evil -- We've joined the dark side.
@@ -179,21 +175,43 @@ smooth-scroll-margin 2
 (define-key evil-motion-state-map "k" 'evil-previous-line)
 (define-key evil-normal-state-map (kbd "C-j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-previous-visual-line)
+
+; the normal mode cousins of o and C-o.
+(define-key evil-normal-state-map (kbd "RET") 'newline-below-point)
+(define-key evil-normal-state-map (kbd "<C-return>") (lambda() (interactive ) (previous-line) (newline-below-point) ))
+
 (require 'evil-leader)
+
+;; creates a newline without breaking the current line
+(defun newline-below-point ()
+  "1. Move to end of line
+   2. insert newline with indentation"
+  (interactive)
+  (let((oldpos(point)))
+    (end-of-line)
+    (newline-and-indent)))
 ;;; Space -- Out of this world
 (global-evil-leader-mode 1)
 (evil-leader/set-leader "<SPC>")
 (evil-mode 1) ;; this line must be after we set the leader
 (evil-leader/set-key
     ;; Super important one-key spacecuts
-    "e" 'eval-buffer
   "d" 'dired
   "f" 'helm-find-files
-  "b" 'helm-buffers-list
+  ;; Buffer stuff
+  "bb" 'helm-buffers-list
+  "bs" 'switch-to-scratch-and-back
+
+  "rb" 'revert-buffer
 
   ;; Misc
   "gs" 'magit-status
   "gc" 'count-words
+
+  ;; Evaluation
+  "eb" 'eval-buffer
+  "el" 'eval-expression
+  "er" 'eval-region
 
   ;; Window management
   "ws" 'evil-window-split
@@ -207,9 +225,12 @@ smooth-scroll-margin 2
   "wr" 'winner-redo
 
   ;; Frame managmenent
-  "Fn" 'make-frame-command ; load Frame with buffers and layouts
+  "Fn" 'make-frame-command
+  "Fd" 'delete-frame
+  "Fo" 'other-frame
+
   "Fs" 'window-configuration-to-register ; Save Frame with buffer and layouts( not to disk...yet )
-  "Fl" 'jump-to-register
+  "Fl" 'jump-to-register  ; load Frame with buffers and layouts
 
   ;; Relative Line numbers
   "r" (lambda() (interactive) (linum-relative-toggle))
@@ -272,14 +293,23 @@ smooth-scroll-margin 2
 (define-key company-active-map (kbd "C-l") #'company-complete)
 (add-hook 'after-init-hook 'global-company-mode) ; All the buffers
 
-;;;In progress..
+; append a semicolon
 (defun append-semicolon()
   "Puts a semicolon at the end of the current line"
   (interactive)
-  (evil-end-of-line)
+  (end-of-line)
   (insert ";")
-
   )
+
+(defun switch-to-scratch-and-back ()
+    "Toggle between *scratch* buffer and the current buffer.
+     If the *scratch* buffer does not exist, create it."
+    (interactive)
+    (let ((scratch-buffer-name (get-buffer-create "*scratch*")))
+        (if (equal (current-buffer) scratch-buffer-name)
+            (switch-to-buffer (other-buffer))
+            (switch-to-buffer scratch-buffer-name (lisp-interaction-mode)))))
+
 
 
 ;; The cousin of J
@@ -471,8 +501,8 @@ smooth-scroll-margin 2
 (setq helm-display-source-at-screen-top nil)
 (setq helm-display-header-line t)
 (define-key helm-map (kbd "C-j") 'helm-next-line)
-(define-key helm-map (kbd "C-k") 'helm-previous-line)
-(define-key helm-map (kbd "C-h") 'helm-previous-source)
+;(define-key helm-map (kbd "C-k") 'helm-previous-line)
+;(define-key helm-map (kbd "C-h") 'helm-previous-source)
 (define-key helm-map (kbd "C-l") 'helm-next-source)
 
 ;;FINALLY GOT SANE HELM Find-File MAPPINGS WOOHOO!
@@ -536,8 +566,7 @@ smooth-scroll-margin 2
                                         ;print "On Linux"
                                         ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
   (message "Linux Recognized. Configuring...")
-  (cf/configure-os-linux)
-  )
+  (cf/configure-os-linux))
 
 ;;; Utility functions
 
@@ -568,21 +597,20 @@ smooth-scroll-margin 2
                                         ;'(progn
                                         ;(add-to-list 'company-backends 'company-jedi)))
 
+;;; Comint (SHELL)
+(setq comint-prompt-read-only t)
+
 ;;; Emacs-Added(Customize vars)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
+ '(comint-process-echoes nil)
+ '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+'(custom-safe-themes
+  (quote
+   ("badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
 (provide 'init)
 ;;; init.el ends here
