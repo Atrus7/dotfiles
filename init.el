@@ -7,11 +7,10 @@
 ;;
 ;;; License: GPLv3
 
-
 ;;TODOs
 ;[] create system-wide hotkey for emacs http://xahlee.info/kbd/set_single_key_to_switch_app.html
 ;[] take a closer look at.. http://www.howardism.org/Technical/Emacs/new-window-manager.html
-;[] aurora theme
+;[x] aurora theme
 ;
 ;
 ;
@@ -25,14 +24,18 @@
     slime
     magit
     evil
+    evil-leader
     helm
     company
     evil-surround
     key-chord
     solarized-theme
+    gruvbox-theme
     crosshairs
     theme-changer
     jedi
+    diminish
+    rainbow-delimiters
     ;epc
     projectile
     deferred
@@ -66,12 +69,15 @@
     (package-install package)))
 
 
-(add-to-list 'load-path "~/.emacs.d/my-lisp/")
-(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
-(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
-(add-to-list 'load-path "~/.emacs.d/config")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/helm")
+;(add-to-list 'load-path "~/.emacs.d/my-lisp/")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'cf)
+;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
+;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
+;(add-to-list 'load-path "~/.emacs.d/config")
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/helm")
+
 
 ;;; General sane settings
 
@@ -99,7 +105,6 @@ smooth-scroll-margin 2
 ;; Relative line numbering
 (require 'linum-relative)
 (setq linum-relative-current-symbol "")
-
 ;; Great parens :)
 (require 'rainbow-delimiters); byte-compile rainbow delimiters for speed
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -126,7 +131,10 @@ smooth-scroll-margin 2
       col-highlight-face             hl-line-face)
 (global-hl-line-mode 1)
 ;;TODO: Get horizontal line to stay
-
+;;(set-face-attribute 'default t :font  FONT )
+;(set-face-attribute 'default nil
+;                     :height
+;                    (5))
 
 
 ;; Mode line should look nicer...
@@ -141,7 +149,7 @@ smooth-scroll-margin 2
 (setq calendar-latitude [30 18 north] )
 (setq calendar-longitude [97 44 west] )
 (require 'theme-changer) ; Let it be stark when it's dark, and light when it's bright
-(change-theme 'solarized-dark 'solarized-light)
+(change-theme 'gruvbox 'solarized-light)
 (setq solarized-distinct-fringe-background nil)
 (setq solarized-high-contrast-mode-line t)
 (setq solarized-use-more-italic)
@@ -161,7 +169,7 @@ smooth-scroll-margin 2
 ;;;Projectile --- Duck!
 (projectile-global-mode +1)
 (setq projectile-enable-caching t)
-(setq projectile-mode-line '(:eval (format " Proj[%s]" (projectile-project-name))))
+;(setq projectile-mode-line '(:eval (format " Proj[%s]" (projectile-project-name))))
 ;;; Evil -- We've joined the dark side.
 (require 'evil)
 
@@ -171,7 +179,7 @@ smooth-scroll-margin 2
 (define-key evil-motion-state-map "k" 'evil-previous-line)
 (define-key evil-normal-state-map (kbd "C-j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "C-k") 'evil-previous-visual-line)
-
+(require 'evil-leader)
 ;;; Space -- Out of this world
 (global-evil-leader-mode 1)
 (evil-leader/set-leader "<SPC>")
@@ -185,6 +193,7 @@ smooth-scroll-margin 2
 
   ;; Misc
   "gs" 'magit-status
+  "gc" 'count-words
 
   ;; Window management
   "ws" 'evil-window-split
@@ -202,10 +211,12 @@ smooth-scroll-margin 2
   "Fs" 'window-configuration-to-register ; Save Frame with buffer and layouts( not to disk...yet )
   "Fl" 'jump-to-register
 
+  ;; Relative Line numbers
+  "r" (lambda() (interactive) (linum-relative-toggle))
 
   ;; Theme stuff
   "tl" (lambda() (interactive) (load-theme 'solarized-light 'NO-CONFIRM))
-  "td" (lambda() (interactive) (load-theme 'solarized-dark 'NO-CONFIRM))
+  "td" (lambda() (interactive) (load-theme 'gruvbox 'NO-CONFIRM))
                                         ;"Fd" ;delete frame
                                         ;"Fo" '
   )
@@ -276,6 +287,7 @@ smooth-scroll-margin 2
 
 ;;; Magit - The git genie
 (require 'magit)
+(require 'evil-magit)
 (setq magit-auto-revert-mode nil)
 ;(after-load 'magit (add-hook 'magit-mode-hook (lambda () (local-unset-key [(kbd "M-h")]))))
                                         ;(require 'multiple-cursors)
@@ -290,146 +302,146 @@ smooth-scroll-margin 2
 (evil-set-initial-state 'magit-log-edit-mode 'insert)
 (evil-set-initial-state 'git-commit-mode 'insert)
 
-(defun evil-magit-rebellion-quit-keymode ()
-  (interactive)
-  (magit-key-mode-command nil))
-
-(evil-set-initial-state 'magit-mode 'motion)(evil-set-initial-state 'magit-commit-mode 'motion)
-(define-key magit-mode-map (kbd "M-h") nil)
-(evil-define-key 'motion magit-commit-mode-map
-  "\C-c\C-b" 'magit-show-commit-backward
-  "\C-c\C-f" 'magit-show-commit-forward)
-
-(evil-set-initial-state 'magit-status-mode 'motion)
-(evil-define-key 'motion magit-status-mode-map
-  "\C-f" 'evil-scroll-page-down
-  "\C-b" 'evil-scroll-page-up
-  "\t" 'magit-toggle-section
-  "." 'magit-mark-item
-  "=" 'magit-diff-with-mark
-  "C" 'magit-add-log
-  "I" 'magit-ignore-item-locally
-  "S" 'magit-stage-all
-  "U" 'magit-unstage-all
-  "X" 'magit-reset-working-tree
-  "d" 'magit-discard-item
-  "i" 'magit-ignore-item
-  "s" 'magit-stage-item
-  "u" 'magit-unstage-item
-  "z" 'magit-key-mode-popup-stashing)
-
-(evil-set-initial-state 'magit-log-mode 'motion)
-(evil-define-key 'motion magit-log-mode-map
-  "." 'magit-mark-item
-  "=" 'magit-diff-with-mark
-  "e" 'magit-log-show-more-entries)
-
-(evil-set-initial-state 'magit-wassup-mode 'motion)
-(evil-define-key 'motion magit-wazzup-mode-map
-  "." 'magit-mark-item
-  "=" 'magit-diff-with-mark
-  "i" 'magit-ignore-item)
-
-(evil-set-initial-state 'magit-branch-manager-mode 'motion)
-(evil-define-key 'motion magit-branch-manager-mode-map
-  "a" 'magit-add-remote
-  "c" 'magit-rename-item
-  "d" 'magit-discard-item
-  "o" 'magit-create-branch
-  "v" 'magit-show-branches
-  "T" 'magit-change-what-branch-tracks)
-
-;; "1" 'magit-show-level-1
-;; "2" 'magit-show-level-2
-;; "3" 'magit-show-level-3
-;; "4" 'magit-show-level-4
-
-(evil-set-initial-state 'magit-mode 'motion)
-(evil-define-key 'motion magit-mode-map
-  "\M-1" 'magit-show-level-1-all
-  "\M-2" 'magit-show-level-2-all
-  "\M-3" 'magit-show-level-3-all
-  "\M-4" 'magit-show-level-4-all
-  "\M-H" 'magit-show-only-files-all
-  "\M-o" 'magit-show-only-files
-  "\M-S" 'magit-show-level-4-all
-  "\M-h" 'magit-show-only-files
-  "\M-s" 'magit-show-level-4
-  "!" 'magit-key-mode-popup-running
-  "$" 'magit-process
-  "+" 'magit-diff-larger-hunks
-  "-" 'magit-diff-smaller-hunks
-  "=" 'magit-diff-default-hunks
-  "/" 'evil-search-forward
-  ":" 'evil-ex
-  ";" 'magit-git-command
-  "?" 'evil-search-backward
-  "<" 'magit-key-mode-popup-stashing
-  "A" 'magit-cherry-pick-item
-  "B" 'magit-key-mode-popup-bisecting
-                                        ;C  commit add log
-  "D" 'magit-revert-item
-  "E" 'magit-ediff
-  "F" 'magit-key-mode-popup-pulling
-  "G" 'evil-goto-line
-  "H" 'magit-rebase-step
-                                        ;I  ignore item locally
-  "J" 'magit-key-mode-popup-apply-mailbox
-  "K" 'magit-key-mode-popup-dispatch
-  "L" 'magit-add-change-log-entry
-  "M" 'magit-key-mode-popup-remoting
-  "N" 'evil-search-previous
-                                        ;O  undefined
-  "P" 'magit-key-mode-popup-pushing
-                                        ;Q  undefined
-  "R" 'magit-refresh-all
-  "S" 'magit-stage-all
-                                        ;T  change what branch tracks
-  "U" 'magit-unstage-all
-                                        ;V  visual line
-  "W" 'magit-diff-working-tree
-  "X" 'magit-reset-working-tree
-  "Y" 'magit-interactive-rebase
-  "Z" 'magit-key-mode-popup-stashing
-  "a" 'magit-apply-item
-  "b" 'magit-key-mode-popup-branching
-  "c" 'magit-key-mode-popup-committing
-                                        ;d  discard
-  "e" 'magit-diff
-  "f" 'magit-key-mode-popup-fetching
-  "g" 'magit-refresh
-  "h" 'magit-key-mode-popup-rewriting
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line
-  "]]" 'magit-goto-next-section
-  "[[" 'magit-goto-previous-section
-  "l" 'magit-key-mode-popup-logging
-  "m" 'magit-key-mode-popup-merging
-  "t" 'magit-key-mode-popup-tagging
-  )
-
-(when magit-rigid-key-bindings
-  (evil-define-key 'motion magit-mode-map
-    "!" 'magit-git-command-topdir
-    "B" 'undefined
-    "F" 'magit-pull
-    "J" 'magit-apply-mailbox
-    "M" 'magit-branch-manager
-    "P" 'magit-push
-    "b" 'magit-checkout
-    "c" 'magit-commit
-    "f" 'magit-fetch-current
-    "h" 'undefined
-    "l" 'magit-log
-    "m" 'magit-merge
-    "o" 'magit-submodule-update
-    "t" 'magit-tag
-    "z" 'magit-stash))
-
-(provide 'evil-magit-rebellion)
-(eval-after-load 'magit
-  '(progn
-    (require 'evil-magit-rebellion)))
+;(defun evil-magit-rebellion-quit-keymode ()
+  ;(interactive)
+  ;(magit-key-mode-command nil))
+;
+;(evil-set-initial-state 'magit-mode 'motion)(evil-set-initial-state 'magit-commit-mode 'motion)
+;(define-key magit-mode-map (kbd "M-h") nil)
+;(evil-define-key 'motion magit-commit-mode-map
+  ;"\C-c\C-b" 'magit-show-commit-backward
+  ;"\C-c\C-f" 'magit-show-commit-forward)
+;
+;(evil-set-initial-state 'magit-status-mode 'motion)
+;(evil-define-key 'motion magit-status-mode-map
+  ;"\C-f" 'evil-scroll-page-down
+  ;"\C-b" 'evil-scroll-page-up
+  ;"\t" 'magit-toggle-section
+  ;"." 'magit-mark-item
+  ;"=" 'magit-diff-with-mark
+  ;"C" 'magit-add-log
+  ;"I" 'magit-ignore-item-locally
+  ;"S" 'magit-stage-all
+  ;"U" 'magit-unstage-all
+  ;"X" 'magit-reset-working-tree
+  ;"d" 'magit-discard-item
+  ;"i" 'magit-ignore-item
+  ;"s" 'magit-stage-item
+  ;"u" 'magit-unstage-item
+  ;"z" 'magit-key-mode-popup-stashing)
+;
+;(evil-set-initial-state 'magit-log-mode 'motion)
+;(evil-define-key 'motion magit-log-mode-map
+  ;"." 'magit-mark-item
+  ;"=" 'magit-diff-with-mark
+  ;"e" 'magit-log-show-more-entries)
+;
+;(evil-set-initial-state 'magit-wassup-mode 'motion)
+;(evil-define-key 'motion magit-wazzup-mode-map
+  ;"." 'magit-mark-item
+  ;"=" 'magit-diff-with-mark
+  ;"i" 'magit-ignore-item)
+;
+;(evil-set-initial-state 'magit-branch-manager-mode 'motion)
+;(evil-define-key 'motion magit-branch-manager-mode-map
+  ;"a" 'magit-add-remote
+  ;"c" 'magit-rename-item
+  ;"d" 'magit-discard-item
+  ;"o" 'magit-create-branch
+  ;"v" 'magit-show-branches
+  ;"T" 'magit-change-what-branch-tracks)
+;
+;;; "1" 'magit-show-level-1
+;;; "2" 'magit-show-level-2
+;;; "3" 'magit-show-level-3
+;;; "4" 'magit-show-level-4
+;
+;(evil-set-initial-state 'magit-mode 'motion)
+;(evil-define-key 'motion magit-mode-map
+  ;"\M-1" 'magit-show-level-1-all
+  ;"\M-2" 'magit-show-level-2-all
+  ;"\M-3" 'magit-show-level-3-all
+  ;"\M-4" 'magit-show-level-4-all
+  ;"\M-H" 'magit-show-only-files-all
+  ;"\M-o" 'magit-show-only-files
+  ;"\M-S" 'magit-show-level-4-all
+  ;"\M-h" 'magit-show-only-files
+  ;"\M-s" 'magit-show-level-4
+  ;"!" 'magit-key-mode-popup-running
+  ;"$" 'magit-process
+  ;"+" 'magit-diff-larger-hunks
+  ;"-" 'magit-diff-smaller-hunks
+  ;"=" 'magit-diff-default-hunks
+  ;"/" 'evil-search-forward
+  ;":" 'evil-ex
+  ;";" 'magit-git-command
+  ;"?" 'evil-search-backward
+  ;"<" 'magit-key-mode-popup-stashing
+  ;"A" 'magit-cherry-pick-item
+  ;"B" 'magit-key-mode-popup-bisecting
+                                        ;;C  commit add log
+  ;"D" 'magit-revert-item
+  ;"E" 'magit-ediff
+  ;"F" 'magit-key-mode-popup-pulling
+  ;"G" 'evil-goto-line
+  ;"H" 'magit-rebase-step
+                                        ;;I  ignore item locally
+  ;"J" 'magit-key-mode-popup-apply-mailbox
+  ;"K" 'magit-key-mode-popup-dispatch
+  ;"L" 'magit-add-change-log-entry
+  ;"M" 'magit-key-mode-popup-remoting
+  ;"N" 'evil-search-previous
+                                        ;;O  undefined
+  ;"P" 'magit-key-mode-popup-pushing
+                                        ;;Q  undefined
+  ;"R" 'magit-refresh-all
+  ;"S" 'magit-stage-all
+                                        ;;T  change what branch tracks
+  ;"U" 'magit-unstage-all
+                                        ;;V  visual line
+  ;"W" 'magit-diff-working-tree
+  ;"X" 'magit-reset-working-tree
+  ;"Y" 'magit-interactive-rebase
+  ;"Z" 'magit-key-mode-popup-stashing
+  ;"a" 'magit-apply-item
+  ;"b" 'magit-key-mode-popup-branching
+  ;"c" 'magit-key-mode-popup-committing
+                                        ;;d  discard
+  ;"e" 'magit-diff
+  ;"f" 'magit-key-mode-popup-fetching
+  ;"g" 'magit-refresh
+  ;"h" 'magit-key-mode-popup-rewriting
+  ;"j" 'evil-next-visual-line
+  ;"k" 'evil-previous-visual-line
+  ;"]]" 'magit-goto-next-section
+  ;"[[" 'magit-goto-previous-section
+  ;"l" 'magit-key-mode-popup-logging
+  ;"m" 'magit-key-mode-popup-merging
+  ;"t" 'magit-key-mode-popup-tagging
+  ;)
+;
+;;; (when magit-rigid-key-bindings
+;;;   (evil-define-key 'motion magit-mode-map
+;;;     "!" 'magit-git-command-topdir
+;;;     "B" 'undefined
+;;;     "F" 'magit-pull
+;;;     "J" 'magit-apply-mailbox
+;;;     "M" 'magit-branch-manager
+;;;     "P" 'magit-push
+;;;     "b" 'magit-checkout
+;;;     "c" 'magit-commit
+;;;     "f" 'magit-fetch-current
+;;;     "h" 'undefined
+;;;     "l" 'magit-log
+;;;     "m" 'magit-merge
+;;;     "o" 'magit-submodule-update
+;;;     "t" 'magit-tag
+;;;     "z" 'magit-stash))
+;
+;(provide 'evil-magit-rebellion)
+;(eval-after-load 'magit
+  ;'(progn
+    ;(require 'evil-magit-rebellion)))
 
 
 ;; Remember what I had open when I quit
@@ -447,6 +459,15 @@ smooth-scroll-margin 2
 (require 'helm-config)
 (helm-mode 1)
 (helm-autoresize-mode 1)
+(helm-adaptive-mode 1)
+
+(define-key global-map [remap list-buffers] 'helm-buffers-list)
+(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(unless (boundp 'completion-in-region-function)
+  (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+  (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
+
 (setq helm-display-source-at-screen-top nil)
 (setq helm-display-header-line t)
 (define-key helm-map (kbd "C-j") 'helm-next-line)
@@ -458,9 +479,18 @@ smooth-scroll-margin 2
 (define-key helm-find-files-map (kbd "C-l") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
 
-(setq helm-autoresize-max-height 30)
-(setq helm-autoresize-min-height 30)
-(setq helm-split-window-in-side-p t)
+(setq helm-autoresize-max-height 30
+      helm-autoresize-min-height 30
+      helm-split-window-in-side-p t
+      helm-ff-auto-update-initial-value               t
+      helm-grep-default-command                       "ack-grep -Hn --smart-case --no-group %e %p %f"
+      helm-org-headings-fontify                       t
+
+
+
+
+)
+
 
 ;;Helm Ignore
 (add-hook 'helm-before-initialize-hook
@@ -469,22 +499,6 @@ smooth-scroll-margin 2
             (add-to-list 'helm-boring-buffer-regexp-list "\\.o$")))
 (setq helm-ff-skip-boring-files t)
 
-
-<<<<<<< HEAD
-;;; Mac specific
-(when (eq system-type 'darwin)
-  (setq mac-command-key-is-meta t) ; apple = meta
-  (setq mac-pass-command-to-system nil) ; avoid hiding with M-h
-
-  ;; Ignore .DS_Store files with helm mode
-  (add-to-list 'helm-boring-buffer-regexp-list "\\.DS_Store$")
-
-  ;; Open files
-  (defun mac-open-current-file ()
-    (interactive)
-    (shell-command (concat "open " (buffer-file-name))))
-  (set-default-font "Monaco 10")
-=======
 ;;; Yay Snippets
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -506,36 +520,35 @@ smooth-scroll-margin 2
         (setq result (helm-other-buffer '(tmpsource) "*helm-select-yasnippet"))
         (if (null result)
             (signal 'quit "user quit!")
-            (cdr (assoc result rmap))))
-      nil))
+          (cdr (assoc result rmap))))
+    nil))
 
 ;;; Mac specific
 (when (eq system-type "darwin")
   (require 'mac)
->>>>>>> 0bdee11d848c8ec938e60a8e08ab70b2215f6e45
   )
 
 ;;;Linux specific
-(if (eq system-type 'gnu/linux)
+(if (eq system-type "gnu/linux")
     ;;Assuming work comp
     (setq jedi:server-command '( "/home/cfindeisen/.emacs.d/.python-environments/default/bin/jediepcserver" ))
                                         ;(load-library "p4")
                                         ;print "On Linux"
                                         ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
-<<<<<<< HEAD
+  (message "Linux Recognized. Configuring...")
+  (cf/configure-os-linux)
   )
-=======
-    )
->>>>>>> 0bdee11d848c8ec938e60a8e08ab70b2215f6e45
 
 ;;; Utility functions
 
-(defun my-move-key (keymap-from keymap-to key)
-  "Moves key binding from one keymap to another, deleting from the old location. "
-  (define-key keymap-to key (lookup-key keymap-from key))
-  (define-key keymap-from key nil))
-(my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
-(my-move-key evil-motion-state-map evil-normal-state-map " ")
+
+
+
+
+
+
+(cf/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
+(cf/move-key evil-motion-state-map evil-normal-state-map " ")
 
 ;;;Language specific
 ;; C
@@ -563,7 +576,7 @@ smooth-scroll-margin 2
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
+    ("badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
  '(magit-use-overlays nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
