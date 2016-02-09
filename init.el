@@ -69,6 +69,7 @@
 ;(add-to-list 'load-path "~/.emacs.d/my-lisp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'cf)
+(require 'picky-linum)
 ;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
 ;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
 ;(add-to-list 'load-path "~/.emacs.d/config")
@@ -85,6 +86,7 @@
 
 (show-paren-mode 1)
 (global-linum-mode 1) ; display line numbers
+(linum-on) ; coming from picky-linum
 (column-number-mode 1)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
@@ -301,14 +303,17 @@ smooth-scroll-margin 2
   (insert ";")
   )
 
+(defvar cf/scratch-buffer nil)
 (defun switch-to-scratch-and-back ()
     "Toggle between *scratch* buffer and the current buffer.
      If the *scratch* buffer does not exist, create it."
     (interactive)
     (let ((scratch-buffer-name (get-buffer-create "*scratch*")))
         (if (equal (current-buffer) scratch-buffer-name)
-            (switch-to-buffer (other-buffer))
-            (switch-to-buffer scratch-buffer-name (lisp-interaction-mode)))))
+            (switch-to-buffer cf/scratch-buffer)
+          (setq cf/scratch-buffer (current-buffer))
+          (switch-to-buffer scratch-buffer-name (lisp-interaction-mode))
+)))
 
 
 
