@@ -506,8 +506,8 @@ smooth-scroll-margin 2
 (setq helm-display-source-at-screen-top nil)
 (setq helm-display-header-line t)
 (define-key helm-map (kbd "C-j") 'helm-next-line)
-;(define-key helm-map (kbd "C-k") 'helm-previous-line)
-;(define-key helm-map (kbd "C-h") 'helm-previous-source)
+(define-key helm-map (kbd "C-k") 'helm-previous-line)
+(define-key helm-map (kbd "C-h") 'helm-previous-source)
 (define-key helm-map (kbd "C-l") 'helm-next-source)
 
 ;;FINALLY GOT SANE HELM Find-File MAPPINGS WOOHOO!
@@ -575,14 +575,8 @@ smooth-scroll-margin 2
 
 ;;; Utility functions
 
-
-
-
-
-
-
-(cf/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
-(cf/move-key evil-motion-state-map evil-normal-state-map " ")
+;(cf/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
+;(cf/move-key evil-motion-state-map evil-normal-state-map " ")
 
 ;;;Language specific
 ;; C
