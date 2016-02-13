@@ -9,5 +9,3 @@
 	default = simple
 [remote "origin"]
 	url = git@github.com:Atrus7/dotfiles.git
-        fetch = git@github.com:Atrus7/dotfiles.git
-        push = git@github.com:Atrus7/dotfiles.git
