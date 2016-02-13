@@ -1,23 +1,20 @@
 ;;; init.el --- Chris Initialization File
 ;;
-;; Copyright (c) 2015-6-4 Christopher Findeisen
+;; Copyright (c) 2015 Christopher Findeisen
 ;;
 ;; Author: Christopher Findeisen <cfindeisen7@gmail.com>
 ;;
 ;;
 ;;; License: GPLv3
 
-;;TODOs
-;[] create system-wide hotkey for emacs http://xahlee.info/kbd/set_single_key_to_switch_app.html
-;[] take a closer look at.. http://www.howardism.org/Technical/Emacs/new-window-manager.html
-;[] get register saving and getting bound to the leader key
-;[] get a spelling think that is suitable to what we want.
-;[]
-;
+;;; Commentary: This file installs and loads the required packages,
+;;; and then it uses el-init to load the rest
+
 
 
 (setq required-packages
   '(
+    el-init
     cl-lib
     slime
     magit
@@ -34,7 +31,6 @@
     jedi
     diminish
     rainbow-delimiters
-    ;epc
     projectile
     deferred
     midnight
@@ -43,27 +39,31 @@
     linum-relative
     flycheck
     yasnippet
-  ) )
+  ))
+
 ;;; Package management
 (require 'cl-lib) ;common lisp
-
 (require 'package) ; MELPA
-
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
 ; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
-
 ; install the missing packages
 (dolist (package required-packages)
   (unless (package-installed-p package)
     (package-install package)))
+
+;;; Now my Emacs Configurations
+(require 'el-init)
+(el-init-load "~/.emacs.d/inits"
+              :subdirectories '("." "init" "lang"))
+
+
 
 
 ;(add-to-list 'load-path "~/.emacs.d/my-lisp/")
