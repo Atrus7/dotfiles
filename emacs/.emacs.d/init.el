@@ -61,10 +61,7 @@
 ;;; Now my Emacs Configurations
 (require 'el-init)
 (el-init-load "~/.emacs.d/inits"
-              :subdirectories '("." "init" "lang"))
-
-
-
+              :subdirectories '("." "inits" "lang"))
 
 ;(add-to-list 'load-path "~/.emacs.d/my-lisp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -77,27 +74,12 @@
 ;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/helm")
 
 
-;;; General sane settings
 
 ;(global-auto-revert-mode)
 
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (global-set-key (kbd "C-c =") 'auto-fill-mode)
 
-(show-paren-mode 1)
-(global-linum-mode 1) ; display line numbers
-(linum-on) ; coming from picky-linum
-(column-number-mode 1)
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(display-battery-mode 1)
-(scroll-bar-mode 0)
-(desktop-save-mode 1) ; remember what I had open
-(fset 'yes-or-no-p 'y-or-n-p) ; Changes all yes/no questions to y/n type
-
-(setq visible-bell 1 ; visual rather than auditory
-smooth-scroll-margin 2
-)
 
 ;;; Nice but more opinionated Settings. Make it great!
 ;; Relative line numbering
@@ -483,8 +465,6 @@ smooth-scroll-margin 2
     ;(require 'evil-magit-rebellion)))
 
 
-;; Remember what I had open when I quit
-(desktop-save-mode 1)
 (winner-mode 1)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
