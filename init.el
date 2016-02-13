@@ -307,16 +307,16 @@ smooth-scroll-margin 2
   (insert ";")
   )
 
-(defvar cf/scratch-buffer nil)
+(defvar cf/toggle-scratch-buffer nil)
 (defun switch-to-scratch-and-back ()
     "Toggle between *scratch* buffer and the current buffer.
      If the *scratch* buffer does not exist, create it."
     (interactive)
     (let ((scratch-buffer-name (get-buffer-create "*scratch*")))
         (if (equal (current-buffer) scratch-buffer-name)
-            (switch-to-buffer cf/scratch-buffer)
-          (setq cf/scratch-buffer (current-buffer))
-          (switch-to-buffer scratch-buffer-name (lisp-interaction-mode))
+            (switch-to-buffer cf/toggle-scratch-buffer)
+          (setq cf/toggle-scratch-buffer (current-buffer))
+          (switch-to-buffer scratch-buffer-name )
 )))
 
 
@@ -601,7 +601,8 @@ smooth-scroll-margin 2
                                         ;(add-to-list 'company-backends 'company-jedi)))
 
 ;;; Comint (SHELL)
-(setq comint-prompt-read-only t)
+(setq comint-prompt-read-only t
+      comint-process-echoes nil)
 
 ;;; Emacs-Added(Customize vars)
 (custom-set-variables
@@ -609,7 +610,6 @@ smooth-scroll-margin 2
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(comint-process-echoes nil)
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil))
 '(custom-safe-themes
