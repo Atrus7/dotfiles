@@ -1,4 +1,3 @@
-#include "~/.Xcolors/gruvbox"
 #include "~/.Xcolors/gruvbox_urxvt256"
 Xft.dpi : 227
 Xft.antialias: true

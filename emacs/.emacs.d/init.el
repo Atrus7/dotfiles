@@ -11,6 +11,7 @@
 ;;; and then it uses el-init to load the rest
 
 
+;;; Code:
 
 (setq required-packages
   '(
