@@ -136,11 +136,15 @@ smooth-scroll-margin 2
 
 
 ;; Mode line should look nicer...
-;(require 'diminish)
-;;(diminish 'undo-tree-mode)
-;(eval-after-load "company" '(diminish 'company-mode))
-;(eval-after-load "helm" '(diminish 'helm-mode))
+(require 'diminish)
 
+(eval-after-load "company" '(diminish 'company-mode))
+(eval-after-load "helm" '(diminish 'helm-mode))
+                                        ;(eval-after-load "undo-tree" '(diminish 'undo-tree-mode))
+
+;(eval-after-load "projectile"
+ ;'(diminish 'projectile-mode (format " P:|%s|" (projectile-project-name)))
+;)
 
 ;;; Theme -- I like colors.
 (setq calendar-location-name "Austin, TX")
@@ -167,9 +171,9 @@ smooth-scroll-margin 2
 ;;;Projectile --- Duck!
 (projectile-global-mode 1)
 (setq projectile-enable-caching t)
-;(setq projectile-mode-line '(:eval (format " Proj[%s]" (projectile-project-name))))
 ;;; Evil -- We've joined the dark side.
 (require 'evil)
+;;Evilescape??
 
 (key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
 
@@ -204,7 +208,7 @@ smooth-scroll-margin 2
   "bb" 'helm-buffers-list
   "bs" 'switch-to-scratch-and-back
 
-  "rb" 'revert-buffer
+  ;"rb" 'revert-buffer
 
   ;; Misc
   "gs" 'magit-status
