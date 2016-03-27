@@ -1,4 +1,5 @@
-#include "~/.Xcolors/gruvbox_urxvt256"
+#include "/home/atrus/.Xcolors/gruvbox"
+#include "/home/atrus/.Xcolors/gruvbox_urxvt256"
 Xft.dpi : 227
 Xft.antialias: true
 Xft.hinting:    true
