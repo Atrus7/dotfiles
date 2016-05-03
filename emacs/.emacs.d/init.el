@@ -9,6 +9,13 @@
 
 ;;; Commentary: This file installs and loads the required packages,
 ;;; and then it uses el-init to load the rest
+;; notes
+;; tag usage...
+;; map 0 to last kbd macro
+;; narrow-to-region
+;; dired wildcards
+;; increment register
+;; gdb work steps through code
 
 
 ;;; Code:
@@ -40,6 +47,8 @@
     linum-relative
     flycheck
     yasnippet
+    org-ref
+    vimrc-mode
   ))
 
 ;;; Package management
@@ -61,13 +70,10 @@
 
 ;;; Now my Emacs Configurations
 (require 'el-init)
-(el-init-load "~/.emacs.d/inits"
-              :subdirectories '("." "inits" "lang"))
+(el-init-load "~/.emacs.d/inits" :subdirectories '("." "inits" "lang"))
 
 ;(add-to-list 'load-path "~/.emacs.d/my-lisp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-(require 'cf)
-(require 'picky-linum)
 ;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg")
 ;(add-to-list 'load-path "~/.emacs.d/chris-shmorgishborg/emacs-async")
 ;(add-to-list 'load-path "~/.emacs.d/config")
@@ -83,6 +89,7 @@
 
 
 ;;; Nice but more opinionated Settings. Make it great!
+
 ;; Relative line numbering
 (require 'linum-relative)
 (setq linum-relative-current-symbol "")
@@ -126,7 +133,7 @@
                                         ;(eval-after-load "undo-tree" '(diminish 'undo-tree-mode))
 
 ;(eval-after-load "projectile"
- ;'(diminish 'projectile-mode (format " P:|%s|" (projectile-project-name)))
+;'(diminish 'projectile-mode (format " P:|%s|" (projectile-project-name)))
 ;)
 
 ;;; Theme -- I like colors.
@@ -135,9 +142,9 @@
 (setq calendar-longitude [97 44 west] )
 (require 'theme-changer) ; Let it be stark when it's dark, and light when it's bright
 (change-theme 'gruvbox 'solarized-light)
-(setq solarized-distinct-fringe-background nil)
-(setq solarized-high-contrast-mode-line t)
-(setq solarized-use-more-italic)
+;(setq solarized-distinct-fringe-background nil)
+;(setq solarized-high-contrast-mode-line t)
+;(setq solarized-use-more-italic)
 
 ;; Spell checking :)
 (dolist (hook '(text-mode-hook))
@@ -154,83 +161,6 @@
 ;;;Projectile --- Duck!
 (projectile-global-mode 1)
 (setq projectile-enable-caching t)
-;;; Evil -- We've joined the dark side.
-(require 'evil)
-;;Evilescape??
-
-(key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
-
-(define-key evil-motion-state-map "j" 'evil-next-line)
-(define-key evil-motion-state-map "k" 'evil-previous-line)
-(define-key evil-normal-state-map (kbd "C-j") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "C-k") 'evil-previous-visual-line)
-
-; the normal mode cousins of o and C-o.
-(define-key evil-normal-state-map (kbd "RET") 'newline-below-point)
-(define-key evil-normal-state-map (kbd "<C-return>") (lambda() (interactive ) (previous-line) (newline-below-point) ))
-
-(require 'evil-leader)
-
-;; creates a newline without breaking the current line
-(defun newline-below-point ()
-  "1. Move to end of line
-   2. insert newline with indentation"
-  (interactive)
-  (let((oldpos(point)))
-    (end-of-line)
-    (newline-and-indent)))
-;;; Space -- Out of this world
-(global-evil-leader-mode 1)
-(evil-leader/set-leader "<SPC>")
-(evil-mode 1) ;; this line must be after we set the leader
-(evil-leader/set-key
-    ;; Super important one-key spacecuts
-  "d" 'dired
-  "f" 'helm-find-files
-  ;; Buffer stuff
-  "bb" 'helm-buffers-list
-  "bs" 'switch-to-scratch-and-back
-
-  ;"rb" 'revert-buffer
-
-  ;; Misc
-  "gs" 'magit-status
-  "gc" 'count-words
-
-  ;; Evaluation
-  "eb" 'eval-buffer
-  "el" 'eval-expression
-  "er" 'eval-region
-
-  ;; Window management
-  "ws" 'evil-window-split
-  "wv" 'evil-window-vsplit
-  "wd" 'evil-window-delete
-  "wj" (lambda() (interactive) ( evil-window-decrease-height 5 ))
-  "wk" (lambda() (interactive) ( evil-window-increase-height 5 ))
-  "wh" (lambda() (interactive) ( evil-window-decrease-width 5 ))
-  "wl" (lambda() (interactive) ( evil-window-increase-width 5 ))
-  "wu" 'winner-undo
-  "wr" 'winner-redo
-
-  ;; Frame managmenent
-  "Fn" 'make-frame-command
-  "Fd" 'delete-frame
-  "Fo" 'other-frame
-
-  "Fs" 'window-configuration-to-register ; Save Frame with buffer and layouts( not to disk...yet )
-  "Fl" 'jump-to-register  ; load Frame with buffers and layouts
-
-  ;; Relative Line numbers
-  "r" (lambda() (interactive) (linum-relative-toggle))
-
-  ;; Theme stuff
-  "tl" (lambda() (interactive) (load-theme 'solarized-light 'NO-CONFIRM))
-  "td" (lambda() (interactive) (load-theme 'gruvbox 'NO-CONFIRM))
-                                        ;"Fd" ;delete frame
-                                        ;"Fo" '
-  )
-
 
 ;; Tabs are evil
 (setq-default indent-tabs-mode nil)
@@ -244,10 +174,11 @@
 
 (require 'key-chord)
 (key-chord-mode 1)
-;;(setq backup-directory-alist '(("." . "~/.emacs-backups")))? Maybe later
+(setq backup-directory-alist '(("." . "~/.emacs-backups")));? Maybe later
 ;;stop littering with save files, put them here
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+(add-hook 'focus-out-hook 'save-buffer) ; auto-save
 
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
@@ -265,6 +196,13 @@
 
 (define-key evil-motion-state-map (kbd "M-e") 'eval-buffer)
 (define-key evil-motion-state-map (kbd "M-;") 'append-semicolon)
+
+(setq evil-insert-state-cursor '((bar . 5) "green")
+      evil-normal-state-cursor '(box "purple")
+      evil-visual-state-cursor '(box "yellow")
+      evil-replace-state-cursor '(box "red")
+      )
+
 
 
 ;;; Completion -- Welcome to the firm.
@@ -543,20 +481,6 @@
           (cdr (assoc result rmap))))
     nil))
 
-;;; Mac specific
-(when (eq system-type "darwin")
-  (require 'mac)
-  )
-
-;;;Linux specific
-(if (eq system-type "gnu/linux")
-    ;;Assuming work comp
-    (setq jedi:server-command '( "/home/cfindeisen/.emacs.d/.python-environments/default/bin/jediepcserver" ))
-                                        ;(load-library "p4")
-                                        ;print "On Linux"
-                                        ;(p4-set-p4-executable "/home/cfindeisen/Downloads/p4v-2014.3.1007540/bin/p4v.bin")
-  (message "Linux Recognized. Configuring...")
-  (cf/configure-os-linux))
 
 ;;; Utility functions
 
@@ -565,12 +489,10 @@
 
 ;;;Language specific
 ;; C
-(add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
 
 ;;Python
 (add-hook 'python-mode 'run-python) ; starts inferior python process
                                         ;(remove-hook 'python-mode-hook 'run-python)
-
 (autoload 'jedi:setup "jedi" nil t)
 ;;(add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
@@ -591,6 +513,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#3c3836" "#fb4934" "#b8bb26" "#fabd2f" "#83a598" "#d3869b" "#8ec07c" "#ebdbb2"])
+ '(custom-safe-themes
+   (quote
+    ("d09467d742f713443c7699a546c0300db1a75fed347e09e3f178ab2f3aa2c617" "badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" default)))
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil))
 '(custom-safe-themes
@@ -598,3 +525,11 @@
    ("badc4f9ae3ee82a5ca711f3fd48c3f49ebe20e6303bba1912d4e2d19dd60ec98" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "1c57936ffb459ad3de4f2abbc39ef29bfb109eade28405fa72734df1bc252c13" default)))
 (provide 'init)
 ;;; init.el ends here
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
