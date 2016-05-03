@@ -71,10 +71,10 @@
 (when (eq system-type 'gnu/linux)
   (require 'server)
   (message "Linux Recognized.")
-  (if (and (boundp 'server-process) server-process)
+  (if (daemonp)
       (progn
-        (setq server-log 1)
         (message "Server Configuring.")
+        (setq server-log 1)
         (add-hook 'after-make-frame-functions 'cf/server-configure t))
     (progn
       (message "Regular Configuring.")
