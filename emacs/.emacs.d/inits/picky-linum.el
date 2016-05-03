@@ -23,4 +23,4 @@
               )
     (linum-mode 1)))
 
-(provide 'picky-linum)
+(el-init-provide)
