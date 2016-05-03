@@ -36,23 +36,9 @@ fi
 #HiDPI settings
 xrandr --fbmm 286x179
 
-
-#twm &
-
-#set up i3lock
-xautolock -time 1 -locker "i3lock -i '~/Downloads/wallpapers.png'" &
-exec emacs --daemon &
-
 #exec pulseaudio --start
 #exec wicd-gtk
-
 #exec xterm -geometry 80x66+0+0 -name login
-
-###############
-#Easy desktop##
-###############
-
-#exec gnome-session
 
 ###############
 #Ideal Desktop#
