@@ -18,5 +18,5 @@ export LESSCHARSET=utf-8
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-export CC="`which gcc-4.9` -fdiagnostics-color=auto"
-export CXX="`which g++-4.9` -fdiagnostics-color=auto"
+export CC="`which gcc` -fdiagnostics-color=auto"
+export CXX="`which g++` -fdiagnostics-color=auto"
