@@ -8,7 +8,6 @@
 (menu-bar-mode 0)
 (display-battery-mode 1)
 (scroll-bar-mode 0)
-(desktop-save-mode 1) ; remember what I had open
 (fset 'yes-or-no-p 'y-or-n-p) ; Changes all yes/no questions to y/n type
 
 (setq visible-bell 1 ; visual rather than auditory
