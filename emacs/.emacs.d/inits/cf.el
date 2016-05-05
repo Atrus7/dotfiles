@@ -2,7 +2,6 @@
 ;;; Commentary:
 
 ;; I need to pull out the emacs frame hook and font stuff to handle it later
-
 ;; macro used to wrap stuff that need to be run only after emacs
 ;; starts up completely. This is very crucial when calling functions like
 ;; `find-font' which return correct value only after emacs startup is finished
@@ -11,6 +10,30 @@
   `(run-with-idle-timer 1 ; run this after emacs is idle for 1 second
                         nil ; do this just once; don't repeat
                         (lambda () ,@body)))
+
+
+(defvar cf/toggle-scratch-buffer nil) ; global vurrr. Can we make better?
+(defun switch-to-scratch-and-back ()
+    "Toggle between *scratch* buffer and the current buffer.
+     If the *scratch* buffer does not exist, create it."
+    (interactive)
+    (let ((scratch-buffer-name (get-buffer-create "*scratch*")))
+        (if (equal (current-buffer) scratch-buffer-name)
+            (switch-to-buffer cf/toggle-scratch-buffer)
+          (setq cf/toggle-scratch-buffer (current-buffer))
+          (switch-to-buffer scratch-buffer-name )
+          )))
+
+; append a semicolon
+(defun cf/append-semicolon()
+  "Puts a semicolon at the end of the current line"
+  (interactive)
+  (end-of-line)
+  (insert ";")
+  )
+
+
+
 
 
 
@@ -82,8 +105,6 @@
     )
 
   )
-
-
 
 (el-init-provide)
 ;;; cf.el ends here

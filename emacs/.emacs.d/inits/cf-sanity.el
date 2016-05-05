@@ -1,4 +1,4 @@
-;;; General sane settings
+;;; Commentary: General sane settings. These are just the first things we want to start up when we set up Emacs.
 
 (show-paren-mode 1)
 (global-linum-mode 1) ; display line numbers

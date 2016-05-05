@@ -1,4 +1,5 @@
 ;; org-capture
+(require 'org-ref) ; Bibiliographies
 
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
@@ -13,4 +14,7 @@
 
 (global-set-key (kbd "C-c c") 'org-capture)
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
 (el-init-provide)

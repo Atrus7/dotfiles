@@ -1,11 +1,16 @@
-;;; Space -- Out of this world
+(require 'cf)
+(require 'evil)
 (require 'evil-leader)
+(require 'evil-surround)
+
+;;; Evil Leader. Space -- Out of this world
 (global-evil-leader-mode 1)
 (evil-leader/set-leader "<SPC>")
+
 ;;; Evil -- We've joined the dark side.
-(require 'evil)
 (evil-mode 1) ;; this line must be after we set the leader
-;; Evil escape??
+
+; Evil escape...
 (key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
 
 (evil-leader/set-key
@@ -15,9 +20,7 @@
   ;; Buffer stuff
   "bb" 'helm-buffers-list
   "bs" 'switch-to-scratch-and-back
-
   ;"rb" 'revert-buffer
-
   ;; Misc
   "gs" 'magit-status
   "gc" 'count-words
@@ -51,10 +54,32 @@
   ;; Theme stuff
   "tl" (lambda() (interactive) (load-theme 'solarized-light 'NO-CONFIRM))
   "td" (lambda() (interactive) (load-theme 'gruvbox 'NO-CONFIRM))
-                                        ;"Fd" ;delete frame
-                                        ;"Fo" '
   )
 
+
+;; Window movement mappings. Global like the Wolf
+(dolist (key '("\M-h" "\M-j" "\M-k" "\M-l"))
+  (global-unset-key key))
+
+
+;; Mappings
+(define-key evil-motion-state-map (kbd "M-h") 'evil-window-left)
+(define-key evil-motion-state-map (kbd "M-j") 'evil-window-down)
+(define-key evil-motion-state-map (kbd "M-k") 'evil-window-up)
+(define-key evil-motion-state-map (kbd "M-l") 'evil-window-right)
+
+(define-key evil-motion-state-map (kbd "M-e") 'eval-buffer)
+(define-key evil-motion-state-map (kbd "M-;") 'cf/append-semicolon)
+
+; the normal mode cousins of o and C-o.
+(define-key evil-normal-state-map (kbd "RET") 'newline-below-point)
+(define-key evil-normal-state-map (kbd "<C-return>") (lambda() (interactive ) (previous-line) (newline-below-point) ))
+
+; The cousin of J
+(define-key evil-normal-state-map "S" 'electric-newline-and-maybe-indent)
+
+;; Evil-surround Get surround keys  working
+(global-evil-surround-mode 1)
 
 (defun cf/move-key (keymap-from keymap-to key)
   "Moves key binding from one keymap to another, deleting from the old location. "
@@ -69,9 +94,5 @@
   (let((oldpos(point)))
     (end-of-line)
     (newline-and-indent)))
-
-; the normal mode cousins of o and C-o.
-(define-key evil-normal-state-map (kbd "RET") 'newline-below-point)
-(define-key evil-normal-state-map (kbd "<C-return>") (lambda() (interactive ) (previous-line) (newline-below-point) ))
 
 (el-init-provide)

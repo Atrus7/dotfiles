@@ -1,4 +1,4 @@
-;;; Commentary - My customizations for Emacs.
+;;; Commentary - My customizations for Mac-Emacs.
 ;;; Code
 ;; Open files
 
