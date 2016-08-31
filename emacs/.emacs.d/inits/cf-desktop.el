@@ -1,6 +1,20 @@
 ;;; Desktop work
+;; Be non-interactive while starting a daemon.
+
+;; HOW do we do this without ruining buffers?
+(when (daemonp)
+  (defadvice my-desktop-restore-file-buffer-advice
+    (around my-desktop-restore-file-buffer)
+    "Be non-interactive while starting a daemon."
+    (let ((noninteractive t))
+      ad-do-it))
+  (ad-activate 'my-desktop-restore-file-buffer-advice))
+
 (desktop-save-mode 1) ; remember what I had open
-(setq desktop-base-file-name ".emacs.desktop")
+
+(setq desktop-base-file-name ".emacs.desktop"
+      desktop-load-locked-desktop t
+      desktop-files-not-to-save   "^$" ;reload tramp paths)
 
 ;;; desktop-override-stale-locks
 (defun emacs-process-p (pid)
@@ -20,14 +34,5 @@ Also returns nil if pid is nil."
   (when (not (emacs-process-p ad-return-value))
     (setq ad-return-value nil)))
 
-;(defadvice desktop-restore-file-buffer
-  ;(around my-desktop-restore-file-buffer-advice)
-  ;"Be non-interactive while starting a daemon."
-  ;(if (and (daemonp)
-           ;(not server-process))
-      ;(let ((noninteractive t))
-        ;ad-do-it)
-    ;ad-do-it))
-;(ad-activate 'desktop-restore-file-buffer)
 ;;; cf-desktop.el ends here
 (el-init-provide)

@@ -54,6 +54,9 @@
   ;; Theme stuff
   "tl" (lambda() (interactive) (load-theme 'solarized-light 'NO-CONFIRM))
   "td" (lambda() (interactive) (load-theme 'gruvbox 'NO-CONFIRM))
+  "sc" 'yas-expand
+  ;"sr" 'helm-yas-create-snippet-on-region
+;"sf" 'helm-yas-visit-snippet-file
   )
 
 

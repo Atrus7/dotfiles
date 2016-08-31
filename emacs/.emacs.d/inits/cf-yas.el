@@ -22,6 +22,9 @@
             (signal 'quit "user quit!")
           (cdr (assoc result rmap))))
     nil))
+(add-to-list 'yas-prompt-functions 'shk-yas/helm-prompt)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
 
+(yas-reload-all)
 
 (el-init-provide)
