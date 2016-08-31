@@ -5,6 +5,7 @@ alias fuck='sudo $(fc -ln -1)'
 alias pacman="sudo pacman"
 alias :qa="sudo systemctl poweroff"
 alias emacs_kill="emacsclient -e '(kill-emacs)'"
+alias ec="emacs_client -c"
 
 alias "cd ..."="cd ../.."
 alias "cd ...."="cd ../../.."
