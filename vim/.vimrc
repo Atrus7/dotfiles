@@ -1,20 +1,16 @@
  " -------Preamble Stuff---------
  "
- "
  " ============================================
  "                 Christopher Findeisen
  "                 Secret Sauce
  "                   "(>^.^<)"
  " ============================================
  "
- " Pathogen. Run install_pathogen.sh(custom bash)
- " Install a plugin into a .vim/bundle/plugin-name/ folder
-   call pathogen#infect()
  " -------Obvious Stuff-------
    set nocompatible
  " set UNICODE so we can use special characters
    set fileencoding=utf-8
-   inoremap jk <Esc>
+   inoremap fd <Esc>
    imap :w <Esc>:w<Enter>
    set backspace=2
    set pastetoggle=<F10>
@@ -29,12 +25,14 @@
    set autochdir
    set scrolloff=3
 
+
    set wildmenu
    set ruler
    set laststatus=2
    noremap <Leader>r :call NumberToggle()<cr>
    nnoremap  <Leader>f :nohl<CR>
    inoremap {<cr> {<cr>}<c-o>O<Tab>
+
 
  " Real programmers don't use TABs but spaces
    set tabstop=4
@@ -234,7 +232,7 @@ if $TERM_PROGRAM =~ "iTerm"
     endif
   endif
 else
-  colorscheme gotham
+  colorscheme default
 endif
 " Show whitespace
 highlight SpecialKey ctermfg=DarkGray
@@ -328,6 +326,7 @@ function! ShowColourSchemeName()
     return 0
   endtry
 endfunction
+nnoremap <leader>color :call ShowColourSchemeName()<cr>
 nnoremap ;; $a;<esc>
 "--------Autocommands-------
 " Automatic reloading of .vimrc
