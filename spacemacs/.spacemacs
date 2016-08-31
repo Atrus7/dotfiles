@@ -27,7 +27,7 @@ values."
             c-c++-enable-clang-support t)
      git
      ;; markdown
-     mac
+     cf-mac
      org
      (shell :variables
             shell-default-height 30
