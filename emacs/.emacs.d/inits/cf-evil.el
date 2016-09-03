@@ -76,7 +76,7 @@
 
 ; the normal mode cousins of o and C-o.
 (define-key evil-normal-state-map (kbd "RET") 'newline-below-point)
-(define-key evil-normal-state-map (kbd "<C-return>") (lambda() (interactive ) (previous-line) (newline-below-point) ))
+(define-key evil-normal-state-map (kbd "<C-return>") (newline-above-point))
 
 ; The cousin of J
 (define-key evil-normal-state-map "S" 'electric-newline-and-maybe-indent)
@@ -97,5 +97,14 @@
   (let((oldpos(point)))
     (end-of-line)
     (newline-and-indent)))
+
+
+(defun newline-above-point ()
+  (interactive)
+  (if (eq (line-number-at-pos) 1)
+      (progn (beginning-of-line) (newline) (previous-line))
+    (progn (previous-line) (newline-below-point))
+    )
+  )
 
 (el-init-provide)
