@@ -3,5 +3,6 @@
         mac-pass-command-to-system nil ; avoid hiding with M-h
         )
 
-  (add-to-list 'helm-boring-buffer-regexp-list "\\.DS_Store$")
+  (eval-after-load 'helm
+    (add-to-list 'helm-boring-buffer-regexp-list "\\.DS_Store$"))
   )
