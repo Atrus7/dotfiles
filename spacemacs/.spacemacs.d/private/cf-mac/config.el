@@ -3,5 +3,7 @@
         mac-pass-command-to-system nil ; avoid hiding with M-h
         )
 
-  (add-to-list 'helm-boring-buffer-regexp-list "\\.DS_Store$")
+;; TODO get this working? Currently problem is that helm-boring-buff isn't loaded
+;  (eval-after-load 'helm
+;  (add-to-list 'helm-boring-buffer-regexp-list "\\.DS_Store$"))
   )
