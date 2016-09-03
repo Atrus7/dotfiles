@@ -12,12 +12,10 @@
     :defer t
 
     :init
-    (require 'org-gcal)
-    (spacemacs/set-leader-keys "aog" 'org-gcal-sync)
-
+      (spacemacs/set-leader-keys "aog" 'org-gcal-sync)
     :config
-    (load-file "~/corporate-secrets/credentials.el")
-    (cf/set-org-gcal-credentials)
+      (load-file "~/corporate-secrets/credentials.el")
+      (cf/set-org-gcal-credentials)
     )
   )
 
