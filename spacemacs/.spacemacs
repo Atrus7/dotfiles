@@ -26,8 +26,6 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
      git
-     ;; markdown
-     cf-mac
      org
      (shell :variables
             shell-default-height 30
@@ -35,6 +33,13 @@ values."
      spell-checking
      syntax-checking
      version-control
+
+     ;; ----------------------------------------------------------------
+     ;; My layers
+     ;; ----------------------------------------------------------------
+     cf-mac
+     cf-desktop
+     cf-org
      )
    ;;
    ;;List of additional packages that will be installed without being
