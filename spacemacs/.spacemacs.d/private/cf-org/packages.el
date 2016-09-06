@@ -10,10 +10,10 @@
 (defun cf-org/init-org-gcal ()
   (use-package org-gcal
     :defer t
-
     :init
+      (require 'org-gcal)
       (spacemacs/set-leader-keys "aog" 'org-gcal-sync)
-    :config
+      :config
       (load-file "~/corporate-secrets/credentials.el")
       (cf/set-org-gcal-credentials)
     )
