@@ -30,7 +30,8 @@
 ;;; Code:
 
 (defconst cf-writing-packages
-  '(nanowrimo)
+  '(nanowrimo
+    visual-fill-column)
   "The list of Lisp packages required by the cf-writing layer.
 
 Each entry is either:
@@ -60,6 +61,12 @@ Each entry is either:
 
 (defun cf-writing/init-nanowrimo ()
   (use-package nanowrimo
+    :defer t
+    :init
+    )
+  )
+(defun cf-writing/init-visual-fill-column ()
+  (use-package visual-fill-column
     :defer t
     :init
     )

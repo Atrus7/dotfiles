@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(defconst cf-org-packages '(org-gcal)
+(defconst cf-org-packages '(org-gcal org-caldav)
   "The list of Lisp packages required by the cf-org layer."
 )
 (defun cf-org/init-org-gcal ()
@@ -19,4 +19,16 @@
     )
   )
 
+(defun cf-org/init-org-caldav ()
+(use-package org-caldav
+  :defer t
+  :init
+  (require 'org-caldav)
+  ;(require 'org-gcal)
+  (spacemacs/set-leader-keys "aoG" 'org-caldav-sync)
+  :config
+  (load-file "~/corporate-secrets/credentials.el")
+  (cf/set-org-caldav-credentials)
+  )
+)
 ;;; packages.el ends here
