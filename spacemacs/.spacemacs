@@ -27,6 +27,7 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
      git
+     scheme
      org
      (shell :variables
             shell-default-height 30
@@ -38,9 +39,9 @@ values."
      ;; ----------------------------------------------------------------
      ;; My layers
      ;; ----------------------------------------------------------------
-     cf-mac
-     cf-linux
      cf-desktop
+     cf-linux
+     cf-mac
      cf-opinions
      cf-org
      cf-writing
