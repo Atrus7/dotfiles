@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+i3lock -i ~/pictures/ed-wallpaper.png

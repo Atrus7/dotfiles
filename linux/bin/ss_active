@@ -1,4 +1,2 @@
 #!/bin/sh
-activeWinLine=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)")
-activeWinId=${activeWinLine:40}
-import -window "$activeWinId" /tmp/$(date +%F_%H%M%S_%N).png
+maim -s -c 1,0,0,0.6 -p 10 ~/pictures/$(date +%F-%T).png
