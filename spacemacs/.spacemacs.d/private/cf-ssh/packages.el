@@ -57,12 +57,14 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
- 
+
 (defun cf-ssh/init-keychain-environment ()
-  (use-package keychain-environment
-    :defer t
-    :init
-    (keychain-refresh-environment)
+  (if (spacemacs/system-is-linux)
+      (use-package keychain-environment
+        :defer t
+        :init
+        (keychain-refresh-environment)
+        )
     )
   )
 
