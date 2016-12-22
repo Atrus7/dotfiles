@@ -13,22 +13,29 @@
     :init
       (require 'org-gcal)
       (spacemacs/set-leader-keys "aog" 'org-gcal-sync)
-      :config
-      (load-file "~/corporate-secrets/credentials.el")
-      (cf/set-org-gcal-credentials)
-    )
+ ;     :config
+    ;  (if (file-accessible-directory-p "~/corporate-secrets")
+ ;         (
+  ;         (load-file "~/corporate-secrets/credentials.el")
+  ;         (cf/set-org-gcal-credentials)
+  ;         )
+  ;      )
+      )
   )
 
 (defun cf-org/init-org-caldav ()
-(use-package org-caldav
-  :defer t
-  :init
-  (require 'org-caldav)
-  ;(require 'org-gcal)
-  (spacemacs/set-leader-keys "aoG" 'org-caldav-sync)
-  :config
-  (load-file "~/corporate-secrets/credentials.el")
-  (cf/set-org-caldav-credentials)
-  )
-)
+  (use-package org-caldav
+    :defer t
+    :init
+    (require 'org-caldav)
+                                        ;(require 'org-gcal)
+    (spacemacs/set-leader-keys "aoG" 'org-caldav-sync)
+  ;  :config
+   ; (if (file-accessible-directory-p "~/corporate-secrets")
+   ;     (
+   ;      (load-file "~/corporate-secrets/credentials.el")
+   ;      (cf/set-org-caldav-credentials)
+   ;      )
+      )
+    )
 ;;; packages.el ends here
