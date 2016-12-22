@@ -1,4 +1,5 @@
 !
+
 ! Caps-lock as Control_L
 !
 remove Lock = Caps_Lock
@@ -9,4 +10,4 @@ add Lock = Caps_Lock
 add Control = Control_L
 
 ! OSX natural scrolling
-pointer = 1 0 3 5 4 7 6 8 9 10 11 12
+pointer = 1 2 3 5 4 7 6 8 9 10 11 12

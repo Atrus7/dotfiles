@@ -1,6 +1,6 @@
 #include "/home/atrus/.Xcolors/gruvbox"
 #include "/home/atrus/.Xcolors/gruvbox_urxvt256"
-Xft.dpi : 227
+Xft.dpi : 166
 Xft.antialias: true
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
@@ -12,7 +12,9 @@ URxvt.internalBorder: 19
 URxvt.cursorBlink: true
 URxvt.scrollBar: false
 
+
 URxvt.perl-ext-common: default,matcher,clipboard
+URxvt.clipboard.autocopy: true
 URxvt.iso14755: False
 URxvt.urlLauncher: google-chrome
 URxvt.matcher.button: 1
