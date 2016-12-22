@@ -2,10 +2,16 @@ alias ls="ls -hF --color=auto"
 alias lsl="ls -lhF --color=auto"
 alias ll="ls -lahF --color=auto"
 alias fuck='sudo $(fc -ln -1)'
-alias pacman="sudo pacman"
-alias :qa="sudo systemctl poweroff"
 alias emacs_kill="emacsclient -e '(kill-emacs)'"
 alias ec="emacs_client -c"
+
+
+#sudo commands
+alias pacman="sudo pacman"
+alias pip="sudo pip"
+alias :qa="sudo systemctl poweroff"
+alias reboot="sudo reboot"
+alias poweroff="sudo poweroff"
 
 alias "cd ..."="cd ../.."
 alias "cd ...."="cd ../../.."
