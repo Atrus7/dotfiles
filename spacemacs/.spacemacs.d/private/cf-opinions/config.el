@@ -2,7 +2,10 @@
 
 ;; TODO do this idiomatically
 ;; disable swiping for moving backwards and forwards buffers.
-(setq debug-on-error t)
+;(setq debug-on-error t)
+
+;; Don't edit any shell files except my own
+(setq sh-make-vars-local nil)
 
 (setq create-lockfiles nil)
 
