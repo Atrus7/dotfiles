@@ -27,6 +27,7 @@ values."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
+     erc
      git
      scheme
      org
@@ -41,6 +42,7 @@ values."
      ;; My layers
      ;; ----------------------------------------------------------------
      cf-desktop
+     ;cf-irc // config erc
      cf-linux
      cf-mac
      cf-opinions
