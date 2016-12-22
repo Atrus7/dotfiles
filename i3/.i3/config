@@ -1,24 +1,17 @@
 # i3 config file (v4)
-#
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-#
-# This config file uses keycodes (bindsym) and was written for the QWERTY
-# layout.
-#
-# To get a config file with the same key positions, but for your current
-# layout, use the i3-config-wizard
-#
-
 #modkey
-set $mod Control+Mod1
+set $mod Mod1+Control
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack, Icons 7
+font pango:Hack, Icons 9
 
 
 # make it look good to start with
-exec feh --bg-scale ~/Downloads/arch-wallpaper.jpg
+exec feh --bg-scale ~/pictures/mountains-wallpaper.png
+
+# Settings for palm rejection .5 seconds after typing
+exec syndaemon -i 0.5 -t -K -R
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -117,37 +110,48 @@ for_window [title="___"] floating enable
 #for_window [title="emacs"]
 
 # Workspaces
+# 
 set $tag1 "1: home"
+
+# 
 set $tag2 "2: code"
+# 
 set $tag3 "3: music"
+# 
 set $tag4 "4: www"
+set $tag5 "5: ssh" 
+set $tag6 "6:" 
+set $tag7 "7:" 
+set $tag8 "8:" 
+set $tag9 "9:" 
+set $tag9 "10:"
 
 # switch to workspace
 bindsym $mod+1 workspace $tag1
 bindsym $mod+2 workspace $tag2
 bindsym $mod+3 workspace $tag3
 bindsym $mod+4 workspace $tag4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+5 workspace $tag5
+bindsym $mod+6 workspace $tag6
+bindsym $mod+7 workspace $tag7
+bindsym $mod+8 workspace $tag8
+bindsym $mod+9 workspace $tag9
+bindsym $mod+0 workspace $tag10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $tag1
 bindsym $mod+Shift+2 move container to workspace $tag2
 bindsym $mod+Shift+3 move container to workspace $tag3
 bindsym $mod+Shift+4 move container to workspace $tag4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+6 move container to workspace $tag6
+bindsym $mod+Shift+7 move container to workspace $tag7
+bindsym $mod+Shift+8 move container to workspace $tag8
+bindsym $mod+Shift+9 move container to workspace $tag9
+bindsym $mod+Shift+0 move container to workspace $tag10
 
-assign [class="emacs"] 2
-assign [class="google-chrome"] $tag4
+assign [class="emacs"] $tag2
+assign [class="Chromium"] $tag4
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -155,7 +159,15 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+p exec "~/bin/fuzzy_lock"
+bindsym $mod+p exec "~/bin/bebop_lock"
+
+bindsym --release Print exec --no-startup-id maim ~/pictures/$(date +%F-%T).png
+bindsym --release Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/pictures/$(date +%F-%T).png
+bindsym  Control+Shift+Print exec ss_active
+ 
+#mouse
+focus_follows_mouse no
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -181,16 +193,25 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+bindsym $mod+y fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 680
+bindsym $mod+Shift+y fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 0
+
 bindsym $mod+r mode "resize"
 # Volume Bindings
 set $sink `pactl list short sinks | grep RUNNING | cut -f1`
-bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
-bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
-bindsym XF86AudioMute exec amixer sset Master toggle
+bindsym XF86AudioRaiseVolume exec pamixer -i 5
+bindsym XF86AudioLowerVolume exec pamixer -d 5
+bindsym XF86AudioMute exec pamixer -t
+
+#bindsym F3 exec pamixer -i 5
+#bindsym F2 exec pamixer -d 5
+#bindsym F1 exec pamixer -t
+
+
 #amixer -D pulse sset Master 5%+
 
-bindsym XF86MonBrightnessUp exec gmux_backlight +100
-bindsym XF86MonBrightnessDown exec gmux_backlight -100
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 
 #A little nicer windows
 hide_edge_borders vertical
@@ -199,26 +220,68 @@ smart_gaps on
 gaps outer 0
 gaps inner 10
 
+#Trying out new powerline
+#bar {
+#        position top
+#        i3bar_command  /usr/bin/i3bar
+#        status_command /usr/bin/i3status
+#        strip_workspace_numbers yes
+#
+#
+#        #	verbose true
+#        colors {
+#          background #303030
+#          statusline #b8bb26
+#
+#          focused_workspace  #4c7899 #285577 #ffffff
+#          active_workspace   #333333 #5f676a #ffffff
+#          inactive_workspace #333333 #222222 #888888
+#          urgent_workspace   #2f343a #900000 #ffffff
+#        }
+#}
+
 bar {
-        position top
-        i3bar_command  /usr/bin/i3bar
-	status_command /usr/bin/i3status
-#	verbose true
+    position top
+    height 16
+    verbose true
+    status_command /home/atrus/.i3/bumblebee-status/bumblebee-status -m disk battery pasink brightness cpu date time -t gruvbox-powerline
+
         colors {
           background #303030
           statusline #b8bb26
-
-          focused_workspace  #4c7899 #285577 #ffffff
-          active_workspace   #333333 #5f676a #ffffff
-          inactive_workspace #333333 #222222 #888888
-          urgent_workspace   #2f343a #900000 #ffffff
-        }
+          }
 }
+
+
+
+# Power management:
+set $Locker bebop_lock && sleep 1
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym XF86PowerOff mode "$mode_system"
+
 
 # Start programs we want!
 exec --no-startup-id i3-msg 'workspace $tag4 exec /usr/bin/chromium;'
-exec --no-startup-id i3-msg 'workspace $tag1 exec /usr/bin/urxvt;'
+
 #Start emacs last since it will appear in the active workspace and it takes a while to load frame.
-exec --no-startup-id i3-msg 'workspace $tag2 exec /usr/bin/emacsclient -c -a="";'
-# Sleep if there is 3 minutes of nothing going on
-exec xautolock -time 5 -locker "~/bin/fuzzy_lock"
+exec --no-startup-id i3-msg 'workspace $tag2 exec /usr/bin/emacs;'
+
+# make first urxvt transparent 
+exec --no-startup-id i3-msg ' workspace $tag1 exec ~/bin/transparent_term'
+
+exec_always  i3-msg 'notify-send -t 300 "brightness down"'
+# let urxvt be last program so opens up to wallpaper
