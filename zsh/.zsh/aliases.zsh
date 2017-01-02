@@ -5,6 +5,7 @@ alias fuck='sudo $(fc -ln -1)'
 alias emacs_kill="emacsclient -e '(kill-emacs)'"
 alias ec="emacs_client -c"
 
+alias cstwins_update="ssh cstwins 'cd /var/www/html/cstwins/; git pull; sudo apachectl restart'"
 
 #sudo commands
 alias pacman="sudo pacman"
