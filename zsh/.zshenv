@@ -1,8 +1,8 @@
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin
 
 export BROWSER=chromium
-export EDITOR=emacs
-export VISUAL=emacs
+export EDITOR='emacs --no-desktop -nw'
+export VISUAL='emacs --no-desktop'
 export ALTERNATE_EDITOR=vim
 
 #languages
