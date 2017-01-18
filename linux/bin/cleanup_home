@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+#shell script to clean up screenshots from ~/pictures
+#planning to use this with cron
+rm -f ~/pictures/screenshots/*
+find ~/downloads/* -maxdepth 0 -mtime +14 -type f -delete
