@@ -1,2 +1,2 @@
-#!/bin/sh
-maim -s -c 1,0,0,0.6 -p 10 ~/pictures/$(date +%F-%T).png
+#!/usr/bin/env zsh
+maim --nokeyboard -s -c 1,0,0,0.6  ~/pictures/screenshots/$(date +%F-%T).png
