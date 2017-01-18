@@ -161,9 +161,10 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+p exec "~/bin/bebop_lock"
 
-bindsym --release Print exec --no-startup-id maim ~/pictures/$(date +%F-%T).png
-bindsym --release Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/pictures/$(date +%F-%T).png
-bindsym  Control+Shift+Print exec ss_active
+bindsym --release Print exec --no-startup-id maim ~/pictures/screenshots/$(date +%F-%T).png
+bindsym --release Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/pictures/screenshots/$(date +%F-%T).png
+bindsym --release Control+Shift+Print exec --no-startup-id "maim --nokeyboard -s -c 1,0,0,0.6  ~/pictures/screenshots/$(date +%F-%T).png"
+
  
 #mouse
 focus_follows_mouse no
@@ -199,9 +200,15 @@ bindsym $mod+Shift+y fullscreen disable; floating enable; resize set 700 400; st
 bindsym $mod+r mode "resize"
 # Volume Bindings
 set $sink `pactl list short sinks | grep RUNNING | cut -f1`
+
+#bindsym XF86AudioPause exec notify-send pause
+#bindsym XF86AudioPrev exec notify-send prev
+#bindsym XF86AudioNext exec notify-send next
+
 bindsym XF86AudioRaiseVolume exec pamixer -i 5
 bindsym XF86AudioLowerVolume exec pamixer -d 5
 bindsym XF86AudioMute exec pamixer -t
+
 
 #bindsym F3 exec pamixer -i 5
 #bindsym F2 exec pamixer -d 5
@@ -221,45 +228,41 @@ gaps outer 0
 gaps inner 10
 
 #Trying out new powerline
-#bar {
-#        position top
-#        i3bar_command  /usr/bin/i3bar
-#        status_command /usr/bin/i3status
-#        strip_workspace_numbers yes
-#
-#
-#        #	verbose true
-#        colors {
-#          background #303030
-#          statusline #b8bb26
-#
-#          focused_workspace  #4c7899 #285577 #ffffff
-#          active_workspace   #333333 #5f676a #ffffff
-#          inactive_workspace #333333 #222222 #888888
-#          urgent_workspace   #2f343a #900000 #ffffff
-#        }
-#}
-
 bar {
-    position top
-    height 16
-    verbose true
-    status_command /home/atrus/.i3/bumblebee-status/bumblebee-status -m disk battery pasink brightness cpu date time -t gruvbox-powerline
+        position top
+        i3bar_command  /usr/bin/i3bar
+        status_command /usr/bin/i3status
 
+        #	verbose true
         colors {
           background #303030
           statusline #b8bb26
-          }
+
+          focused_workspace  #4c7899 #285577 #ffffff
+          active_workspace   #333333 #5f676a #ffffff
+          inactive_workspace #333333 #222222 #888888
+          urgent_workspace   #2f343a #900000 #ffffff
+        }
 }
+
+#bar {
+#    position top
+#    height 16
+#    verbose true
+#    status_command /home/atrus/.i3/bumblebee-status/bumblebee-status -m gpmdp disk battery pasink brightness cpu date time -t gruvbox-powerline
+#
+#        colors {
+#          background #303030
+#          statusline #b8bb26
+#          }
+#}
 
 
 
 # Power management:
-set $Locker bebop_lock && sleep 1
-
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym l exec --no-startup-id ~/bin/bebop_lock, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym h exec --no-startup-id systemctl hibernate, mode "default"
@@ -283,5 +286,6 @@ exec --no-startup-id i3-msg 'workspace $tag2 exec /usr/bin/emacs;'
 # make first urxvt transparent 
 exec --no-startup-id i3-msg ' workspace $tag1 exec ~/bin/transparent_term'
 
-exec_always  i3-msg 'notify-send -t 300 "brightness down"'
-# let urxvt be last program so opens up to wallpaper
+exec_always  i3-msg 'exec notify-send -t 300 "Hello again"'
+
+exec --no-startup-id i3-msg 'exec /usr/bin/dropbox'
