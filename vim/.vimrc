@@ -18,8 +18,7 @@
    set clipboard=unnamed
    set modelines=0
    set showcmd
-   vnoremap <C-c> "*y
-   let mapleader = ","
+   vnoremap <C-c> "*y let mapleader = ","
    let g:mapleader = ","
    set autoread
    set autochdir
@@ -193,47 +192,8 @@ endif
 
 filetype plugin indent on
 syntax on
-" colorscheme solarized
-" colorscheme guardian
-"During the day, I want it dark. At night, I want the light version.
-" noremap <Leader>c :let change_on_save=1<cr>,sv:w<cr>
-"HACKERY TO ALLOW FOR UNOBTRUSIVE /Noticeable/ CHANGES
-try
-  silent echo change_on_save
-catch
-  let change_on_save = 0
-endtry
-autocmd VimEnter * :let change_on_save = 1
-let hour = strftime("%H")
+colorscheme default
 
-
-if $TERM_PROGRAM =~ "iTerm"
-  " if 15 <= hour && hour <= 24
-  if 15 <= hour || hour <= 24
-    colorscheme solarized
-    set background=dark
-    if change_on_save >= 1
-      : silent ! python ~/Desktop/Directory/Programming/iTerm2/instant_color.py "Solarized Dark"
-      let change_on_save = 0
-    endif
-  elseif 20 < hour || hour < 6
-    if change_on_save >= 1
-      : silent ! python ~/Desktop/Directory/Programming/iTerm2/instant_color.py "Gotham-stable"
-      let change_on_save =0
-    endif
-    colorscheme gotham
-    set background=dark
-  else
-    colorscheme solarized
-    set background=light
-    if change_on_save >= 1
-      : silent ! python ~/Desktop/Directory/Programming/iTerm2/instant_color.py "Solarized Light"
-      let change_on_save =0
-    endif
-  endif
-else
-  colorscheme default
-endif
 " Show whitespace
 highlight SpecialKey ctermfg=DarkGray
 set listchars=tab:>-,trail:·
@@ -357,17 +317,3 @@ endfunc
 "set splits intuitively
 set splitbelow
 set splitright
-
-
-
-
-
-"--------Commented-Maybe-One-Day----------------
-" easier formatting of paragraphs
-"" vmap Q gq
-"" nmap Q gqap
-"inoremap <C-h> <Left>
-"inoremap <C-l> <Right>
-"inoremap <C-k> <Up>
-"inoremap <C-j> <Down>
-"
