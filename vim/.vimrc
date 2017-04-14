@@ -161,9 +161,9 @@ function! MyFoldText() " {{{
   return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
+
 "----------Splits---------------
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-" Every unnecessary keystroke that can be saved is good for your health :)
 if exists('$TMUX')
   let g:tmux_navigator_no_mappings = 1
   let g:tmux_navigator_save_on_switch = 1
@@ -200,8 +200,6 @@ set listchars=tab:>-,trail:·
 set list
 
 nnoremap <Leader>w :%s/\s\+$//e<Cr>:echo "Cleared Whitespace"<Cr><C-o>
-" nnoremap <Leader>m :%s/\r//g<Cr><C-o>
-nnoremap <Leader>m :!make<cr>
 
 
 :augroup whitespaceGroup
@@ -226,24 +224,7 @@ set undodir=~/.vim/undodir
 set undofile
 set undolevels=800
 set undoreload=10000
-"------------COMPLETION---------------
-"Use TAB to complete when typing words, else inserts TABs as usual.
-"Uses dictionary and source files to find matching words to complete.
 
-"See help completion for source,
-"Note: usual completion is on <C-n> but more trouble to press all the time.
-"Never type the same word twice and maybe learn a new spellings!
-"Use the Linux dictionary when spelling is in doubt.
-"Window users can copy the file to their machine.
-function! Tab_Or_Complete()
-  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-N>"
-  else
-    return "\<Tab>"
-  endif
-endfunction
-:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-:set dictionary="/usr/dict/words"
 "---------------Backups------------------------
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
@@ -262,6 +243,7 @@ endif
 if !isdirectory(expand(&directory))
   call mkdir(expand(&directory), "p")
 endif
+
 "--------------Misc---------------------
 
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<esc>
@@ -278,16 +260,7 @@ function! NumberToggle()
     set relativenumber!
   endif
 endfunc
-function! ShowColourSchemeName()
-  try
-    echo g:colors_name
-    return g:colors_name
-  catch /^Vim:E121/
-    return 0
-  endtry
-endfunction
-nnoremap <leader>color :call ShowColourSchemeName()<cr>
-nnoremap ;; $a;<esc>
+
 "--------Autocommands-------
 " Automatic reloading of .vimrc
 :augroup writegroup
@@ -295,25 +268,6 @@ nnoremap ;; $a;<esc>
 : autocmd bufwritepost .vimrc source %
 :augroup END
 
-"Header macro
-" Hm...I really need to get these asterisks down...
-nnoremap <leader>ghead ggO*********************Author Info*************************<cr>@author    Christopher Findeisen                          <CR>@contact    <cfindeisen7@gmail.com>                              <CR>@date      <Esc>"=strftime("%c")<CR>Pa                                              <CR>*********************************************************<esc>gg$hl<C-v>4gjA*<esc>gglh<C-v>4gjI*<esc> gglhvjjjjzf<esc>:call MacroComment()<cr><cr>
-function! MacroComment()
-  normal gcc
-endfunction
-
-nnoremap <leader>start :.!cat ~/.vim/text/cpp.txt<cr>
-
-noremap <Leader>c :call ToggleHeader()<cr>
-function! ToggleHeader()
-  if (expand('%:e') == 'cpp' || expand('%:e') == 'cc')
-    :e %:r.h
-  elseif(expand('%:e') == 'h')
-    :e %:r.cpp
-  else
-    echo("Not in a cpp file")
-  endif
-endfunc
 "set splits intuitively
 set splitbelow
 set splitright
