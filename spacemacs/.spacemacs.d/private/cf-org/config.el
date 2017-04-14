@@ -8,14 +8,14 @@
 
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-         "* TODO %?\n  %i\n  %a")
+         "* TODO %?\n  %i\n  Entered on %U")
         ("j" "Journal" entry (file+datetree "~/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
          "* %i%?\n  Noted on %U \n  ")
         ("c" "Code" entry (file+headline "~/org/code_snippets.org" "Code Snippets")
          "* Snippet %?\n Entered on %U\n  %i\n  %a")
-        ("b" "Book" entry (file+headline "~/org/books.org" "Books")
+        ("b" "Book" entry (file+headline "~/org/books.org" "Unfiled")
          "** TO_READ %?\n Entered on %U\n  %i\n ")
         ("m" "Misc" entry (file+headline "~/org/misc.org" "Misc")
          "* %?\n Entered on %U\n  %i\n ")
