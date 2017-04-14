@@ -1,4 +1,4 @@
 (when (spacemacs/system-is-linux)
-  (setq scheme-program-name "guile")
-  (setq geiser-default-implementation 'guile)
+  (setq scheme-program-name "guile-2.2")
+  (setq geiser-default-implementation 'guile-2.2)
   )
