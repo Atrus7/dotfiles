@@ -194,8 +194,17 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+y fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 680
-bindsym $mod+Shift+y fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 0
+#bindsym $mod+y fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 680
+
+#bindsym $mod+Shift+y fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 0
+
+### WHEN https://github.com/i3/i3/commit/6b9b12c3038a766b68ea9c5e8a4b815163cd9049 gets moved to master
+# marks the focused container and move it bottom right
+bindsym $mod+y mark floating_video; fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 680
+
+# focus the container and move top right
+bindsym $mod+Shift+y mark return_window; [con_mark="floating_video"] focus; fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 0; [con_mark="return_window"] focus; unmark return_window;
+
 
 bindsym $mod+r mode "resize"
 # Volume Bindings
