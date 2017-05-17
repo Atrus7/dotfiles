@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+notify-send -u low -h int:value:${$(xbacklight)%.*} "Brightness"

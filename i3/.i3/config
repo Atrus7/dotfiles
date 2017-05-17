@@ -225,9 +225,9 @@ bindsym XF86AudioMute exec pamixer -t
 
 
 #amixer -D pulse sset Master 5%+
-
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+# ${$(xbacklight)%.*} gives the current backlight amount, rounded
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 ; exec /home/atrus/bin/backlight_change_notify
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 ; exec /home/atrus/bin/backlight_change_notify
 
 #A little nicer windows
 hide_edge_borders vertical
@@ -295,6 +295,6 @@ exec --no-startup-id i3-msg 'workspace $tag2 exec /usr/bin/emacs;'
 # make first urxvt transparent 
 exec --no-startup-id i3-msg ' workspace $tag1 exec ~/bin/transparent_term'
 
-exec_always  i3-msg 'exec notify-send -t 300 "Hello again"'
+exec_always i3-msg 'exec notify-send --urgency=low "Starting i3..." "Hello Christopher"'
 
 exec --no-startup-id i3-msg 'exec /usr/bin/dropbox'
