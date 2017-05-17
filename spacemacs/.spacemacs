@@ -46,7 +46,7 @@ values."
      ;; ----------------------------------------------------------------
      cf-calendar
      cf-desktop
-     ;cf-irc // config erc
+     cf-irc ; config erc
      cf-linux
      cf-mac
      cf-opinions
