@@ -210,9 +210,9 @@ bindsym $mod+r mode "resize"
 # Volume Bindings
 set $sink `pactl list short sinks | grep RUNNING | cut -f1`
 
-#bindsym XF86AudioPause exec notify-send pause
-#bindsym XF86AudioPrev exec notify-send prev
-#bindsym XF86AudioNext exec notify-send next
+bindsym XF86AudioPause exec notify-send --urgency=low "Pause" ""
+bindsym XF86AudioPrev exec notify-send --urgency=low "Previous" ""
+bindsym XF86AudioNext exec notify-send --urgency=low "Next" ""
 
 bindsym XF86AudioRaiseVolume exec pamixer -i 5
 bindsym XF86AudioLowerVolume exec pamixer -d 5

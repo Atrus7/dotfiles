@@ -16,6 +16,7 @@ URxvt.scrollBar: false
 URxvt.perl-ext-common: default,matcher,clipboard
 URxvt.clipboard.autocopy: true
 URxvt.iso14755: False
+URxvt.iso14755_52: False
 URxvt.urlLauncher: google-chrome
 URxvt.matcher.button: 1
 URxvt.saveLines:3000
@@ -24,3 +25,4 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 
 
 URxvt.font: xft:Hack:size=7
+

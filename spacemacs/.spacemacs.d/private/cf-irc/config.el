@@ -16,10 +16,10 @@
 ;; share my real name
 (setq erc-user-full-name "Chris Findeisen")
 
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"));"324" "329" "332" "333" "353" "477"
+(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE" "324" "329" "332" "333" "353" "477"));
 
 (setq erc-autojoin-channels-alist '(("freenode.net"
-                                     "#emacs" "#scheme" "#lisp")))
+                                     "#emacs" "#lisp" "#digitalstation", "#junto")))
 
 (defun call-libnotify (matched-type nick msg)
   (let* ((cmsg  (split-string (clean-message msg)))
