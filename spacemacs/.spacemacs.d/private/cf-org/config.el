@@ -20,7 +20,7 @@
         ("m" "Misc" entry (file+headline "~/org/misc.org" "Misc")
          "* %?\n Entered on %U\n  %i\n ")
         ("w" "Weekly Review" entry (file+datetree "~/org/weekly_review.org" "Weekly Review")
-         "* Reflection on System %?\n** What went well?\n** What should be adjusted?\n\n* Brain Dump [0%]\n- [ ] School\n- [ ] Email Items\n- [ ] Appointments or Waiting-ons\n- [ ] Kailah, romance, gifts, anniversary\n- [ ] Recommendations\n  - Books\n  - Movies\n  - Food\n  - Amazon\n\n* Reflection on Habits\n** Success Indicators [/]\n  Check the ones that I rocked this week!\n    - [ ] Reading\n    - [ ] Working Out\n    - [ ] NF\n    - [ ] Mindfulness\n    - [ ] Diet\n** Thoughts\n"
+         "* Reflection on System %?\n** What went well?\n** What should be adjusted?\n\n* Brain Dump [0%]\n- [ ] Work\n- [ ] Email Items\n- [ ] Appointments or Waiting-ons\n- [ ] Kailah, romance, gifts, anniversary\n- [ ] Recommendations\n  - Books\n  - Movies\n  - Food\n  - Amazon\n\n* Reflection on Habits\n** Success Indicators [/]\n  Check the ones that I rocked this week!\n    - [ ] Reading\n    - [ ] Working Out\n    - [ ] NF\n    - [ ] Mindfulness\n    - [ ] Diet\n** Thoughts\n"
 )))
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
