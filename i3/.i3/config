@@ -129,6 +129,7 @@ bindsym $mod+Shift+9 move container to workspace $tag9
 bindsym $mod+Shift+0 move container to workspace $tag10
 
 assign [class="emacs"] $tag2
+assign [class="Google Play Music Desktop Player"] $tag3
 assign [class="Chromium"] $tag4
 
 
@@ -206,14 +207,19 @@ bindsym $mod+r mode "resize"
 # Volume Bindings
 set $sink `pactl list short sinks | grep RUNNING | cut -f1`
 
-bindsym XF86AudioPause exec notify-send --urgency=low "Pause" ""
-bindsym XF86AudioPrev exec notify-send --urgency=low "Previous" ""
-bindsym XF86AudioNext exec notify-send --urgency=low "Next" ""
+# TODO: Make the notification go through?
+# Currently this blocks the GPMDP from receiving the key. Can I do both?
+# bindsym XF86AudioPause exec notify-send --urgency=low "Pause" ""
+# bindsym XF86AudioPrev exec notify-send --urgency=low "Previous" ""
+# bindsym XF86AudioNext exec notify-send --urgency=low "Next" ""
+
+bindsym $mod+m exec /usr/bin/gpmdp;
 
 bindsym XF86AudioRaiseVolume exec pamixer -i 5
 bindsym XF86AudioLowerVolume exec pamixer -d 5
 bindsym XF86AudioMute exec pamixer -t
 
+ bindsym XF86Search exec notify-send --urgency=low "Search Key hit" "TODO: remap this"
 
 #bindsym F3 exec pamixer -i 5
 #bindsym F2 exec pamixer -d 5
