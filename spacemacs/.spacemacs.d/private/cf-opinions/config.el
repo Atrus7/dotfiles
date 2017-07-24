@@ -9,7 +9,10 @@
 
 (setq create-lockfiles nil)
 
-(setq initial-scratch-message "*Scratch Buffer*\n")
+;; always follow link when visiting vc'd symlink
+(setq vc-follow-symlinks t)
+
+(setq initial-scratch-message "* Scratch Buffer\n")
 
 ;; creates a newline without breaking the current line
 (defun newline-below-point ()
