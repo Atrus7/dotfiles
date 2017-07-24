@@ -1,2 +1,3 @@
 #!/usr/bin/env zsh
+# ${$(xbacklight)%.*} gives the current backlight amount, rounded
 notify-send -u low -h int:value:${$(xbacklight)%.*} "Brightness"
