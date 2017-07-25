@@ -178,6 +178,7 @@ bindsym $mod+Shift+y mark return_window; [con_mark="floating_video"] focus; full
 
 
 ## Media/Special keys
+#Shift+media key should provide increased or alt command
 
 #Screen Capture
 bindsym --release Print exec --no-startup-id maim ~/pictures/screenshots/$(date +%F-%T).png
@@ -187,11 +188,21 @@ bindsym --release Control+Shift+Print exec --no-startup-id "maim --nokeyboard -s
 # Volume
 bindsym XF86AudioRaiseVolume exec pamixer -i 5
 bindsym XF86AudioLowerVolume exec pamixer -d 5
+
+#increase by a lot
+bindsym Shift+XF86AudioRaiseVolume exec pamixer -i 25
+bindsym Shift+XF86AudioLowerVolume exec pamixer -d 25
+
 bindsym XF86AudioMute exec pamixer -t
 
 # Brightness management
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 ; exec /home/atrus/bin/backlight_change_notify
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 ; exec /home/atrus/bin/backlight_change_notify
+
+#exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+
+bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 25 ; exec /home/atrus/bin/backlight_change_notify
+bindsym Shift+XF86MonBrightnessUp exec xbacklight -inc 25 ; exec /home/atrus/bin/backlight_change_notify
 
 # Music
 # TODO: Make the notification go through?
@@ -205,7 +216,8 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5 ; exec /home/atrus/bin/backli
 bindsym XF86Search exec /home/atrus/bin/rofi_file_search
 
 # Networking Key(F8 media)
-bindsym Super_L exec rofi -show ssh
+bindsym Super_L exec networkmanager_dmenu
+bindsym Shift+Super_L exec rofi -show ssh
 
 ## The Bar
 bar {

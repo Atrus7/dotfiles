@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+# a simple(not secure) way of getting a pin entry
+rofi -dmenu -p "Password:" -input /dev/null -password
