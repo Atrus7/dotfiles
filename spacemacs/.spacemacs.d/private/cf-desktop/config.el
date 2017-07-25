@@ -4,7 +4,7 @@
 (desktop-save-mode 1) ; remember what I had open
 
 (setq desktop-base-file-name ".emacs.desktop"
-      desktop-load-locked-desktop t
+      desktop-load-locked-desktop nil ;only have ONE main emacs open-- the rest should load quick
       desktop-files-not-to-save   "^$" ) ;reload tramp paths
 
 (defun emacs-process-p (pid)
