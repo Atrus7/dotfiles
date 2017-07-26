@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
 xrdb -merge ~/.Xcolors/transparent
-/usr/bin/urxvt &
+/usr/bin/urxvtc &
 xrdb -override ~/.Xcolors/opaque
