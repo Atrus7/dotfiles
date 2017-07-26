@@ -6,7 +6,46 @@
      (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
      (setq org-map-continue-from (outline-previous-heading)))
    "/DONE" 'file))
-(defun cf/org-archive-task ()
-  "Archive todo task"
+
+;; TODO implement
+;; (defun cf/org-archive-task ()
+;;   "Archive todo task"
+;;   (interactive)
+;;   )
+
+
+;; IFTTT files org-captures into .org.txt files, so we want to refile all of those entries into their respective org files
+(defun cf/org-append-dictated-captures ()
+  "Moves .org.txt entries into respective .org files and deletes .org files"
   (interactive)
+  (setq org-txt-extension ".org.txt")
+  (setq org-txt-files (directory-files org-directory nil ".org.txt"))
+  (setq files-to-append
+        (mapcar
+         (lambda (filename)
+           (substring filename 0
+                      (- (length filename) (length org-txt-extension))))
+
+         org-txt-files
+         ))
+
+  (mapc 'cf/org-file-org-txt files-to-append)
   )
+
+(defun cf/org-file-org-txt (filename)
+  "Append [filename].org.txt contents to [filename].org file in the [dir], then delete the .org.txt"
+  (setq org-filename (concat filename ".org"))
+  (setq org-txt-filename (concat org-filename ".txt"))
+
+  (with-temp-buffer
+    (cd org-directory) ; brittle but simple, only works in the main org folder
+    (if (and (file-exists-p org-filename) (file-writable-p org-filename) (file-readable-p org-txt-filename))
+        (progn
+          (newline) ; don't start append to any existing line
+          (insert-file-contents org-txt-filename)
+          (append-to-file (point-min) (point-max) org-filename)
+          (delete-file org-txt-filename)
+          (message "Filed and removed" org-txt-filename)
+          )
+      nil
+      )))
