@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+sink=`pactl list short sinks | grep "RUNNING" | cut -c 1`
+
+#Takes commands of form:
+#M: Mute toggle
+#I: increase [$2]
+#D: decrease [$2]
+command=$1
+amount=$2
+
+if [[ $command == "M" ]]; then
+    #echo "MUTING"
+    pamixer --sink $sink -t
+elif [[ $command == "I" ]]; then
+    #echo "INCREASING"
+    pamixer --sink $sink -i $amount
+elif [[ $command == "D" ]]; then
+    #echo "DECREASING"
+    pamixer --sink $sink -d $amount
+fi

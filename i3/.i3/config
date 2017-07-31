@@ -187,14 +187,14 @@ bindsym --release Shift+Print exec --no-startup-id maim -i $(xdotool getactivewi
 bindsym --release Control+Shift+Print exec --no-startup-id "maim --nokeyboard -s -c 1,0,0,0.6  ~/pictures/screenshots/$(date +%F-%T).png"
 
 # Volume
-bindsym XF86AudioRaiseVolume exec pamixer -i 5
-bindsym XF86AudioLowerVolume exec pamixer -d 5
+bindsym XF86AudioRaiseVolume exec /home/atrus/bin/volume_change "I" 5
+bindsym XF86AudioLowerVolume exec /home/atrus/bin/volume_change "D" 5
 
 #increase by a lot
-bindsym Shift+XF86AudioRaiseVolume exec pamixer -i 25
-bindsym Shift+XF86AudioLowerVolume exec pamixer -d 25
+bindsym Shift+XF86AudioRaiseVolume exec /home/atrus/bin/volume_change "I" 25
+bindsym Shift+XF86AudioLowerVolume exec /home/atrus/bin/volume_change "D" 25
 
-bindsym XF86AudioMute exec pamixer -t
+bindsym XF86AudioMute exec /home/atrus/bin/volume_change "M"
 
 # Brightness management
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 ; exec /home/atrus/bin/backlight_change_notify
