@@ -32,6 +32,23 @@
   (mapc 'cf/org-file-org-txt files-to-append)
   )
 
+(defun cf/org-schedule-today ()
+  (interactive)
+  (save-excursion
+    (org-back-to-heading t)
+    (if (re-search-forward
+         org-scheduled-time-regexp
+         (save-excursion (outline-next-heading) (point)) t)
+        (message  "Already scheduled")
+      (progn
+        (newline-below-point)
+        (insert "SCHEDULED: ")
+        (org-insert-time-stamp (current-time))
+        (message  "Scheduled for today"))
+      )
+    )
+  )
+
 (defun cf/org-file-org-txt (filename)
   "Append [filename].org.txt contents to [filename].org file in the [dir], then delete the .org.txt"
   (setq org-filename (concat filename ".org"))
