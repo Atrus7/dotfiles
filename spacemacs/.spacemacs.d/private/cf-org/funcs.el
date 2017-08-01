@@ -33,6 +33,7 @@
   )
 
 (defun cf/org-schedule-today ()
+  "Checks if heading is scheduled and if not schedules for today"
   (interactive)
   (save-excursion
     (org-back-to-heading t)
