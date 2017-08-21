@@ -6,7 +6,7 @@
 font pango:Hack, Icons 9
 
 # Wallpaper: make it look good to start with
-exec feh --bg-scale ~/pictures/mountains-wallpaper.png
+exec feh --bg-scale ~/pictures/house-wallpaper.png
 
 ## Variables
 
@@ -160,7 +160,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+Return exec urxvtc
 
 # browser of choice
-bindsym $mod+g exec chromium
+bindsym $mod+g exec chromium --enable-native-gpu-memory-buffers
 
 # desktop music
 bindsym $mod+m exec /usr/bin/gpmdp;
@@ -288,7 +288,7 @@ bindsym $mod+r mode "resize"
 #urxvt daemon
 exec urxvtd -q -f -o
 
-exec --no-startup-id i3-msg 'workspace $tag4 exec /usr/bin/chromium;'
+exec --no-startup-id i3-msg 'workspace $tag4 exec /usr/bin/chromium --enable-native-gpu-memory-buffers;'
 
 # Start emacs last since it will appear in the active workspace and it takes a while to load frame.
 exec --no-startup-id i3-msg 'workspace $tag2 exec /usr/bin/emacs;'
