@@ -14,6 +14,8 @@
 
 (setq initial-scratch-message "* Scratch Buffer\n")
 
+(setq doc-view-continuous t)
+
 ;; creates a newline without breaking the current line
 (defun newline-below-point ()
   "1. Move to end of line

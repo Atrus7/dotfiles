@@ -42,8 +42,9 @@ values."
      version-control
 
      ;; ----------------------------------------------------------------
-     ;; My layers
+     ;; my custom layers
      ;; ----------------------------------------------------------------
+
      cf-calendar
      cf-desktop
      cf-irc ; config erc
@@ -54,6 +55,16 @@ values."
      cf-scheme
      cf-ssh
      cf-writing
+
+     ;; ----------------------------------------------------------------
+     ;; my language layers
+     ;; ----------------------------------------------------------------
+     ;; TODO implement for G
+     ;; cf-c
+     ;; cf-c++
+     ;; cf-java
+     ;; cf-python
+
      )
    ;;
    ;;List of additional packages that will be installed without being
