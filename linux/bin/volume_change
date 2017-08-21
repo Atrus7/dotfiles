@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 sink=`pactl list short sinks | grep "RUNNING" | cut -c 1`
 
+#if none are running, assume default
+if [[ ! -n $sink ]]; then
+    sink=0
+fi
+
 #Takes commands of form:
 #M: Mute toggle
 #I: increase [$2]
