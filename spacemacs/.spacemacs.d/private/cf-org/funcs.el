@@ -67,3 +67,15 @@
           )
       nil
       )))
+
+;; TODO : this is a broader function. Refactor as such
+;; Returns a file's text as a string
+(defun cf/org-pull-template-from-file (template_file_path)
+  (with-temp-buffer
+    (if (and (file-exists-p template_file_path) (file-readable-p template_file_path))
+        (progn
+          (insert-file-contents template_file_path)
+          (buffer-string)
+          )
+      nil
+      )))
