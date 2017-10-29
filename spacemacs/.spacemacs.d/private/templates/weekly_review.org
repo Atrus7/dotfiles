@@ -1,9 +1,10 @@
-* Reflection on System %?
+* Reflection on System 
 ** What went well?
+   %?
 ** What should be adjusted?
 
 * Brain Dump [0%]
-- [ ] School
+- [ ] Work
 - [ ] Email Items
 - [ ] Appointments or Waiting-ons
 - [ ] Kailah, romance, gifts, anniversary
@@ -22,3 +23,4 @@
     - [ ] Mindfulness
     - [ ] Diet
 ** Thoughts
+

@@ -67,6 +67,9 @@
           )
       nil
       )))
+(defun cf/pass (&rest ignore_args)
+  "acts like python pass"
+  )
 
 ;; TODO : this is a broader function. Refactor as such
 ;; Returns a file's text as a string

@@ -24,6 +24,7 @@
 (defun dotspacemacs/user-config ()
   "Configuration that cannot be delegated to layers."
   (dotspacemacs/user-config/toggles)
+  (dotspacemacs/user-config/load-credentials)
   (dotspacemacs/user-config/experiments))
 
 ;;; Spacemacs/Layers
@@ -238,6 +239,14 @@
   (spacemacs/toggle-mode-line-minor-modes-off)
   (global-highlight-parentheses-mode 1)
   (rainbow-delimiters-mode-enable))
+
+
+;;;; Load Credentials
+
+(defun dotspacemacs/user-config/load-credentials ()
+  (when (file-exists-p (expand-file-name "~/corporate-secrets/credentials.el"))
+    (load "~/corporate-secrets/credentials.el")
+    ))
 
 ;;;; Experiments
 

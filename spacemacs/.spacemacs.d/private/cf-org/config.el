@@ -7,10 +7,10 @@
 ;;     (buffer-string)))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+      `(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
          "* TODO %?\n  %i\n  Entered on %U")
         ("j" "Journal" entry (file+datetree "~/org/journal.org")
-         "* %?\nEntered on %U\n  %i\n  %a")
+         "* %?\nEntered on %U\n  %i\n")
         ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
          "* %i%?\n  Noted on %U \n  ")
         ("c" "Code" entry (file+headline "~/org/code_snippets.org" "Code Snippets")
@@ -20,7 +20,8 @@
         ("m" "Misc" entry (file+headline "~/org/misc.org" "Misc")
          "* %?\n Entered on %U\n  %i\n ")
         ("w" "Weekly Review" entry (file+datetree "~/org/weekly_review.org" "Weekly Review")
-         "* Reflection on System %?\n** What went well?\n** What should be adjusted?\n\n* Brain Dump [0%]\n- [ ] Work\n- [ ] Email Items\n- [ ] Appointments or Waiting-ons\n- [ ] Kailah, romance, gifts, anniversary\n- [ ] Recommendations\n  - Books\n  - Movies\n  - Food\n  - Amazon\n\n* Reflection on Habits\n** Success Indicators [/]\n  Check the ones that I rocked this week!\n    - [ ] Reading\n    - [ ] Working Out\n    - [ ] NF\n    - [ ] Mindfulness\n    - [ ] Diet\n** Thoughts\n"
+         ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
+
 )))
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
@@ -33,8 +34,51 @@
 ;; to be run after org is loaded
 (spacemacs|use-package-add-hook org
   :post-config
-  (add-to-list 'org-src-lang-modes '("scheme" . scheme) )
-  (add-to-list 'org-babel-load-languages '(scheme . t))
-  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (scheme . t) ))
-  (setq org-agenda-files (list(mapconcat 'eval '(org-directory "todo.org") "/")))
   )
+
+(setq
+ org-html-head (cf/org-pull-template-from-file "publishing/links.html")
+ org-html-preamble t
+ org-html-postamble t
+ org-html-inline-images t
+ org-html-preamble-format `(("en"
+                             ,(cf/org-pull-template-from-file "publishing/header.html"))))
+
+(setq server-blog-base "/ssh:cstwins:/var/www/html/syscowboy/posts")
+(setq server-static-base "/ssh:cstwins:/var/www/html/syscowboy/static")
+
+;; website related
+  (setq org-publish-project-alist
+        '(("blog"
+           :components ("blog-content" "blog-static"))
+          ("blog-content"
+           :base-directory  "~/syscowboy/posts"
+           :base-extension "org"
+           :publishing-directory server-blog-base
+           :email cf/personal-email
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :completion-function cf/pass
+           :with-tags nil
+           :headline-levels 4             ; Just the default for this project.
+           :with-toc nil
+           :with-title t
+           :section-numbers nil
+           :with-sub-superscript nil
+           :with-todo-keywords nil
+           ;:author Chris Findeisen
+           :with-creator nil
+           :timestamp t
+           :exclude-tags ("noexport" "todo")
+           :auto-sitemap t
+           :sitemap-sort-folders first
+           :sitemap-sort-files anti-chronologically
+           :sitemap-ignore-case t
+           :sitemap-title "home"
+           )
+          ("blog-static"
+           :base-directory "~/syscowboy/posts/static"
+           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf"
+           :publishing-directory server-static-base
+           :recursive t
+           :publishing-function org-publish-attachment)))
