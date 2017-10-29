@@ -1,2 +1,8 @@
 .gitconfig
 spacemacs/.spacemacs.d/.custom-settings.el
+
+
+misc/.config/*
+!misc/.config/dunst/
+emacs/.cache/
+emacs/.emacs.d/elpa/

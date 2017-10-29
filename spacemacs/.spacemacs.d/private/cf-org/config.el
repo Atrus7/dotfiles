@@ -23,18 +23,11 @@
          ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
 
 )))
-
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
-;(add-hook 'org-mode-hook )
 
 (setq
  org-agenda-include-diary t
  org-deadline-warning-days 10)
-
-;; to be run after org is loaded
-(spacemacs|use-package-add-hook org
-  :post-config
-  )
 
 (setq
  org-html-head (cf/org-pull-template-from-file "publishing/links.html")
@@ -48,37 +41,37 @@
 (setq server-static-base "/ssh:cstwins:/var/www/html/syscowboy/static")
 
 ;; website related
-  (setq org-publish-project-alist
-        '(("blog"
-           :components ("blog-content" "blog-static"))
-          ("blog-content"
-           :base-directory  "~/syscowboy/posts"
-           :base-extension "org"
-           :publishing-directory server-blog-base
-           :email cf/personal-email
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :completion-function cf/pass
-           :with-tags nil
-           :headline-levels 4             ; Just the default for this project.
-           :with-toc nil
-           :with-title t
-           :section-numbers nil
-           :with-sub-superscript nil
-           :with-todo-keywords nil
-           ;:author Chris Findeisen
-           :with-creator nil
-           :timestamp t
-           :exclude-tags ("noexport" "todo")
-           :auto-sitemap t
-           :sitemap-sort-folders first
-           :sitemap-sort-files anti-chronologically
-           :sitemap-ignore-case t
-           :sitemap-title "home"
-           )
-          ("blog-static"
-           :base-directory "~/syscowboy/posts/static"
-           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf"
-           :publishing-directory server-static-base
-           :recursive t
-           :publishing-function org-publish-attachment)))
+(setq org-publish-project-alist
+      '(("blog"
+         :components ("blog-content" "blog-static"))
+        ("blog-content"
+         :base-directory  "~/syscowboy/posts"
+         :base-extension "org"
+         :publishing-directory server-blog-base
+         :email cf/personal-email
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :completion-function cf/pass
+         :with-tags nil
+         :headline-levels 4             ; Just the default for this project.
+         :with-toc nil
+         :with-title t
+         :section-numbers nil
+         :with-sub-superscript nil
+         :with-todo-keywords nil
+                                        ;:author Chris Findeisen
+         :with-creator nil
+         :timestamp t
+         :exclude-tags ("noexport" "todo")
+         :auto-sitemap t
+         :sitemap-sort-folders first
+         :sitemap-sort-files anti-chronologically
+         :sitemap-ignore-case t
+         :sitemap-title "home"
+         )
+        ("blog-static"
+         :base-directory "~/syscowboy/posts/static"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf"
+         :publishing-directory server-static-base
+         :recursive t
+         :publishing-function org-publish-attachment)))
