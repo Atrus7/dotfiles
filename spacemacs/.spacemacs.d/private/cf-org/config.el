@@ -48,14 +48,15 @@
          :base-directory  "~/syscowboy/posts"
          :base-extension "org"
          :publishing-directory server-blog-base
-         :email cf/personal-email
+         ;; :email cf/personal-email
          :recursive t
-         :publishing-function org-html-publish-to-html
+         :publishing-function cf/org-publish-blog
          :completion-function cf/pass
          :with-tags nil
          :headline-levels 4             ; Just the default for this project.
          :with-toc nil
          :with-title t
+         :with-email nil
          :section-numbers nil
          :with-sub-superscript nil
          :with-todo-keywords nil
@@ -71,7 +72,7 @@
          )
         ("blog-static"
          :base-directory "~/syscowboy/posts/static"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"
          :publishing-directory server-static-base
          :recursive t
          :publishing-function org-publish-attachment)))

@@ -1,13 +1,40 @@
-* Reflection on System 
+* Reflection on System
 ** What went well?
    %?
 ** What should be adjusted?
+
+* Stats Tracking
+** Spending
+
+  |-------+---|
+  |-------+---|
+  | Total | 0 |
+  |       |   |
+  #+TBLFM: @>$2=vsum(@I..@II)
+
+:instructions:
+To update this field, filter the last 7 days on Chase.com and run macro over data to convert it into the table.
+:END:
+
+
+** Time on Phone
+  | App      | Hours |
+  |----------+-------|
+  | Youtube  |    15 |
+  | Facebook |   1.5 |
+  | Chrome   |     3 |
+  |----------+-------|
+  | Total    |  19.5 |
+  #+TBLFM: @5$2=vsum(@I..@II)
+** Time at work
+** Output
 
 * Brain Dump [0%]
 - [ ] Work
 - [ ] Email Items
 - [ ] Appointments or Waiting-ons
 - [ ] Kailah, romance, gifts, anniversary
+- [ ] Money Whiteboard
 - [ ] Recommendations
   - Books
   - Movies
@@ -15,12 +42,12 @@
   - Amazon
 
 * Reflection on Habits
-** Success Indicators [/]
-  Check the ones that I rocked this week!
+** Success Indicators [0/6]
+ Check the ones that I rocked this week! [0-5]
     - [ ] Reading
-    - [ ] Working Out
     - [ ] NF
+    - [ ] Working Out
     - [ ] Mindfulness
+    - [ ] Cleanliness
     - [ ] Diet
 ** Thoughts
-

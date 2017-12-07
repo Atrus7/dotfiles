@@ -69,6 +69,7 @@
     (c-c++ :variables
            c-c++-default-mode-for-headers 'c++-mode
            c-c++-enable-clang-support t)
+    common-lisp
     emacs-lisp
     html
     javascript
@@ -226,7 +227,7 @@
   (setq-default
    dotspacemacs-verbose-loading nil
    spacemacs-buffer-logo-title "[ Welcome Home ]"
-   dotspacemacs-startup-banner (concat dotspacemacs-directory "img/banner-1.png")
+   dotspacemacs-startup-banner (concat dotspacemacs-directory "img/banner.png")
    dotspacemacs-startup-lists '(agenda bookmarks recents)
    dotspacemacs-startup-buffer-responsive t
    dotspacemacs-loading-progress-bar t

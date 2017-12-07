@@ -1,4 +1,4 @@
-### Chris' i3 config file 
+### Chris' i3 config file
 
 ## Basic Looks
 # Font for window titles. Will also be used by the bar unless a different font
@@ -104,15 +104,15 @@ gaps inner 10
 #for_window [title="emacs"]
 
 ## Workspaces(     )
-set $tag1 "1: home"  
-set $tag2 "2: code"  
-set $tag3 "3: music" 
-set $tag4 "4: www"   
-set $tag5 "5: ssh" 
-set $tag6 "6:" 
-set $tag7 "7:" 
-set $tag8 "8:" 
-set $tag9 "9:" 
+set $tag1 "1: home"
+set $tag2 "2: code"
+set $tag3 "3: music"
+set $tag4 "4: www"
+set $tag5 "5: ssh"
+set $tag6 "6:"
+set $tag7 "7:"
+set $tag8 "8:"
+set $tag9 "9:"
 set $tag9 "10:"
 
 # switch to workspace
@@ -172,10 +172,10 @@ bindsym $mod+Shift+d exec --no-startup-id rofi -show drun
 ## Special Video Hotkeys
 #Currently kindof broken, due to buggy marks. See https://github.com/i3/i3/commit/6b9b12c3038a766b68ea9c5e8a4b815163cd9049
 # marks the focused container and move it bottom right
-bindsym $mod+y mark floating_video; fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 680
+bindsym $mod+y exec ~/bin/window_resize.py --prepare_window 30 30 br ;
 
 # focus the container and move top right
-bindsym $mod+Shift+y mark return_window; [con_mark="floating_video"] focus; fullscreen disable; floating enable; resize set 700 400; sticky enable; move window to position 1220 0; [con_mark="return_window"] focus; unmark return_window;
+bindsym $mod+Shift+y mark return_window; [con_mark="floating_video"] focus; exec ~/bin/window_resize.py 30 30 tr; [con_mark="return_window"] focus; unmark return_window;
 
 
 ## Media/Special keys

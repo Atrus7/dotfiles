@@ -82,3 +82,11 @@
           )
       nil
       )))
+
+;; Wrapper for main publishing fn for addendums
+(defun cf/org-publish-blog (&rest args)
+
+  ;; actual publishing
+  (apply #'org-html-publish-to-html args)
+
+ )

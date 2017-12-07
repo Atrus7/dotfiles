@@ -15,5 +15,16 @@
 
 ;; Macros stored here
 (fset 'exchange-words "gxewgxe")
+(fset 'remove-surrounding-function
+   "f)ds)dB")
+
 
 (evil-global-set-key 'normal (kbd "gw") 'exchange-words)
+
+
+;; Store macro-based ops
+(spacemacs/declare-prefix (kbd "o") "User macros")
+(spacemacs/declare-prefix (kbd "o d") "Delete macros")
+
+(evil-leader/set-key (kbd "o d f") 'remove-surrounding-function)
+;; (define-key evil-normal-state-map (kbd "o d f") 'remove-surrounding-function)
