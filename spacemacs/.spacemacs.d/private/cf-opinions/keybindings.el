@@ -23,8 +23,10 @@
 
 
 ;; Store macro-based ops
-(spacemacs/declare-prefix (kbd "o") "User macros")
+(spacemacs/declare-prefix (kbd "o") "cf/")
 (spacemacs/declare-prefix (kbd "o d") "Delete macros")
+(spacemacs/declare-prefix (kbd "o b") "Buffers")
 
 (evil-leader/set-key (kbd "o d f") 'remove-surrounding-function)
+(evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
 ;; (define-key evil-normal-state-map (kbd "o d f") 'remove-surrounding-function)

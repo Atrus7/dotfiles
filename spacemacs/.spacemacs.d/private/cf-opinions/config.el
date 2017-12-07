@@ -33,4 +33,22 @@
     )
   )
 
-;(defun save-scratch-and-file() {}) 
+; TODO: Set to <SPC> bg
+(defun get-all-magit-buffers()
+  (interactive)
+  (helm :sources helm-mini-default-sources
+        :buffer "*helm mini*"
+        :input "*magit "
+        :ff-transformer-show-only-basename nil
+        :truncate-lines helm-buffers-truncate-lines)
+ )
+
+
+(defvar cf/scratch-save-dir "~/tmp")
+(defun cf/save-scratch-and-file()
+  (interactive)
+  (spacemacs/switch-to-scratch-buffer)
+  (setq scratch_name (concat cf/scratch-save-dir "/" (format-time-string "%m_%d_%y") ".scratch"))
+  (set-visited-file-name scratch_name)
+  (save-buffer)
+  )
