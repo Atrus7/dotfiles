@@ -33,8 +33,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-#HiDPI settings
-#xrandr --fbmm 286x179
 
 #on archy-mac
 
@@ -45,6 +43,10 @@ xset r rate 200 35
 pulseaudio --start
 #exec wicd-gtk
 #exec xterm -geometry 80x66+0+0 -name login
+
+#HiDPI settings
+# xrandr --fbmm 286x179
+# xrandr --output DP1 --auto --left-of eDP1
 
 ###############
 #Ideal Desktop#
