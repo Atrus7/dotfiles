@@ -5,7 +5,8 @@
    (lambda ()
      (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
      (setq org-map-continue-from (outline-previous-heading)))
-   "/DONE" 'file))
+   "/DONE" 'file)
+  )
 
 ;; TODO implement
 ;; (defun cf/org-archive-task ()
@@ -88,5 +89,4 @@
 
   ;; actual publishing
   (apply #'org-html-publish-to-html args)
-
  )

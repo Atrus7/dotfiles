@@ -52,3 +52,11 @@
   (set-visited-file-name scratch_name)
   (save-buffer)
   )
+
+(setq browse-url-browser-function 'browse-url-chromium)
+
+
+;; Stop autocompleting numbers
+;(push (apply-partially #'cl-remove-if
+;                       (lambda (c) (string-match-p "\\`[0-9]+[a-f]+\\'" c)))
+;      company-transformers)

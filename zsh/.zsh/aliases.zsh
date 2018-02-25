@@ -3,6 +3,8 @@ alias lsl="ls -lhF --color=auto"
 alias ll="ls -lahF --color=auto"
 alias fuck='sudo $(fc -ln -1)'
 alias emacs_kill="emacsclient -e '(kill-emacs)'"
+alias emacs_debug="emacs --debug-init"
+alias emacs_fresh="emacs --no-desktop"
 alias ec="emacsclient -c"
 alias e=$EDITOR
 #alias connect_vpn="sudo openvpn ........"

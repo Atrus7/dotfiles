@@ -50,7 +50,7 @@
          :publishing-directory server-blog-base
          ;; :email cf/personal-email
          :recursive t
-         :publishing-function cf/org-publish-blog
+         :publishing-function org-html-publish-to-html
          :completion-function cf/pass
          :with-tags nil
          :headline-levels 4             ; Just the default for this project.

@@ -16,7 +16,10 @@
 ;; Macros stored here
 (fset 'exchange-words "gxewgxe")
 (fset 'remove-surrounding-function
-   "f)ds)dB")
+      "f)ds)dB")
+
+(fset 'swap-around-hyphen
+   "0WWvt-begxf-wv$hgx")
 
 
 (evil-global-set-key 'normal (kbd "gw") 'exchange-words)

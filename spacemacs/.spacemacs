@@ -33,6 +33,7 @@
 (defvar dotspacemacs/layers/local
   '(cf-calendar
     cf-desktop
+    cf-gnus
     cf-irc
     cf-linux
     cf-mac
@@ -71,6 +72,7 @@
            c-c++-enable-clang-support t)
     common-lisp
     emacs-lisp
+    extra-langs ;; arduino
     html
     javascript
     markdown
@@ -82,12 +84,10 @@
 ;;;; Extra
 
 (defvar dotspacemacs/layers/extra
-  '(
-    ;;gnus ;;One day...
+  '( ;; today?
+    gnus
     graphviz
     ibuffer
-    ;; (ibuffer :variables
-    ;;          ibuffer-group-buffers-by 'projects)
     )
   "Miscellaneous layers")
 
@@ -100,10 +100,11 @@
    dotspacemacs-ask-for-lazy-installation t
 
    dotspacemacs-configuration-layer-path '("~/.spacemacs.d/private/")
-   dotspacemacs-configuration-layers (append dotspacemacs/layers/core
-                                             dotspacemacs/layers/langs
-                                             dotspacemacs/layers/extra
-                                             dotspacemacs/layers/local)
+   dotspacemacs-configuration-layers ( append
+                                       dotspacemacs/layers/core
+                                       dotspacemacs/layers/langs
+                                       dotspacemacs/layers/extra
+                                       dotspacemacs/layers/local)
    ))
 
 ;;;; Layers/packages
