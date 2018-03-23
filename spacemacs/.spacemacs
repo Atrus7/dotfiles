@@ -3,6 +3,7 @@
 
 (defun dotspacemacs/init ()
   "Spacemacs core settings."
+  (dotspacemacs/init/pre-init)
   (dotspacemacs/init/coding)
   (dotspacemacs/init/display)
   (dotspacemacs/init/evil)
@@ -11,6 +12,14 @@
   (dotspacemacs/init/misc)
   (dotspacemacs/init/packages)
   (dotspacemacs/init/startup))
+
+(defun dotspacemacs/init/pre-init ()
+  (let (work-file (concat dotspacemacs-directory "work/work-init.el"))
+    (defvar at-work (file-exists-p work-file))
+
+    (if at-work
+        (require 'work-init work-file))
+    ))
 
 (defun dotspacemacs/layers ()
   "Spacemacs layers declarations and package configurations."
@@ -41,7 +50,10 @@
     cf-org
     cf-scheme
     cf-ssh
-    cf-writing)
+    cf-writing
+    cf-yas
+    (if at-work cf-work cf-home)
+    )
   "Local layers housed in '~/.spacemacs.d/private'.")
 
 ;;;; Core
@@ -51,15 +63,23 @@
     (auto-completion :variables
                      auto-completion-return-key-behavior 'complete
                      auto-completion-enable-snippets-in-popup t)
+
+    (cscope :variables
+            cscope-initial-directory "~/tmp/cscope/./"
+            cscope-program "/usr/bin/cscope"
+            cscope-display-cscope-buffer t
+            cscope-option-do-not-update-database t
+            )
     erc
     git
     org
     (shell :variables
-           shell-default-shell 'eshell)
+           shell-default-shell 'term)
     spell-checking
     syntax-checking
     syntax-checking
     version-control
+    ycmd
     )
   "Layers I consider core to Spacemacs")
 
@@ -76,9 +96,12 @@
     html
     javascript
     markdown
+    csv
     python
     scheme
-    vimscript)
+    vimscript
+    yaml
+    )
   "Programming and markup language layers")
 
 ;;;; Extra
@@ -100,11 +123,11 @@
    dotspacemacs-ask-for-lazy-installation t
 
    dotspacemacs-configuration-layer-path '("~/.spacemacs.d/private/")
-   dotspacemacs-configuration-layers ( append
-                                       dotspacemacs/layers/core
-                                       dotspacemacs/layers/langs
-                                       dotspacemacs/layers/extra
-                                       dotspacemacs/layers/local)
+   dotspacemacs-configuration-layers (append
+                                      dotspacemacs/layers/core
+                                      dotspacemacs/layers/langs
+                                      dotspacemacs/layers/extra
+                                      dotspacemacs/layers/local)
    ))
 
 ;;;; Layers/packages
@@ -145,7 +168,7 @@
                          solarized-dark
                          )
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -163,7 +186,7 @@
   (setq-default
    dotspacemacs-editing-style 'vim
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-remap-Y-to-y$ nil
+   dotspacemacs-remap-Y-to-y$ t
    dotspacemacs-retain-visual-state-on-shift t
    dotspacemacs-visual-line-move-text nil
    dotspacemacs-ex-substitute-global nil
@@ -191,7 +214,7 @@
 
 (defun dotspacemacs/init/layouts ()
   (setq-default
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'org-mode
    dotspacemacs-default-layout-name "Default"
    dotspacemacs-display-default-layout nil
    dotspacemacs-auto-resume-layouts nil
@@ -204,6 +227,7 @@
    dotspacemacs-large-file-size 1
    dotspacemacs-auto-save-file-location 'cache
    dotspacemacs-max-rollback-slots 5
+   dotspacemacs-use-ido nil
    dotspacemacs-persistent-server nil
    dotspacemacs-helm-resize nil
    dotspacemacs-helm-no-header nil
@@ -213,6 +237,8 @@
 ;;;; Packages
 
 (defun dotspacemacs/init/packages ()
+  (add-to-list 'package-archives
+               '("org" . "http://orgmode.org/elpa/") t)
   (setq-default
    dotspacemacs-default-package-repository nil
    dotspacemacs-elpa-https t
@@ -221,8 +247,6 @@
    dotspacemacs-elpa-subdirectory nil
    dotspacemacs-delete-orphan-packages t
    ))
-
-;;;; Startup
 
 (defun dotspacemacs/init/startup ()
   (setq-default
@@ -254,13 +278,16 @@
 ;;;; Experiments
 
 (defun dotspacemacs/user-config/experiments ()
-  (spacemacs/toggle-aggressive-indent-globally-on)
+  (if at-work (cf/work-post-loading))
+
   ;; Prevent org capture from warning in a perspective
   (setq persp-kill-foreign-buffer-action nil)
+
+  (spacemacs/toggle-aggressive-indent-globally-on)
 
   (add-hook 'c++-mode-hook
             (lambda ()
               (setq company-clang-arguments '("-std=c++11"))
-              (setq flycheck-clang-language-standard "c++11")
-              ))
+              (setq flycheck-clang-language-standard "c++11")))
+
   )

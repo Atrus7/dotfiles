@@ -16,10 +16,13 @@
 ;; Macros stored here
 (fset 'exchange-words "gxewgxe")
 (fset 'remove-surrounding-function
-      "f)ds)dB")
+   "f)ds)dB")
 
 (fset 'swap-around-hyphen
    "0WWvt-begxf-wv$hgx")
+
+(fset 'gerrit-link-to-depends-on
+   [?/ ?e ?u ?r return ?d ?B ?/ ?r ?e ?v ?i ?e ?w return ?h ?m ?m ?$ ?F ?/ ?d ?` ?m ?I ?D ?e ?p ?e ?n ?d ?s ?- ?O ?n ?: ?  escape ?0])
 
 
 (evil-global-set-key 'normal (kbd "gw") 'exchange-words)
@@ -27,9 +30,18 @@
 
 ;; Store macro-based ops
 (spacemacs/declare-prefix (kbd "o") "cf/")
-(spacemacs/declare-prefix (kbd "o d") "Delete macros")
+(spacemacs/declare-prefix (kbd "o m") "Macros")
 (spacemacs/declare-prefix (kbd "o b") "Buffers")
+(spacemacs/declare-prefix (kbd "o t") "Tramp")
 
-(evil-leader/set-key (kbd "o d f") 'remove-surrounding-function)
+(evil-leader/set-key (kbd "o m f") 'remove-surrounding-function)
 (evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
-;; (define-key evil-normal-state-map (kbd "o d f") 'remove-surrounding-function)
+(evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
+;; (define-key evil-normal-state-map (kbd "s") 'remove-surrounding-function)
+
+
+(evil-leader/set-key "owl" 'cf/chrome-linux-ident)
+(evil-global-set-key 'normal "s" 'evil-exchange)
+
+;; TODO this doesn't work yet
+;; (evil-global-set-key 'visual "S" 'evil-exchange)

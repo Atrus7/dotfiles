@@ -1,19 +1,17 @@
 (setq
  ;; don't read or write newsrc files
  gnus-save-newsrc-file t
- gnus-read-newsrc-file t
+ gnus-read-newsrc-file t)
                                         ; CONFLICT~/.gnus is by default the gnus-init-file
                                         ;gnus-startup-file "~/.gnus/.newsrc"
                                         ;gnus-init-file "~/.gnus/.gnus"
 
 
- ;; Perhaps have a system-message function that calls notify-send with the given message and also writes to normal message buffer
- ;; In this case you could message when Gnus starts stawrting and when it finishes starting up.
- ;; ‘gnus-before-startup-hook’
- ;; ‘gnus-startup-hook’
+;; Perhaps have a system-message function that calls notify-send with the given message and also writes to normal message buffer
+;; In this case you could message when Gnus starts stawrting and when it finishes starting up.
+;; ‘gnus-before-startup-hook’
+;; ‘gnus-startup-hook’
 
- user-full-name "Chris Findeisen"
- user-mail-address "cfindeisen7@gmail.com")
 
 ;; Unbind this key; it's annoying!
 ;; (define-key gnus-summary-mode-map "o" (lambda () (interactive)))

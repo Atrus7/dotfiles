@@ -11,6 +11,8 @@
          "* TODO %?\n  %i\n  Entered on %U")
         ("j" "Journal" entry (file+datetree "~/org/journal.org")
          "* %?\nEntered on %U\n  %i\n")
+        ("d" "daily" entry (file+datetree "~/org/daily.org")
+         "* TODO %?\n %i\n SCHEDULED: %t ")
         ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
          "* %i%?\n  Noted on %U \n  ")
         ("c" "Code" entry (file+headline "~/org/code_snippets.org" "Code Snippets")
