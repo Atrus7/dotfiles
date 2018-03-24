@@ -14,7 +14,8 @@
   (dotspacemacs/init/startup))
 
 (defun dotspacemacs/init/pre-init ()
-  (let (work-file (concat dotspacemacs-directory "work/work-init.el"))
+  (let ((work-file "~/dotfiles/work/work-init.el"))
+
     (defvar at-work (file-exists-p work-file))
 
     (if at-work
@@ -51,8 +52,6 @@
     cf-scheme
     cf-ssh
     cf-writing
-    cf-yas
-    (if at-work cf-work cf-home)
     )
   "Local layers housed in '~/.spacemacs.d/private'.")
 
@@ -127,7 +126,9 @@
                                       dotspacemacs/layers/core
                                       dotspacemacs/layers/langs
                                       dotspacemacs/layers/extra
-                                      dotspacemacs/layers/local)
+                                      dotspacemacs/layers/local
+                                      (if at-work '(cf-work) '(cf-home))
+                                      )
    ))
 
 ;;;; Layers/packages
