@@ -51,6 +51,15 @@
     )
   )
 
+(defun cf/get-orgfiles-path (fname)
+  (let ((file_path (concat "~/org/" fname)))
+    (if (and at-work (not (spacemacs/system-is-linux)))
+        ;; tramp around
+        (cf/get-desk-path file_path)
+      file_path
+      )))
+
+
 (defun cf/org-file-org-txt (filename)
   "Append [filename].org.txt contents to [filename].org file in the [dir], then delete the .org.txt"
   (setq org-filename (concat filename ".org"))
@@ -89,4 +98,4 @@
 
   ;; actual publishing
   (apply #'org-html-publish-to-html args)
- )
+  )

@@ -7,24 +7,25 @@
 ;;     (buffer-string)))
 
 (setq org-capture-templates
-      `(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+      `(("t" "Todo" entry (file+headline ,(cf/get-orgfiles-path "todo.org" )"Tasks")
          "* TODO %?\n  %i\n  Entered on %U")
-        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+        ("j" "Journal" entry (file+datetree ,(cf/get-orgfiles-path  "journal.org"))
          "* %?\nEntered on %U\n  %i\n")
-        ("d" "daily" entry (file+datetree "~/org/daily.org")
+        ("d" "daily" entry (file+datetree ,(cf/get-orgfiles-path  "daily.org"))
          "* TODO %?\n %i\n SCHEDULED: %t ")
-        ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
+        ("i" "Idea" entry (file+headline ,(cf/get-orgfiles-path "ideas.org") "Ideas")
          "* %i%?\n  Noted on %U \n  ")
-        ("c" "Code" entry (file+headline "~/org/code_snippets.org" "Code Snippets")
+        ("c" "Code" entry (file+headline ,(cf/get-orgfiles-path "code_snippets.org") "Code Snippets")
          "* Snippet %?\n Entered on %U\n  %i\n  %a")
-        ("b" "Book" entry (file+headline "~/org/books.org" "Unfiled")
+        ("b" "Book" entry (file+headline ,(cf/get-orgfiles-path "books.org") "Unfiled")
          "** TO_READ %?\n Entered on %U\n  %i\n ")
-        ("m" "Misc" entry (file+headline "~/org/misc.org" "Misc")
+        ("m" "Misc" entry (file+headline ,(cf/get-orgfiles-path "misc.org") "Misc")
          "* %?\n Entered on %U\n  %i\n ")
-        ("w" "Weekly Review" entry (file+datetree "~/org/weekly_review.org" "Weekly Review")
+        ("w" "Weekly Review" entry (file+datetree ,(cf/get-orgfiles-path "weekly_review.org") "Weekly Review")
          ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
 
 )))
+
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
 (setq
