@@ -41,3 +41,7 @@
 ;(push (apply-partially #'cl-remove-if
 ;                       (lambda (c) (string-match-p "\\`[0-9]+[a-f]+\\'" c)))
 ;      company-transformers)
+
+(setq whitespace-style '(face spaces tabs space-mark tab-mark))
+(add-hook 'makefile-mode-hook
+          (lambda () (whitespace-mode)))
