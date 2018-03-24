@@ -21,6 +21,13 @@
             (cf/highlight-indent-offset)))
 
 (defvar cf/scratch-save-dir "~/tmp")
+
+;; prefer 115200 baud
+(setq serial-speed-history
+      (list  "115200";; Given twice because "115200" b/s is the most common speed
+             "1200" "2400" "4800" "9600" "14400" "19200"
+             "28800" "38400" "57600"   "115200"))
+
 (defun cf/save-scratch-and-file()
   (interactive)
   (spacemacs/switch-to-scratch-buffer)
