@@ -4,8 +4,8 @@
   (use-package gnus
     :defer t
     :config
-    (define-key 'gnus-article-mode-map "}" evil-forward-paragraph)
-    (define-key 'gnus-article-mode-map "{" evil-backward-paragraph)
+    (define-key gnus-article-mode-map "}" 'evil-forward-paragraph)
+    (define-key gnus-article-mode-map "{" 'evil-backward-paragraph)
 
     ;; Get email, and store in nnml
     (setq gnus-secondary-select-methods
@@ -83,7 +83,6 @@
 
      gnus-no-groups-message "No messages to be displayed. Get back to work"
      ;; This is where we store the password.
-     nntp-authinfo-file "~/.authinfo"
      ;; Gmail system labels have the prefix [Gmail], which matches
      ;; the default value of gnus-ignored-newsgroups. That's why we
      ;; redefine it.
