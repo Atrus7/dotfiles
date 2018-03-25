@@ -15,11 +15,14 @@
 
 (defun dotspacemacs/init/pre-init ()
   (let ((work-file "~/dotfiles/work/work-init.el"))
-
     (defvar at-work (file-exists-p work-file))
 
     (if at-work
-        (require 'work-init work-file))
+        (progn
+          (require 'work-init work-file)
+          (cf/work-pre-loading))
+
+      )
     ))
 
 (defun dotspacemacs/layers ()
@@ -46,6 +49,7 @@
     cf-gnus
     cf-irc
     cf-linux
+    cf-lisp
     cf-mac
     cf-opinions
     cf-org

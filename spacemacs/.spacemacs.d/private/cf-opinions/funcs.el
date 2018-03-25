@@ -56,6 +56,18 @@
   (set-visited-file-name scratch_name)
   (save-buffer))
 
+(defun cf/get-projectile-magit ()
+  "Hacky...temporarily sets  projectile-switch-project-action and then unsets it"
+  (interactive)
+  (setq projectile-switch-project-action 'projectile-vc)
+  (helm-projectile-switch-project)
+  (setq projectile-switch-project-action 'projectile-find-file))
+
+(defun cf/private-layers ()
+  "shortcut to private layers dir"
+  (interactive)
+  (helm-find-files-1 "~/dotfiles/spacemacs/.spacemacs.d/private/"))
+
 (defun cf/chrome-linux-ident (region-start region-end)
   ;;; Look up identifier in linux kernel
   (interactive "r")
@@ -74,3 +86,8 @@
       (if (null start)
           ""
         (buffer-substring-no-properties start end)))))
+
+(defun cf/describe-last-function()
+  (interactive)
+  (describe-function last-command))
+

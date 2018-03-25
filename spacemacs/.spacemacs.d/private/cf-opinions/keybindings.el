@@ -13,6 +13,13 @@
 (evil-global-set-key 'normal (kbd "Q") 'call-last-kbd-macro)
 (evil-global-set-key 'normal (kbd "C-q") 'name-last-kbd-macro)
 
+;; win movement
+(define-key global-map (kbd "M-h") #'evil-window-left)
+(define-key global-map (kbd "M-j") #'evil-window-down)
+(define-key global-map (kbd "M-k") #'evil-window-up)
+(define-key global-map (kbd "M-l") #'evil-window-right)
+
+
 ;; Macros stored here
 (fset 'exchange-words "gxewgxe")
 (fset 'remove-surrounding-function
@@ -33,6 +40,13 @@
 (spacemacs/declare-prefix (kbd "o m") "Macros")
 (spacemacs/declare-prefix (kbd "o b") "Buffers")
 (spacemacs/declare-prefix (kbd "o t") "Tramp")
+;; TODO map describe last-function
+;; run current function
+
+
+(evil-leader/set-key (kbd "fep") 'cf/private-layers)
+(evil-leader/set-key (kbd "p s") 'cf/get-projectile-magit)
+
 
 (evil-leader/set-key (kbd "o m f") 'remove-surrounding-function)
 (evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
@@ -42,6 +56,9 @@
 
 (evil-leader/set-key "owl" 'cf/chrome-linux-ident)
 (evil-global-set-key 'normal "s" 'evil-exchange)
+
+
+(evil-leader/set-key "ww" 'ace-select-window)
 
 ;; TODO this doesn't work yet
 ;; (evil-global-set-key 'visual "S" 'evil-exchange)

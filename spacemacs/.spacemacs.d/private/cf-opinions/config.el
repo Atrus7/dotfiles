@@ -5,7 +5,9 @@
 ;(setq debug-on-error t)
 
 ;; Don't edit any shell files except my own
-(setq sh-make-vars-local nil)
+(setq sh-make-vars-local nil
+      shell-default-shell 'shell
+      )
 
 (setq create-lockfiles nil)
 
@@ -15,6 +17,7 @@
 (setq initial-scratch-message "* Scratch Buffer\n")
 
 (setq doc-view-continuous t)
+
 
 (add-hook 'prog-mode-hook
           (lambda()
@@ -28,15 +31,6 @@
              "1200" "2400" "4800" "9600" "14400" "19200"
              "28800" "38400" "57600"   "115200"))
 
-(defun cf/save-scratch-and-file()
-  (interactive)
-  (spacemacs/switch-to-scratch-buffer)
-  (setq scratch_name (concat cf/scratch-save-dir "/" (format-time-string "%m_%d_%y") ".scratch"))
-  (set-visited-file-name scratch_name)
-  (save-buffer)
-  )
-
-
 ;; Stop autocompleting numbers
 ;(push (apply-partially #'cl-remove-if
 ;                       (lambda (c) (string-match-p "\\`[0-9]+[a-f]+\\'" c)))
@@ -45,3 +39,4 @@
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
 (add-hook 'makefile-mode-hook
           (lambda () (whitespace-mode)))
+
