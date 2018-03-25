@@ -1,6 +1,6 @@
-alias ls="ls -hF --color=auto"
-alias lsl="ls -lhF --color=auto"
-alias ll="ls -lahF --color=auto"
+alias ls="ls -hF"
+alias lsl="ls -lhF"
+alias ll="ls -lahF"
 alias fuck='sudo $(fc -ln -1)'
 alias emacs_kill="emacsclient -e '(kill-emacs)'"
 alias emacs_debug="emacs --debug-init"
