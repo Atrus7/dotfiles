@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Bug-Test-Commit-Msg
+# key: bug-test-commit-msg
+# --
+$0
+
+Bug: None
+Test: None

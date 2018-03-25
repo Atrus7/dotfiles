@@ -5,7 +5,9 @@
 ;(setq debug-on-error t)
 
 ;; Don't edit any shell files except my own
-(setq sh-make-vars-local nil)
+(setq sh-make-vars-local nil
+      shell-default-shell 'shell
+      )
 
 (setq create-lockfiles nil)
 
@@ -16,47 +18,25 @@
 
 (setq doc-view-continuous t)
 
-;; creates a newline without breaking the current line
-(defun newline-below-point ()
-  "1. Move to end of line
-   2. insert newline with indentation"
-  (interactive)
-  (let((oldpos(point)))
-    (end-of-line)
-    (newline-and-indent)))
 
-(defun newline-above-point ()
-  (interactive)
-  (if (eq (line-number-at-pos) 1)
-      (progn (beginning-of-line) (newline) (previous-line))
-      (progn (previous-line) (newline-below-point))
-    )
-  )
-
-; TODO: Set to <SPC> bg
-(defun get-all-magit-buffers()
-  (interactive)
-  (helm :sources helm-mini-default-sources
-        :buffer "*helm mini*"
-        :input "*magit "
-        :ff-transformer-show-only-basename nil
-        :truncate-lines helm-buffers-truncate-lines)
- )
-
+(add-hook 'prog-mode-hook
+          (lambda()
+            (cf/highlight-indent-offset)))
 
 (defvar cf/scratch-save-dir "~/tmp")
-(defun cf/save-scratch-and-file()
-  (interactive)
-  (spacemacs/switch-to-scratch-buffer)
-  (setq scratch_name (concat cf/scratch-save-dir "/" (format-time-string "%m_%d_%y") ".scratch"))
-  (set-visited-file-name scratch_name)
-  (save-buffer)
-  )
 
-(setq browse-url-browser-function 'browse-url-chromium)
-
+;; prefer 115200 baud
+(setq serial-speed-history
+      (list  "115200";; Given twice because "115200" b/s is the most common speed
+             "1200" "2400" "4800" "9600" "14400" "19200"
+             "28800" "38400" "57600"   "115200"))
 
 ;; Stop autocompleting numbers
 ;(push (apply-partially #'cl-remove-if
 ;                       (lambda (c) (string-match-p "\\`[0-9]+[a-f]+\\'" c)))
 ;      company-transformers)
+
+(setq whitespace-style '(face spaces tabs space-mark tab-mark))
+(add-hook 'makefile-mode-hook
+          (lambda () (whitespace-mode)))
+

@@ -4,6 +4,8 @@
   (use-package gnus
     :defer t
     :config
+    (define-key gnus-article-mode-map "}" 'evil-forward-paragraph)
+    (define-key gnus-article-mode-map "{" 'evil-backward-paragraph)
 
     ;; Get email, and store in nnml
     (setq gnus-secondary-select-methods
@@ -13,7 +15,7 @@
             ;; (nntp "news.eternal-september.org")
             ;; (nntp "nntp.aioe.org")
             ;; (nntp "news.gwene.org")
-            (nnimap "my_mail"
+            (nnimap "mail"
                     (nnimap-address "imap.gmail.com")
                     (nnimap-server-port 993)
                     (nnimap-stream ssl))
@@ -57,6 +59,7 @@
 
      gnus-fetch-old-headers nil
 
+     gnus-thread-hide-subtree nil
 
      gnus-agent t
      gnus-agent-cache t
@@ -80,16 +83,30 @@
 
      gnus-no-groups-message "No messages to be displayed. Get back to work"
      ;; This is where we store the password.
-     nntp-authinfo-file "~/.authinfo.gpg"
      ;; Gmail system labels have the prefix [Gmail], which matches
      ;; the default value of gnus-ignored-newsgroups. That's why we
      ;; redefine it.
      gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
      ;; We don't want local, unencrypted copies of emails we write.
      ;; gnus-message-archive-group nil
-     ;; We want to be able to read the emails we wrote.
-     ;; mml2015-encrypt-to-self t)
-     )
+
+     gnus-simplify-ignored-prefixes (concat
+            "\\`\\[?\\("
+            (mapconcat
+             'identity
+             '("looking"
+               "wanted" "followup" "summary\\( of\\)?"
+               "help" "query" "problem" "question"
+               "answer" "reference" "announce"
+               "How can I" "How to" "Comparison of"
+               ;; ...
+               )
+             "\\|")
+            "\\)\\s *\\("
+            (mapconcat 'identity
+                       '("for" "for reference" "with" "about")
+                       "\\|")
+            "\\)?\\]?:?[ \t]*"))
 
     ;; ;; Attempt to encrypt all the mails we'll be sending.
     ;; (add-hook 'message-setup-hook 'mml-secure-message-encrypt)
@@ -98,7 +115,36 @@
     ;; (add-hook 'gnus-summary-mode-hook 'my-gnus-summary-keys)
     (setq gnus-group-line-format "%M%S%p%P%5y:%B %G\n")
 
-     (setq gnus-score-over-mark ?\u2191          ; \u2191 \u2600
+(defhydra hydra-summary-limit-menu (:color pink
+                                           :hint nil)
+  "
+^Limit to^             ^Expand^           ^Quit
+^^^^^^^^-----------------------------------------------------------------
+_s_: subject           _/_: pop-limit        _q_: quit
+_a_: author            _D_: include-dormant
+_r_: recipient         _g_: insert-new
+_A_: address
+_m_: marks
+_u_: unread
+"
+  ("s" gnus-summary-limit-to-subject)
+  ("a" gnus-summary-limit-to-author)
+  ("r" gnus-summary-limit-to-recipient)
+  ("A" gnus-summary-limit-to-address)
+  ("m" gnus-summary-limit-to-marks)
+  ("/" gnus-summary-pop-limit)
+  ("u" gnus-summary-limit-to-unread)
+  ("D" gnus-summary-limit-include-dormant)
+  ("g" gnus-summary-insert-new-articles)
+  ("q" quit-window "quit" :color blue))
+
+(define-key gnus-summary-mode-map "/" 'hydra-summary-limit-menu/body)
+
+    (setq
+     ;; graphics
+     gnus-auto-center-summary t
+
+     gnus-score-over-mark ?\u2191          ; \u2191 \u2600
            gnus-score-below-mark ?\u2193         ; \u2193 \u2602
            gnus-ticked-mark ?\u2691
            gnus-dormant-mark ?\u2690
