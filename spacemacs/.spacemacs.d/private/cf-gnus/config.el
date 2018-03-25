@@ -1,10 +1,10 @@
 (setq
  ;; don't read or write newsrc files
  gnus-save-newsrc-file nil
- gnus-read-newsrc-file nil
-                                        ; CONFLICT~/.gnus is by default the gnus-init-file
-                                        ;gnus-startup-file "~/.gnus/.newsrc"
-                                        ;gnus-init-file "~/.gnus/.gnus"
+ gnus-read-newsrc-file nil)
+;; CONFLICT~/.gnus is by default the gnus-init-file
+;;gnus-startup-file "~/.gnus/.newsrc"
+;;gnus-init-file "~/.gnus/.gnus"
 
 
 ;; Perhaps have a system-message function that calls notify-send with the given message and also writes to normal message buffer
@@ -29,8 +29,8 @@
 
 
 ;; (setq gnus-parameters '((".*" (banner . iphone)))
-      ;; gnus-article-banner-alist '((iphone . "\\(^Sent from my iPhone$\\)"))
-      ;; gnus-use-full-window nil)
+;; gnus-article-banner-alist '((iphone . "\\(^Sent from my iPhone$\\)"))
+;; gnus-use-full-window nil)
 
 ;; (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
@@ -52,7 +52,7 @@
   (find-file "~/org/todo.org")
   (split-frame-vertically)
   (org-todo-list)
-)
+  )
 
 ;; ;; eshell
 ;; (def-persp-buffer-save/load

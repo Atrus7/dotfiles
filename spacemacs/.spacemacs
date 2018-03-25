@@ -284,6 +284,7 @@
 
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
+  (savehist-mode nil)
 
   ;; Prevent org capture from warning in a perspective
   (setq persp-kill-foreign-buffer-action nil)
