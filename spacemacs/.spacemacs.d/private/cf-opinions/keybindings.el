@@ -19,6 +19,11 @@
 (define-key global-map (kbd "M-k") #'evil-window-up)
 (define-key global-map (kbd "M-l") #'evil-window-right)
 
+(evil-define-key 'normal 'global (kbd "M-h") #'evil-window-left)
+(evil-define-key 'normal 'global (kbd "M-j") #'evil-window-down)
+(evil-define-key 'normal 'global (kbd "M-k") #'evil-window-up)
+(evil-define-key 'normal 'global (kbd "M-l") #'evil-window-right)
+
 
 ;; Macros stored here
 (fset 'exchange-words "gxewgxe")

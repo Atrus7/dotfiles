@@ -14,6 +14,7 @@
   (dotspacemacs/init/startup))
 
 (defun dotspacemacs/init/pre-init ()
+
   (let ((work-file "~/dotfiles/work/work-init.el"))
     (defvar at-work (file-exists-p work-file))
 
@@ -284,6 +285,7 @@
 
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
+  (savehist-mode nil)
 
   ;; Prevent org capture from warning in a perspective
   (setq persp-kill-foreign-buffer-action nil)

@@ -136,9 +136,7 @@ _u_: unread
   ("u" gnus-summary-limit-to-unread)
   ("D" gnus-summary-limit-include-dormant)
   ("g" gnus-summary-insert-new-articles)
-  ("q" quit-window "quit" :color blue))
-
-(define-key gnus-summary-mode-map "/" 'hydra-summary-limit-menu/body)
+  ("q" nil "quit" :color blue))
 
     (setq
      ;; graphics
@@ -172,9 +170,23 @@ _u_: unread
     ;; (gnus-demon-add-handler 'gnus-group-get-new-news 10 t)
 
     (add-hook 'message-mode-hook 'turn-on-flyspell)
-    (add-hook 'message-mode-hook 'epa-mail-mode)
-    )
-  )
+(add-hook 'message-mode-hook 'epa-mail-mode)
+
+;; (evilified-state--define-pre-bindings)
+
+;; (evilified-state-evilify-map gnus-summary-mode-map
+;;   :mode gnus-summary-mode
+;;   :bindings
+;;   (kbd "/") 'hydra-summary-limit-menu/body)
+
+
+(evilified-state-evilify gnus-summary-mode gnus-summary-mode-map
+  (kbd "J") 'gnus-summary-next-article
+  (kbd "K") 'gnus-summary-prev-article
+  (kbd "<RET>") 'spacemacs/browse-nnrss-url
+  (kbd "/") 'hydra-summary-limit-menu/body)))
+
+
 
 
 

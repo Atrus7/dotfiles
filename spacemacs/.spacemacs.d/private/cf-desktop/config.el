@@ -1,7 +1,7 @@
 ;;; Desktop work
 ;; Be non-interactive while starting a daemon.
-
-(desktop-save-mode nil) ; fresh starts...
+;; this needs to be early in the init, otherwise it'll try
+(setq desktop-save-mode nil) ; fresh starts...
 
 (setq desktop-base-file-name ".emacs.desktop"
       desktop-load-locked-desktop nil ;only have ONE main emacs open-- the rest should load quick
