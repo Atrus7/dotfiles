@@ -40,20 +40,6 @@
 ;;      (shell-command "offlineimap&" "*offlineimap*" nil)))
 
 
-(spacemacs|define-custom-layout "gnus"
-  :binding "g"
-  :body
-  (gnus)
-  )
-
-(spacemacs|define-custom-layout "org"
-  :binding "o"
-  :body
-  (find-file "~/org/todo.org")
-  (split-frame-vertically)
-  (org-todo-list)
-)
-
 ;; ;; eshell
 ;; (def-persp-buffer-save/load
 ;;  :mode 'eshell-mode :tag-symbol 'def-eshell-buffer

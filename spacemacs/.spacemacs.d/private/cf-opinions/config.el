@@ -40,3 +40,22 @@
 (add-hook 'makefile-mode-hook
           (lambda () (whitespace-mode)))
 
+
+(spacemacs|define-custom-layout "gnus"
+  :binding "g"
+  :body
+  (gnus))
+
+(spacemacs|define-custom-layout "serials"
+  :binding "s"
+  :body
+  (dolist (path (directory-files "/dev/" nil "ttyUSB.*") nil)
+    (serial-term path 115200)
+    (split-window-horizontally)))
+
+(spacemacs|define-custom-layout "org"
+  :binding "o"
+  :body
+  (find-file "~/org/todo.org")
+  (split-frame-vertically)
+  (org-todo-list))
