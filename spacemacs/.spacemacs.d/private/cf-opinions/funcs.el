@@ -73,10 +73,10 @@
   (interactive "r")
   (let ((url (concat
               "https://elixir.bootlin.com/linux/v4.9/ident/"
-              (cf/get_region_or_word))))
+              (cf/get-region-or-symbol))))
     (browse-url-chrome url)))
 
-(defun cf/get_region_or_point ()
+(defun cf/get-region-or-symbol ()
   ;;; Get the currently highlighted region or the symbol at point
   (if (use-region-p)
       (buffer-substring-no-properties (region-beginning) (region-end) )
@@ -90,4 +90,3 @@
 (defun cf/describe-last-function()
   (interactive)
   (describe-function last-command))
-
