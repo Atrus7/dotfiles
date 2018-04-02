@@ -99,3 +99,62 @@
   ;; actual publishing
   (apply #'org-html-publish-to-html args)
   )
+
+;; Pulled from https://github.com/howardabrams/dot-files
+(defun align-variables (start end)
+  "Attempts to align all variables in an assignment list or keys
+in a hash table. For instance:
+
+  (\"org-mode\"
+   :base-extension \"org\"
+   :recursive t
+   :headline-levels 4  ; Just the default for this project.
+   :auto-sitemap t     ; Generate sitemap.org automagically
+  )
+
+Turns into the following if the region begins on the first line
+with the colon:
+
+  (\"org-mode\"
+    :base-extension  \"org\"
+    :recursive       t
+    :headline-levels 4  ; Just the default for this project.
+    :auto-sitemap    t     ; Generate sitemap.org automagically
+  )
+
+Note: This currently does not align the comments.
+
+All lines in region will be indented to the position of the first
+line. For most languages/modes, this should be sufficient, but if
+it doesn't work, start the region as the column they should all
+be indented. For instance:
+
+   var x = 10,
+       start = beginningOfFile,
+       end = File.end();
+
+Start the region at the x, to achieve:
+
+   var x     = 10,
+       start = beginningOfFile,
+       end   = File.end();"
+  (interactive "r")
+  (save-excursion
+    (goto-char start)
+    (let* ((times (count-lines start end))
+           (real-start (if (looking-at-p "[ \\t(]")
+                           (1- (search-forward-regexp "[^ \\t(]" end t))
+                         start))
+           (real-end nil)  ;; Will be set later
+           (dest-column (progn
+                          (goto-char real-start)
+                          (current-column))))
+
+      ;; Step 1. Align all lines to the column of the text in the first line
+      (dotimes (line times)
+        (forward-line)
+        (indent-line-to dest-column))
+      (setq real-end (point))
+
+      ;; Step 2. Align all the values in a second column
+      (align-regexp real-start real-end "\\(\\s-*\\)\\(\\S-*\\)\\(\\s-*\\)" 3 1 nil))))
