@@ -34,8 +34,8 @@
 
 (setq
  org-html-head (cf/org-pull-template-from-file "publishing/links.html")
- org-html-preamble t
- org-html-postamble t
+ org-html-preamble      t
+ org-html-postamble     t
  org-html-inline-images t
  org-html-preamble-format `(("en"
                              ,(cf/org-pull-template-from-file "publishing/header.html"))))
@@ -48,31 +48,32 @@
       '(("blog"
          :components ("blog-content" "blog-static"))
         ("blog-content"
-         :base-directory  "~/syscowboy/posts"
-         :base-extension "org"
+         :base-directory       "~/syscowboy/posts"
+         :base-extension       "org"
          :publishing-directory server-blog-base
-         ;; :email cf/personal-email
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :completion-function cf/pass
-         :with-tags nil
-         :headline-levels 4             ; Just the default for this project.
-         :with-toc nil
-         :with-title t
-         :with-email nil
-         :section-numbers nil
+         ;;                    :email cf/personal-email
+         :recursive            t
+         :publishing-function  org-html-publish-to-html
+         :completion-function  cf/pass
+         :with-tags            nil
+         ;; Just the default for this project.
+         :headline-levels      4
+         :with-toc             nil
+         :with-title           t
+         :with-email           nil
+         :section-numbers      nil
          :with-sub-superscript nil
-         :with-todo-keywords nil
-                                        ;:author Chris Findeisen
-         :with-creator nil
-         :timestamp t
-         :exclude-tags ("noexport" "todo")
-         :auto-sitemap t
+         :with-todo-keywords   nil
+         ;:author              Chris Findeisen
+         :with-creator         nil
+         :timestamp            t
+         :exclude-tags         ("noexport" "todo")
+         :auto-sitemap         t
          :sitemap-sort-folders first
-         :sitemap-sort-files anti-chronologically
-         :sitemap-ignore-case t
-         :sitemap-title "home"
-         )
+         :sitemap-sort-files   anti-chronologically
+         :sitemap-ignore-case  t
+         :sitemap-title        "home"
+                               )
         ("blog-static"
          :base-directory "~/syscowboy/posts/static"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"

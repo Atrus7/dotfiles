@@ -5,9 +5,13 @@
   "1. Move to end of line
    2. insert newline with indentation"
   (interactive)
-  (let((oldpos(point)))
-    (end-of-line)
-    (newline-and-indent)))
+  (end-of-line)
+  (newline-and-indent))
+
+(defun indent-buffer ()
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)))
 
 (defun newline-above-point ()
   (interactive)
@@ -63,10 +67,21 @@
   (helm-projectile-switch-project)
   (setq projectile-switch-project-action 'projectile-find-file))
 
-(defun cf/private-layers ()
+(defun cf/find-private-layers ()
   "shortcut to private layers dir"
   (interactive)
   (helm-find-files-1 "~/dotfiles/spacemacs/.spacemacs.d/private/"))
+
+(defun cf/find-org-files ()
+  "shortcut to private layers dir"
+  (interactive)
+  (helm-find-files-1 "~/org/"))
+
+;; TODO: hungry delete for lines??
+(defun current-line-empty-p ()
+  (save-excursion
+    (beginning-of-line)
+    (looking-at "[[:space:]]*$")))
 
 (defun cf/chrome-linux-ident (region-start region-end)
   ;;; Look up identifier in linux kernel
@@ -74,7 +89,15 @@
   (let ((url (concat
               "https://elixir.bootlin.com/linux/v4.9/ident/"
               (cf/get-region-or-symbol))))
-    (browse-url-chrome url)))
+    (browse-url url)))
+
+(defun cf/chrome-google ()
+  ;;; Look up identifier in google
+  (interactive)
+  (let ((url (concat
+              "www.google.com/search?q="
+              (cf/get-region-or-symbol))))
+    (browse-url url)))
 
 (defun cf/get-region-or-symbol ()
   ;;; Get the currently highlighted region or the symbol at point
@@ -90,3 +113,21 @@
 (defun cf/describe-last-function()
   (interactive)
   (describe-function last-command))
+
+(defun save-all ()
+  "Save all dirty buffers without asking for confirmation."
+  (interactive)
+  (save-some-buffers t))
+
+(defun cf/unfill-paragraph ()
+  "Convert a multi-line paragraph into a single line of text."
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+(defun cf/highlight-logs ()
+  "Highlight certain lines in specific files.  Currently, only log files are supported."
+  (interactive)
+  (hi-lock-mode 1)
+  (highlight-lines-matching-regexp "ERROR" 'hi-red-b)
+  (highlight-lines-matching-regexp "NOTE" 'hi-blue-b))

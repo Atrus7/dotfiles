@@ -1,29 +1,25 @@
-;; Spacemacs is notoriously buggy. Don't let things fall through the cracks
+;; Spacemacs is not opinionated enough or not enough like me.
 
-;; TODO do this idiomatically
-;; disable swiping for moving backwards and forwards buffers.
-;(setq debug-on-error t)
-
-;; Don't edit any shell files except my own
-(setq sh-make-vars-local nil
-      shell-default-shell 'shell
-      )
-
-(setq create-lockfiles nil)
-
-;; always follow link when visiting vc'd symlink
-(setq vc-follow-symlinks t)
-
-(setq initial-scratch-message "* Scratch Buffer\n")
-
-(setq doc-view-continuous t)
-
-
-(add-hook 'prog-mode-hook
-          (lambda()
-            (cf/highlight-indent-offset)))
-
+;; The place to save all my scratch buffers I end up keeping...
 (defvar cf/scratch-save-dir "~/tmp")
+
+(setq sh-make-vars-local nil ; Don't edit any shell files except my own
+      shell-default-shell 'shell
+      create-lockfiles nil
+      vc-follow-symlinks t
+      initial-scratch-message "* Scratch Buffer\n"
+      doc-view-continuous t)
+
+(add-hook 'focus-out-hook 'save-all)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (cf/highlight-indent-offset)
+            (hungry-delete-mode)
+            ))
+
+
+
+(add-hook 'focus-out-hook 'save-all)
 
 ;; prefer 115200 baud
 (setq serial-speed-history
@@ -31,15 +27,9 @@
              "1200" "2400" "4800" "9600" "14400" "19200"
              "28800" "38400" "57600"   "115200"))
 
-;; Stop autocompleting numbers
-;(push (apply-partially #'cl-remove-if
-;                       (lambda (c) (string-match-p "\\`[0-9]+[a-f]+\\'" c)))
-;      company-transformers)
-
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
 (add-hook 'makefile-mode-hook
           (lambda () (whitespace-mode)))
-
 
 (spacemacs|define-custom-layout "gnus"
   :binding "g"
@@ -59,3 +49,9 @@
   (find-file "~/org/todo.org")
   (split-frame-vertically)
   (org-todo-list))
+
+
+;; Stop autocompleting numbers
+                                        ;(push (apply-partially #'cl-remove-if
+                                        ;                       (lambda (c) (string-match-p "\\`[0-9]+[a-f]+\\'" c)))
+                                        ;      company-transformers)
