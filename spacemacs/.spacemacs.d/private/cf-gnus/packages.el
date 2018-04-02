@@ -39,14 +39,12 @@
 
     ;; store email in ~/gmail directory
     (setq message-directory "~/news/gmail"
-
           gnus-directory "~/news/"
           gnus-kill-files-directory "~/news/"
           gnus-home-directory "~/news/"
           gnus-dribble-directory "~/news/"
           gnus-always-read-dribble-file t
-          )
-
+          nnmail-spool-hook "~/news/spoolfile")
 
     (setq
      ;; gnus-ignored-from-addresses "cfindeisen7@gmail.com"
@@ -184,8 +182,19 @@ _u_: unread
   (kbd "J") 'gnus-summary-next-article
   (kbd "K") 'gnus-summary-prev-article
   (kbd "<RET>") 'spacemacs/browse-nnrss-url
-  (kbd "/") 'hydra-summary-limit-menu/body)))
+  (kbd "/") 'hydra-summary-limit-menu/body)
 
+;; display-time-mode mail notification
+(defface display-time-mail-face '((t (:background "red")))
+  "If display-time-use-mail-icon is non-nil, its background colour is that
+      of this face. Should be distinct from mode-line. Note that this does not seem
+      to affect display-time-mail-string as claimed.")
+(setq
+ display-time-mail-file "~/news/spoolfile"
+ display-time-use-mail-icon t
+ display-time-mail-face 'display-time-mail-face)
+;; (display-time-mode t)
+))
 
 
 
