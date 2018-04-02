@@ -141,7 +141,10 @@
 (defun dotspacemacs/layers/packages ()
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
-                                      nord-theme)
+                                      nord-theme
+                                      ;; TODO remove once this is mainlined...
+                                      yasnippet-snippets
+                                      )
    dotspacemacs-excluded-packages '(org-pomodoro)
    dotspacemacs-frozen-packages '()
    dotspacemacs-install-packages 'used-only
