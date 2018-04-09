@@ -7,7 +7,9 @@
 ;;     (buffer-string)))
 
 (setq org-capture-templates
-      `(("t" "Todo" entry (file+headline ,(cf/get-orgfiles-path "todo.org" )"Tasks")
+      `(("T" "Linked-Todo" entry (file+headline ,(cf/get-orgfiles-path "todo.org" )"Tasks")
+         "* TODO %?\n %i \n %a\n  Entered on %U")
+        ("t" "Todo" entry (file+headline ,(cf/get-orgfiles-path "todo.org" )"Tasks")
          "* TODO %?\n  %i\n  Entered on %U")
         ("j" "Journal" entry (file+datetree ,(cf/get-orgfiles-path  "journal.org"))
          "* %?\nEntered on %U\n  %i\n")
