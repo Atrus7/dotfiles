@@ -1,5 +1,9 @@
 ;;; General functions
 
+(defun cf/insert-after-fn (fn)
+  (funcall-interactively fn)
+  (evil-insert 1))
+
 ;; creates a newline without breaking the current line
 (defun newline-below-point ()
   "1. Move to end of line
