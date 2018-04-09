@@ -1,7 +1,3 @@
-(setq
- ;; don't read or write newsrc files
- gnus-save-newsrc-file nil
- gnus-read-newsrc-file nil)
 ;; CONFLICT~/.gnus is by default the gnus-init-file
 ;;gnus-startup-file "~/.gnus/.newsrc"
 ;;gnus-init-file "~/.gnus/.gnus"
