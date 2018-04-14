@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin
+export PATH=$HOME/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin
 
 export BROWSER=chromium
 export EDITOR='emacs --no-desktop -nw'

@@ -9,3 +9,4 @@ emacs/.cache/
 emacs/.emacs.d/elpa/
 
 work/
+/.DS_Store
