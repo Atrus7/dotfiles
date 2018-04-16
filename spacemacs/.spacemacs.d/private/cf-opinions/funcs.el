@@ -54,9 +54,13 @@
 (defun cf/get-projectile-magit ()
   "Hacky...temporarily sets  projectile-switch-project-action and then unsets it"
   (interactive)
-  (setq projectile-switch-project-action 'projectile-vc)
+  (setq projectile-switch-project-action 'projectile-vc
+        counsel-projectile-switch-project-action 'projectile-vc ;;ivy supp
+        )
   (counsel-projectile-switch-project)
-  (setq projectile-switch-project-action 'projectile-find-file))
+  (setq projectile-switch-project-action 'projectile-find-file
+        counsel-projectile-switch-project-action 'projectile-find-file ;;ivy supp
+        ))
 
 (defun cf/find-private-layers ()
   "shortcut to private layers dir"
