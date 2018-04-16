@@ -17,7 +17,7 @@
 
    tramp-ssh-controlmaster-options
    (concat
-    "-o ControlPath=/Users/cfindeisen/.ssh/ssh-ControlPath-%%r@%%h:%%p "
+    "-o ControlPath=/tmp/.ssh/ssh-ControlPath-%%r@%%h:%%p "
     "-o ControlMaster=auto -o ControlPersist=yes"))
 
   ;; dired-use-ls-dired
