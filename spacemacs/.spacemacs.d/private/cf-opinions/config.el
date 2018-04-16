@@ -3,12 +3,44 @@
 ;; The place to save all my scratch buffers I end up keeping...
 (defvar cf/scratch-save-dir "~/tmp")
 
+;;; It's some work keeping TRAMP out of trouble....
+(with-eval-after-load 'tramp
+  ;; (setq tramp-ssh-controlmaster-options nil)
+  (tramp-set-completion-function "ssh"
+                                 '((tramp-parse-sconfig "/etc/ssh_config")
+                                   (tramp-parse-sconfig "~/.ssh/config")))
+
+  (setq
+   shell-file-name "/bin/bash"
+   shell-default-term-shell  "/bin/bash"
+   tramp-default-method "scp" ;; scp is faster than ssh....
+
+   tramp-ssh-controlmaster-options
+   (concat
+    "-o ControlPath=/Users/cfindeisen/.ssh/ssh-ControlPath-%%r@%%h:%%p "
+    "-o ControlMaster=auto -o ControlPersist=yes"))
+
+  ;; dired-use-ls-dired
+  )
+
+(setq projectile-mode-line
+      '(:eval
+        (if (spacemacs/system-is-linux)
+            (format " Projectile[%s]" (projectile-project-name))
+          " Projectile[remote]") ;; don't slow down over tramp..
+        )
+      projectile-file-exists-remote-cache-expire (* 30 60)
+      projectile-enable-caching t
+      )
+
 (setq sh-make-vars-local nil ; Don't edit any shell files except my own
-      shell-default-shell 'shell
       create-lockfiles nil
       vc-follow-symlinks t
+      vc-handled-backends '(CVS SVN SRC Git Hg) ;; only use likely backends
       initial-scratch-message "* Scratch Buffer\n"
-      doc-view-continuous t)
+      doc-view-continuous t
+      auto-revert-remote-files nil ;; otherwise this takes a long time...
+      )
 (setq
  ivy-fixed-height-minibuffer t
  ivy-height 14
@@ -19,10 +51,15 @@
 (add-hook 'focus-out-hook 'save-all)
 (add-hook 'prog-mode-hook
           (lambda ()
-            (cf/highlight-indent-offset)
+            ;; (cf/highlight-indent-offset)
             (hungry-delete-mode)
             ))
 
+
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
 
 
 (add-hook 'focus-out-hook 'save-all)

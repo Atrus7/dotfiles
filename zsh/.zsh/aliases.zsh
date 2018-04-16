@@ -1,4 +1,3 @@
-alias ls="ls -hF"
 alias lsl="ls -lhF"
 alias ll="ls -lahF"
 alias fuck='sudo $(fc -ln -1)'
