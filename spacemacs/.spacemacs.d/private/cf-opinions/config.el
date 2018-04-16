@@ -9,6 +9,12 @@
       vc-follow-symlinks t
       initial-scratch-message "* Scratch Buffer\n"
       doc-view-continuous t)
+(setq
+ ivy-fixed-height-minibuffer t
+ ivy-height 14
+ ivy-initial-inputs-alist nil
+ ivy-count-format "%-4d "
+ )
 
 (add-hook 'focus-out-hook 'save-all)
 (add-hook 'prog-mode-hook

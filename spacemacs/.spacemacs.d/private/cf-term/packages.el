@@ -6,7 +6,7 @@
     :defer t
     :config
     (evil-define-key '(normal insert) term-raw-map
-      (kbd "M-x") 'helm-M-x
+      (kbd "M-x") 'counsel-M-x
 
       (kbd "M-h") 'evil-window-left
       (kbd "M-j") 'evil-window-down

@@ -44,15 +44,6 @@
           limit t))
       1 'whitespace-trailing))))
 
-;; TODO: Set to <SPC> bg
-(defun cf/get-all-magit-buffers()
-  (interactive)
-  (helm :sources helm-mini-default-sources
-        :buffer "*helm mini*"
-        :input "*magit "
-        :ff-transformer-show-only-basename nil
-        :truncate-lines helm-buffers-truncate-lines))
-
 (defun cf/save-scratch-and-file()
   (interactive)
   (spacemacs/switch-to-scratch-buffer)
@@ -64,18 +55,18 @@
   "Hacky...temporarily sets  projectile-switch-project-action and then unsets it"
   (interactive)
   (setq projectile-switch-project-action 'projectile-vc)
-  (helm-projectile-switch-project)
+  (counsel-projectile-switch-project)
   (setq projectile-switch-project-action 'projectile-find-file))
 
 (defun cf/find-private-layers ()
   "shortcut to private layers dir"
   (interactive)
-  (helm-find-files-1 "~/dotfiles/spacemacs/.spacemacs.d/private/"))
+  (counsel-find-file "~/dotfiles/spacemacs/.spacemacs.d/private/"))
 
 (defun cf/find-org-files ()
   "shortcut to private layers dir"
   (interactive)
-  (helm-find-files-1 "~/org/"))
+  (counsel-find-file "~/org/"))
 
 ;; TODO: hungry delete for lines??
 (defun current-line-empty-p ()

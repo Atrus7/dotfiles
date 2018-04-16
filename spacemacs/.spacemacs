@@ -75,6 +75,7 @@
             cscope-option-do-not-update-database t
             )
     erc
+    ivy
     git
     org
     (shell :variables
