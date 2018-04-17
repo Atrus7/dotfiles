@@ -76,6 +76,7 @@
             )
     erc
     ivy
+    helm
     git
     org
     (shell :variables

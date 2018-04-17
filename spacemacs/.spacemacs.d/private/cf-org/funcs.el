@@ -8,6 +8,11 @@
    "/DONE" 'file)
   )
 
+;; Insert [ ] to make a checkboxed list
+(fset 'insert-checkbox-at-line
+      [?m ?q ?0 ?f ?- ?a ?  ?\[ ?  ?\] escape ?` ?q])
+
+
 ;; TODO implement
 ;; (defun cf/org-archive-task ()
 ;;   "Archive todo task"
