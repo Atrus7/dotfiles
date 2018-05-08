@@ -133,7 +133,7 @@
                                       dotspacemacs/layers/extra
                                       dotspacemacs/layers/local
                                       (if at-work '(cf-work) '(cf-home))
-                                      (if (and at-work (spacemacs/system-is-mac))
+                                      (if (and at-work (spacemacs/system-is-linux))
                                           dotspacemacs/layers/better-be-local
                                           )
                                       )
@@ -190,6 +190,7 @@
    dotspacemacs-active-transparency 90
    dotspacemacs-inactive-transparency 90
    dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-theme '(spacemacs :separator bar :separator-scale 1.0)
    ))
 
 ;;;; Evil
