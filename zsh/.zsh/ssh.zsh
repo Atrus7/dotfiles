@@ -1,2 +1,5 @@
 export SSH_KEY_PATH="~/.ssh/"
-eval `keychain --eval id_rsa`
+# no keychain on mac
+if type keychain; then
+ eval `keychain --eval id_rsa`
+fi
