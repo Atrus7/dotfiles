@@ -75,8 +75,7 @@
             cscope-option-do-not-update-database t
             )
     erc
-    ivy
-    helm
+    ivy ;; helm
     git
     org
     (shell :variables

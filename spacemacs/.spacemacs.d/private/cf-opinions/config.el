@@ -7,7 +7,7 @@
 (with-eval-after-load 'tramp
   ;; (setq tramp-ssh-controlmaster-options nil)
   (tramp-set-completion-function "ssh"
-                                 '((tramp-parse-sconfig "/etc/ssh_config")
+                                 '((tramp-parse-sconfig "/etc/ssh/ssh_config")
                                    (tramp-parse-sconfig "~/.ssh/config")))
 
   (setq
@@ -22,6 +22,7 @@
 
   ;; dired-use-ls-dired
   )
+;; (setq tramp-verbose 10)
 
 (setq projectile-mode-line
       '(:eval
