@@ -15,10 +15,11 @@
    shell-default-term-shell  "/bin/bash"
    tramp-default-method "scp" ;; scp is faster than ssh....
 
-   tramp-ssh-controlmaster-options
-   (concat
-    "-o ControlPath=/tmp/.ssh/ssh-ControlPath-%%r@%%h:%%p "
-    "-o ControlMaster=auto -o ControlPersist=yes"))
+   ;; tramp-ssh-controlmaster-options
+   ;; (concat
+   ;;  "-o ControlPath=/tmp/.ssh/ssh-ControlPath-%%r@%%h:%%p "
+   ;;  "-o ControlMaster=auto -o ControlPersist=yes")
+   )
 
   ;; dired-use-ls-dired
   )
@@ -37,7 +38,7 @@
 (setq sh-make-vars-local nil ; Don't edit any shell files except my own
       create-lockfiles nil
       vc-follow-symlinks t
-      vc-handled-backends '(CVS SVN SRC Git Hg) ;; only use likely backends
+      vc-handled-backends '(RCS CVS SVN SRC Git Hg) ;; only use likely backends
       initial-scratch-message "* Scratch Buffer\n"
       doc-view-continuous t
       auto-revert-remote-files nil ;; otherwise this takes a long time...

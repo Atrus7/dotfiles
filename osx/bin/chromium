@@ -1,0 +1,3 @@
+#!/bin/bash
+# for use w/emacs, since it needs chromium in the path
+open -a 'Google Chrome' $*

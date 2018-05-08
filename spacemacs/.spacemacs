@@ -60,32 +60,31 @@
     )
   "Local layers housed in '~/.spacemacs.d/private'.")
 
+(defvar dotspacemacs/layers/better-be-local
+  '(syntax-checking
+    ycmd)
+  "The packages that are tramp-killers. Only load them if you're editing locally")
+
 ;;;; Core
-
 (defvar dotspacemacs/layers/core
-  '(
-    (auto-completion :variables
-                     auto-completion-return-key-behavior 'complete
-                     auto-completion-enable-snippets-in-popup t)
+   '((auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-enable-snippets-in-popup t)
 
-    (cscope :variables
-            cscope-initial-directory "~/tmp/cscope/./"
-            cscope-program "/usr/bin/cscope"
-            cscope-display-cscope-buffer t
-            cscope-option-do-not-update-database t
-            )
-    erc
-    ivy ;; helm
-    git
-    org
-    (shell :variables
-           shell-default-shell 'term)
-    spell-checking
-    syntax-checking
-    syntax-checking
-    version-control
-    ycmd
-    )
+     (cscope :variables
+             cscope-initial-directory "~/tmp/cscope/./"
+             cscope-program "/usr/bin/cscope"
+             cscope-display-cscope-buffer t
+             cscope-option-do-not-update-database t)
+     erc
+     ivy ;; helm
+     git
+     org
+     (shell :variables
+            shell-default-shell 'shell)
+     spell-checking
+     version-control
+     )
   "Layers I consider core to Spacemacs")
 
 ;;;; Langs
@@ -134,6 +133,9 @@
                                       dotspacemacs/layers/extra
                                       dotspacemacs/layers/local
                                       (if at-work '(cf-work) '(cf-home))
+                                      (if (and at-work (spacemacs/system-is-mac))
+                                          dotspacemacs/layers/better-be-local
+                                          )
                                       )
    ))
 
@@ -225,8 +227,8 @@
 (defun dotspacemacs/init/layouts ()
   (setq-default
    dotspacemacs-scratch-mode 'org-mode
-   dotspacemacs-default-layout-name "Default"
-   dotspacemacs-display-default-layout nil
+   dotspacemacs-default-layout-name "Home"
+   dotspacemacs-display-default-layout t
    dotspacemacs-auto-resume-layouts nil
    ))
 
@@ -256,6 +258,8 @@
    dotspacemacs-check-for-update t
    dotspacemacs-elpa-subdirectory nil
    dotspacemacs-delete-orphan-packages t
+   ;; dotspacemacs-use-spacelpa nil
+   ;; dotspacemacs-verify-spacelpa-archives nil
    ))
 
 (defun dotspacemacs/init/startup ()
