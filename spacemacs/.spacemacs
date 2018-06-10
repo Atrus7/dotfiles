@@ -67,24 +67,24 @@
 
 ;;;; Core
 (defvar dotspacemacs/layers/core
-   '((auto-completion :variables
-                      auto-completion-return-key-behavior 'complete
-                      auto-completion-enable-snippets-in-popup t)
+  '((auto-completion :variables
+                     auto-completion-return-key-behavior 'complete
+                     auto-completion-enable-snippets-in-popup t)
 
-     (cscope :variables
-             cscope-initial-directory "~/tmp/cscope/./"
-             cscope-program "/usr/bin/cscope"
-             cscope-display-cscope-buffer t
-             cscope-option-do-not-update-database t)
-     erc
-     ivy ;; helm
-     git
-     org
-     (shell :variables
-            shell-default-shell 'shell)
-     spell-checking
-     version-control
-     )
+    (cscope :variables
+            cscope-initial-directory "~/tmp/cscope/./"
+            cscope-program "/usr/bin/cscope"
+            cscope-display-cscope-buffer t
+            cscope-option-do-not-update-database t)
+    erc
+    helm ;; ivy
+    git
+    org
+    (shell :variables
+           shell-default-shell 'shell)
+    spell-checking
+    version-control
+    )
   "Layers I consider core to Spacemacs")
 
 ;;;; Langs

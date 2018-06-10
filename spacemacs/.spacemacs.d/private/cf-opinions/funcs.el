@@ -55,26 +55,42 @@
   (set-visited-file-name scratch_name)
   (save-buffer))
 
-(defun cf/get-projectile-magit ()
-  "Hacky...temporarily sets  projectile-switch-project-action and then unsets it"
+(defun cf/projectile-magit ()
   (interactive)
-  (setq projectile-switch-project-action 'projectile-vc
-        counsel-projectile-switch-project-action 'projectile-vc ;;ivy supp
-        )
-  (counsel-projectile-switch-project)
-  (setq projectile-switch-project-action 'projectile-find-file
-        counsel-projectile-switch-project-action 'projectile-find-file ;;ivy supp
-        ))
+  (if (boundp 'ivy-mode)
+      (cf/ivy-projectile-cmd 'projectile-vc)
+    (cf/helm-projectile-cmd 'projectile-vc)))
+
+(defun cf/projectile-default-switch ()
+  (interactive)
+  (if (boundp 'ivy-mode)
+      (cf/ivy-projectile-cmd 'projectile-find-file)
+    (cf/helm-projectile-cmd 'projectile-find-file)))
+
+(defun cf/projectile-search ()
+  (interactive)
+  (if (boundp 'ivy-mode)
+      (cf/ivy-projectile-cmd 'projectile-search)
+    (cf/helm-projectile-cmd 'spacemacs/helm-project-smart-do-search)))
+
+(defun cf/ivy-projectile-cmd (fn)
+  (setq counsel-projectile-switch-project-action fn)
+  (counsel-projectile-switch-project))
+(defun cf/helm-projectile-cmd (fn)
+  (setq projectile-switch-project-action fn)
+  (projectile-switch-project))
+
+
 
 (defun cf/find-private-layers ()
   "shortcut to private layers dir"
   (interactive)
-  (counsel-find-file "~/dotfiles/spacemacs/.spacemacs.d/private/"))
+  (helm-find-files-1 "~/dotfiles/spacemacs/.spacemacs.d/private/"))
 
 (defun cf/find-org-files ()
   "shortcut to private layers dir"
   (interactive)
-  (counsel-find-file "~/org/"))
+  (helm-find-files-1 "~/org/"))
 
 ;; TODO: hungry delete for lines??
 (defun current-line-empty-p ()

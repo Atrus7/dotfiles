@@ -57,7 +57,9 @@
 
 (evil-leader/set-key (kbd "fep") 'cf/find-private-layers)
 (evil-leader/set-key (kbd "feo") 'cf/find-org-files)
-(evil-leader/set-key (kbd "p s") 'cf/get-projectile-magit)
+(evil-leader/set-key (kbd "p s") 'cf/projectile-magit)
+(evil-leader/set-key (kbd "p p") 'cf/projectile-default-switch)
+(evil-leader/set-key (kbd "p /") 'cf/projectile-search)
 
 
 (evil-leader/set-key (kbd "o m f") 'remove-surrounding-function)
