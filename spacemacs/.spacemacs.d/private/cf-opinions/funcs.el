@@ -130,3 +130,23 @@
   (hi-lock-mode 1)
   (highlight-lines-matching-regexp "ERROR" 'hi-red-b)
   (highlight-lines-matching-regexp "NOTE" 'hi-blue-b))
+
+(defun cf/configure-ivy ()
+  (setq
+   ivy-fixed-height-minibuffer t
+   ivy-height 14
+   ivy-initial-inputs-alist nil
+   ivy-count-format "%-4d ")
+
+  ;; (add-to-list 'ivy-ignore-buffers "*172*")
+  ;; (setq ivy-use-virtual-buffers nil)
+
+  ;; (defun small-recentf ()
+  ;;   (cl-subseq recentf-list 0 100))
+
+  ;; (ivy-set-sources
+  ;;  'ivy-switch-buffer
+  ;;  '((original-source)
+  ;;    (small-recentf)))
+
+  )
