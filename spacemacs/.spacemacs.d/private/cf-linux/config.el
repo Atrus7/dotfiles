@@ -4,7 +4,7 @@
       (progn
         (message "Server Configuring.")
         (setq server-log 1)
-        (add-hook 'after-make-frame-functions 'cf/server-configure t)
+        ;; (add-hook 'after-make-frame-functions 'cf/server-configure t)
 
         ;; How do we do this without ruining buffers?
         (defadvice my-desktop-restore-file-buffer-advice
@@ -20,4 +20,3 @@
     (message "Regular Configuring.")
     )
   )
-

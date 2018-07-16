@@ -31,9 +31,13 @@
             (format " Projectile[%s]" (projectile-project-name))
           " Projectile[remote]") ;; don't slow down over tramp..
         )
-      projectile-file-exists-remote-cache-expire (* 30 60)
-      projectile-enable-caching t
       )
+(if (spacemacs/system-is-linux)
+    (setq projectile-enable-caching nil)
+  (setq
+    projectile-file-exists-remote-cache-expire (* 30 60)
+    projectile-enable-caching t
+    ))
 
 (setq sh-make-vars-local nil ; Don't edit any shell files except my own
       create-lockfiles nil

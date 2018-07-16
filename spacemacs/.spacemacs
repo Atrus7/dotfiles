@@ -180,7 +180,7 @@
                          solarized-dark
                          )
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 12
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)

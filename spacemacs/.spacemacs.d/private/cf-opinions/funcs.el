@@ -57,21 +57,27 @@
 
 (defun cf/projectile-magit ()
   (interactive)
-  (if (boundp 'ivy-mode)
+  (if (boundp 'helm-mode)
+      (cf/helm-projectile-cmd 'projectile-vc)
       (cf/ivy-projectile-cmd 'projectile-vc)
-    (cf/helm-projectile-cmd 'projectile-vc)))
+    ))
 
 (defun cf/projectile-default-switch ()
   (interactive)
-  (if (boundp 'ivy-mode)
+  (if (boundp 'helm-mode)
+      (cf/helm-projectile-cmd 'projectile-find-file)
       (cf/ivy-projectile-cmd 'projectile-find-file)
-    (cf/helm-projectile-cmd 'projectile-find-file)))
+      ))
+
+(fset 'append-semicolon
+   "mqA;fd`q")
 
 (defun cf/projectile-search ()
   (interactive)
-  (if (boundp 'ivy-mode)
+  (if (boundp 'helm-mode)
+      (cf/helm-projectile-cmd 'spacemacs/helm-project-smart-do-search)
       (cf/ivy-projectile-cmd 'projectile-search)
-    (cf/helm-projectile-cmd 'spacemacs/helm-project-smart-do-search)))
+    ))
 
 (defun cf/ivy-projectile-cmd (fn)
   (setq counsel-projectile-switch-project-action fn)
@@ -146,6 +152,8 @@
   (hi-lock-mode 1)
   (highlight-lines-matching-regexp "ERROR" 'hi-red-b)
   (highlight-lines-matching-regexp "NOTE" 'hi-blue-b))
+
+
 
 (defun cf/configure-ivy ()
   (setq
