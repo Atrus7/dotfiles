@@ -147,6 +147,10 @@
                                       nord-theme
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
+                                      lsp-mode
+                                      cquery
+                                      ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
+                                      ;; helpful
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro)
    dotspacemacs-frozen-packages '()
@@ -298,6 +302,9 @@
 
   ;; Prevent org capture from warning in a perspective
   (setq persp-kill-foreign-buffer-action nil)
+  (require 'cquery)
+  (require 'lsp-mode)
+  (setq cquery-executable "/usr/sbin/cquery")
 
   (spacemacs/toggle-aggressive-indent-globally-on)
 
