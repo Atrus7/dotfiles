@@ -46,6 +46,7 @@
 
 (defvar dotspacemacs/layers/local
   '(util-funcs
+    cf-cc
     cf-calendar
     cf-desktop
     cf-gnus
@@ -106,11 +107,17 @@
 
 (defvar dotspacemacs/layers/extra
   '( ;; today?
+    erc
     gnus
     graphviz
     ibuffer
     )
   "Miscellaneous layers")
+
+;;;; Experiments...
+
+(defvar dotspacemacs/layers/experimental
+  '(semantic))
 
 ;;;; Layers/config
 
@@ -125,11 +132,12 @@
                                       dotspacemacs/layers/core
                                       dotspacemacs/layers/langs
                                       dotspacemacs/layers/extra
-                                      dotspacemacs/layers/local
+                                      dotspacemacs/layers/experimental
                                       (if at-work '(cf-work) '(cf-home))
                                       (if (spacemacs/system-is-linux)
                                           dotspacemacs/layers/better-be-local
-                                          )
+                                        )
+                                      dotspacemacs/layers/local
                                       )
    ))
 
@@ -176,7 +184,7 @@
                          solarized-dark
                          )
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 12
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
