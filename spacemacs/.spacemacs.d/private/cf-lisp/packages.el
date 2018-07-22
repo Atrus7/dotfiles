@@ -21,3 +21,14 @@
       "," 'lisp-state-toggle-lisp-state)
     )
   )
+
+;;Reason for disabling for now...too annoying. It fixes stuff I don't need fixed :/
+;; (defun cf-lisp/init-elisp-format()
+;;   (use-package elisp-format
+;;     :defer t
+;;     :config
+;;     (add-hook 'emacs-lisp-mode-hook
+;;               (lambda ()
+;;                 (add-hook 'before-save-hook 'elisp-format-buffer nil 'make-it-local)))
+;;     )
+;;   )
