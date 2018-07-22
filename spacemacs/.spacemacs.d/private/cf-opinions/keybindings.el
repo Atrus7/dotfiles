@@ -27,7 +27,10 @@
   (kbd "M-d") #'spacemacs/delete-window
 
   (kbd "M-Q") #'cf/unfill-paragraph
-  (kbd "M-=") #'indent-buffer)
+  (kbd "M-=") #'indent-buffer
+
+  (kbd "C-;") 'append-semicolon
+  )
 
 (evil-define-key 'insert 'global (kbd "M-RET") #'newline-below-point)
 
@@ -50,6 +53,7 @@
 (spacemacs/declare-prefix (kbd "o") "cf/")
 (spacemacs/declare-prefix (kbd "o m") "Macros")
 (spacemacs/declare-prefix (kbd "o b") "Buffers")
+(spacemacs/declare-prefix (kbd "o s") "Spelling")
 (spacemacs/declare-prefix (kbd "o t") "Tramp")
 ;; TODO map describe last-function
 ;; run current function
@@ -64,9 +68,9 @@
 
 (evil-leader/set-key (kbd "o m f") 'remove-surrounding-function)
 (evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
-(evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
 ;; (define-key evil-normal-state-map (kbd "s") 'remove-surrounding-function)
 
+(evil-leader/set-key (kbd "S l") 'cf/learn-word)
 
 (evil-leader/set-key "owl" 'cf/chrome-linux-ident)
 (evil-leader/set-key "owg" 'cf/chrome-linux-ident)
