@@ -1,4 +1,4 @@
 (when (spacemacs/system-is-linux)
-  (setq scheme-program-name "guile-2.2")
-  (setq geiser-default-implementation 'guile-2.2)
-  )
+  (setq scheme-program-name "guile"
+        geiser-default-implementation 'guile
+        geiser-mode-eval-last-sexp-to-buffer t))
