@@ -62,8 +62,7 @@
   "Local layers housed in '~/.spacemacs.d/private'.")
 
 (defvar dotspacemacs/layers/better-be-local
-  '(syntax-checking
-    ycmd)
+  '(syntax-checking)
   "The packages that are tramp-killers. Only load them if you're editing locally")
 
 ;;;; Core
@@ -71,14 +70,7 @@
   '((auto-completion :variables
                      auto-completion-return-key-behavior 'complete
                      auto-completion-enable-snippets-in-popup t)
-
-    (cscope :variables
-            cscope-initial-directory "~/tmp/cscope/./"
-            cscope-program "/usr/bin/cscope"
-            cscope-display-cscope-buffer t
-            cscope-option-do-not-update-database t)
-    erc
-    helm ;; ivy
+    helm
     git
     org
     (shell :variables
