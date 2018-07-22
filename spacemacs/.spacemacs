@@ -50,6 +50,7 @@
     cf-desktop
     cf-gnus
     cf-irc
+    cf-ide
     cf-linux
     cf-lisp
     cf-mac
@@ -140,8 +141,6 @@
                                       nord-theme
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
-                                      lsp-mode
-                                      cquery
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
                                       ;; helpful
                                       )
@@ -292,18 +291,5 @@
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
-
-  ;; Prevent org capture from warning in a perspective
-  (setq persp-kill-foreign-buffer-action nil)
-  (require 'cquery)
-  (require 'lsp-mode)
-  (setq cquery-executable "/usr/sbin/cquery")
-
   (spacemacs/toggle-aggressive-indent-globally-on)
-
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (setq company-clang-arguments '("-std=c++11"))
-              (setq flycheck-clang-language-standard "c++11")))
-
   )
