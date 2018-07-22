@@ -70,3 +70,12 @@
     (progn (previous-line) (newline-below-point))
     )
   )
+
+(defun append-semicolon ()
+  (interactive)
+  (let ((pos (point)))
+    (end-of-line)
+    (insert ";")
+    (goto-char pos)
+    )
+  )

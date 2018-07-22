@@ -1,5 +1,8 @@
 ;; all the capture configuring
 
+;; Prevent org capture from warning in a perspective
+(setq persp-kill-foreign-buffer-action nil)
+
 ;; For the horrendous Weekly Review string, just evaluate this:
 ;; (progn
 ;;   (with-temp-buffer
