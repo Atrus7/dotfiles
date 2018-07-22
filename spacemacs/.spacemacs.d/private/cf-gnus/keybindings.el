@@ -30,10 +30,10 @@ GOTO
 _t_: to        _c_: cc           _q_: quit
 _b_: body      _s_: subject
 "
-  ("t" (cf/insert-after-fn 'message-goto-to) :exit t)
-  ("c" (cf/insert-after-fn 'message-goto-cc) :exit t)
-  ("b" (cf/insert-after-fn 'message-goto-body) :exit t)
-  ("s" (cf/insert-after-fn 'message-goto-subject) :exit t)
+  ("t" (insert-after-fn 'message-goto-to) :exit t)
+  ("c" (insert-after-fn 'message-goto-cc) :exit t)
+  ("b" (insert-after-fn 'message-goto-body) :exit t)
+  ("s" (insert-after-fn 'message-goto-subject) :exit t)
   ("q" nil :color pink))
 
 (evil-define-key '(normal) message-mode-map

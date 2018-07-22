@@ -45,7 +45,8 @@
 ;;;; Local
 
 (defvar dotspacemacs/layers/local
-  '(cf-calendar
+  '(util-funcs
+    cf-calendar
     cf-desktop
     cf-gnus
     cf-irc
@@ -133,7 +134,7 @@
                                       dotspacemacs/layers/extra
                                       dotspacemacs/layers/local
                                       (if at-work '(cf-work) '(cf-home))
-                                      (if (and at-work (spacemacs/system-is-linux))
+                                      (if (spacemacs/system-is-linux)
                                           dotspacemacs/layers/better-be-local
                                           )
                                       )
