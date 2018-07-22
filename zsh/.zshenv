@@ -1,5 +1,8 @@
 export PATH=$HOME/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/sbin
 
+# assuming chromium is installed...
+export PATH=$PATH:$HOME/code/chromium/depot_tools
+
 export BROWSER=chromium
 export EDITOR='emacs --no-desktop -nw'
 export VISUAL='emacs --no-desktop'
