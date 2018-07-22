@@ -123,3 +123,11 @@
     (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location)
     (message (format "Added \"%s\" to the private dictionary." (car word))))
   )
+(defun cf/hidden-project-ag ()
+  (interactive)
+  ;; Want to enable hidden file finding for dotfiles
+  (setq-local helm-ag-base-command "ag --nocolor --nogroup --hidden")
+  (setq-local helm-ag-ignore-patterns '("/\\.git/\\'"))
+  (setq-local helm-ag-use-agignore t)
+  (spacemacs/helm-project-do-ag)
+  )
