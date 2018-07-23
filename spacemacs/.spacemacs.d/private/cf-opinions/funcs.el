@@ -1,30 +1,5 @@
 ;;; General functions
 
-(defun cf/insert-after-fn (fn)
-  (funcall-interactively fn)
-  (evil-insert 1))
-
-;; creates a newline without breaking the current line
-(defun newline-below-point ()
-  "1. Move to end of line
-   2. insert newline with indentation"
-  (interactive)
-  (end-of-line)
-  (newline-and-indent))
-
-(defun indent-buffer ()
-  (interactive)
-  (save-excursion
-    (indent-region (point-min) (point-max) nil)))
-
-(defun newline-above-point ()
-  (interactive)
-  (if (eq (line-number-at-pos) 1)
-      (progn (beginning-of-line) (newline) (previous-line))
-    (progn (previous-line) (newline-below-point))
-    )
-  )
-
 ;;; Specific cf functions
 (defun cf/put-file-name-on-clipboard ()
   "Put the current file name on the clipboard"
@@ -86,8 +61,6 @@
   (setq projectile-switch-project-action fn)
   (projectile-switch-project))
 
-
-
 (defun cf/find-private-layers ()
   "shortcut to private layers dir"
   (interactive)
@@ -97,12 +70,6 @@
   "shortcut to private layers dir"
   (interactive)
   (helm-find-files-1 "~/org/"))
-
-;; TODO: hungry delete for lines??
-(defun current-line-empty-p ()
-  (save-excursion
-    (beginning-of-line)
-    (looking-at "[[:space:]]*$")))
 
 (defun cf/chrome-linux-ident (region-start region-end)
   ;;; Look up identifier in linux kernel
@@ -153,7 +120,22 @@
   (highlight-lines-matching-regexp "ERROR" 'hi-red-b)
   (highlight-lines-matching-regexp "NOTE" 'hi-blue-b))
 
-
+(defun cf/learn-word ()
+  "Learns the last error reported by flycheck"
+  (interactive)
+  (flyspell-goto-previous-error 1)
+  (let ((current-location (point))
+        (word (flyspell-get-word)))
+    (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location)
+    (message (format "Added \"%s\" to the private dictionary." (car word))))
+  )
+(defun cf/hidden-project-ag ()
+  (interactive)
+  ;; Want to enable hidden file finding for dotfiles
+  (setq-local helm-ag-base-command "ag --nocolor --nogroup --hidden")
+  (setq-local helm-ag-ignore-patterns '("/\\.git/\\'"))
+  (setq-local helm-ag-use-agignore t)
+  (spacemacs/helm-project-do-ag))
 
 (defun cf/configure-ivy ()
   (setq
@@ -172,5 +154,4 @@
   ;;  'ivy-switch-buffer
   ;;  '((original-source)
   ;;    (small-recentf)))
-
   )

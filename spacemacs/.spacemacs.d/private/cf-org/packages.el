@@ -29,18 +29,17 @@
     ;; remapping over table
     (spacemacs/set-leader-keys-for-major-mode 'org-mode
       "t" 'cf/org-schedule-today)
-            (evil-define-key '(normal insert) evil-org-mode-map
-              (kbd "C-l") 'org-shiftmetadown
-              (kbd "C-h") 'org-shiftmetaup
-              (kbd "C-k") 'org-metaup
-              (kbd "C-j") 'org-metadown
 
-              (kbd "M-h") 'evil-window-left
-              (kbd "M-j") 'evil-window-down
-              (kbd "M-k") 'evil-window-up
-              (kbd "M-l") 'evil-window-right)
+    (evil-define-key '(normal insert) evil-org-mode-map
+      (kbd "<right>") 'org-shiftmetadown
+      (kbd "<left>") 'org-shiftmetaup
+      (kbd "<up>") 'org-metaup
+      (kbd "<down>") 'org-metadown
 
-
+      (kbd "M-h") 'evil-window-left
+      (kbd "M-j") 'evil-window-down
+      (kbd "M-k") 'evil-window-up
+      (kbd "M-l") 'evil-window-right)
     )
   )
 

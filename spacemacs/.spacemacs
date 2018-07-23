@@ -45,10 +45,13 @@
 ;;;; Local
 
 (defvar dotspacemacs/layers/local
-  '(cf-calendar
+  '(util-funcs
+    cf-cc
+    cf-calendar
     cf-desktop
     cf-gnus
     cf-irc
+    cf-ide
     cf-linux
     cf-lisp
     cf-mac
@@ -61,8 +64,7 @@
   "Local layers housed in '~/.spacemacs.d/private'.")
 
 (defvar dotspacemacs/layers/better-be-local
-  '(syntax-checking
-    ycmd)
+  '(syntax-checking)
   "The packages that are tramp-killers. Only load them if you're editing locally")
 
 ;;;; Core
@@ -70,14 +72,7 @@
   '((auto-completion :variables
                      auto-completion-return-key-behavior 'complete
                      auto-completion-enable-snippets-in-popup t)
-
-    (cscope :variables
-            cscope-initial-directory "~/tmp/cscope/./"
-            cscope-program "/usr/bin/cscope"
-            cscope-display-cscope-buffer t
-            cscope-option-do-not-update-database t)
-    erc
-    helm ;; ivy
+    helm
     git
     org
     (shell :variables
@@ -112,11 +107,17 @@
 
 (defvar dotspacemacs/layers/extra
   '( ;; today?
+    erc
     gnus
     graphviz
     ibuffer
     )
   "Miscellaneous layers")
+
+;;;; Experiments...
+
+(defvar dotspacemacs/layers/experimental
+  '(semantic))
 
 ;;;; Layers/config
 
@@ -131,11 +132,12 @@
                                       dotspacemacs/layers/core
                                       dotspacemacs/layers/langs
                                       dotspacemacs/layers/extra
-                                      dotspacemacs/layers/local
+                                      dotspacemacs/layers/experimental
                                       (if at-work '(cf-work) '(cf-home))
-                                      (if (and at-work (spacemacs/system-is-linux))
+                                      (if (spacemacs/system-is-linux)
                                           dotspacemacs/layers/better-be-local
-                                          )
+                                        )
+                                      dotspacemacs/layers/local
                                       )
    ))
 
@@ -147,8 +149,6 @@
                                       nord-theme
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
-                                      lsp-mode
-                                      cquery
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
                                       ;; helpful
                                       )
@@ -299,18 +299,5 @@
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
-
-  ;; Prevent org capture from warning in a perspective
-  (setq persp-kill-foreign-buffer-action nil)
-  (require 'cquery)
-  (require 'lsp-mode)
-  (setq cquery-executable "/usr/sbin/cquery")
-
   (spacemacs/toggle-aggressive-indent-globally-on)
-
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (setq company-clang-arguments '("-std=c++11"))
-              (setq flycheck-clang-language-standard "c++11")))
-
   )

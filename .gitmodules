@@ -1,6 +1,7 @@
 [submodule "spacemacs/.emacs.d"]
 	path = spacemacs/.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
-[submodule "i3/.i3/bumblebee-status"]
-	path = i3/.i3/bumblebee-status
-	url = https://github.com/tobi-wan-kenobi/bumblebee-status
+
+[submodule "linux/bin/i3lock"]
+	path = linux/bin/i3lock
+	url = https://github.com/Atrus7/i3lock

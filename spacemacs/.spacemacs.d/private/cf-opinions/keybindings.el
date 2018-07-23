@@ -27,7 +27,10 @@
   (kbd "M-d") #'spacemacs/delete-window
 
   (kbd "M-Q") #'cf/unfill-paragraph
-  (kbd "M-=") #'indent-buffer)
+  (kbd "M-=") #'indent-buffer
+
+  (kbd "C-;") 'append-semicolon
+  )
 
 (evil-define-key 'insert 'global (kbd "M-RET") #'newline-below-point)
 
@@ -45,11 +48,13 @@
 
 (evil-global-set-key 'normal (kbd "gw") 'exchange-words)
 
+(spacemacs/set-leader-keys (kbd "b !") 'reload-buffer)
 
 ;; Store macro-based ops
 (spacemacs/declare-prefix (kbd "o") "cf/")
 (spacemacs/declare-prefix (kbd "o m") "Macros")
 (spacemacs/declare-prefix (kbd "o b") "Buffers")
+(spacemacs/declare-prefix (kbd "o s") "Search")
 (spacemacs/declare-prefix (kbd "o t") "Tramp")
 ;; TODO map describe last-function
 ;; run current function
@@ -61,12 +66,13 @@
 (evil-leader/set-key (kbd "p p") 'cf/projectile-default-switch)
 (evil-leader/set-key (kbd "p /") 'cf/projectile-search)
 
+(evil-leader/set-key (kbd "o s d") 'cf/hidden-project-ag)
 
 (evil-leader/set-key (kbd "o m f") 'remove-surrounding-function)
 (evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
-(evil-leader/set-key (kbd "o b s") 'cf/save-scratch-and-file)
-;; (define-key evil-normal-state-map (kbd "s") 'remove-surrounding-function)
+(define-key evil-normal-state-map (kbd "s") 'remove-surrounding-function)
 
+(evil-leader/set-key (kbd "S l") 'cf/learn-word)
 
 (evil-leader/set-key "owl" 'cf/chrome-linux-ident)
 (evil-leader/set-key "owg" 'cf/chrome-linux-ident)
