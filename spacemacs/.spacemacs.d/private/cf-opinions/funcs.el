@@ -135,7 +135,7 @@
   (setq-local helm-ag-base-command "ag --nocolor --nogroup --hidden")
   (setq-local helm-ag-ignore-patterns '("/\\.git/\\'"))
   (setq-local helm-ag-use-agignore t)
-  (spacemacs/helm-project-do-ag)
+  (spacemacs/helm-project-do-ag))
 
 (defun cf/configure-ivy ()
   (setq
