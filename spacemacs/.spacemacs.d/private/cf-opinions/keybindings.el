@@ -48,6 +48,7 @@
 
 (evil-global-set-key 'normal (kbd "gw") 'exchange-words)
 
+(spacemacs/set-leader-keys (kbd "b !") 'reload-buffer)
 
 ;; Store macro-based ops
 (spacemacs/declare-prefix (kbd "o") "cf/")

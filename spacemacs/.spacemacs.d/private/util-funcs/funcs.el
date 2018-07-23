@@ -79,3 +79,19 @@
     (goto-char pos)
     )
   )
+
+(defun reload-buffer ()
+  "Best way to repaint a buffer.
+   Saves, kills, and reopens the buffer."
+  (interactive)
+  (let ((cur-buffer (buffer-file-name)))
+    (if (not cur-buffer)
+        (message "Buffer cannot be revisited... won't kill it.")
+      (progn
+        (save-buffer)
+        (kill-buffer)
+        (find-file cur-buffer)
+        (recenter nil))
+      )
+    )
+  )
