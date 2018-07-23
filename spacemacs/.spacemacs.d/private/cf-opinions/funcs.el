@@ -32,21 +32,27 @@
 
 (defun cf/projectile-magit ()
   (interactive)
-  (if (boundp 'ivy-mode)
+  (if (boundp 'helm-mode)
+      (cf/helm-projectile-cmd 'projectile-vc)
       (cf/ivy-projectile-cmd 'projectile-vc)
-    (cf/helm-projectile-cmd 'projectile-vc)))
+    ))
 
 (defun cf/projectile-default-switch ()
   (interactive)
-  (if (boundp 'ivy-mode)
+  (if (boundp 'helm-mode)
+      (cf/helm-projectile-cmd 'projectile-find-file)
       (cf/ivy-projectile-cmd 'projectile-find-file)
-    (cf/helm-projectile-cmd 'projectile-find-file)))
+      ))
+
+(fset 'append-semicolon
+   "mqA;fd`q")
 
 (defun cf/projectile-search ()
   (interactive)
-  (if (boundp 'ivy-mode)
+  (if (boundp 'helm-mode)
+      (cf/helm-projectile-cmd 'spacemacs/helm-project-smart-do-search)
       (cf/ivy-projectile-cmd 'projectile-search)
-    (cf/helm-projectile-cmd 'spacemacs/helm-project-smart-do-search)))
+    ))
 
 (defun cf/ivy-projectile-cmd (fn)
   (setq counsel-projectile-switch-project-action fn)
@@ -130,4 +136,22 @@
   (setq-local helm-ag-ignore-patterns '("/\\.git/\\'"))
   (setq-local helm-ag-use-agignore t)
   (spacemacs/helm-project-do-ag)
+
+(defun cf/configure-ivy ()
+  (setq
+   ivy-fixed-height-minibuffer t
+   ivy-height 14
+   ivy-initial-inputs-alist nil
+   ivy-count-format "%-4d ")
+
+  ;; (add-to-list 'ivy-ignore-buffers "*172*")
+  ;; (setq ivy-use-virtual-buffers nil)
+
+  ;; (defun small-recentf ()
+  ;;   (cl-subseq recentf-list 0 100))
+
+  ;; (ivy-set-sources
+  ;;  'ivy-switch-buffer
+  ;;  '((original-source)
+  ;;    (small-recentf)))
   )

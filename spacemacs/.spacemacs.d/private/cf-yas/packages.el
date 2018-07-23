@@ -1,6 +1,6 @@
-(defconst cf-yas-packages '()
- "The list of Lisp packages required by the cf-yas layer."
- )
+;; (defconst cf-yas-packages '()
+;;  "The list of Lisp packages required by the cf-yas layer."
+;;  )
 
 ;; (defun cf-yas/post-init-yasnippet ()
 ;;   (use-package yasnippet

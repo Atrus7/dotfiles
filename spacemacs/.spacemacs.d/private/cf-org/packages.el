@@ -13,7 +13,12 @@
     :config
     (add-to-list 'org-src-lang-modes '("scheme" . scheme) )
     (add-to-list 'org-babel-load-languages '(scheme . t))
-    (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (scheme . t) ))
+    (add-to-list 'org-babel-load-languages '(C . t))
+    (add-to-list 'org-babel-load-languages '(C++ . t))
+    (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)
+                                                             (scheme . t)
+                                                             (C . t)
+                                                             ))
     (setq org-agenda-files (list(mapconcat 'eval '(org-directory "todo.org") "/")))
 
     ;; remapping pomodoro thing
