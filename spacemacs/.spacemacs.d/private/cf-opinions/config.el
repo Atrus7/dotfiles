@@ -18,6 +18,10 @@
    shell-file-name "/bin/bash"
    shell-default-term-shell  "/bin/bash"
    tramp-default-method "scp" ;; scp is faster than ssh....
+   confirm-kill-emacs (if (display-graphic-p)
+                          nil
+                        'y-or-n-p ;; avoid lovely Emergency Escape "feature"
+                          )
 
    ;; tramp-ssh-controlmaster-options
    ;; (concat

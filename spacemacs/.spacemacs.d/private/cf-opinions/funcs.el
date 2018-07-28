@@ -155,3 +155,12 @@
   ;;  '((original-source)
   ;;    (small-recentf)))
   )
+
+
+(defun cf/abbreviate-show-and-copy-filename ()
+  "Copy file relative to source root"
+  (interactive)
+  (let ((file-name (or (buffer-file-name) list-buffers-directory)))
+    (if file-name
+        (message (kill-new (abbreviate-file-name file-name)))
+      (error "Buffer not visiting a file"))))

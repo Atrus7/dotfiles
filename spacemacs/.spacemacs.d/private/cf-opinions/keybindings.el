@@ -49,6 +49,8 @@
 (evil-global-set-key 'normal (kbd "gw") 'exchange-words)
 
 (spacemacs/set-leader-keys (kbd "b !") 'reload-buffer)
+(spacemacs/set-leader-keys (kbd "f y") 'cf/abbreviate-show-and-copy-filename)
+(spacemacs/set-leader-keys (kbd "f Y") 'spacemacs/show-and-copy-buffer-filename)
 
 ;; Store macro-based ops
 (spacemacs/declare-prefix (kbd "o") "cf/")
