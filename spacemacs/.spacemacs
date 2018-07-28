@@ -147,6 +147,7 @@
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
+                                      ninja-mode
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))

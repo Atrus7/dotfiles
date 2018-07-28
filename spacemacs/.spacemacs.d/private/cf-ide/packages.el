@@ -33,7 +33,7 @@
     :defer t
     :config
     (require 'projectile)
-    (setq cquery-executable "/usr/sbin/cquery"
+    (setq cquery-executable (locate-file "cquery" exec-path)
 
           ;; Log file
           cquery-extra-args '("--log-file=/tmp/cquery.log")
