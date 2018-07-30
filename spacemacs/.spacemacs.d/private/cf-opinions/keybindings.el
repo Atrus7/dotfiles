@@ -18,6 +18,7 @@
 (define-key global-map (kbd "M-j") #'evil-window-down)
 (define-key global-map (kbd "M-k") #'evil-window-up)
 (define-key global-map (kbd "M-l") #'evil-window-right)
+(define-key global-map (kbd "M-d") #'spacemacs/delete-window)
 
 (evil-define-key 'normal 'global
   (kbd "M-h") #'evil-window-left

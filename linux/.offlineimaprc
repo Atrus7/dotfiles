@@ -1,0 +1,29 @@
+[general]
+accounts = Gmail
+maxsyncaccounts = 1
+pythonfile = ~/.offlineimap.py
+
+[Account Gmail]
+localrepository = gmail_local
+remoterepository = gmail_repository
+autorefresh = 5
+quick = 10
+postsynchook = mu index --maildir ~/maildir
+
+[Repository gmail_local]
+type = Maildir
+localfolders = ~/maildir/gmail
+
+[Repository gmail_repository]
+type = Gmail
+maxconnections = 2
+remoteuser = cfindeisen7@gmail.com
+folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail', '[Gmail]/Important']
+
+# Decrypt and read the encrypted password
+remotepasseval = get_pass()
+
+keepalive = 60
+holdconnectionopen = yes
+
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt

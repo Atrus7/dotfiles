@@ -49,7 +49,7 @@
     cf-cc
     cf-calendar
     cf-desktop
-    cf-gnus
+    cf-mail
     cf-irc
     cf-ide
     cf-linux
@@ -108,7 +108,9 @@
 (defvar dotspacemacs/layers/extra
   '( ;; today?
     erc
-    gnus
+    ;; gnus
+    (mu4e :variables
+          mu4e-installation-path "/usr/share/emacs/site-lisp")
     graphviz
     ibuffer
     )

@@ -1,18 +1,97 @@
-(defconst cf-gnus-packages '(gnus
+(defconst cf-mail-packages '(
+                             mu4e
+                             gnus
                              bbdb-vcard))
 
-(defun cf-gnus/pre-init-gnus()
+;;; mu4e
+(defun cf-mail/post-init-mu4e()
+  (use-package mu4e
+    :defer t
+    :config
+    ;; Basic settings
+    (setq mu4e-maildir "~/maildir"
+          mu4e-trash-folder "/trash"
+          mu4e-refile-folder "/archive"
+          mu4e-get-mail-command "offlineimap"
+          mu4e-update-interval nil
+          mu4e-compose-signature-auto-include nil
+          mu4e-view-show-images t
+          mu4e-view-show-images t
+          mu4e-view-image-max-width 800
+          mu4e-view-show-addresses t
+          mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
+          mu4e-attachment-dir "~/downloads"
+
+          ;; Don't ask to quit... why is this the default?
+          mu4e-confirm-quit nil
+          )
+
+
+    (setq
+     ;; Tell message mode to use SMTP.
+     send-mail-function		nil
+     message-send-mail-function	'smtpmail-send-it
+     smtpmail-default-smtp-server "smtp.gmail.com"
+
+     ;; This tells Gnus to use the Gmail SMTP server. This
+     ;; automatically leaves a copy in the Gmail Sent folder.
+     smtpmail-smtp-service 587)
+
+
+    ;; HTML Viewing
+    (setq mu4e-html2text-command 'my-render-html-message)
+    (setq mu4e-view-prefer-html t) ;; try to render
+    (add-to-list 'mu4e-view-actions
+                 '("ViewInBrowser" . mu4e-action-view-in-browser) t) ;; read in browser
+
+    ;; mu4e as default email agent in emacs
+    (setq mail-user-agent 'mu4e-user-agent)
+
+    (when (fboundp 'imagemagick-register-types)
+      (imagemagick-register-types))
+
+    ;; Mail directory shortcuts
+    (setq mu4e-maildir-shortcuts
+          '(("/gmail/INBOX" . ?g)))
+
+    ;; Bookmarks
+    (setq mu4e-bookmarks
+          `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+            ("date:today..now" "Today's messages" ?t)
+            ("date:7d..now" "Last 7 days" ?w)
+            ("mime:image/*" "Messages with images" ?p)
+            (,(mapconcat 'identity
+                         (mapcar
+                          (lambda (maildir)
+                            (concat "maildir:" (car maildir)))
+                          mu4e-maildir-shortcuts) " OR ")
+             "All inboxes" ?i)))
+
+    ;; OS Notifications
+    (setq mu4e-enable-notifications t)
+
+    ;; Modeline notifications
+    (with-eval-after-load 'mu4e-alert
+      ;; Enable Desktop notifications
+      (mu4e-alert-set-default-style 'notifications)) ; For linux
+    ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+    (setq mu4e-enable-mode-line t)
+    )
+  )
+
+;;; GNUs setup
+(defun cf-mail/pre-init-gnus()
   (use-package gnus
     :defer t
     :config
     (setq
-    ;; don't read or write newsrc files
-    gnus-save-newsrc-file nil
-    gnus-read-newsrc-file nil)
+     ;; don't read or write newsrc files
+     gnus-save-newsrc-file nil
+     gnus-read-newsrc-file nil)
     ))
 
 
-(defun cf-gnus/init-bbdb-vcard()
+(defun cf-mail/init-bbdb-vcard()
   (use-package bbdb-vcard
     :defer t
     :config
@@ -28,7 +107,7 @@
     )
   )
 
-(defun cf-gnus/post-init-gnus()
+(defun cf-mail/post-init-gnus()
   (use-package gnus
     :defer t
     :config
@@ -53,16 +132,16 @@
     (setq nnir-imap-default-search-key "gmail")
     ;; (add-to-list 'nnir-imap-search-arguments '("gmail" . "X-GM-RAW"))
 
-    ;; Send email via Gmail:
-    (setq
-     ;; Tell message mode to use SMTP.
-          send-mail-function		nil
-          message-send-mail-function	'smtpmail-send-it
-          smtpmail-default-smtp-server "smtp.gmail.com"
+    ;; ;; Send email via Gmail:
+    ;; (setq
+    ;;  ;; Tell message mode to use SMTP.
+    ;;  send-mail-function		nil
+    ;;  message-send-mail-function	'smtpmail-send-it
+    ;;  smtpmail-default-smtp-server "smtp.gmail.com"
 
-          ;; This tells Gnus to use the Gmail SMTP server. This
-          ;; automatically leaves a copy in the Gmail Sent folder.
-          smtpmail-smtp-service 587)
+    ;;  ;; This tells Gnus to use the Gmail SMTP server. This
+    ;;  ;; automatically leaves a copy in the Gmail Sent folder.
+    ;;  smtpmail-smtp-service 587)
 
     ;; Archive outgoing email in Sent folder on imap.gmail.com:
 
@@ -135,22 +214,22 @@
 
 
      gnus-simplify-ignored-prefixes (concat
-            "\\`\\[?\\("
-            (mapconcat
-             'identity
-             '("looking"
-               "wanted" "followup" "summary\\( of\\)?"
-               "help" "query" "problem" "question"
-               "answer" "reference" "announce"
-               "How can I" "How to" "Comparison of"
-               ;; ...
-               )
-             "\\|")
-            "\\)\\s *\\("
-            (mapconcat 'identity
-                       '("for" "for reference" "with" "about")
-                       "\\|")
-            "\\)?\\]?:?[ \t]*"))
+                                     "\\`\\[?\\("
+                                     (mapconcat
+                                      'identity
+                                      '("looking"
+                                        "wanted" "followup" "summary\\( of\\)?"
+                                        "help" "query" "problem" "question"
+                                        "answer" "reference" "announce"
+                                        "How can I" "How to" "Comparison of"
+                                        ;; ...
+                                        )
+                                      "\\|")
+                                     "\\)\\s *\\("
+                                     (mapconcat 'identity
+                                                '("for" "for reference" "with" "about")
+                                                "\\|")
+                                     "\\)?\\]?:?[ \t]*"))
 
 
     ;; ;; Add two key bindings for your Gmail experience.
@@ -210,7 +289,7 @@
       (kbd "s") 'gnus-group-make-nnir-group)
 
     ;; (display-time-mode t)
-))
+    ))
 
 
 
