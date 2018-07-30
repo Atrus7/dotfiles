@@ -23,7 +23,7 @@ URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 
 
-URxvt.font: xft:Hack:size=7
+URxvt.font: xft:monospace:size=7
 
 
 ! Rofi
@@ -44,7 +44,7 @@ rofi.yoffset: 0
 rofi.padding: 400
 rofi.location: 0
 rofi.width: 100
-rofi.font: Hack Bold 16
+rofi.font: monospace Bold 16
 rofi.lines: 10
 
  rofi.scroll-method: 1 ! (0: Page, 1: Centered)

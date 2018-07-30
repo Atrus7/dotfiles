@@ -96,7 +96,7 @@
     javascript
     markdown
     csv
-    python
+    ;; python
     scheme
     vimscript
     yaml

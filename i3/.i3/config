@@ -3,7 +3,7 @@
 ## Basic Looks
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack, Icons 10
+font pango:DejaVu Sans Mono 12, Icons 12
 
 # Wallpaper: make it look good to start with
 exec feh --bg-scale ~/pictures/wallpaper.png
