@@ -8,7 +8,7 @@ localrepository = gmail_local
 remoterepository = gmail_repository
 autorefresh = 5
 quick = 10
-postsynchook = mu index --maildir ~/maildir
+# postsynchook = mu index --maildir ~/maildir
 
 [Repository gmail_local]
 type = Maildir

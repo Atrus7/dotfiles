@@ -75,10 +75,10 @@
 (add-hook 'makefile-mode-hook
           (lambda () (whitespace-mode)))
 
-(spacemacs|define-custom-layout "gnus"
-  :binding "g"
+(spacemacs|define-custom-layout "mail"
+  :binding "m"
   :body
-  (gnus))
+  (mu4e))
 
 (spacemacs|define-custom-layout "serials"
   :binding "s"

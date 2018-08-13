@@ -12,19 +12,28 @@
     (setq mu4e-maildir "~/maildir"
           mu4e-trash-folder "/trash"
           mu4e-refile-folder "/archive"
+
           mu4e-get-mail-command "offlineimap"
-          mu4e-update-interval nil
+          mu4e-update-interval 300
           mu4e-compose-signature-auto-include nil
-          mu4e-view-show-images t
           mu4e-view-show-images t
           mu4e-view-image-max-width 800
           mu4e-view-show-addresses t
           mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
           mu4e-attachment-dir "~/downloads"
 
+          mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
           ;; Don't ask to quit... why is this the default?
-          mu4e-confirm-quit nil
-          )
+          mu4e-confirm-quit nil)
+
+    (evilified-state-evilify-map
+      mu4e-view-mode-map
+      :mode mu4e-view-mode
+      :bindings
+      (kbd "J") 'mu4e-view-headers-next
+      (kbd "K") 'mu4e-view-headers-prev
+      (kbd "C-h") help-map
+      (kbd "RET") 'mu4e~view-browse-url-from-binding)
 
 
     (setq
@@ -37,9 +46,6 @@
      ;; automatically leaves a copy in the Gmail Sent folder.
      smtpmail-smtp-service 587)
 
-
-    ;; HTML Viewing
-    (setq mu4e-html2text-command 'my-render-html-message)
     (setq mu4e-view-prefer-html t) ;; try to render
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t) ;; read in browser
@@ -67,8 +73,8 @@
                           mu4e-maildir-shortcuts) " OR ")
              "All inboxes" ?i)))
 
-    ;; OS Notifications
-    (setq mu4e-enable-notifications t)
+    ;; ;; OS Notifications
+    ;; (setq mu4e-enable-notifications t)
 
     ;; Modeline notifications
     (with-eval-after-load 'mu4e-alert

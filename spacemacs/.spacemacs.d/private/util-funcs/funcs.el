@@ -95,3 +95,9 @@
       )
     )
   )
+
+(defun buffer-fix-single-newlines()
+  (interactive)
+  (goto-char (point-min))
+  (while (re-search-forward "\n[:blank:]*\n[:blank:]*\n+" (buffer-end 1) t)
+    (replace-match "\n\n")))

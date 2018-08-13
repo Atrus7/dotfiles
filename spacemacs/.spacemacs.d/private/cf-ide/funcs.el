@@ -57,5 +57,17 @@
 
   (if (cquery--is-cquery-buffer)
       (cl-pushnew 'company-lsp company-backends)
-      )
+    )
+  )
+
+(defun maybe-semantic-mode ()
+  (remove-hook 'semantic-mode-hook 'maybe-semantic-mode) ;; prevent recurrence
+  (if (and (not cf/ide-mode) semantic-mode)
+      (progn
+        (semantic-mode -1)
+        (mapcar (lambda (hook) (remove-hook hook 'semantic-mode))
+                '(c-mode-hook c++-mode-hook emacs-lisp-mode-hook python-mode-hook))
+        )
+    )
+  (add-hook 'semantic-mode-hook 'maybe-semantic-mode)
   )

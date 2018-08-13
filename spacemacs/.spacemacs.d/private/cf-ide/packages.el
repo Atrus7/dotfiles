@@ -49,6 +49,7 @@
   (use-package semantic
     :config
     (semantic-mode -1) ;; off by default
+    (add-hook 'semantic-mode-hook 'maybe-semantic-mode)
     )
   )
 
