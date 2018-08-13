@@ -24,8 +24,10 @@
   (gnus-agent-toggle-plugged nil))
 
 
-
 (setq
+ ;; Shr has really bad colors in html emails
+ shr-use-colors nil
+
  ;; Tell message mode to use SMTP.
  send-mail-function		nil
  message-send-mail-function	'smtpmail-send-it

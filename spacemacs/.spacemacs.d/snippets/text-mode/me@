@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name : MyAddress@
+# key: me
+# --
+`(replace-regexp-in-string "*" "*" user-mail-address)`
