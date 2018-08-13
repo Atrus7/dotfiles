@@ -91,7 +91,7 @@
            c-c++-enable-clang-support t)
     common-lisp
     emacs-lisp
-    extra-langs ;; arduino
+    major-modes ;; arduino
     html
     javascript
     markdown
