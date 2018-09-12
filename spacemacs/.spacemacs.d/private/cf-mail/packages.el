@@ -12,10 +12,9 @@
     (setq mu4e-maildir "~/maildir"
           mu4e-trash-folder "/trash"
           mu4e-refile-folder "/archive"
-
           mu4e-get-mail-command "offlineimap"
           mu4e-update-interval 300
-          mu4e-compose-signature-auto-include nil
+          mu4e-compose-signature-auto-include t
           mu4e-view-show-images t
           mu4e-view-image-max-width 800
           mu4e-view-show-addresses t
@@ -33,8 +32,9 @@
       (kbd "J") 'mu4e-view-headers-next
       (kbd "K") 'mu4e-view-headers-prev
       (kbd "C-h") help-map
-      (kbd "RET") 'mu4e~view-browse-url-from-binding)
-
+      (kbd "RET") 'mu4e~view-browse-url-from-binding
+      (kbd "|") 'mu4e-view-pipe
+      )
 
     (setq
      ;; Tell message mode to use SMTP.
