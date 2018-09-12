@@ -4,5 +4,7 @@
   (use-package cc-mode
     :defer t
     :config
+
+    (c-toggle-auto-newline -1)
     (evil-define-key '(normal insert visual) c++-mode-map
       (kbd "M-=") 'clang-format-buffer)))

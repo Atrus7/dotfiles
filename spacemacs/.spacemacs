@@ -74,7 +74,8 @@
                      auto-completion-enable-snippets-in-popup t)
     helm
     git
-    org
+    (org :variables
+         org-want-todo-bindings t)
     (shell :variables
            shell-default-shell 'shell)
     spell-checking
@@ -129,7 +130,8 @@
    dotspacemacs-ask-for-lazy-installation t
 
    dotspacemacs-configuration-layer-path '("~/.spacemacs.d/private/")
-   dotspacemacs-configuration-layers (append
+   dotspacemacs-configuration-layers (
+                                      append
                                       dotspacemacs/layers/core
                                       dotspacemacs/layers/langs
                                       dotspacemacs/layers/extra
@@ -285,6 +287,7 @@
 (defun dotspacemacs/user-config/toggles ()
   "Spacemacs toggles not intended to be put into layers."
   (spacemacs/toggle-mode-line-minor-modes-off)
+  (spacemacs/toggle-aggressive-indent-globally-on)
   (global-highlight-parentheses-mode 1)
   (rainbow-delimiters-mode-enable))
 
@@ -301,5 +304,4 @@
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
-  (spacemacs/toggle-aggressive-indent-globally-on)
   )
