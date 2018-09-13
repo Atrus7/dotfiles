@@ -36,22 +36,16 @@ _b_: body      _s_: subject
   ("s" (insert-after-fn 'message-goto-subject) :exit t)
   ("q" nil :color pink))
 
-(defun cf/goto-next-header ()
-  (interactive)
-  (message-next-header)
-  (message-beginning-of-header nil)
-  (evil-insert 1)
-  )
-
 (evil-define-key '(normal insert)
-  message-mode-map (kbd "S-TAB") 'hydra-message-goto/body)
+  message-mode-map (kbd "C-k") 'cf/goto-prev-header)
 (evil-define-key '(normal insert)
-  message-mode-map (kbd "TAB") 'cf/goto-next-header
-)
+  message-mode-map (kbd "C-j") 'cf/goto-next-header)
 
-(evil-define-key '(insert)
-  mu4e-compose-mode-map
-  (kbd "C-l") 'message-tab)
+(spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+  "t" 'hydra-message-goto/body)
+
+;; (evil-define-key '(insert)
+;;   mu4e-compose-mode-map (kbd "C-l") 'message-tab)
 
 (evil-leader/set-key (kbd "am") 'mu4e) ;; Default is aM
 
