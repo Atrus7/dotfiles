@@ -20,6 +20,8 @@
           mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
           mu4e-attachment-dir "~/downloads"
 
+          mu4e-compose-format-flowed nil ;; otherwise mu4e tries to enable hard-lines
+
           mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
           ;; Don't ask to quit... why is this the default?
           mu4e-confirm-quit nil)
@@ -49,6 +51,7 @@
      send-mail-function		nil
      message-send-mail-function	'smtpmail-send-it
      smtpmail-default-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-server "smtp.gmail.com"
 
      ;; This tells Gnus to use the Gmail SMTP server. This
      ;; automatically leaves a copy in the Gmail Sent folder.
@@ -71,10 +74,10 @@
     (setq mu4e-maildir-shortcuts
           '(
             ("/gmail/INBOX" . ?g)
-            ("/gmail/[Gmail].Sent Mail" . ?s)
+            ("/gmail/Sent Mail" . ?s)
             ("/drafts" . ?d)
             ("/archive" . ?a)
-            ("/gmail/[Gmail].Drafts" . ?D)
+            ("/gmail/Drafts" . ?D)
             ))
 
     ;; Bookmarks
@@ -97,11 +100,7 @@
     ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
     (setq mu4e-enable-mode-line t)
 
-    (add-hook 'mu4e-compose-mode-hook 'cf-mail-compose-setup)
-    )
-  )
-
-    (add-hook 'message-mode-hook 'turn-on-flyspell)
+    (setq mu4e-compose-mode-hook '(cf-mail-compose-setup))
 
     ;; A match-all useful for marking everything
     (add-to-list 'mu4e-headers-custom-markers
@@ -171,13 +170,6 @@
     ;; Gnus search with gmail args
     (setq nnir-imap-default-search-key "gmail")
     ;; (add-to-list 'nnir-imap-search-arguments '("gmail" . "X-GM-RAW"))
-
-    ;; ;; Send email via Gmail:
-    ;; (setq
-    ;;  ;; Tell message mode to use SMTP.
-    ;;  send-mail-function		nil
-    ;;  message-send-mail-function	'smtpmail-send-it
-    ;;  smtpmail-default-smtp-server "smtp.gmail.com"
 
     ;;  ;; This tells Gnus to use the Gmail SMTP server. This
     ;;  ;; automatically leaves a copy in the Gmail Sent folder.
