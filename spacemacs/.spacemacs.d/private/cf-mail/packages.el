@@ -19,9 +19,8 @@
           mu4e-view-show-addresses t
           mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
           mu4e-attachment-dir "~/downloads"
-
           mu4e-compose-format-flowed nil ;; otherwise mu4e tries to enable hard-lines
-
+          mu4e-headers-leave-behavior 'apply
           mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
           ;; Don't ask to quit... why is this the default?
           mu4e-confirm-quit nil)
