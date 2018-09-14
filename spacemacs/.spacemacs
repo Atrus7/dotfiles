@@ -108,6 +108,7 @@
 
 (defvar dotspacemacs/layers/extra
   '( ;; today?
+    dash
     erc
     ;; gnus
     (mu4e :variables
@@ -131,8 +132,7 @@
    dotspacemacs-ask-for-lazy-installation t
 
    dotspacemacs-configuration-layer-path '("~/.spacemacs.d/private/")
-   dotspacemacs-configuration-layers (
-                                      append
+   dotspacemacs-configuration-layers (append
                                       dotspacemacs/layers/core
                                       dotspacemacs/layers/langs
                                       dotspacemacs/layers/extra
@@ -304,5 +304,4 @@
 
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
-  (savehist-mode nil)
-  )
+  (savehist-mode nil))

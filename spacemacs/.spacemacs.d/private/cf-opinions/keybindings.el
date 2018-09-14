@@ -35,6 +35,10 @@
 
 (evil-define-key 'insert 'global (kbd "M-RET") #'newline-below-point)
 
+;; To search in the buffer, SPC s S is still available. This is way faster for
+;; large files and mostly what I want
+(evil-leader/set-key (kbd "s s") 'spacemacs/helm-file-do-ag-region-or-symbol)
+
 ;; Macros stored here
 (fset 'exchange-words "gxewgxe")
 (fset 'remove-surrounding-function
