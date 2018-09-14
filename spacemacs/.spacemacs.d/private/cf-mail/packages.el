@@ -19,7 +19,7 @@
           mu4e-view-show-addresses t
           mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
           mu4e-attachment-dir "~/downloads"
-
+          mu4e-headers-leave-behavior 'apply
           mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
           ;; Don't ask to quit... why is this the default?
           mu4e-confirm-quit nil)
@@ -98,8 +98,6 @@
     (setq mu4e-enable-mode-line t)
 
     (add-hook 'mu4e-compose-mode-hook 'cf-mail-compose-setup)
-    )
-  )
 
     (add-hook 'message-mode-hook 'turn-on-flyspell)
 
