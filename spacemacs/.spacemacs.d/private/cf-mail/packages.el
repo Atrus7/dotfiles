@@ -35,17 +35,6 @@
       (kbd "C-h") help-map
       (kbd "RET") 'mu4e~view-browse-url-from-binding)
 
-
-    (setq
-     ;; Tell message mode to use SMTP.
-     send-mail-function		nil
-     message-send-mail-function	'smtpmail-send-it
-     smtpmail-default-smtp-server "smtp.gmail.com"
-
-     ;; This tells Gnus to use the Gmail SMTP server. This
-     ;; automatically leaves a copy in the Gmail Sent folder.
-     smtpmail-smtp-service 587)
-
     (setq mu4e-view-prefer-html t) ;; try to render
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t) ;; read in browser
@@ -55,6 +44,9 @@
 
     (when (fboundp 'imagemagick-register-types)
       (imagemagick-register-types))
+
+    (setq mu4e-headers-full-search nil
+          mu4e-headers-results-limit 300)
 
     ;; Mail directory shortcuts
     (setq mu4e-maildir-shortcuts
@@ -82,6 +74,8 @@
       (mu4e-alert-set-default-style 'notifications)) ; For linux
     ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
     (setq mu4e-enable-mode-line t)
+
+    (add-hook 'mu4e-compose-mode-hook 'cf-mail-compose-setup)
     )
   )
 
