@@ -42,7 +42,7 @@ fi
 #keyboard repeat rate {Delay Repeat-Speed}
 xset r rate 200 35
 
-pulseaudio --start
+# pulseaudio --start
 #exec wicd-gtk
 #exec xterm -geometry 80x66+0+0 -name login
 

@@ -6,7 +6,8 @@ pythonfile = ~/.offlineimap.py
 [Account Gmail]
 localrepository = gmail_local
 remoterepository = gmail_repository
-autorefresh = 5
+# let mu take care of refresh
+# autorefresh = 5
 quick = 10
 # postsynchook = mu index --maildir ~/maildir
 

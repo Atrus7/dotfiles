@@ -92,7 +92,6 @@
            c-c++-enable-clang-support t)
     common-lisp
     emacs-lisp
-    major-modes ;; arduino
     html
     javascript
     markdown

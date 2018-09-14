@@ -1,5 +1,4 @@
-(defconst cf-mail-packages '(
-                             mu4e
+(defconst cf-mail-packages '(mu4e
                              gnus
                              bbdb-vcard))
 
@@ -12,10 +11,9 @@
     (setq mu4e-maildir "~/maildir"
           mu4e-trash-folder "/trash"
           mu4e-refile-folder "/archive"
-
           mu4e-get-mail-command "offlineimap"
           mu4e-update-interval 300
-          mu4e-compose-signature-auto-include nil
+          mu4e-compose-signature-auto-include t
           mu4e-view-show-images t
           mu4e-view-image-max-width 800
           mu4e-view-show-addresses t
@@ -33,7 +31,28 @@
       (kbd "J") 'mu4e-view-headers-next
       (kbd "K") 'mu4e-view-headers-prev
       (kbd "C-h") help-map
-      (kbd "RET") 'mu4e~view-browse-url-from-binding)
+      (kbd "RET") 'mu4e~view-browse-url-from-binding
+      (kbd "|") 'mu4e-view-pipe
+      (kbd "t") 'mu4e-view-mark-thread
+      (kbd "T") 'mu4e-view-mark-subthread)
+
+    (evilified-state-evilify-map
+      mu4e-headers-mode-map
+      :mode mu4e-headers-mode
+      :bindings
+      (kbd "C-h") help-map
+      (kbd "t") 'mu4e-headers-mark-thread
+      (kbd "T") 'mu4e-headers-mark-subthread)
+
+    (setq
+     ;; Tell message mode to use SMTP.
+     send-mail-function		nil
+     message-send-mail-function	'smtpmail-send-it
+     smtpmail-default-smtp-server "smtp.gmail.com"
+
+     ;; This tells Gnus to use the Gmail SMTP server. This
+     ;; automatically leaves a copy in the Gmail Sent folder.
+     smtpmail-smtp-service 587)
 
     (setq mu4e-view-prefer-html t) ;; try to render
     (add-to-list 'mu4e-view-actions
@@ -50,7 +69,13 @@
 
     ;; Mail directory shortcuts
     (setq mu4e-maildir-shortcuts
-          '(("/gmail/INBOX" . ?g)))
+          '(
+            ("/gmail/INBOX" . ?g)
+            ("/gmail/[Gmail].Sent Mail" . ?s)
+            ("/drafts" . ?d)
+            ("/archive" . ?a)
+            ("/gmail/[Gmail].Drafts" . ?D)
+            ))
 
     ;; Bookmarks
     (setq mu4e-bookmarks
@@ -65,9 +90,6 @@
                           mu4e-maildir-shortcuts) " OR ")
              "All inboxes" ?i)))
 
-    ;; ;; OS Notifications
-    ;; (setq mu4e-enable-notifications t)
-
     ;; Modeline notifications
     (with-eval-after-load 'mu4e-alert
       ;; Enable Desktop notifications
@@ -76,6 +98,40 @@
     (setq mu4e-enable-mode-line t)
 
     (add-hook 'mu4e-compose-mode-hook 'cf-mail-compose-setup)
+    )
+  )
+
+    (add-hook 'message-mode-hook 'turn-on-flyspell)
+
+    ;; A match-all useful for marking everything
+    (add-to-list 'mu4e-headers-custom-markers
+                 '("ALL" (lambda (msg &optional param) t) (lambda () nil)))
+
+    ;; attachments from gnus
+    (require 'gnus-dired)
+    (setq gnus-dired-mail-mode 'mu4e-user-agent)
+    (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+
+    (spacemacs|define-custom-layout "mail"
+      :binding "m"
+      :body
+      ;; set OS Notifications just before launching
+      (setq mu4e-enable-notifications t)
+      (mu4e-update-mail-and-index t)
+      (mu4e)
+      )))
+
+(defun cf-mail/init-bbdb-vcard()
+  (use-package bbdb-vcard
+    :defer t
+    :config
+    ;; import file
+    (bbdb-vcard-import-file "~/news/bbdb/contacts.bbdb")
+    (setq bbdb-message-pop-up nil
+          bbdb-mua-pop-up nil
+          bbdb-complete-mail-allow-cycling t)
+    (bbdb-initialize 'message 'gnus)
+    (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
     )
   )
 
@@ -90,22 +146,6 @@
      gnus-read-newsrc-file nil)
     ))
 
-
-(defun cf-mail/init-bbdb-vcard()
-  (use-package bbdb-vcard
-    :defer t
-    :config
-    ;; import file
-    (bbdb-vcard-import-file "~/news/bbdb/contacts.bbdb")
-    (setq bbdb-message-pop-up nil
-          bbdb-mua-pop-up nil
-          bbdb-complete-mail-allow-cycling t)
-
-    (bbdb-initialize 'message 'gnus)
-    (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-
-    )
-  )
 
 (defun cf-mail/post-init-gnus()
   (use-package gnus
@@ -268,8 +308,6 @@
     ;; (gnus-demon-init)
     ;; (gnus-demon-add-handler 'gnus-group-get-new-news 10 t)
 
-    (add-hook 'message-mode-hook 'turn-on-flyspell)
-
     ;; display-time-mode mail notification
     (defface display-time-mail-face '((t (:background "red")))
       "If display-time-use-mail-icon is non-nil, its background colour is that
@@ -292,28 +330,6 @@
     ))
 
 
-
-
-
-
-;; (defun my-gnus-summary-keys ()
-;;   (local-set-key "y" 'gmail-archive)
-;;   (local-set-key "$" 'gmail-report-spam))
-
-;; (defun gmail-archive ()
-;;   "Archive the current or marked mails.
-;; This moves them into the All Mail folder."
-;;   (interactive)
-;;   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/All Mail"))
-
-;; (defun gmail-report-spam ()
-;;   "Report the current or marked mails as spam.
-;; This moves them into the Spam folder."
-;;   (interactive)
-;;   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
-;; )
-
-
 ;; TODO encryption??
 ;; We don't want local, unencrypted copies of emails we write.
 ;; gnus-message-archive-group nil
@@ -322,4 +338,3 @@
 
 ;; ;; Attempt to encrypt all the mails we'll be sending.
 ;; (add-hook 'message-setup-hook 'mml-secure-message-encrypt)
-;; (evilified-state--define-pre-bindings)
