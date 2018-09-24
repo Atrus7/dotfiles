@@ -36,8 +36,19 @@ _b_: body      _s_: subject
   ("s" (insert-after-fn 'message-goto-subject) :exit t)
   ("q" nil :color pink))
 
-(evil-define-key '(normal) message-mode-map
-  (kbd "TAB") 'hydra-message-goto/body)
+(evil-define-key '(normal insert)
+  message-mode-map (kbd "C-k") 'cf/goto-prev-header)
+(evil-define-key '(normal insert)
+  message-mode-map (kbd "C-j") 'cf/goto-next-header)
+
+(spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode
+  "t" 'hydra-message-goto/body)
+
+;; (evil-define-key '(insert)
+;;   mu4e-compose-mode-map (kbd "C-l") 'message-tab)
+
+(evil-leader/set-key (kbd "am") 'mu4e) ;; Default is aM
+
 ;; (evil-leader/set-key-for-mode 'message-mode "s" 'message-goto-subject
 ;;   (kbd "t") 'message-goto-to
 ;;   (kbd "c") 'message-goto-cc

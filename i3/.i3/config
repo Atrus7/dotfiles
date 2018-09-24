@@ -293,13 +293,13 @@ exec --no-startup-id ~/bin/bebop_lock
 #urxvt daemon
 exec urxvtd -q -f -o
 
-exec --no-startup-id i3-msg 'workspace $tag4 exec $browser --enable-native-gpu-memory-buffers;'
+exec --no-startup-id i3-msg 'workspace $tag4; exec $browser --enable-native-gpu-memory-buffers;'
 
 # Start emacs last since it will appear in the active workspace and it takes a while to load frame.
-exec --no-startup-id i3-msg 'workspace $tag2 exec /usr/bin/emacs;'
+exec --no-startup-id i3-msg 'workspace $tag2; exec /usr/bin/emacs;'
 
 # make first urxvt transparent
-exec --no-startup-id i3-msg ' workspace $tag1 exec ~/bin/transparent_term'
+exec --no-startup-id i3-msg ' workspace $tag1; exec ~/bin/transparent_term'
 
 exec_always i3-msg 'exec notify-send --urgency=low "Starting i3..." "Hello Christopher"'
 

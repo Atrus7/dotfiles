@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Anonymous Namespace
+# key: anon
+# --
+namespace {
+
+}  // namespace
