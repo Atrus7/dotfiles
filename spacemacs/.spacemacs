@@ -151,12 +151,17 @@
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
                                       ninja-mode
+                                      doom-modeline
+                                      doom-themes
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
                                       ;; helpful
+                                      ;;olivetti
                                       )
-   dotspacemacs-excluded-packages '(org-pomodoro)
+   dotspacemacs-excluded-packages '(org-pomodoro
+                                    spaceline ;; use doom-modeline
+                                    )
    dotspacemacs-frozen-packages '()
    dotspacemacs-install-packages 'used-only
    ))
@@ -181,6 +186,7 @@
 (defun dotspacemacs/init/display ()
   (setq-default
    dotspacemacs-themes '(
+                         doom-one
                          spacemacs-dark
                          spacemacs-light
                          nord
@@ -192,13 +198,14 @@
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+
    dotspacemacs-fullscreen-at-startup nil
    dotspacemacs-fullscreen-use-non-native nil
    dotspacemacs-maximized-at-startup nil
    dotspacemacs-active-transparency 90
    dotspacemacs-inactive-transparency 90
-   dotspacemacs-mode-line-unicode-symbols t
-   dotspacemacs-mode-line-theme '(spacemacs :separator bar :separator-scale 1.0)
+   doom-one-brighter-comments nil
+   doom-one-brighter-modeline t
    ))
 
 ;;;; Evil
@@ -286,7 +293,6 @@
 
 (defun dotspacemacs/user-config/toggles ()
   "Spacemacs toggles not intended to be put into layers."
-  (spacemacs/toggle-mode-line-minor-modes-off)
   (spacemacs/toggle-aggressive-indent-globally-on)
   (global-highlight-parentheses-mode 1)
   (rainbow-delimiters-mode-enable))
@@ -303,4 +309,7 @@
 
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
-  (savehist-mode nil))
+  (savehist-mode nil)
+
+  (doom-modeline-init)
+  )
