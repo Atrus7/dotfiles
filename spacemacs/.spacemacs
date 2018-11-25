@@ -45,10 +45,13 @@
 ;;;; Local
 
 (defvar dotspacemacs/layers/local
-  '(cf-calendar
+  '(util-funcs
+    cf-cc
+    cf-calendar
     cf-desktop
-    cf-gnus
+    cf-mail
     cf-irc
+    cf-ide
     cf-linux
     cf-lisp
     cf-mac
@@ -61,8 +64,7 @@
   "Local layers housed in '~/.spacemacs.d/private'.")
 
 (defvar dotspacemacs/layers/better-be-local
-  '(syntax-checking
-    ycmd)
+  '(syntax-checking)
   "The packages that are tramp-killers. Only load them if you're editing locally")
 
 ;;;; Core
@@ -70,16 +72,10 @@
   '((auto-completion :variables
                      auto-completion-return-key-behavior 'complete
                      auto-completion-enable-snippets-in-popup t)
-
-    (cscope :variables
-            cscope-initial-directory "~/tmp/cscope/./"
-            cscope-program "/usr/bin/cscope"
-            cscope-display-cscope-buffer t
-            cscope-option-do-not-update-database t)
-    erc
-    helm ;; ivy
+    helm
     git
-    org
+    (org :variables
+         org-want-todo-bindings t)
     (shell :variables
            shell-default-shell 'shell)
     spell-checking
@@ -96,7 +92,6 @@
            c-c++-enable-clang-support t)
     common-lisp
     emacs-lisp
-    extra-langs ;; arduino
     html
     javascript
     markdown
@@ -112,11 +107,20 @@
 
 (defvar dotspacemacs/layers/extra
   '( ;; today?
-    gnus
+    dash
+    erc
+    ;; gnus
+    (mu4e :variables
+          mu4e-installation-path "/usr/share/emacs/site-lisp")
     graphviz
     ibuffer
     )
   "Miscellaneous layers")
+
+;;;; Experiments...
+
+(defvar dotspacemacs/layers/experimental
+  '(semantic))
 
 ;;;; Layers/config
 
@@ -131,11 +135,12 @@
                                       dotspacemacs/layers/core
                                       dotspacemacs/layers/langs
                                       dotspacemacs/layers/extra
-                                      dotspacemacs/layers/local
+                                      dotspacemacs/layers/experimental
                                       (if at-work '(cf-work) '(cf-home))
-                                      (if (and at-work (spacemacs/system-is-linux))
+                                      (if (spacemacs/system-is-linux)
                                           dotspacemacs/layers/better-be-local
-                                          )
+                                        )
+                                      dotspacemacs/layers/local
                                       )
    ))
 
@@ -145,8 +150,11 @@
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
+                                      ninja-mode
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
+                                      ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
+                                      ;; helpful
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro)
    dotspacemacs-frozen-packages '()
@@ -180,7 +188,7 @@
                          solarized-dark
                          )
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 12
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -279,6 +287,7 @@
 (defun dotspacemacs/user-config/toggles ()
   "Spacemacs toggles not intended to be put into layers."
   (spacemacs/toggle-mode-line-minor-modes-off)
+  (spacemacs/toggle-aggressive-indent-globally-on)
   (global-highlight-parentheses-mode 1)
   (rainbow-delimiters-mode-enable))
 
@@ -294,16 +303,4 @@
 
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
-  (savehist-mode nil)
-
-  ;; Prevent org capture from warning in a perspective
-  (setq persp-kill-foreign-buffer-action nil)
-
-  (spacemacs/toggle-aggressive-indent-globally-on)
-
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (setq company-clang-arguments '("-std=c++11"))
-              (setq flycheck-clang-language-standard "c++11")))
-
-  )
+  (savehist-mode nil))

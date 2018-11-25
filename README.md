@@ -4,7 +4,6 @@ Amalgamation of dots and files.
 ## Bootstrapping
 
 I use Stow to manage the symlinks.
-Emacs Requires a base installation of emacs as well as a base installation of spacemacs.
 
 First time usage looks like this:
   stow -S linux
@@ -15,3 +14,8 @@ If you're adding a new file, use restow:
 ## Emacs Todos
 
 - Get register saving and getting bound to the leader key
+
+## Spacemacs
+Emacs Requires a base installation of emacs as well as a base installation of spacemacs.
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+

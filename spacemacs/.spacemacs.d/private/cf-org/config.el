@@ -1,5 +1,8 @@
 ;; all the capture configuring
 
+;; Prevent org capture from warning in a perspective
+(setq persp-kill-foreign-buffer-action nil)
+
 ;; For the horrendous Weekly Review string, just evaluate this:
 ;; (progn
 ;;   (with-temp-buffer
@@ -21,8 +24,10 @@
          "* Snippet %?\n Entered on %U\n  %i\n  %a")
         ("b" "Book" entry (file+headline ,(cf/get-orgfiles-path "books.org") "Unfiled")
          "** TO_READ %?\n Entered on %U\n  %i\n ")
-        ("m" "Misc" entry (file+headline ,(cf/get-orgfiles-path "misc.org") "Misc")
+        ("M" "Misc" entry (file+headline ,(cf/get-orgfiles-path "misc.org") "Misc")
          "* %?\n Entered on %U\n  %i\n ")
+        ("m" "Mail" entry (file+headline ,(cf/get-orgfiles-path "todo.org" ) "Tasks")
+         "* TODO %? :mail:\n  %i\n %a ")
         ("w" "Weekly Review" entry (file+datetree ,(cf/get-orgfiles-path "weekly_review.org") "Weekly Review")
          ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
 

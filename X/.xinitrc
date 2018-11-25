@@ -1,7 +1,7 @@
 #!/bin/sh
 
-userresources=/home/atrus/.Xresources
-usermodmap=/home/atrus/.Xmodmap
+userresources=${HOME}/.Xresources
+usermodmap=${HOME}/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
@@ -17,7 +17,9 @@ if [ -f $sysmodmap ]; then
 fi
 
 if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
+  xrdb -merge "$HOME/.Xcolors/gruvbox"
+  xrdb -merge "$HOME/.Xcolors/gruvbox_urxvt256"
+  xrdb -merge "$userresources"
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -40,7 +42,7 @@ fi
 #keyboard repeat rate {Delay Repeat-Speed}
 xset r rate 200 35
 
-pulseaudio --start
+# pulseaudio --start
 #exec wicd-gtk
 #exec xterm -geometry 80x66+0+0 -name login
 

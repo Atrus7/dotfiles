@@ -106,7 +106,7 @@
   )
 
 ;; Pulled from https://github.com/howardabrams/dot-files
-(defun align-variables (start end)
+(defun cf/align-variables (start end)
   "Attempts to align all variables in an assignment list or keys
 in a hash table. For instance:
 

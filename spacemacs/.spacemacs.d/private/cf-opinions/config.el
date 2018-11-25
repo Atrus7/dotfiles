@@ -3,6 +3,10 @@
 ;; The place to save all my scratch buffers I end up keeping...
 (defvar cf/scratch-save-dir "~/tmp")
 
+(add-hook 'git-commit-mode-hook
+          (lambda ()
+            (setq fill-column 72)))
+
 ;;; It's some work keeping TRAMP out of trouble....
 (with-eval-after-load 'tramp
   ;; (setq tramp-ssh-controlmaster-options nil)
@@ -14,6 +18,10 @@
    shell-file-name "/bin/bash"
    shell-default-term-shell  "/bin/bash"
    tramp-default-method "scp" ;; scp is faster than ssh....
+   confirm-kill-emacs (if (display-graphic-p)
+                          nil
+                        'y-or-n-p ;; avoid lovely Emergency Escape "feature"
+                          )
 
    ;; tramp-ssh-controlmaster-options
    ;; (concat
@@ -25,15 +33,6 @@
   )
 ;; (setq tramp-verbose 10)
 
-(setq projectile-mode-line
-      '(:eval
-        (if (spacemacs/system-is-linux)
-            (format " Projectile[%s]" (projectile-project-name))
-          " Projectile[remote]") ;; don't slow down over tramp..
-        )
-      projectile-file-exists-remote-cache-expire (* 30 60)
-      projectile-enable-caching t
-      )
 
 (setq sh-make-vars-local nil ; Don't edit any shell files except my own
       create-lockfiles nil
@@ -70,11 +69,6 @@
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
 (add-hook 'makefile-mode-hook
           (lambda () (whitespace-mode)))
-
-(spacemacs|define-custom-layout "gnus"
-  :binding "g"
-  :body
-  (gnus))
 
 (spacemacs|define-custom-layout "serials"
   :binding "s"
