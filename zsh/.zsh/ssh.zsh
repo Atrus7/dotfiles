@@ -5,6 +5,9 @@ if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
 fi
 # gpgconf --launch gpg-agent
 # no keychain on mac
-if type keychain>/dev/null; then
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+if type keychain; then
  eval `keychain --eval id_rsa`
 fi

@@ -44,17 +44,12 @@
       )
 (setq
  ivy-fixed-height-minibuffer t
- ivy-height 14
+ ivy-height 20
  ivy-initial-inputs-alist nil
  ivy-count-format "%-4d "
  )
 
 (add-hook 'focus-out-hook 'save-all)
-(add-hook 'prog-mode-hook
-          (lambda ()
-            ;; (cf/highlight-indent-offset)
-            (hungry-delete-mode)
-            ))
 
 
 (setq vc-ignore-dir-regexp
