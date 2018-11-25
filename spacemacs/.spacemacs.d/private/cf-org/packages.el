@@ -27,8 +27,10 @@
     (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
       "p" 'org-agenda-priority)
     ;; remapping over table
-    (spacemacs/set-leader-keys-for-major-mode 'org-mode
-      "t" 'cf/org-schedule-today)
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode "t" 'cf/org-schedule-today)
+
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode "h" 'cf/highlight-region)
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode "H" 'cf/unhighlight-region)
 
     (evil-define-key '(normal insert) evil-org-mode-map
       (kbd "<right>") 'org-shiftmetadown
