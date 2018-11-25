@@ -49,7 +49,7 @@
     cf-cc
     cf-calendar
     cf-desktop
-    cf-mail
+    ;; cf-mail
     cf-irc
     cf-ide
     cf-linux
@@ -110,8 +110,8 @@
     dash
     erc
     ;; gnus
-    (mu4e :variables
-          mu4e-installation-path "/usr/share/emacs/site-lisp")
+    ;; (mu4e :variables
+    ;;       mu4e-installation-path "/usr/share/emacs/site-lisp")
     graphviz
     ibuffer
     )
