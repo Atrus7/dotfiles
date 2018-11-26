@@ -7,23 +7,28 @@
   (use-package mu4e
     :defer t
     :config
+    (mu4e-maildirs-extension)
+
     ;; Basic settings
-    (setq mu4e-maildir "~/maildir"
-          mu4e-trash-folder "/trash"
-          mu4e-refile-folder "/archive"
-          mu4e-get-mail-command "offlineimap"
-          mu4e-update-interval 300
-          mu4e-compose-signature-auto-include t
-          mu4e-view-show-images t
-          mu4e-view-image-max-width 800
-          mu4e-view-show-addresses t
-          mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
-          mu4e-attachment-dir "~/downloads"
-          mu4e-compose-format-flowed nil ;; otherwise mu4e tries to enable hard-lines
-          mu4e-headers-leave-behavior 'apply
-          mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
-          ;; Don't ask to quit... why is this the default?
-          mu4e-confirm-quit nil)
+    (setq
+
+     mu4e-mu-binary "/usr/local/google/home/cfindeisen/bin/mu"
+     mu4e-maildir "~/maildir"
+     mu4e-trash-folder "/trash"
+     mu4e-refile-folder "/archive"
+     mu4e-get-mail-command "offlineimap"
+     mu4e-update-interval 3600
+     mu4e-compose-signature-auto-include t
+     mu4e-view-show-images t
+     mu4e-view-image-max-width 800
+     mu4e-view-show-addresses t
+     mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
+     mu4e-attachment-dir "~/downloads"
+     mu4e-compose-format-flowed nil ;; otherwise mu4e tries to enable hard-lines
+     mu4e-headers-leave-behavior 'apply
+     mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
+     ;; Don't ask to quit... why is this the default?
+     mu4e-confirm-quit nil)
 
     (evilified-state-evilify-map
       mu4e-view-mode-map
@@ -82,7 +87,7 @@
     ;; Bookmarks
     (setq mu4e-bookmarks
           `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-            ("date:today..now" "Today's messages" ?t)
+            ("date:today..now AND maildir:/gmail/INBOX" "Today's messages" ?t)
             ("date:7d..now" "Last 7 days" ?w)
             ("mime:image/*" "Messages with images" ?p)
             (,(mapconcat 'identity

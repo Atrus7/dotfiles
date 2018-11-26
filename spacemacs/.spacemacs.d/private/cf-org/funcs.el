@@ -8,6 +8,16 @@
    "/DONE" 'file)
   )
 
+(defun cf/org-archive-NA-tasks ()
+  "Archives all done tasks within buffer."
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
+     (setq org-map-continue-from (outline-previous-heading)))
+   "/NOT_APPLICABLE" 'file)
+  )
+
 ;; Insert [ ] to make a checkboxed list
 (fset 'insert-checkbox-at-line
       [?m ?q ?0 ?f ?- ?a ?  ?\[ ?  ?\] escape ?` ?q])

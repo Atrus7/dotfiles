@@ -29,9 +29,10 @@
 
   (kbd "M-Q") #'cf/unfill-paragraph
   (kbd "M-=") #'indent-buffer
-
-  (kbd "C-;") 'append-semicolon
   )
+
+(evil-define-key 'normal prog-mode-map
+  (kbd "C-;") 'append-semicolon)
 
 (evil-define-key 'insert 'global (kbd "M-RET") #'newline-below-point)
 

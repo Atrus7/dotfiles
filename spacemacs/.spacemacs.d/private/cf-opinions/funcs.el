@@ -164,3 +164,26 @@
     (if file-name
         (message (kill-new (abbreviate-file-name file-name)))
       (error "Buffer not visiting a file"))))
+
+(defun cf/log-mode ()
+  "Examine logs"
+  (interactive)
+  ;; TODO Move file to a saved file that won't be deleted after gunzip stops.
+  ;; (make-temp-file)
+
+  (setq-local helm-ag-base-command "ag --nocolor --nogroup --no-numbers")
+  ;; (logcat-mode)
+  (evil-emacs-state)
+  (search-forward "beginning of /dev" nil nil 1)
+  (evil-exit-emacs-state)
+  (evil-scroll-line-to-top nil)
+
+  (evil-window-vsplit)
+  (evil-window-right 1)
+  (let ((buffer (generate-new-buffer "*log-investigation*")))
+    (set-window-buffer nil buffer)
+    (with-current-buffer buffer
+      (org-mode)))
+
+
+  )
