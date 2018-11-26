@@ -86,6 +86,7 @@
 (evil-leader/set-key "owg" 'cf/chrome-linux-ident)
 (evil-global-set-key 'normal "s" 'evil-exchange)
 
+(evil-leader/set-key "is" 'yas-insert-snippet)
 (evil-global-set-key 'normal (kbd "C-M-;") 'append-semicolon)
 
 ;; (evil-leader/set-key "ww" 'ace-select-window)

@@ -322,6 +322,10 @@
       ;; list all the subscribed groups even they contain zero un-read messages
       (kbd "s") 'gnus-group-make-nnir-group)
 
+    ;; default request is 50 articles
+    (define-key gnus-group-mode-map
+      (kbd "<return>") (lambda () (interactive) (gnus-group-select-group 50)))
+
     ;; (display-time-mode t)
     ))
 

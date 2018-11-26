@@ -173,3 +173,21 @@ Start the region at the x, to achieve:
 
       ;; Step 2. Align all the values in a second column
       (align-regexp real-start real-end "\\(\\s-*\\)\\(\\S-*\\)\\(\\s-*\\)" 3 1 nil))))
+
+(defun cf/unhighlight-region ()
+  (interactive)
+  (if (string-equal evil-state "visual")
+      (progn
+        (hlt-unhighlight-region)
+        (evil-exit-visual-state))
+
+    (hlt-unhighlight-symbol (symbol-at-point))))
+
+(defun cf/highlight-region ()
+  (interactive)
+  (if (string-equal evil-state "visual")
+      (progn
+        (hlt-highlight-region)
+        (evil-exit-visual-state))
+
+    (hlt-highlight-symbol (symbol-at-point))))

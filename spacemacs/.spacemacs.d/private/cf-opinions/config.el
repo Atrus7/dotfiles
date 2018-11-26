@@ -44,17 +44,12 @@
       )
 (setq
  ivy-fixed-height-minibuffer t
- ivy-height 14
+ ivy-height 20
  ivy-initial-inputs-alist nil
  ivy-count-format "%-4d "
  )
 
 (add-hook 'focus-out-hook 'save-all)
-(add-hook 'prog-mode-hook
-          (lambda ()
-            ;; (cf/highlight-indent-offset)
-            (hungry-delete-mode)
-            ))
 
 
 (setq vc-ignore-dir-regexp
@@ -94,3 +89,11 @@
                                         ;(push (apply-partially #'cl-remove-if
                                         ;                       (lambda (c) (string-match-p "\\`[0-9]+[a-f]+\\'" c)))
                                         ;      company-transformers)
+
+(defun spaceline-config ()
+  "Relic from when I used Spaceline"
+  (setq-default
+   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-theme '(spacemacs :separator bar :separator-scale 1.0))
+  (spacemacs/toggle-mode-line-minor-modes-off)
+  )
