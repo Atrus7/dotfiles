@@ -28,7 +28,7 @@
          "* %?\n Entered on %U\n  %i\n ")
         ("m" "Mail" entry (file+headline ,(cf/get-orgfiles-path "todo.org" ) "Tasks")
          "* TODO %? :mail:\n  %i\n %a ")
-        ("w" "Weekly Review" entry (file+datetree ,(cf/get-orgfiles-path "weekly_review.org") "Weekly Review")
+        ("w" "Weekly Review" entry (file+datetree ,(cf/get-orgfiles-path "weekly_review.org"))
          ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
 
 )))

@@ -12,6 +12,16 @@
         (kill-new filename))
       )))
 
+;; Open downloads buffer & sort by recent...
+(defun cf/find-downloads ()
+  (interactive)
+  (dired "~/downloads")
+  (if (not dired-sort-inhibit)
+      (dired-sort-toggle))
+  (setq-local dired-sort-inhibit t) ;; no more sorting (if the fn is called again)
+  (goto-line 5) ;; Name of folder, info, .., ., first file
+  )
+
 ;; highlight non-aligning indent offset
 (defun cf/highlight-indent-offset ()
   (interactive)

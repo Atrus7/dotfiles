@@ -79,7 +79,8 @@ Each entry is either:
     :defer t
     :config
     (setq-default
-     olivetti-body-width 120)
+     olivetti-minimum-body-width 80
+    olivetti-body-width 120)
     (spacemacs/set-leader-keys (kbd "w c") 'olivetti-mode))
   )
 
