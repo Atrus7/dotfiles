@@ -21,7 +21,8 @@
     (if at-work
         (progn
           (require 'work-init work-file)
-          (cf/work-pre-loading))
+          (cf/work-pre-loading)
+          )
 
       )
     ))
@@ -96,6 +97,7 @@
     javascript
     markdown
     csv
+    extra-langs ;; AKA "extra-langs" on master
     python
     scheme
     vimscript
@@ -150,6 +152,7 @@
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
+
                                       ninja-mode
                                       doom-modeline
                                       doom-themes

@@ -7,22 +7,28 @@
   (use-package mu4e
     :defer t
     :config
+    (mu4e-maildirs-extension)
+
     ;; Basic settings
-    (setq mu4e-maildir "~/maildir"
-          mu4e-trash-folder "/trash"
-          mu4e-refile-folder "/archive"
-          mu4e-get-mail-command "offlineimap"
-          mu4e-update-interval 300
-          mu4e-compose-signature-auto-include t
-          mu4e-view-show-images t
-          mu4e-view-image-max-width 800
-          mu4e-view-show-addresses t
-          mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
-          mu4e-attachment-dir "~/downloads"
-          mu4e-headers-leave-behavior 'apply
-          mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
-          ;; Don't ask to quit... why is this the default?
-          mu4e-confirm-quit nil)
+    (setq
+
+     mu4e-mu-binary "/usr/local/google/home/cfindeisen/bin/mu"
+     mu4e-maildir "~/maildir"
+     mu4e-trash-folder "/trash"
+     mu4e-refile-folder "/archive"
+     mu4e-get-mail-command "offlineimap"
+     mu4e-update-interval 3600
+     mu4e-compose-signature-auto-include t
+     mu4e-view-show-images t
+     mu4e-view-image-max-width 800
+     mu4e-view-show-addresses t
+     mu4e-sent-messages-behavior 'delete ;; gmail/IMAP takes care of this
+     mu4e-attachment-dir "~/downloads"
+     mu4e-compose-format-flowed nil ;; otherwise mu4e tries to enable hard-lines
+     mu4e-headers-leave-behavior 'apply
+     mu4e-html2text-command 'my-render-html-message ;; HTML Viewing
+     ;; Don't ask to quit... why is this the default?
+     mu4e-confirm-quit nil)
 
     (evilified-state-evilify-map
       mu4e-view-mode-map
@@ -49,6 +55,7 @@
      send-mail-function		nil
      message-send-mail-function	'smtpmail-send-it
      smtpmail-default-smtp-server "smtp.gmail.com"
+     smtpmail-smtp-server "smtp.gmail.com"
 
      ;; This tells Gnus to use the Gmail SMTP server. This
      ;; automatically leaves a copy in the Gmail Sent folder.
@@ -71,16 +78,16 @@
     (setq mu4e-maildir-shortcuts
           '(
             ("/gmail/INBOX" . ?g)
-            ("/gmail/[Gmail].Sent Mail" . ?s)
+            ("/gmail/Sent Mail" . ?s)
             ("/drafts" . ?d)
             ("/archive" . ?a)
-            ("/gmail/[Gmail].Drafts" . ?D)
+            ("/gmail/Drafts" . ?D)
             ))
 
     ;; Bookmarks
     (setq mu4e-bookmarks
           `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-            ("date:today..now" "Today's messages" ?t)
+            ("date:today..now AND maildir:/gmail/INBOX" "Today's messages" ?t)
             ("date:7d..now" "Last 7 days" ?w)
             ("mime:image/*" "Messages with images" ?p)
             (,(mapconcat 'identity
@@ -97,9 +104,7 @@
     ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
     (setq mu4e-enable-mode-line t)
 
-    (add-hook 'mu4e-compose-mode-hook 'cf-mail-compose-setup)
-
-    (add-hook 'message-mode-hook 'turn-on-flyspell)
+    (setq mu4e-compose-mode-hook '(cf-mail-compose-setup))
 
     ;; A match-all useful for marking everything
     (add-to-list 'mu4e-headers-custom-markers
@@ -169,13 +174,6 @@
     ;; Gnus search with gmail args
     (setq nnir-imap-default-search-key "gmail")
     ;; (add-to-list 'nnir-imap-search-arguments '("gmail" . "X-GM-RAW"))
-
-    ;; ;; Send email via Gmail:
-    ;; (setq
-    ;;  ;; Tell message mode to use SMTP.
-    ;;  send-mail-function		nil
-    ;;  message-send-mail-function	'smtpmail-send-it
-    ;;  smtpmail-default-smtp-server "smtp.gmail.com"
 
     ;;  ;; This tells Gnus to use the Gmail SMTP server. This
     ;;  ;; automatically leaves a copy in the Gmail Sent folder.
