@@ -69,6 +69,9 @@
 
 
 (evil-leader/set-key (kbd "fep") 'cf/find-private-layers)
+;; no need for the dotfile-diff..use d for downloads
+(evil-leader/set-key (kbd "fed") 'cf/find-downloads)
+(evil-leader/set-key (kbd "feD") 'spacemacs/find-dotfile)
 (evil-leader/set-key (kbd "feo") 'cf/find-org-files)
 (evil-leader/set-key (kbd "p s") 'cf/projectile-magit)
 (evil-leader/set-key (kbd "p p") 'cf/projectile-default-switch)
