@@ -171,7 +171,7 @@
   ;; TODO Move file to a saved file that won't be deleted after gunzip stops.
   ;; (make-temp-file)
 
-  (setq-local helm-ag-base-command "ag --nocolor --nogroup --no-numbers")
+  (setq-local helm-ag-base-command "ag --nocolor --nogroup ") ;; --no-numbers (better for saving logs, but can't jump to location w/o it)
   ;; (logcat-mode)
   (evil-emacs-state)
   (search-forward "beginning of /dev" nil nil 1)

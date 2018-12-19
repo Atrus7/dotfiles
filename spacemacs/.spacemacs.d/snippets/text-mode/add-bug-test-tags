@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: Add Bug Test Message
-# key: add-bug-test-msg
-# --
-
-Bug: $0
-Test: None
