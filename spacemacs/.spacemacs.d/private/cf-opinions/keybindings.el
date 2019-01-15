@@ -33,6 +33,11 @@
   (kbd "C-;") 'append-semicolon
   )
 
+;; So SPC f R is renaming a file.
+;; So SPC f D is deleting a file.
+;; SPC f C should be copying a file.
+(evil-leader/set-key (kbd "f C") 'spacemacs/copy-file)
+
 (evil-define-key 'insert 'global (kbd "M-RET") #'newline-below-point)
 
 ;; To search in the buffer, SPC s S is still available. This is way faster for

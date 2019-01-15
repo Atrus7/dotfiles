@@ -164,3 +164,8 @@
     (if file-name
         (message (kill-new (abbreviate-file-name file-name)))
       (error "Buffer not visiting a file"))))
+
+(defun cf/delete-empty-newlines()
+    (interactive)
+    (evil-ex "%s/\n\n+/\n/g")
+    )
