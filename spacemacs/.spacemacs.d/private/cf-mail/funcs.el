@@ -7,9 +7,11 @@
     (goto-char (point-min))))
 
 (defun cf-mail-compose-setup ()
+  (setq-local use-hard-newlines nil)
   (setq-local mu4e-compose-format-flowed t)
-  (setq-local use-hard-newlines -1)
-  (turn-off-auto-fill))
+  (turn-off-auto-fill)
+  (turn-on-flyspell)
+)
 
 (defun cf/goto-next-header ()
   (interactive)
@@ -22,8 +24,7 @@
     (or (eobp) (forward-char 1))
     (not (if (re-search-backward "^[^ \t]" nil t 2)
              (beginning-of-line)
-           (goto-char (point-max))))
-  )
+           (goto-char (point-max)))))
 
 (defun cf/goto-prev-header ()
   (interactive)

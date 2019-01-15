@@ -40,9 +40,6 @@
 
           ;; Cache directory, both relative and absolute paths are supported
           cquery-cache-dir "~/tmp/.cquery_cached_index"))
-
-  ;; TODO recache upon what circumstances??
-  ;; ninja -C out/default/ -t compdb cxx cc > compile_commands.json
   )
 
 (defun cf-ide/post-init-semantic()

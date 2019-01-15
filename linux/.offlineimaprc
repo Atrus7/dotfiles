@@ -19,7 +19,7 @@ localfolders = ~/maildir/gmail
 type = Gmail
 maxconnections = 2
 remoteuser = cfindeisen7@gmail.com
-folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail', '[Gmail]/Important']
+nametrans = lambda f: '[Gmail]/' + f if f in ['Drafts', 'Starred', 'Important', 'Spam', 'Trash', 'All Mail', 'Sent Mail'] else f
 
 # Decrypt and read the encrypted password
 remotepasseval = get_pass()

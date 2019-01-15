@@ -31,7 +31,9 @@
 
 (defconst cf-writing-packages
   '(nanowrimo
-    visual-fill-column)
+    visual-fill-column
+    olivetti
+    )
   "The list of Lisp packages required by the cf-writing layer.
 
 Each entry is either:
@@ -70,6 +72,16 @@ Each entry is either:
     :defer t
     :init
     )
+  )
+
+(defun cf-writing/init-olivetti ()
+  (use-package visual-fill-column
+    :defer t
+    :config
+    (setq-default
+     olivetti-minimum-body-width 80
+    olivetti-body-width 120)
+    (spacemacs/set-leader-keys (kbd "w c") 'olivetti-mode))
   )
 
 

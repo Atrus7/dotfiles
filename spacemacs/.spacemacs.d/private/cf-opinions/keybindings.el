@@ -29,14 +29,15 @@
 
   (kbd "M-Q") #'cf/unfill-paragraph
   (kbd "M-=") #'indent-buffer
-
-  (kbd "C-;") 'append-semicolon
   )
 
 ;; So SPC f R is renaming a file.
 ;; So SPC f D is deleting a file.
 ;; SPC f C should be copying a file.
 (evil-leader/set-key (kbd "f C") 'spacemacs/copy-file)
+
+(evil-define-key 'normal prog-mode-map
+  (kbd "C-;") 'append-semicolon)
 
 (evil-define-key 'insert 'global (kbd "M-RET") #'newline-below-point)
 
@@ -73,6 +74,9 @@
 
 
 (evil-leader/set-key (kbd "fep") 'cf/find-private-layers)
+;; no need for the dotfile-diff..use d for downloads
+(evil-leader/set-key (kbd "fed") 'cf/find-downloads)
+(evil-leader/set-key (kbd "feD") 'spacemacs/find-dotfile)
 (evil-leader/set-key (kbd "feo") 'cf/find-org-files)
 (evil-leader/set-key (kbd "p s") 'cf/projectile-magit)
 (evil-leader/set-key (kbd "p p") 'cf/projectile-default-switch)

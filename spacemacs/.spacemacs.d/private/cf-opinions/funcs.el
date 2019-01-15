@@ -12,6 +12,16 @@
         (kill-new filename))
       )))
 
+;; Open downloads buffer & sort by recent...
+(defun cf/find-downloads ()
+  (interactive)
+  (dired "~/downloads")
+  (if (not dired-sort-inhibit)
+      (dired-sort-toggle))
+  (setq-local dired-sort-inhibit t) ;; no more sorting (if the fn is called again)
+  (goto-line 5) ;; Name of folder, info, .., ., first file
+  )
+
 ;; highlight non-aligning indent offset
 (defun cf/highlight-indent-offset ()
   (interactive)
@@ -169,3 +179,23 @@
     (interactive)
     (evil-ex "%s/\n\n+/\n/g")
     )
+(defun cf/log-mode ()
+  "Examine logs"
+  (interactive)
+  ;; TODO Move file to a saved file that won't be deleted after gunzip stops.
+  ;; (make-temp-file)
+
+  (setq-local helm-ag-base-command "ag --nocolor --nogroup ") ;; --no-numbers (better for saving logs, but can't jump to location w/o it)
+  ;; (logcat-mode)
+  (evil-emacs-state)
+  (search-forward "beginning of /dev" nil nil 1)
+  (evil-exit-emacs-state)
+  (evil-scroll-line-to-top nil)
+
+  (evil-window-vsplit)
+  (evil-window-right 1)
+  (let ((buffer (generate-new-buffer "*log-investigation*")))
+    (set-window-buffer nil buffer)
+    (with-current-buffer buffer
+      (org-mode)))
+  )
