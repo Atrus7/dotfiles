@@ -14,10 +14,8 @@
   (dotspacemacs/init/startup))
 
 (defun dotspacemacs/init/pre-init ()
-
   (let ((work-file "~/dotfiles/work/work-init.el"))
     (defvar at-work (file-exists-p work-file))
-
     (if at-work
         (progn
           (require 'work-init work-file)
