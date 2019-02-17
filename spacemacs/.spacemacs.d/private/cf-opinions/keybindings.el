@@ -31,6 +31,11 @@
   (kbd "M-=") #'indent-buffer
   )
 
+;; So SPC f R is renaming a file.
+;; So SPC f D is deleting a file.
+;; SPC f C should be copying a file.
+(evil-leader/set-key (kbd "f C") 'spacemacs/copy-file)
+
 (evil-define-key 'normal prog-mode-map
   (kbd "C-;") 'append-semicolon)
 

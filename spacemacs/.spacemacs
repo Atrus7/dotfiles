@@ -14,10 +14,8 @@
   (dotspacemacs/init/startup))
 
 (defun dotspacemacs/init/pre-init ()
-
   (let ((work-file "~/dotfiles/work/work-init.el"))
     (defvar at-work (file-exists-p work-file))
-
     (if at-work
         (progn
           (require 'work-init work-file)
@@ -138,7 +136,9 @@
                                       dotspacemacs/layers/langs
                                       dotspacemacs/layers/extra
                                       dotspacemacs/layers/experimental
-                                      (if at-work '(cf-work) '(cf-home))
+                                      (if at-work '(
+                                                    cf-work
+                                                    cf-cast) '(cf-home))
                                       (if (spacemacs/system-is-linux)
                                           dotspacemacs/layers/better-be-local
                                         )

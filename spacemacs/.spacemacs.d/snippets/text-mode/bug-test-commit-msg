@@ -4,5 +4,5 @@
 # --
 $0
 
-Bug: None
+Bug: `(helm-bug-show-my-bug)`
 Test: None

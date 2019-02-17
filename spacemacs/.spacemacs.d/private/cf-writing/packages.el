@@ -33,6 +33,7 @@
   '(nanowrimo
     visual-fill-column
     olivetti
+    poet-theme
     )
   "The list of Lisp packages required by the cf-writing layer.
 
@@ -61,12 +62,28 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
+(spacemacs|add-toggle cf/writing-mode
+  :status cf/writing-mode
+  :on (progn (cf/writing-mode 1)
+             (load-theme 'poet t)
+             )
+  :off (progn (cf/writing-mode -1)
+              (load-theme (car dotspacemacs-themes) t)
+              )
+  )
+
+
+(define-minor-mode cf/writing-mode ()
+  nil " Writing" '() :group 'writing)
+
+
 (defun cf-writing/init-nanowrimo ()
   (use-package nanowrimo
     :defer t
     :init
     )
   )
+
 (defun cf-writing/init-visual-fill-column ()
   (use-package visual-fill-column
     :defer t
@@ -84,5 +101,11 @@ Each entry is either:
     (spacemacs/set-leader-keys (kbd "w c") 'olivetti-mode))
   )
 
+(defun cf-writing/init-poet-theme ()
+  (use-package poet-theme
+    :defer t
+    :config
+    )
+  )
 
 ;;; packages.el ends here

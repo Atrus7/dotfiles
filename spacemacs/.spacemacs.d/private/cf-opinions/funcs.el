@@ -175,13 +175,17 @@
         (message (kill-new (abbreviate-file-name file-name)))
       (error "Buffer not visiting a file"))))
 
+(defun cf/delete-empty-newlines()
+    (interactive)
+    (evil-ex "%s/\n\n+/\n/g")
+    )
 (defun cf/log-mode ()
   "Examine logs"
   (interactive)
   ;; TODO Move file to a saved file that won't be deleted after gunzip stops.
   ;; (make-temp-file)
 
-  (setq-local helm-ag-base-command "ag --nocolor --nogroup --no-numbers")
+  (setq-local helm-ag-base-command "ag --nocolor --nogroup ") ;; --no-numbers (better for saving logs, but can't jump to location w/o it)
   ;; (logcat-mode)
   (evil-emacs-state)
   (search-forward "beginning of /dev" nil nil 1)
@@ -194,8 +198,6 @@
     (set-window-buffer nil buffer)
     (with-current-buffer buffer
       (org-mode)))
-
-
   )
 
 (defun cf/delete-trailing-whitespace ()

@@ -53,12 +53,12 @@
 
 ;; website related
 (setq org-publish-project-alist
-      '(("blog"
+      `(("blog"
          :components ("blog-content" "blog-static"))
         ("blog-content"
          :base-directory       "~/syscowboy/posts"
          :base-extension       "org"
-         :publishing-directory server-blog-base
+         :publishing-directory ,server-blog-base
          ;;                    :email cf/personal-email
          :recursive            t
          :publishing-function  org-html-publish-to-html
@@ -85,6 +85,6 @@
         ("blog-static"
          :base-directory "~/syscowboy/posts/static"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"
-         :publishing-directory server-static-base
+         :publishing-directory ,server-static-base
          :recursive t
          :publishing-function org-publish-attachment)))

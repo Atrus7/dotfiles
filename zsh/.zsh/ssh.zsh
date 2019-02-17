@@ -8,6 +8,9 @@ fi
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
-if type keychain; then
- eval `keychain --eval id_rsa`
-fi
+function load_rsa {
+    if type keychain; then
+        load id_rsa
+        eval `keychain --eval id_rsa`
+    fi
+}
