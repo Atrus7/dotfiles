@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-~/bin/i3lock/i3lock -i ~/bin/i3lock/imgs/wallpaper/ed-wallpaper.png -a ~/pictures/bebop-wallpaper/animation/
+~/bin/i3lock/i3lock -i ~/pictures/bebop-wallpaper/wallpaper-3840.png -a ~/pictures/bebop-wallpaper/animation/
