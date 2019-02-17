@@ -32,6 +32,7 @@
          ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
 
 )))
+(setq org-archive-location "~/org/archive.org::")
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 

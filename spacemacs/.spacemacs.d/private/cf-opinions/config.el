@@ -67,6 +67,9 @@
              "28800" "38400" "57600"   "115200"))
 
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
+
+(add-hook 'before-save-hook 'cf/delete-trailing-whitespace)
+
 (add-hook 'makefile-mode-hook
           (lambda () (whitespace-mode)))
 

@@ -15,7 +15,7 @@
    (lambda ()
      (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
      (setq org-map-continue-from (outline-previous-heading)))
-   "/NOT_APPLICABLE" 'file)
+   "/Not-Applicable" 'file)
   )
 
 ;; Insert [ ] to make a checkboxed list

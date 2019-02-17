@@ -44,24 +44,24 @@
   (interactive)
   (if (boundp 'helm-mode)
       (cf/helm-projectile-cmd 'projectile-vc)
-      (cf/ivy-projectile-cmd 'projectile-vc)
+    (cf/ivy-projectile-cmd 'projectile-vc)
     ))
 
 (defun cf/projectile-default-switch ()
   (interactive)
   (if (boundp 'helm-mode)
       (cf/helm-projectile-cmd 'projectile-find-file)
-      (cf/ivy-projectile-cmd 'projectile-find-file)
-      ))
+    (cf/ivy-projectile-cmd 'projectile-find-file)
+    ))
 
 (fset 'append-semicolon
-   "mqA;fd`q")
+      "mqA;fd`q")
 
 (defun cf/projectile-search ()
   (interactive)
   (if (boundp 'helm-mode)
       (cf/helm-projectile-cmd 'spacemacs/helm-project-smart-do-search)
-      (cf/ivy-projectile-cmd 'projectile-search)
+    (cf/ivy-projectile-cmd 'projectile-search)
     ))
 
 (defun cf/ivy-projectile-cmd (fn)
@@ -197,3 +197,8 @@
 
 
   )
+
+(defun cf/delete-trailing-whitespace ()
+  "Delete whitespace except in org buffers."
+  (if (not (equal major-mode 'org-mode))
+      (delete-trailing-whitespace)))
