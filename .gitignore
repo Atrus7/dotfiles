@@ -10,3 +10,6 @@ emacs/.emacs.d/elpa/
 
 work/
 /.DS_Store
+
+/linux/.ssh/*
+/zsh/.zsh/priv.zsh
