@@ -43,7 +43,7 @@ class VLCTelnet():
 
             minutes = total_seconds // 60
             seconds = total_seconds % 60
-            print(str(minutes) + ":" + str(seconds))
+            print("%2d:%02d" % (minutes, seconds))
 
         except ValueError:
             print("Invalid current time " + tmp_time.decode('ascii'))
