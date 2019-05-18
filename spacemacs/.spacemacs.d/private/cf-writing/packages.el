@@ -34,7 +34,7 @@
     visual-fill-column
     olivetti
     poet-theme
-    )
+    doom-modeline)
   "The list of Lisp packages required by the cf-writing layer.
 
 Each entry is either:
@@ -66,15 +66,19 @@ Each entry is either:
   :status cf/writing-mode
   :on (progn (cf/writing-mode 1)
              (load-theme 'poet t)
+             (doom-modeline-set-modeline 'writing-mode-line t)
+             (doom-modeline-refresh-bars)
              )
   :off (progn (cf/writing-mode -1)
               (load-theme (car dotspacemacs-themes) t)
+              (doom-modeline-set-modeline 'main t)
+              (doom-modeline-refresh-bars)
               )
   )
 
 
 (define-minor-mode cf/writing-mode ()
-  nil " Writing" '() :group 'writing)
+  nil " Writing" '() :group 'writing :global t)
 
 
 (defun cf-writing/init-nanowrimo ()
@@ -83,6 +87,20 @@ Each entry is either:
     :init
     )
   )
+
+(defun cf-writing/init-doom-modeline ()
+  (use-package doom-modeline
+    :defer t
+    :config
+    (doom-modeline-def-segment word-count
+      "Word Count"
+      (format "(%d words)"
+              (count-words (point-min) (point-max))))
+    (doom-modeline-def-modeline 'writing-mode-line
+      '(bar evil-state workspace-number matches buffer-info buffer-position selection-info word-count)
+      '(misc-info persp-name minor-modes input-method buffer-encoding major-mode process vcs checker))
+    )
+)
 
 (defun cf-writing/init-visual-fill-column ()
   (use-package visual-fill-column
