@@ -74,11 +74,21 @@ Each entry is either:
               (doom-modeline-set-modeline 'main t)
               (doom-modeline-refresh-bars)
               )
+
   )
 
 
+(defvar writing-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [remap evil-previous-line] 'evil-previous-visual-line)
+    (define-key map [remap evil-next-line] 'evil-next-visual-line)
+    map))
 (define-minor-mode cf/writing-mode ()
-  nil " Writing" '() :group 'writing :global t)
+  :keymap writing-mode-map
+
+  nil " Writing" '(
+
+                   ) :group 'writing :global t)
 
 
 (defun cf-writing/init-nanowrimo ()

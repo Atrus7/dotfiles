@@ -48,15 +48,15 @@
  org-html-preamble-format `(("en"
                              ,(cf/org-pull-template-from-file "publishing/header.html"))))
 
-(setq server-blog-base "/ssh:cstwins:/var/www/html/syscowboy/posts")
-(setq server-static-base "/ssh:cstwins:/var/www/html/syscowboy/static")
+(setq server-blog-base "/ssh:webserver:/var/www/html/syscowboy/posts")
+(setq server-static-base "/ssh:webserver:/var/www/html/syscowboy/static")
 
 ;; website related
 (setq org-publish-project-alist
       `(("blog"
          :components ("blog-content" "blog-static"))
         ("blog-content"
-         :base-directory       "~/syscowboy/posts"
+         :base-directory       "~/blog/posts"
          :base-extension       "org"
          :publishing-directory ,server-blog-base
          ;;                    :email cf/personal-email

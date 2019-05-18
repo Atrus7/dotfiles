@@ -15,12 +15,16 @@
    (lambda ()
      (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
      (setq org-map-continue-from (outline-previous-heading)))
-   "/Not-Applicable" 'file)
+   "/NA" 'file)
   )
 
 ;; Insert [ ] to make a checkboxed list
 (fset 'insert-checkbox-at-line
       [?m ?q ?0 ?f ?- ?a ?  ?\[ ?  ?\] escape ?` ?q])
+
+;; Requires "highlight" to be in search buffer
+(fset 'fix-highlight-format-ebook-export
+   [?n ?d ?f ?- ?x ?j ?j ?v ?i ?p ?h ?h ?l ?v ?s ?\" ?k ?k ?J ?J ?i ?: return escape ?x])
 
 
 ;; TODO implement

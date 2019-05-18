@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(defconst cf-org-packages '(org)
+(defconst cf-org-packages '(org org-agenda)
   "The list of Lisp packages required by the cf-org layer.")
 
 (defun cf-org/post-init-org()
@@ -31,6 +31,14 @@
 
     (spacemacs/set-leader-keys-for-major-mode 'org-mode "h" 'cf/highlight-region)
     (spacemacs/set-leader-keys-for-major-mode 'org-mode "H" 'cf/unhighlight-region)
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode "I" 'org-toggle-inline-images)
+
+
+    (evil-define-key '(normal) evil-org-mode-map
+      (kbd "<S-return>") 'org-insert-subheading
+      (kbd "M-<RET>") 'org-insert-heading
+      (kbd "C-<RET>") 'org-insert-heading
+      )
 
     (evil-define-key '(normal insert) evil-org-mode-map
       (kbd "<right>") 'org-shiftmetadown
@@ -42,6 +50,20 @@
       (kbd "M-j") 'evil-window-down
       (kbd "M-k") 'evil-window-up
       (kbd "M-l") 'evil-window-right)
+
+    )
+  )
+
+(defun cf-org/post-init-org-agenda ()
+  (use-package org-agenda
+    :defer t
+    :config
+    ;; Un-evilify the window management.
+    (evil-define-key 'evilified org-agenda-mode-map (kbd "M-h") nil)
+    (evil-define-key 'evilified org-agenda-mode-map (kbd "M-j") nil)
+    (evil-define-key 'evilified org-agenda-mode-map (kbd "M-k") nil)
+    (evil-define-key 'evilified org-agenda-mode-map (kbd "M-l") nil)
+    (evil-define-key 'evilified org-agenda-mode-map (kbd "M-d") nil)
     )
   )
 
