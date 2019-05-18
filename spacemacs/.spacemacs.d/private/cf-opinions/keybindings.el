@@ -31,6 +31,12 @@
   (kbd "M-=") #'indent-buffer
   )
 
+(define-key evil-evilified-state-map (kbd "M-h") #'evil-window-left)
+(define-key evil-evilified-state-map (kbd "M-j") #'evil-window-down)
+(define-key evil-evilified-state-map (kbd "M-k") #'evil-window-up)
+(define-key evil-evilified-state-map (kbd "M-l") #'evil-window-right)
+(define-key evil-evilified-state-map (kbd "M-d") #'spacemacs/delete-window)
+
 ;; So SPC f R is renaming a file.
 ;; So SPC f D is deleting a file.
 ;; SPC f C should be copying a file.
