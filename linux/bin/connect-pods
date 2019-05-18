@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+pods_mac_addr=7C:9A:1D:AE:30:17
+
+bluetoothctl power on
+bluetoothctl connect $pods_mac_addr
