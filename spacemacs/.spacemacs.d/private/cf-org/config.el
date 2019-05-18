@@ -41,12 +41,12 @@
  org-deadline-warning-days 10)
 
 (setq
- org-html-head (cf/org-pull-template-from-file "publishing/links.html")
+ org-html-head (cf/org-pull-template-from-file "~/blog/publishing/links.html")
  org-html-preamble      t
  org-html-postamble     t
  org-html-inline-images t
  org-html-preamble-format `(("en"
-                             ,(cf/org-pull-template-from-file "publishing/header.html"))))
+                             ,(cf/org-pull-template-from-file "~/blog/publishing/header.html"))))
 
 (setq server-blog-base "/ssh:webserver:/var/www/html/syscowboy/posts")
 (setq server-static-base "/ssh:webserver:/var/www/html/syscowboy/static")
