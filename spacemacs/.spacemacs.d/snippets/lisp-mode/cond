@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cond
+# key: cond
+# --
+
+(cond ((con) (res))
+      ((con) (res))
+  )
