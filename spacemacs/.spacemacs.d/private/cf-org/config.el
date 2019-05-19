@@ -83,7 +83,7 @@
          :sitemap-title        "home"
                                )
         ("blog-static"
-         :base-directory "~/syscowboy/posts/static"
+         :base-directory "~/blog/posts/static"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"
          :publishing-directory ,server-static-base
          :recursive t

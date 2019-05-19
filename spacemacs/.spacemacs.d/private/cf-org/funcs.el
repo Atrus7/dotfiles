@@ -8,6 +8,14 @@
    "/DONE" 'file)
   )
 
+(defun helm-files-insert-as-static-link (candidate)
+  (insert (format "%s" (replace-regexp-in-string "^.*/static/" "http:/static/" candidate))))
+
+(defun helm-ff-run-insert-blog-img ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action 'helm-files-insert-as-static-link)))
+
 (defun cf/org-archive-NA-tasks ()
   "Archives all done tasks within buffer."
   (interactive)

@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(defconst cf-org-packages '(org org-agenda)
+(defconst cf-org-packages '(helm org org-agenda)
   "The list of Lisp packages required by the cf-org layer.")
 
 (defun cf-org/post-init-org()
@@ -64,6 +64,17 @@
     (evil-define-key 'evilified org-agenda-mode-map (kbd "M-k") nil)
     (evil-define-key 'evilified org-agenda-mode-map (kbd "M-l") nil)
     (evil-define-key 'evilified org-agenda-mode-map (kbd "M-d") nil)
+    )
+  )
+
+(defun cf-org/post-init-helm()
+  (use-package helm
+    :defer t
+    :config
+
+    (put 'helm-ff-run-insert-blog-img 'helm-only t)
+    (define-key helm-find-files-map (kbd "C-c s")         'helm-ff-run-insert-blog-img)
+    (helm-add-action-to-source "Insert blog image path" 'helm-files-insert-as-static-link helm-source-find-files)
     )
   )
 

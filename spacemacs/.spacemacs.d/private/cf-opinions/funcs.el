@@ -81,6 +81,11 @@
   (interactive)
   (helm-find-files-1 "~/org/"))
 
+(defun cf/find-blog-img ()
+  "shortcut to private layers dir"
+  (interactive)
+  (helm-find-files-1 "~/blog/posts/static"))
+
 (defun cf/chrome-linux-ident (region-start region-end)
   ;;; Look up identifier in linux kernel
   (interactive "r")
