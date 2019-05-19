@@ -26,6 +26,11 @@
       "p" 'org-priority)
     (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
       "p" 'org-agenda-priority)
+
+    ;; blog publishing
+    (evil-leader/set-key (kbd "a o p") 'org-publish)
+    (evil-leader/set-key (kbd "o p a") 'org-publish-all)
+    (evil-leader/set-key (kbd "o p f") 'org-publish-current-file)
     ;; remapping over table
     (spacemacs/set-leader-keys-for-major-mode 'org-mode "t" 'cf/org-schedule-today)
 
