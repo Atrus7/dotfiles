@@ -31,7 +31,7 @@
     (spacemacs/declare-prefix (kbd "o p") "publishing")
     (evil-leader/set-key (kbd "a o p") 'org-publish)
     (evil-leader/set-key (kbd "o p a") 'org-publish-all)
-    (evil-leader/set-key (kbd "o p f") 'org-publish-current-file)
+    (evil-leader/set-key (kbd "o p f") 'cf/org-publish-file)
     ;; remapping over table
     (spacemacs/set-leader-keys-for-major-mode 'org-mode "t" 'cf/org-schedule-today)
 

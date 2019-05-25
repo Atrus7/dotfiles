@@ -120,6 +120,15 @@
       nil
       )))
 
+(defun cf/org-publish-file (&rest args)
+  (interactive)
+  (org-publish-current-file)
+  (browse-url-chrome (format "%s"
+                             (replace-regexp-in-string
+                              ".org" ".html"
+                              (replace-regexp-in-string "^.*/posts/" "http://syscowboy.com/" buffer-file-name))))
+  )
+
 ;; Wrapper for main publishing fn for addendums
 (defun cf/org-publish-blog (&rest args)
 
