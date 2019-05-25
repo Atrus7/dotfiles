@@ -33,8 +33,13 @@
   )
 ;; (setq tramp-verbose 10)
 
+;; files that require a password are annoying if they hang around
+(with-eval-after-load
+    "recentf"
+  (add-to-list 'recentf-exclude ".*\.gpg")
+  (add-to-list 'recentf-exclude "/sudo:.*"))
 
-(setq sh-make-vars-local nil ; Don't edit any shell files except my own
+(setq sh-make-vars-local nil          ; Don't edit any shell files except my own
       create-lockfiles nil
       vc-follow-symlinks t
       vc-handled-backends '(RCS CVS SVN SRC Git Hg) ;; only use likely backends
