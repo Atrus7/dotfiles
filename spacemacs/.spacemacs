@@ -140,7 +140,7 @@
                                       dotspacemacs/layers/experimental
                                       (if at-work '(
                                                     cf-work
-                                                    cf-cast) '(cf-home))
+                                                    cast) '(cf-home))
                                       (if (spacemacs/system-is-linux)
                                           dotspacemacs/layers/better-be-local
                                         )
