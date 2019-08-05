@@ -91,9 +91,15 @@ gaps outer 0
 gaps inner 10
 
 
+# app ids
+set $app_messenger_id "hpfldicfbfomlpcikngkocigghgafkph"
+set $app_ytmusic_id "eeaafbmfeofhhjpjklgoobllogkjdgap"
+
 #does this do anything?
 #make notifications behave
 #for_window [class="^.*"] border pixel 0
+for_window [instance=$app_messenger_id] floating enable, resize set 1920 1080, border pixel 4, move absolute position center, move scratchpad
+for_window [instance=$app_ytmusic_id] floating enable, resize set 1920 1080, move absolute position center, move to workspace $tag3
 #for_window [class="Xfce4-notifyd"] floating enable
 #for_window [class="Xfce4-notifyd"] border none
 #for_window [instance="Download"] floating enable
@@ -305,6 +311,10 @@ exec_always i3-msg 'exec notify-send --urgency=low "Starting i3..." "Hello Chris
 
 exec --no-startup-id i3-msg 'exec /usr/bin/dropbox'
 
+# exec --no-startup-id echo "2-3" | sudo tee /sys/bus/usb/drivers/usb/unbind
+
+exec $browser --app-id=$app_messenger_id
+exec $browser --app-id=$app_ytmusic_id
 
 ## Misc
 #TODO: Make script to setup all blackbox configs, like "exec startup_configuring"
