@@ -31,8 +31,8 @@
 
   ;; dired-use-ls-dired
   )
-;; (setq tramp-verbose 10)
 
+(setq magit-use-sticky-arguments "selected")
 
 (setq sh-make-vars-local nil ; Don't edit any shell files except my own
       create-lockfiles nil
@@ -48,6 +48,9 @@
  ivy-initial-inputs-alist nil
  ivy-count-format "%-4d "
  )
+
+;; to make visual copy work inside of emacs in tmux
+(xterm-mouse-mode -1)
 
 (add-hook 'focus-out-hook 'save-all)
 

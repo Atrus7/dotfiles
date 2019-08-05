@@ -20,6 +20,11 @@
 (define-key global-map (kbd "M-l") #'evil-window-right)
 (define-key global-map (kbd "M-d") #'spacemacs/delete-window)
 
+;; e in dired to edit
+(evil-define-key '(normal)
+  dired-mode-map (kbd "e") 'wdired-change-to-wdired-mode)
+
+
 (evil-define-key 'normal 'global
   (kbd "M-h") #'evil-window-left
   (kbd "M-j") #'evil-window-down
@@ -39,6 +44,9 @@
 ;; To search in the buffer, SPC s S is still available. This is way faster for
 ;; large files and mostly what I want
 (evil-leader/set-key (kbd "s s") 'spacemacs/helm-file-do-ag-region-or-symbol)
+
+(evil-leader/set-key (kbd "g b") 'magit-blame)
+(evil-leader/set-key (kbd "g f f") 'magit-blob-visit-file)
 
 ;; Macros stored here
 (fset 'exchange-words "gxewgxe")
