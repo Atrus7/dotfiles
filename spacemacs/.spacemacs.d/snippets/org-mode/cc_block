@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: C++ src block
+# key: qu
+# --
+
+#+BEGIN_SRC C++ :results output :namespaces std :includes <iostream>
+$0
+#+END_SRC

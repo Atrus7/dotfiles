@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: extern-c
+# key: externc
+# --
+#if __cplusplus
+extern "C" {
+#endif
+$0
+#if __cplusplus
+}
+#endif
