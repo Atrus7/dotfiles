@@ -1,10 +1,6 @@
 #!/usr/bin/env zsh
-sink=`pactl list short sinks | grep "RUNNING" | cut -c 1`
 
-#if none are running, assume default
-if [[ ! -n $sink ]]; then
-    sink=0
-fi
+pactl_path=`which pactl`
 
 #Takes commands of form:
 #M: Mute toggle
@@ -13,13 +9,45 @@ fi
 command=$1
 amount=$2
 
-if [[ $command == "M" ]]; then
-    #echo "MUTING"
-    pamixer --sink $sink -t
-elif [[ $command == "I" ]]; then
-    #echo "INCREASING"
-    pamixer --sink $sink -i $amount
-elif [[ $command == "D" ]]; then
-    #echo "DECREASING"
-    pamixer --sink $sink -d $amount
+if [[ ! -n $pactl_path ]]; then
+
+    sink=`pactl list short sinks | grep "RUNNING" | cut -c 1`
+
+    #if none are running, assume default
+    if [[ ! -n $sink ]]; then
+        sink=0
+    fi
+
+
+    if [[ $command == "M" ]]; then
+        #echo "MUTING"
+        pamixer --sink $sink -t
+    elif [[ $command == "I" ]]; then
+        #echo "INCREASING"
+        pamixer --sink $sink -i $amount
+    elif [[ $command == "D" ]]; then
+        #echo "DECREASING"
+        pamixer --sink $sink -d $amount
+    fi
+
+else
+    # use pactl
+    # format is Default Sink:
+
+    sink=`pactl info | grep -i sink | cut -d" " -f 3`
+    source=`pactl info | grep -i source | cut -d" " -f 3`
+    if [[ $command == "M" ]]; then
+        #echo "MUTING"
+        pactl set-sink-mute $sink toggle
+    elif [[ $command == "I" ]]; then
+        #echo "INCREASING"
+        pactl set-sink-volume $sink +${amount}%
+    elif [[ $command == "D" ]]; then
+        #echo "DECREASING"
+        pactl set-sink-volume $sink -${amount}%
+    elif [[ $command == "mic_mute" ]]; then
+        pactl set-source-mute $source toggle
+    fi
+
+
 fi
