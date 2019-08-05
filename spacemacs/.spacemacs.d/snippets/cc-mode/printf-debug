@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: PRINTF_DEBUG
+# key: printf-dbg
+# --
+printf("CF: `(line-number-at-pos)`\n");
