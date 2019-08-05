@@ -30,6 +30,7 @@
 
 (defun cf-ide/init-cquery()
   (use-package cquery
+    :commands lsp
     :defer t
     :config
     (require 'projectile)
@@ -65,6 +66,7 @@
 (defun cf-ide/init-company-lsp()
   (use-package company-lsp
     :defer t
+    :commands company-lsp
     :config
     (setq company-lsp-cache-candidates 'auto
           company-lsp-async t
