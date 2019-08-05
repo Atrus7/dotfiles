@@ -16,3 +16,6 @@ git submodule update
 # Emacs install (spacemacs)
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 emacs  # install packages
+
+## zsh
+chsh -s $(which zsh)
