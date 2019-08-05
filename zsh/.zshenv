@@ -24,3 +24,6 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 export CC="`which gcc` -fdiagnostics-color=auto"
 export CXX="`which g++` -fdiagnostics-color=auto"
+
+# make Chrome scaling normal (also needs --force-device-scale-factor)
+export GDK_SCALE=1
