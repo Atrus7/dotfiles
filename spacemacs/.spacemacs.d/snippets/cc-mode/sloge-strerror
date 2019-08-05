@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: SLOGE_STRERROR
+# key: sloge-strerror
+# --
+
+SLOGE("$0 :%s\n", strerror(errno));
