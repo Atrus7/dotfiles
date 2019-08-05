@@ -181,9 +181,9 @@ bindsym $mod+Shift+y mark return_window; [con_mark="floating_video"] focus; exec
 #Shift+media key should provide increased or alt command
 
 #Screen Capture
-bindsym --release Print exec --no-startup-id maim ~/pictures/screenshots/$(date +%F-%T).png
-bindsym --release Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/pictures/screenshots/$(date +%F-%T).png
-bindsym --release Control+Shift+Print exec --no-startup-id "maim --nokeyboard -s -c 1,0,0,0.6  ~/pictures/screenshots/$(date +%F-%T).png"
+bindsym --release Print exec --no-startup-id /home/atrus/bin/print_screen
+bindsym --release Shift+Print exec --no-startup-id /home/atrus/bin/print_screen -i $(xdotool getactivewindow)
+bindsym --release Control+Shift+Print exec --no-startup-id "/home/atrus/bin/print_screen --nokeyboard -s -c 1,0,0,0.6"
 
 # Volume
 bindsym XF86AudioRaiseVolume exec /home/atrus/bin/volume_change "I" 5
