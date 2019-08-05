@@ -34,7 +34,13 @@
 
 (setq magit-use-sticky-arguments "selected")
 
-(setq sh-make-vars-local nil ; Don't edit any shell files except my own
+;; files that require a password are annoying if they hang around
+(with-eval-after-load
+    "recentf"
+  (add-to-list 'recentf-exclude ".*\.gpg")
+  (add-to-list 'recentf-exclude "/sudo:.*"))
+
+(setq sh-make-vars-local nil          ; Don't edit any shell files except my own
       create-lockfiles nil
       vc-follow-symlinks t
       vc-handled-backends '(RCS CVS SVN SRC Git Hg) ;; only use likely backends
@@ -70,6 +76,9 @@
              "28800" "38400" "57600"   "115200"))
 
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
+
+(add-hook 'before-save-hook 'cf/delete-trailing-whitespace)
+
 (add-hook 'makefile-mode-hook
           (lambda () (whitespace-mode)))
 

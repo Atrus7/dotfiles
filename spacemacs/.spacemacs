@@ -14,10 +14,8 @@
   (dotspacemacs/init/startup))
 
 (defun dotspacemacs/init/pre-init ()
-
   (let ((work-file "~/dotfiles/work/work-init.el"))
     (defvar at-work (file-exists-p work-file))
-
     (if at-work
         (progn
           (require 'work-init work-file)
@@ -183,11 +181,10 @@
    dotspacemacs-smart-closing-parenthesis nil
    dotspacemacs-highlight-delimiters 'all
    dotspacemacs-line-numbers nil
-   dotspacemacs-whitespace-cleanup 'trailing
+   dotspacemacs-whitespace-cleanup 'nil
    ))
 
 ;;;; Display
-
 (defun dotspacemacs/init/display ()
   (setq-default
    dotspacemacs-themes '(
@@ -317,4 +314,5 @@
   (savehist-mode nil)
 
   (doom-modeline-init)
+  (add-hook 'org-mode-hook 'spacemacs/toggle-whitespace-cleanup-off)
   )

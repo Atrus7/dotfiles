@@ -1,5 +1,6 @@
 [Added Associations]
 image/png=feh.desktop;
+application/pdf=google-chrome.desktop;
 
 [Default Applications]
 text/english=emacsclient.desktop;
@@ -17,7 +18,6 @@ text/x-tex=emacsclient.desktop;
 application/x-shellscript=emacsclient.desktop;
 text/x-c=emacsclient.desktop;
 text/x-c++=emacsclient.desktop;
-
 text/html=google-chrome.desktop
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop

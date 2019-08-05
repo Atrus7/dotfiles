@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Blog image (type C-c s) to insert img
+# key: img
+# --
+
+#+ATTR_HTML: :style display: block; margin: auto; width: 100%;
+`(helm-find-files-1 "~/blog/posts/static/")`
+#+caption: $1

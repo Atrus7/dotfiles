@@ -44,24 +44,24 @@
   (interactive)
   (if (boundp 'helm-mode)
       (cf/helm-projectile-cmd 'projectile-vc)
-      (cf/ivy-projectile-cmd 'projectile-vc)
+    (cf/ivy-projectile-cmd 'projectile-vc)
     ))
 
 (defun cf/projectile-default-switch ()
   (interactive)
   (if (boundp 'helm-mode)
       (cf/helm-projectile-cmd 'projectile-find-file)
-      (cf/ivy-projectile-cmd 'projectile-find-file)
-      ))
+    (cf/ivy-projectile-cmd 'projectile-find-file)
+    ))
 
 (fset 'append-semicolon
-   "mqA;fd`q")
+      "mqA;fd`q")
 
 (defun cf/projectile-search ()
   (interactive)
   (if (boundp 'helm-mode)
       (cf/helm-projectile-cmd 'spacemacs/helm-project-smart-do-search)
-      (cf/ivy-projectile-cmd 'projectile-search)
+    (cf/ivy-projectile-cmd 'projectile-search)
     ))
 
 (defun cf/ivy-projectile-cmd (fn)
@@ -80,6 +80,11 @@
   "shortcut to private layers dir"
   (interactive)
   (helm-find-files-1 "~/org/"))
+
+(defun cf/find-blog-img ()
+  "shortcut to private layers dir"
+  (interactive)
+  (helm-find-files-1 "~/blog/posts/static"))
 
 (defun cf/chrome-linux-ident (region-start region-end)
   ;;; Look up identifier in linux kernel
@@ -175,6 +180,10 @@
         (message (kill-new (abbreviate-file-name file-name)))
       (error "Buffer not visiting a file"))))
 
+(defun cf/delete-empty-newlines()
+    (interactive)
+    (evil-ex "%s/\n\n+/\n/g")
+    )
 (defun cf/log-mode ()
   "Examine logs"
   (interactive)
@@ -194,6 +203,9 @@
     (set-window-buffer nil buffer)
     (with-current-buffer buffer
       (org-mode)))
-
-
   )
+
+(defun cf/delete-trailing-whitespace ()
+  "Delete whitespace except in org buffers."
+  (if (not (equal major-mode 'org-mode))
+      (delete-trailing-whitespace)))

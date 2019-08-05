@@ -32,6 +32,7 @@
          ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
 
 )))
+(setq org-archive-location "~/org/archive.org::")
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
@@ -40,24 +41,24 @@
  org-deadline-warning-days 10)
 
 (setq
- org-html-head (cf/org-pull-template-from-file "publishing/links.html")
+ org-html-head (cf/org-pull-template-from-file "~/blog/publishing/links.html")
  org-html-preamble      t
  org-html-postamble     t
  org-html-inline-images t
  org-html-preamble-format `(("en"
-                             ,(cf/org-pull-template-from-file "publishing/header.html"))))
+                             ,(cf/org-pull-template-from-file "~/blog/publishing/header.html"))))
 
-(setq server-blog-base "/ssh:cstwins:/var/www/html/syscowboy/posts")
-(setq server-static-base "/ssh:cstwins:/var/www/html/syscowboy/static")
+(setq server-blog-base "/ssh:webserver:/var/www/html/syscowboy/posts")
+(setq server-static-base "/ssh:webserver:/var/www/html/syscowboy/static")
 
 ;; website related
 (setq org-publish-project-alist
-      '(("blog"
+      `(("blog"
          :components ("blog-content" "blog-static"))
         ("blog-content"
-         :base-directory       "~/syscowboy/posts"
+         :base-directory       "~/blog/posts"
          :base-extension       "org"
-         :publishing-directory server-blog-base
+         :publishing-directory ,server-blog-base
          ;;                    :email cf/personal-email
          :recursive            t
          :publishing-function  org-html-publish-to-html
@@ -82,8 +83,8 @@
          :sitemap-title        "home"
                                )
         ("blog-static"
-         :base-directory "~/syscowboy/posts/static"
+         :base-directory "~/blog/posts/static"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"
-         :publishing-directory server-static-base
+         :publishing-directory ,server-static-base
          :recursive t
          :publishing-function org-publish-attachment)))

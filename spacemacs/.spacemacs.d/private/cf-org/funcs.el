@@ -8,6 +8,14 @@
    "/DONE" 'file)
   )
 
+(defun helm-files-insert-as-static-link (candidate)
+  (insert (format "%s" (replace-regexp-in-string "^.*/static/" "http:/static/" candidate))))
+
+(defun helm-ff-run-insert-blog-img ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action 'helm-files-insert-as-static-link)))
+
 (defun cf/org-archive-NA-tasks ()
   "Archives all done tasks within buffer."
   (interactive)
@@ -15,12 +23,16 @@
    (lambda ()
      (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
      (setq org-map-continue-from (outline-previous-heading)))
-   "/NOT_APPLICABLE" 'file)
+   "/NA" 'file)
   )
 
 ;; Insert [ ] to make a checkboxed list
 (fset 'insert-checkbox-at-line
       [?m ?q ?0 ?f ?- ?a ?  ?\[ ?  ?\] escape ?` ?q])
+
+;; Requires "highlight" to be in search buffer
+(fset 'fix-highlight-format-ebook-export
+   [?n ?d ?f ?- ?x ?j ?j ?v ?i ?p ?h ?h ?l ?v ?s ?\" ?k ?k ?J ?J ?i ?: return escape ?x])
 
 
 ;; TODO implement
@@ -107,6 +119,15 @@
           )
       nil
       )))
+
+(defun cf/org-publish-file (&rest args)
+  (interactive)
+  (org-publish-current-file)
+  (browse-url-chrome (format "%s"
+                             (replace-regexp-in-string
+                              ".org" ".html"
+                              (replace-regexp-in-string "^.*/posts/" "http://syscowboy.com/" buffer-file-name))))
+  )
 
 ;; Wrapper for main publishing fn for addendums
 (defun cf/org-publish-blog (&rest args)
