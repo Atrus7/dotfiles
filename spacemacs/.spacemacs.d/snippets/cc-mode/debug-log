@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: DEBUG_MARK
+# key: dbg-mark
+# --
+CF: `(line-number-at-pos)`

@@ -8,7 +8,7 @@
         lsp-highlight-symbol-at-point nil
         lsp-enable-codeaction nil
         lsp-enable-eldoc nil
-        lsp-enable-completion-at-point t
+        lsp-enable-completion-at-point nil
         )
 
   (cquery-enable-optional) ;; launches lsp as well
@@ -50,8 +50,10 @@
       (let ((root (projectile-root-top-down-recurring buffer-file-name '("compile_commands.json"  ".cquery"))))
         (if (null root)
             (message "No cquery here...")
-          (progn (add-to-list 'cquery-project-roots root)
-                 (lsp-cquery-enable)))
+          (progn
+                 (message root)
+                 (add-to-list 'cquery-project-roots root)
+                 (lsp)))
         )
     )
 

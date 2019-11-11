@@ -31,7 +31,8 @@
 
   ;; dired-use-ls-dired
   )
-;; (setq tramp-verbose 10)
+
+(setq magit-use-sticky-arguments "selected")
 
 ;; files that require a password are annoying if they hang around
 (with-eval-after-load
@@ -53,6 +54,9 @@
  ivy-initial-inputs-alist nil
  ivy-count-format "%-4d "
  )
+
+;; to make visual copy work inside of emacs in tmux
+(xterm-mouse-mode -1)
 
 (add-hook 'focus-out-hook 'save-all)
 

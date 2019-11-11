@@ -1,0 +1,4 @@
+filename=~/pictures/screenshots/$(date +%F-%T).png
+maim $filename $@
+echo $filename | xclip -selection clipboard
+notify-send -u low "Screenshot $filename taken"

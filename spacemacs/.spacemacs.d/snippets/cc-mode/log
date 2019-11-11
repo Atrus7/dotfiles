@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: LOG
+# key: log
+# --
+
+LOG(ERROR) << "$0" << std::endl;

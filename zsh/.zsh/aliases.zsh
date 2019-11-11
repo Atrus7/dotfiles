@@ -8,7 +8,18 @@ alias ec="emacsclient -c"
 alias e=$EDITOR
 #alias connect_vpn="sudo openvpn ........"
 
+alias fn='find . -name'
+# pipe text directly to your clipboard
+alias copy='xclip -sel clip'
+
+alias rs="repo status"
+alias rp="repo sync -j40"
+
+alias alert='notify-send --urgency=critical -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 alias cstwins_update="ssh cstwins 'cd /var/www/html/cstwins/; git pull; sudo apachectl restart'"
+
+alias ainstall="sudo apt-get install"
 
 #sudo commands
 alias pacman="sudo pacman"
@@ -45,3 +56,12 @@ echocolors() {
     done
     echo
   }
+
+latest_dl() {
+  echo ~/downloads/$(ls -t ~/downloads/ | head -1)
+}
+
+alert-func() {
+  $('notify-send --urgency=critical -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"')
+  echo hi
+}
