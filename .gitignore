@@ -13,3 +13,4 @@ work/
 
 /linux/.ssh/*
 /zsh/.zsh/priv.zsh
+/i3/.i3/logfile

@@ -1,2 +1,6 @@
 #!/usr/bin/env zsh
-~/bin/i3lock/i3lock -i ~/pictures/bebop-wallpaper/wallpaper-3840.png -a ~/pictures/bebop-wallpaper/animation/
+# Fork i3lock
+~/bin/i3lock/i3lock -i ~/pictures/bebop-wallpaper/wallpaper-3840.png -a ~/pictures/bebop-wallpaper/animation/ &
+# ...and then make sure display goes to sleep
+sleep 5
+xset dpms force off

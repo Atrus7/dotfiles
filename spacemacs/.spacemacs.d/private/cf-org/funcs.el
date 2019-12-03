@@ -212,3 +212,12 @@ Start the region at the x, to achieve:
         (evil-exit-visual-state))
 
     (hlt-highlight-symbol (symbol-at-point))))
+
+(defun cf/get-notes-highlights-link ()
+  (interactive)
+  (let ((org-link-file-path-type 'absolute)
+        (file (concat "file:"
+                      (abbreviate-file-name
+                       buffer-file-name))))
+    (org-insert-link t file "Notes / Highlights")
+  ))
