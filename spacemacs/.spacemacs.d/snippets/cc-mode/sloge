@@ -3,4 +3,4 @@
 # key: sloge
 # --
 
-SLOGE("$0 \n");
+SLOGE("$0");

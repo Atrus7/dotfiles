@@ -43,11 +43,18 @@
 (setq sh-make-vars-local nil          ; Don't edit any shell files except my own
       create-lockfiles nil
       vc-follow-symlinks t
-      vc-handled-backends '(RCS CVS SVN SRC Git Hg) ;; only use likely backends
       initial-scratch-message "* Scratch Buffer\n"
       doc-view-continuous t
       auto-revert-remote-files nil ;; otherwise this takes a long time...
       )
+
+;; May want to remove this if not handling big repos
+;; Make magit faster for giant buffers
+;; https://magit.vc/manual/magit/Performance.html
+(setq vc-handled-backends nil
+      magit-revision-insert-related-refs nil)
+;; (setq vc-handled-backends '(RCS CVS SVN SRC Git Hg)) ;; only use likely backends
+
 (setq
  ivy-fixed-height-minibuffer t
  ivy-height 20
