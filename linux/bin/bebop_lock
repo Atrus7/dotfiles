@@ -1,2 +1,5 @@
 #!/usr/bin/env zsh
-~/bin/i3lock/i3lock -i ~/pictures/bebop-wallpaper/wallpaper-3840.png -a ~/pictures/bebop-wallpaper/animation/
+~/bin/i3lock/i3lock -i ~/pictures/bebop-wallpaper/wallpaper-3840.png -a ~/pictures/bebop-wallpaper/animation/ &
+
+sleep 5
+xset dpms force off

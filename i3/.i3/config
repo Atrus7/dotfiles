@@ -86,9 +86,9 @@ bindsym Mod1+Tab scratchpad show
 ## Window settings
 hide_edge_borders vertical
 new_window pixel 0
-smart_gaps on
-gaps outer 0
-gaps inner 10
+# smart_gaps on
+# gaps outer 0
+# gaps inner 10
 
 
 # app ids
@@ -120,7 +120,7 @@ set $tag7 "7:"
 set $tag8 "8:"
 set $tag9 "9:"
 
-set $browser google-chrome
+set $browser google-chrome --force-device-scale-factor=1.2
 
 # switch to workspace
 bindsym $mod+1 workspace $tag1
@@ -168,7 +168,7 @@ bindsym $mod+Return exec urxvtc
 bindsym $mod+g exec $browser --enable-native-gpu-memory-buffers
 
 # desktop music
-bindsym $mod+m exec /usr/bin/gpmdp;
+# bindsym $mod+m exec /usr/bin/gpmdp;
 
 # start rofi (a program runner)
 bindsym $mod+d exec --no-startup-id rofi -show run
@@ -294,7 +294,8 @@ bindsym $mod+r mode "resize"
 
 ## Startup programs we want! (exec occurs on boot, exec_always will run after every i3-restart)
 
-exec --no-startup-id ~/bin/bebop_lock
+# Don't run on boot since we're running the session manager
+# exec --no-startup-id ~/bin/bebop_lock
 
 #urxvt daemon
 exec urxvtd -q -f -o

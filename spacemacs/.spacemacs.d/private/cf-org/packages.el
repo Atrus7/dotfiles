@@ -75,9 +75,8 @@
 
 (defun cf-org/post-init-helm()
   (use-package helm
-    :defer t
+    ;; Don't defer.
     :config
-
     (put 'helm-ff-run-insert-blog-img 'helm-only t)
     (define-key helm-find-files-map (kbd "C-c s")         'helm-ff-run-insert-blog-img)
     (helm-add-action-to-source "Insert blog image path" 'helm-files-insert-as-static-link helm-source-find-files)
