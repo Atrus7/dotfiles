@@ -14,6 +14,7 @@
   (dotspacemacs/init/startup))
 
 (defun dotspacemacs/init/pre-init ()
+ (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
   (let ((work-file "~/dotfiles/work/work-init.el"))
     (defvar at-work (file-exists-p work-file))
     (if at-work
@@ -23,7 +24,8 @@
           )
 
       )
-    ))
+    )
+  )
 
 (defun dotspacemacs/layers ()
   "Spacemacs layers declarations and package configurations."
@@ -152,7 +154,6 @@
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
-
                                       ninja-mode
                                       doom-modeline
                                       doom-themes
@@ -188,6 +189,7 @@
 (defun dotspacemacs/init/display ()
   (setq-default
    dotspacemacs-themes '(
+                         leuven
                          doom-one
                          spacemacs-dark
                          spacemacs-light
@@ -312,7 +314,18 @@
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
+  (global-evil-search-highlight-persist nil)
 
   (doom-modeline-init)
   (add-hook 'org-mode-hook 'spacemacs/toggle-whitespace-cleanup-off)
+
+  (defvar local-file "~/dotfiles/spacemacs/.spacemacs.d/private/local/init.el")
+  (if (file-exists-p)
+      (require 'local-init local-file)
+    )
+  ;; freezes emacs
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (eldoc-mode -1)))
+
   )

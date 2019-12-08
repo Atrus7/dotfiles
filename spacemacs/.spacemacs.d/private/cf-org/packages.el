@@ -13,10 +13,12 @@
     :config
     (add-to-list 'org-src-lang-modes '("scheme" . scheme) )
     (add-to-list 'org-babel-load-languages '(scheme . t))
+    (add-to-list 'org-babel-load-languages '(shell . t))
     (add-to-list 'org-babel-load-languages '(C . t))
     (add-to-list 'org-babel-load-languages '(C++ . t))
     (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)
                                                              (scheme . t)
+                                                             (shell . t)
                                                              (C . t)
                                                              ))
     (setq org-agenda-files (list(mapconcat 'eval '(org-directory "todo.org") "/")))
@@ -75,9 +77,8 @@
 
 (defun cf-org/post-init-helm()
   (use-package helm
-    :defer t
+    ;; Don't defer.
     :config
-
     (put 'helm-ff-run-insert-blog-img 'helm-only t)
     (define-key helm-find-files-map (kbd "C-c s")         'helm-ff-run-insert-blog-img)
     (helm-add-action-to-source "Insert blog image path" 'helm-files-insert-as-static-link helm-source-find-files)
