@@ -76,13 +76,19 @@
   )
 
 (defun cf-org/post-init-helm()
-  (use-package helm
-    ;; Don't defer.
-    :config
-    (put 'helm-ff-run-insert-blog-img 'helm-only t)
-    (define-key helm-find-files-map (kbd "C-c s")         'helm-ff-run-insert-blog-img)
-    (helm-add-action-to-source "Insert blog image path" 'helm-files-insert-as-static-link helm-source-find-files)
-    )
+  (require 'helm-files)
+  (put 'helm-ff-run-insert-blog-img 'helm-only t)
+  (define-key helm-find-files-map (kbd "C-c s")         'helm-ff-run-insert-blog-img)
+  (customize-set-variable 'helm-ff-lynx-style-map t)
+
+  ;; needs to be a hook
+  ;; https://github.com/emacs-helm/helm/issues/604
+  (add-hook 'helm-find-files-before-init-hook
+            (lambda ()
+              (helm-add-action-to-source "Insert blog image path" 'helm-files-insert-as-static-link helm-source-find-files)
+              )
+            )
+
   )
 
 ;;; packages.el ends here

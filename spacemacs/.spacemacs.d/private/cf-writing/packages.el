@@ -107,7 +107,7 @@ Each entry is either:
       (format "(%d words)"
               (count-words (point-min) (point-max))))
     (doom-modeline-def-modeline 'writing-mode-line
-      '(bar evil-state workspace-number matches buffer-info buffer-position selection-info word-count)
+      '(bar workspace-name matches buffer-info buffer-position selection-info word-count)
       '(misc-info persp-name minor-modes input-method buffer-encoding major-mode process vcs checker))
     )
 )

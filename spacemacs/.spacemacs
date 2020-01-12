@@ -320,9 +320,10 @@
   (add-hook 'org-mode-hook 'spacemacs/toggle-whitespace-cleanup-off)
 
   (defvar local-file "~/dotfiles/spacemacs/.spacemacs.d/private/local/init.el")
-  (if (file-exists-p)
-      (require 'local-init local-file)
-    )
+  ;; (if (file-exists-p)
+  ;;     (require 'local-init local-file)
+  ;;   )
+
   ;; freezes emacs
   (add-hook 'python-mode-hook
             (lambda ()
