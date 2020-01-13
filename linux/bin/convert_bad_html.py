@@ -1,4 +1,4 @@
-#!/usr/sbin/python
+#!/usr/bin/python
 # Convert the div-ridden html into structured html that pandoc can read.
 
 import sys

@@ -1,4 +1,4 @@
-#!/usr/sbin/env zsh
+#!/usr/bin/env zsh
 
 
 if [ $# -lt 1 ] ; then
@@ -20,7 +20,7 @@ PATH="/home/atrus/books/notes"
 NEW_FILENAME=$PATH/$NEW_FILENAME
 
 /home/atrus/bin/convert_bad_html.py "$ORIG_FILE_PATH" "$HTML_PATH"
-/usr/sbin/pandoc --from html "$HTML_PATH" --html-q-tags --wrap=none --to org -o "$NEW_FILENAME"
+/usr/bin/pandoc --from html "$HTML_PATH" --html-q-tags --wrap=none --to org -o "$NEW_FILENAME"
 
 echo "$ORIG_FILE_PATH   --------->"
 echo "$NEW_FILENAME"
