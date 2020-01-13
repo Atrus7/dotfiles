@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(defconst cf-org-packages '(helm org org-agenda)
+(defconst cf-org-packages '(helm flyspell flyspell-lazy org org-agenda)
   "The list of Lisp packages required by the cf-org layer.")
 
 (defun cf-org/post-init-org()
@@ -89,6 +89,12 @@
               )
             )
 
+  )
+(defun cf-org/init-flyspell-lazy()
+  (use-package flyspell-lazy
+    :config
+    (flyspell-lazy-mode 1)
+    )
   )
 
 ;;; packages.el ends here
