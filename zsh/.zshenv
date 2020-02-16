@@ -7,6 +7,7 @@ export BROWSER=chromium
 export EDITOR='emacs --no-desktop -nw'
 export VISUAL='emacs --no-desktop'
 export ALTERNATE_EDITOR=vim
+export TERM=rxvt-unicode
 
 #languages
 export LC_COLLATE=en_US.UTF-8
