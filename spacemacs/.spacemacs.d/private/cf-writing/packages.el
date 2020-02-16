@@ -102,12 +102,13 @@ Each entry is either:
   (use-package doom-modeline
     :defer t
     :config
+    ;; Word count is too slow in large buffers when writing. Annoyingly slow
     (doom-modeline-def-segment word-count
       "Word Count"
       (format "(%d words)"
               (count-words (point-min) (point-max))))
     (doom-modeline-def-modeline 'writing-mode-line
-      '(bar evil-state workspace-number matches buffer-info buffer-position selection-info word-count)
+      '(bar workspace-name matches buffer-info buffer-position selection-info)
       '(misc-info persp-name minor-modes input-method buffer-encoding major-mode process vcs checker))
     )
 )

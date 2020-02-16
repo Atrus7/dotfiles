@@ -3,7 +3,7 @@
 ## Basic Looks
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:DejaVu Sans Mono 12, Icons 12
+font pango:DejaVu Sans Mono 9, Icons 9
 
 # Wallpaper: make it look good to start with
 exec feh --bg-scale ~/pictures/wallpaper.png
@@ -93,13 +93,13 @@ new_window pixel 0
 
 # app ids
 set $app_messenger_id "hpfldicfbfomlpcikngkocigghgafkph"
-set $app_ytmusic_id "eeaafbmfeofhhjpjklgoobllogkjdgap"
+set $app_ytmusic_id "cinhimbnkkaeohfgghhklpknlkffjgod"
 
 #does this do anything?
 #make notifications behave
 #for_window [class="^.*"] border pixel 0
-for_window [instance=$app_messenger_id] floating enable, resize set 1920 1080, border pixel 4, move absolute position center, move scratchpad
-for_window [instance=$app_ytmusic_id] floating enable, resize set 1920 1080, move absolute position center, move to workspace $tag3
+for_window [instance=$app_messenger_id] floating enable, resize set 1920 1080, border pixel 4, move scratchpad
+for_window [instance=$app_ytmusic_id] floating enable, resize set 1920 1080, move to workspace $tag3, move position center
 #for_window [class="Xfce4-notifyd"] floating enable
 #for_window [class="Xfce4-notifyd"] border none
 #for_window [instance="Download"] floating enable
@@ -236,15 +236,24 @@ bar {
 
         #	verbose true
         colors {
-          background #303030
-          statusline #b8bb26
+          background #F5f5f5
+          statusline #303030
 
-          focused_workspace  #4c7899 #285577 #ffffff
-          active_workspace   #333333 #5f676a #ffffff
-          inactive_workspace #333333 #222222 #888888
-          urgent_workspace   #2f343a #900000 #ffffff
+          focused_workspace  #00ced1 #00ced1 #303030
+          active_workspace   #A2b5cd #A2b5cd #000000
+          inactive_workspace #F5f5f5 #F5f5f5 #888888
+          urgent_workspace   #fb4934 #fb4934 #303030
         }
 }
+
+## Colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #00ced1 #00ced1 #000000 #00ced1   #00ced1
+client.focused_inactive #A2b5cd #A2b5cd #000000 #484e50   #A2b5cd
+client.unfocused        #F5f5f5 #F5f5f5 #888888 #292d2e   #222222
+client.urgent           #fb4934 #fb4934 #303030 #fb4934   #fb4934
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# client.background       #ffffff
 
 ## i3 Special Modes
 
@@ -308,9 +317,8 @@ exec --no-startup-id i3-msg 'workspace $tag2; exec /usr/bin/emacs;'
 # make first urxvt transparent
 exec --no-startup-id i3-msg ' workspace $tag1; exec ~/bin/transparent_term'
 
-exec_always i3-msg 'exec notify-send --urgency=low "Starting i3..." "Hello Christopher"'
+exec --no-startup-id i3-msg 'exec /usr/bin/dropbox start'
 
-exec --no-startup-id i3-msg 'exec /usr/bin/dropbox'
 
 # exec --no-startup-id echo "2-3" | sudo tee /sys/bus/usb/drivers/usb/unbind
 
@@ -321,3 +329,5 @@ exec $browser --app-id=$app_ytmusic_id
 #TODO: Make script to setup all blackbox configs, like "exec startup_configuring"
 # Settings for palm rejection .5 seconds after typing
 exec syndaemon -i 0.5 -t -K -R
+
+exec_always i3-msg 'exec notify-send --urgency=low "Starting i3..." "Hello Christopher"'

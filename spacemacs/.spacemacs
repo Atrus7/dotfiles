@@ -154,6 +154,7 @@
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
+                                      rainbow-mode
                                       ninja-mode
                                       doom-modeline
                                       doom-themes
@@ -190,6 +191,7 @@
   (setq-default
    dotspacemacs-themes '(
                          leuven
+                         doom-one-light
                          doom-one
                          spacemacs-dark
                          spacemacs-light
@@ -315,13 +317,14 @@
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
 
-  (doom-modeline-init)
+  ;; (doom-modeline-init)
   (add-hook 'org-mode-hook 'spacemacs/toggle-whitespace-cleanup-off)
 
   (defvar local-file "~/dotfiles/spacemacs/.spacemacs.d/private/local/init.el")
-  (if (file-exists-p)
-      (require 'local-init local-file)
-    )
+  ;; (if (file-exists-p)
+  ;;     (require 'local-init local-file)
+  ;;   )
+
   ;; freezes emacs
   (add-hook 'python-mode-hook
             (lambda ()

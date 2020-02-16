@@ -4,6 +4,8 @@
 (define-key evil-normal-state-map (kbd "RET") 'newline-below-point)
 (define-key evil-normal-state-map (kbd "<C-return>") 'newline-above-point)
 
+(spacemacs/set-leader-keys (kbd "x i") 'insert-char)
+
 ;; Control s to save
 (define-key evil-normal-state-map (kbd "C-s") 'save-buffer)
 (define-key evil-visual-state-map (kbd "C-s") 'save-buffer)

@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(defconst cf-org-packages '(helm org org-agenda)
+(defconst cf-org-packages '(helm flyspell flyspell-lazy org org-agenda)
   "The list of Lisp packages required by the cf-org layer.")
 
 (defun cf-org/post-init-org()
@@ -76,12 +76,24 @@
   )
 
 (defun cf-org/post-init-helm()
-  (use-package helm
-    ;; Don't defer.
+  (require 'helm-files)
+  (put 'helm-ff-run-insert-blog-img 'helm-only t)
+  (define-key helm-find-files-map (kbd "C-c s")         'helm-ff-run-insert-blog-img)
+  (customize-set-variable 'helm-ff-lynx-style-map t)
+
+  ;; needs to be a hook
+  ;; https://github.com/emacs-helm/helm/issues/604
+  (add-hook 'helm-find-files-before-init-hook
+            (lambda ()
+              (helm-add-action-to-source "Insert blog image path" 'helm-files-insert-as-static-link helm-source-find-files)
+              )
+            )
+
+  )
+(defun cf-org/init-flyspell-lazy()
+  (use-package flyspell-lazy
     :config
-    (put 'helm-ff-run-insert-blog-img 'helm-only t)
-    (define-key helm-find-files-map (kbd "C-c s")         'helm-ff-run-insert-blog-img)
-    (helm-add-action-to-source "Insert blog image path" 'helm-files-insert-as-static-link helm-source-find-files)
+    (flyspell-lazy-mode 1)
     )
   )
 
