@@ -154,6 +154,7 @@
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
+                                      rainbow-mode
                                       ninja-mode
                                       doom-modeline
                                       doom-themes
@@ -190,6 +191,7 @@
   (setq-default
    dotspacemacs-themes '(
                          leuven
+                         doom-one-light
                          doom-one
                          spacemacs-dark
                          spacemacs-light

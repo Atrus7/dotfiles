@@ -1,5 +1,5 @@
 
-[[ -o interactive ]]; then
+if [[ -o interactive ]]; then
     #Load Zsh files
     for config (~/.zsh/*.zsh) source $config
 else
