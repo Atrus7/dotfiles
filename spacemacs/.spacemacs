@@ -314,7 +314,6 @@
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
-  (global-evil-search-highlight-persist nil)
 
   (doom-modeline-init)
   (add-hook 'org-mode-hook 'spacemacs/toggle-whitespace-cleanup-off)
