@@ -29,6 +29,18 @@ with open(orig_path, 'r') as my_file:
             else:
                 h.getparent().remove(h)
 
+
+    # This is for getting rid of the annoying spans that appear like this:
+    # Highlight (<span class="highlight_yellow">yellow</span>) -  Page 12
+
+    # We want to achieve this:
+    # Highlight (yellow) -  Page 12
+    all_spans = r.findall(".//span")
+    for span in all_spans:
+        keep_text = span.text + span.tail
+        span.getparent().text += keep_text
+        span.getparent().remove(span)
+
 with open(path, 'wb') as my_file:
     my_file.seek(0)
     my_file.write(html.tostring(my_html, pretty_print=True))

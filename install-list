@@ -10,3 +10,6 @@ rofi
 feh
 syndaemon
 xclip
+
+pandoc
+libghc-pandoc-types-dev
