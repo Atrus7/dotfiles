@@ -4,7 +4,7 @@ export PATH=$HOME/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/sb
 export PATH=$PATH:$HOME/code/chromium/depot_tools
 
 export BROWSER=chromium
-export EDITOR='emacs --no-desktop -nw'
+export EDITOR='emacsclient -c --alternate-editor=""'
 export VISUAL='emacs --no-desktop'
 export ALTERNATE_EDITOR=vim
 export TERM=rxvt-unicode
