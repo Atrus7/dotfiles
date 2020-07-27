@@ -93,11 +93,12 @@
            c-c++-enable-clang-support t)
     common-lisp
     emacs-lisp
+    haskell
     html
     javascript
     markdown
     csv
-    extra-langs ;; AKA "extra-langs" on master
+    ;; extra-langs ;; AKA "extra-langs" on master
     python
     scheme
     vimscript
@@ -158,6 +159,7 @@
                                       ninja-mode
                                       doom-modeline
                                       doom-themes
+                                      arduino-mode
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
@@ -166,6 +168,7 @@
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro
                                     spaceline ;; use doom-modeline
+                                    gnuplot
                                     )
    dotspacemacs-frozen-packages '()
    dotspacemacs-install-packages 'used-only
