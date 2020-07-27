@@ -64,31 +64,22 @@ Each entry is either:
 
 (spacemacs|add-toggle cf/writing-mode
   :status cf/writing-mode
-  :on (progn (cf/writing-mode 1)
-             (load-theme 'poet t)
-             (doom-modeline-set-modeline 'writing-mode-line t)
-             (doom-modeline-refresh-bars)
-             )
-  :off (progn (cf/writing-mode -1)
-              (load-theme (car dotspacemacs-themes) t)
-              (doom-modeline-set-modeline 'main t)
-              (doom-modeline-refresh-bars)
-              )
+  :on (progn
+        (cf/writing-mode 1)
+        (load-theme 'poet t)
+        (doom-modeline-set-modeline 'writing-mode-line t)
+        (reload-buffer)
+        )
+
+  :off (progn
+         (cf/writing-mode -1)
+         (load-theme (car dotspacemacs-themes) t)
+         (doom-modeline-set-modeline 'main 'default)
+         (reload-buffer)
+         )
 
   )
 
-
-(defvar writing-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map [remap evil-previous-line] 'evil-previous-visual-line)
-    (define-key map [remap evil-next-line] 'evil-next-visual-line)
-    map))
-(define-minor-mode cf/writing-mode ()
-  :keymap writing-mode-map
-
-  nil " Writing" '(
-
-                   ) :group 'writing :global t)
 
 
 (defun cf-writing/init-nanowrimo ()
@@ -103,15 +94,20 @@ Each entry is either:
     :defer t
     :config
     ;; Word count is too slow in large buffers when writing. Annoyingly slow
-    (doom-modeline-def-segment word-count
+    (doom-modeline-def-segment cf-word-count
       "Word Count"
       (format "(%d words)"
-              (count-words (point-min) (point-max))))
+              (if (numberp local-word-count)
+                  local-word-count
+                (cf/wc-update)
+                )
+              ))
+
     (doom-modeline-def-modeline 'writing-mode-line
-      '(bar workspace-name matches buffer-info buffer-position selection-info)
+      '(bar workspace-name matches buffer-info selection-info cf-word-count)
       '(misc-info persp-name minor-modes input-method buffer-encoding major-mode process vcs checker))
     )
-)
+  )
 
 (defun cf-writing/init-visual-fill-column ()
   (use-package visual-fill-column
@@ -126,7 +122,7 @@ Each entry is either:
     :config
     (setq-default
      olivetti-minimum-body-width 80
-    olivetti-body-width 120)
+     olivetti-body-width 120)
     (spacemacs/set-leader-keys (kbd "w c") 'olivetti-mode))
   )
 
