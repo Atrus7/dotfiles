@@ -205,6 +205,7 @@
                                :width normal
                                :powerline-scale 1.1)
 
+   dotspacemacs-mode-line-theme 'custom ;(spacemacs :separator bar :separator-scale 1.0)
    dotspacemacs-fullscreen-at-startup nil
    dotspacemacs-fullscreen-use-non-native nil
    dotspacemacs-maximized-at-startup nil
@@ -299,7 +300,8 @@
 
 (defun dotspacemacs/user-config/toggles ()
   "Spacemacs toggles not intended to be put into layers."
-  (spacemacs/toggle-aggressive-indent-globally-on)
+  ;; TODO(uncomment, Right now causing this unfixed issued https://github.com/Malabarba/aggressive-indent-mode/issues/138)
+  ;; (spacemacs/toggle-aggressive-indent-globally-on)
   (global-highlight-parentheses-mode 1)
   (rainbow-delimiters-mode-enable))
 
@@ -317,7 +319,7 @@
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
 
-  ;; (doom-modeline-init)
+  (doom-modeline-init)
   (add-hook 'org-mode-hook 'spacemacs/toggle-whitespace-cleanup-off)
 
   (defvar local-file "~/dotfiles/spacemacs/.spacemacs.d/private/local/init.el")
