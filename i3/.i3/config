@@ -51,9 +51,9 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+x sticky toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod++w layout stacking
+bindsym $mod+w layout stacking
 bindsym $mod+t layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -156,13 +156,13 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
 ## Application hotkeys
 
 # start a terminal
 bindsym $mod+Return exec urxvtc
+
+# start Emacs
+bindsym $mod+e exec emacsclient -c --alternate-editor=""
 
 # browser of choice
 bindsym $mod+g exec $browser --enable-native-gpu-memory-buffers
@@ -311,11 +311,11 @@ exec urxvtd -q -f -o
 
 exec --no-startup-id i3-msg 'workspace $tag4; exec $browser --enable-native-gpu-memory-buffers;'
 
-# Start emacs last since it will appear in the active workspace and it takes a while to load frame.
-exec --no-startup-id i3-msg 'workspace $tag2; exec /usr/bin/emacs;'
-
 # make first urxvt transparent
 exec --no-startup-id i3-msg ' workspace $tag1; exec ~/bin/transparent_term'
+
+# Start emacs last since it will appear in the active workspace and it takes a while to load frame.
+exec --no-startup-id i3-msg 'workspace $tag2; exec /usr/bin/emacs;'
 
 exec --no-startup-id i3-msg 'exec /usr/bin/dropbox start'
 
