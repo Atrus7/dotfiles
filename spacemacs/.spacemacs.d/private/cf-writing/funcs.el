@@ -12,3 +12,11 @@
 (defun cf/wc-update ()
   (setq-local local-word-count (count-words (point-min) (point-max)))
   )
+
+(defvar cf/writing-dir (expand-file-name "~/dropbox/writing"))
+(defun cf/write-today()
+  (interactive)
+  (setq-local name (concat cf/writing-dir "/unfiled/" (format-time-string "%m_%d_%y") ".org"))
+  (find-file name)
+  (save-buffer)
+  )

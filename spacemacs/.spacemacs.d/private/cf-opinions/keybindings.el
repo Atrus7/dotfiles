@@ -82,6 +82,7 @@
 ;; Store macro-based ops
 (spacemacs/declare-prefix (kbd "o") "cf/")
 (spacemacs/declare-prefix (kbd "o m") "Macros")
+(spacemacs/declare-prefix (kbd "o w") "Writing")
 (spacemacs/declare-prefix (kbd "o b") "Buffers")
 (spacemacs/declare-prefix (kbd "o s") "Search")
 (spacemacs/declare-prefix (kbd "o t") "Tramp")
