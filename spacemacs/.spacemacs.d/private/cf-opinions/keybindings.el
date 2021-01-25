@@ -26,6 +26,12 @@
 (evil-define-key '(normal)
   dired-mode-map (kbd "e") 'wdired-change-to-wdired-mode)
 
+;; fix search in dired
+(evil-define-key 'normal dired-mode-map
+  (kbd "n") 'evil-ex-search-next)
+(evil-define-key 'normal dired-mode-map
+  (kbd "N") 'evil-ex-search-previous)
+
 
 (evil-define-key 'normal 'global
   (kbd "M-h") #'evil-window-left
