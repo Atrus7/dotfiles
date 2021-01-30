@@ -6,11 +6,6 @@
 
 (spacemacs/set-leader-keys (kbd "x i") 'insert-char)
 
-;; Control s to save
-(define-key evil-normal-state-map (kbd "C-s") 'save-buffer)
-(define-key evil-visual-state-map (kbd "C-s") 'save-buffer)
-(define-key evil-insert-state-map (kbd "C-s") 'save-buffer)
-
 ;; Make macros handy
 (evil-global-set-key 'normal (kbd "Q") 'call-last-kbd-macro)
 (evil-global-set-key 'normal (kbd "C-q") 'name-last-kbd-macro)
