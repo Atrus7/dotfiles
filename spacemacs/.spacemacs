@@ -325,7 +325,8 @@
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
 
-  (doom-modeline-init)
+  ;; (doom-modeline-init)
+
   (add-hook 'org-mode-hook 'spacemacs/toggle-whitespace-cleanup-off)
 
   (defvar local-file "~/dotfiles/spacemacs/.spacemacs.d/private/local/init.el")

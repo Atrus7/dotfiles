@@ -33,8 +33,7 @@
   '(nanowrimo
     visual-fill-column
     olivetti
-    poet-theme
-    doom-modeline)
+    poet-theme)
   "The list of Lisp packages required by the cf-writing layer.
 
 Each entry is either:
@@ -89,25 +88,25 @@ Each entry is either:
     )
   )
 
-(defun cf-writing/init-doom-modeline ()
-  (use-package doom-modeline
-    :defer t
-    :config
-    ;; Word count is too slow in large buffers when writing. Annoyingly slow
-    (doom-modeline-def-segment cf-word-count
-      "Word Count"
-      (format "(%d words)"
-              (if (numberp local-word-count)
-                  local-word-count
-                (cf/wc-update)
-                )
-              ))
+;; (defun cf-writing/init-doom-modeline ()
+;;   (use-package doom-modeline
+;;     :defer t
+;;     :config
+;;     ;; Word count is too slow in large buffers when writing. Annoyingly slow
+;;     (doom-modeline-def-segment cf-word-count
+;;       "Word Count"
+;;       (format "(%d words)"
+;;               (if (numberp local-word-count)
+;;                   local-word-count
+;;                 (cf/wc-update)
+;;                 )
+;;               ))
 
-    (doom-modeline-def-modeline 'writing-mode-line
-      '(bar workspace-name matches buffer-info selection-info cf-word-count)
-      '(misc-info persp-name minor-modes input-method buffer-encoding major-mode process vcs checker))
-    )
-  )
+;;     (doom-modeline-def-modeline 'writing-mode-line
+;;       '(bar workspace-name matches buffer-info selection-info cf-word-count)
+;;       '(misc-info persp-name minor-modes input-method buffer-encoding major-mode process vcs checker))
+;;     )
+;;   )
 
 (defun cf-writing/init-visual-fill-column ()
   (use-package visual-fill-column
