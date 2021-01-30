@@ -1,3 +1,9 @@
+(setq org-hide-emphasis-markers t)
+
+;; Don't indent the normal text
+;; (setq org-startup-indented nil)
+(setq org-adapt-indentation 'headline-data)
+
 ;; all the capture configuring
 
 ;; Prevent org capture from warning in a perspective

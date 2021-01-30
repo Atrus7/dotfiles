@@ -98,6 +98,7 @@
     javascript
     markdown
     csv
+    (spell-checking :variables spell-checking-enable-by-default nil)
     ;; extra-langs ;; AKA "extra-langs" on master
     python
     scheme
@@ -165,10 +166,12 @@
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
                                       ;; helpful
                                       ;;olivetti
+                                      (evil-magit :location (recipe :fetcher github :repo "emacs-evil/evil-magit"))
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro
                                     spaceline ;; use doom-modeline
                                     gnuplot
+                                    treemacs-icons-dired
                                     )
    dotspacemacs-frozen-packages '()
    dotspacemacs-install-packages 'used-only
@@ -293,7 +296,7 @@
    dotspacemacs-verbose-loading nil
    spacemacs-buffer-logo-title "[ Welcome Home ]"
    dotspacemacs-startup-banner (concat dotspacemacs-directory "img/banner.png")
-   dotspacemacs-startup-lists '(agenda bookmarks recents)
+   dotspacemacs-startup-lists '((agenda . 5) (bookmarks . 5) (recents . 5))
    dotspacemacs-startup-buffer-responsive t
    dotspacemacs-loading-progress-bar t
    ))

@@ -4,8 +4,16 @@
 
 ;;; Code:
 
-(defconst cf-org-packages '(helm flyspell flyspell-lazy org org-agenda)
+(defconst cf-org-packages '(helm flyspell-lazy org evil-org org-agenda)
   "The list of Lisp packages required by the cf-org layer.")
+
+(defun cf-org/post-init-evil-org()
+  (use-package evil-org
+    :defer t
+    :config
+    ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
+    (evil-org-set-key-theme '(textobjects insert navigation shift todo heading return))
+    ))
 
 (defun cf-org/post-init-org()
   (use-package org
@@ -58,7 +66,6 @@
       (kbd "M-j") 'evil-window-down
       (kbd "M-k") 'evil-window-up
       (kbd "M-l") 'evil-window-right)
-
     )
   )
 
