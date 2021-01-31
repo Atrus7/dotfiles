@@ -166,7 +166,6 @@
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
                                       ;; helpful
                                       ;;olivetti
-                                      (evil-magit :location (recipe :fetcher github :repo "emacs-evil/evil-magit"))
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro
                                     spaceline ;; use doom-modeline
