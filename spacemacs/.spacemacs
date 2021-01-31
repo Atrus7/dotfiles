@@ -205,8 +205,8 @@
                          solarized-light
                          solarized-dark
                          )
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+   dotspacemacs-default-font '("DejaVu Sans Mono"
+                               :size 18
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
