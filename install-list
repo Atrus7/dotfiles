@@ -10,6 +10,7 @@ rofi
 feh
 syndaemon
 xclip
-
+texlive
+texlive-latex-extra
 pandoc
 libghc-pandoc-types-dev

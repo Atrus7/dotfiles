@@ -12,7 +12,7 @@
     :defer t
     :config
     ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
-    (evil-org-set-key-theme '(textobjects insert navigation shift todo heading return))
+    (evil-org-set-key-theme '(textobjects insert shift todo heading return))
     ))
 
 (defun cf-org/post-init-org()

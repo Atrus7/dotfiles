@@ -1,8 +1,11 @@
-(setq org-hide-emphasis-markers t)
+
+(setq org-hide-emphasis-markers t
+      org-hide-block-startup t)
 
 ;; Don't indent the normal text
-;; (setq org-startup-indented nil)
-(setq org-adapt-indentation 'headline-data)
+(setq org-adapt-indentation nil)
+
+(setq org-refile-use-cache t)
 
 ;; all the capture configuring
 
