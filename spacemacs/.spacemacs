@@ -22,7 +22,6 @@
           (require 'work-init work-file)
           (cf/work-pre-loading)
           )
-
       )
     )
   )
@@ -30,7 +29,19 @@
 (defun dotspacemacs/layers ()
   "Spacemacs layers declarations and package configurations."
   (dotspacemacs/layers/config)
-  (dotspacemacs/layers/packages))
+  (dotspacemacs/layers/packages)
+  (cf/external-packages)
+  )
+
+
+(defun cf/external-packages ()
+  "Elisp that I rolled from somewhere other than elpa and distribute in dotfiles."
+  (add-to-list 'load-path "~/.spacemacs.d/external/")
+  (add-hook 'org-mode-hook 'turn-on-auto-capitalize-mode)
+
+  ;; TODO improve loading of local-external packages
+  (require 'auto-capitalize)
+  )
 
 (defun dotspacemacs/user-init ()
   "Package independent settings to run before `dotspacemacs/user-config'."
