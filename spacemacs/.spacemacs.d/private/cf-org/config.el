@@ -1,11 +1,19 @@
 
 (setq org-hide-emphasis-markers t
-      org-hide-block-startup t)
+      org-hide-block-startup t
+      org-catch-invisible-edits 'smart)
+
+(setq org-log-done 'time
+      ;; Book reviews don't really need to track exactly when things get done by the hour...
+      org-log-done-with-time nil
+      )
 
 ;; Don't indent the normal text
 (setq org-adapt-indentation nil)
 
 (setq org-refile-use-cache t)
+
+(setq org-enforce-todo-dependencies t)
 
 ;; all the capture configuring
 
