@@ -77,6 +77,8 @@
     git
     (org :variables
          org-want-todo-bindings t)
+    (deft :variables
+         deft-zetteldeft t)
     (shell :variables
            shell-default-shell 'shell)
     spell-checking
@@ -156,6 +158,7 @@
   (setq-default
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
+                                      zetteldeft
                                       rainbow-mode
                                       ninja-mode
                                       doom-modeline
@@ -332,6 +335,13 @@
   ;; (if (file-exists-p)
   ;;     (require 'local-init local-file)
   ;;   )
+
+  (setq deft-extensions '("org" "md" "txt")
+        deft-directory (concat "~/org/deft/")
+        deft-recursive t
+        )
+  (use-package zetteldeft
+    :after deft)
 
   ;; freezes emacs
   (add-hook 'python-mode-hook
