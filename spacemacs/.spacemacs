@@ -109,6 +109,7 @@
     haskell
     html
     javascript
+    swift
     markdown
     csv
     (spell-checking :variables spell-checking-enable-by-default nil)
@@ -359,4 +360,6 @@
             (lambda ()
               (eldoc-mode -1)))
 
+  (require 'printing)
+  (pr-update-menus)
   )
