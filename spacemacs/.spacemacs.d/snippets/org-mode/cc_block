@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: C++ src block
-# key: qu
+# key: cqu
 # --
 
 #+BEGIN_SRC C++ :results output :namespaces std :includes <iostream>

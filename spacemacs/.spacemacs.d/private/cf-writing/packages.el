@@ -33,7 +33,8 @@
   '(nanowrimo
     visual-fill-column
     olivetti
-    poet-theme)
+    poet-theme
+    printing)
   "The list of Lisp packages required by the cf-writing layer.
 
 Each entry is either:
@@ -116,7 +117,7 @@ Each entry is either:
   )
 
 (defun cf-writing/init-olivetti ()
-  (use-package visual-fill-column
+  (use-package olivetti
     :defer t
     :config
     (setq-default
@@ -131,5 +132,13 @@ Each entry is either:
     :config
     )
   )
+
+;; (defun cf-writing/init-printing ()
+;;   (use-package printing
+;;     :defer t
+;;     :config
+;;     (pr-update-menus)
+;;     )
+;;   )
 
 ;;; packages.el ends here

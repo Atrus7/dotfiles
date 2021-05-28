@@ -81,7 +81,7 @@
 
 ;; Requires "highlight" to be in search buffer
 (fset 'fix-highlight-format-ebook-export
-   [?n ?d ?f ?- ?x ?j ?j ?v ?i ?p ?h ?h ?l ?v ?s ?\" ?k ?k ?J ?J ?i ?: return escape ?x])
+      [?n ?d ?f ?- ?x ?j ?j ?v ?i ?p ?h ?h ?l ?v ?s ?\" ?k ?k ?J ?J ?i ?: return escape ?x])
 
 
 ;; TODO implement
@@ -269,4 +269,18 @@ Start the region at the x, to achieve:
                       (abbreviate-file-name
                        buffer-file-name))))
     (org-insert-link t file "Notes / Highlights")
-  ))
+    ))
+
+;; https://emacs.stackexchange.com/questions/3949/fixing-auto-capitalize-to-work-with-org-mode-headings-and-lists
+(defun org-auto-capitalize-headings-and-lists ()
+  "Create a buffer-local binding of sentence-end to auto-capitalize
+section headings and list items."
+  (make-local-variable 'sentence-end)
+  (setq sentence-end (concat (rx (or
+                                  ;; headings
+                                  (seq line-start (1+ "*") (1+ space))
+                                  ;; list and checklist items
+                                  (seq line-start (0+ space) "-" (1+ space) (? (or "[ ]" "[X]") (1+ space)))))
+                             "\\|" (sentence-end))))
+
+(add-hook 'org-mode-hook #'org-auto-capitalize-headings-and-lists)

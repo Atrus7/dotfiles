@@ -37,6 +37,9 @@
     (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
       "p" 'org-agenda-priority)
 
+    ;; turn list to checkbox.
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode (kbd "]") (lambda () (interactive) (org-toggle-checkbox '(4))))
+
     ;; blog publishing
     (spacemacs/declare-prefix (kbd "o p") "publishing")
     (evil-leader/set-key (kbd "a o p") 'org-publish)
