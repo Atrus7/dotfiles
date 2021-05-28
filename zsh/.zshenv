@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/sbin
+export PATH=$HOME/bin:/usr/sbin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/sbin
 
 # assuming chromium is installed...
 export PATH=$PATH:$HOME/code/chromium/depot_tools
