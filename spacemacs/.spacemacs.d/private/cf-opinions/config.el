@@ -6,6 +6,7 @@
 (add-hook 'git-commit-mode-hook
           (lambda ()
             (setq fill-column 72)))
+(setq python-shell-interpreter "python3")
 
 ;;; It's some work keeping TRAMP out of trouble....
 (with-eval-after-load 'tramp
