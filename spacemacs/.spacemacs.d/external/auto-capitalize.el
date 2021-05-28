@@ -241,8 +241,8 @@ This should be installed as an `after-change-function'."
 					  (fboundp 'misc-user-event-p)
 					  (misc-user-event-p (aref key 0)))
 				     nil
-				   (eq (lookup-key global-map key t)
-				       'self-insert-command))
+				     (memq (lookup-key global-map key t) ;; Modified this code based on https://emacs.stackexchange.com/questions/3949/fixing-auto-capitalize-to-work-with-org-mode-headings-and-lists
+				       '(self-insert-command newline newline-and-indent)))
 				 ;; single character insertion?
 				 (= length 0)
 				 (= (- end beg) 1))))
