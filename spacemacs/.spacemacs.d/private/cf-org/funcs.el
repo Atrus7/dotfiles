@@ -8,6 +8,55 @@
    "/DONE" 'file)
   )
 
+(defun cf/wc-helper ()
+  "Counts the number of words in the region and adds it to the kill-ring."
+  (save-excursion
+    (goto-char (point-min))
+    (kill-new (number-to-string (count-matches "\\sw+")))))
+
+
+
+(defun cf/org-count-exported-words ()
+  "This function exports the current buffer temporarily and runs word-count over the exported content. Gets the word count as a kill and prints it out."
+  (interactive)
+  (let ((org-export-with-toc nil)
+        (org-export-with-title nil)
+        (org-export-with-author nil)
+        (org-export-time-stamp-file nil)
+        (org-export-with-date nil)
+        (org-export-show-temporary-export-buffer nil)
+        )
+
+    (org-org-export-as-org)
+    (save-window-excursion
+      (switch-to-buffer "*Org ORG Export*")
+      (cf/wc-helper) ;; puts word count on killring
+      )
+    )
+  ;; (message (format "Exported content has %s words." (car kill-ring)))
+  (string-to-number (car kill-ring))
+  )
+
+(defvar word-count-exported-in 0 "Word count of exported content only.")
+(defun cf/org-clock-in ()
+  (setq word-count-exported-in (cf/org-count-exported-words))
+  )
+
+(defvar word-count-exported-out 0 "Word count of exported content only.")
+(defun cf/org-clock-out ()
+  (setq word-count-exported-out (cf/org-count-exported-words))
+  )
+
+(defun cf/org-clock-out-log ()
+  (if (string-equal org-log-note-purpose "clock-out")
+      (progn
+        (insert (format "Words written: %d \n Total Word Count: %d."
+                        (- word-count-exported-out word-count-exported-in)
+                        word-count-exported-out
+                        ))
+        (org-ctrl-c-ctrl-c))) ;; Wrap up note
+  )
+
 (defun helm-files-insert-as-static-link (candidate)
   (insert (format "%s" (replace-regexp-in-string "^.*/static/" "http:/static/" candidate))))
 

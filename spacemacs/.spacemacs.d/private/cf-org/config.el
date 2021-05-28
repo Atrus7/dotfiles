@@ -6,7 +6,16 @@
 (setq org-log-done 'time
       ;; Book reviews don't really need to track exactly when things get done by the hour...
       org-log-done-with-time nil
+
       )
+
+;; Want to insert the word-count when clocking out.
+(setq org-log-note-clock-out t)
+(add-hook 'org-clock-in-hook 'cf/org-clock-in)
+(add-hook 'org-clock-out-hook 'cf/org-clock-out)
+(add-hook 'org-log-buffer-setup-hook
+          'cf/org-clock-out-log)
+
 
 ;; Don't indent the normal text
 (setq org-adapt-indentation nil)
