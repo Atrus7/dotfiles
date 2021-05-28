@@ -85,7 +85,7 @@ bindsym Mod1+Tab scratchpad show
 
 ## Window settings
 hide_edge_borders vertical
-new_window pixel 0
+new_window pixel 1
 # smart_gaps on
 # gaps outer 0
 # gaps inner 10

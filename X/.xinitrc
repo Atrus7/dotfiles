@@ -15,16 +15,15 @@ fi
 if [ -f $sysmodmap ]; then
     xmodmap $sysmodmap
 fi
-
 if [ "$HOST" = "desk" ]; then
     xrdb -merge "$HOME/.Xcolors/paper_color"
 else
-    xrdb -merge "$HOME/.Xcolors/gruvbox"
-    xrdb -merge "$HOME/.Xcolors/gruvbox_urxvt256"
+     xrdb -merge "$HOME/.Xcolors/gruvbox"
+     xrdb -merge "$HOME/.Xcolors/gruvbox_urxvt256"
 fi
 
 if [ -f "$userresources" ]; then
-  xrdb -merge "$userresources"
+    xrdb -merge "$userresources"
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -34,10 +33,10 @@ fi
 # start some nice programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
 fi
 
 
