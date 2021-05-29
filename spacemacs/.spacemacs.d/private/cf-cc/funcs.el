@@ -43,3 +43,9 @@
     (funcall orig-fun beg end arg)))
 
 (advice-add 'comment-region :around 'my-with-c-sytle-comments)
+
+(defun cf/linux-kernel-setup ()
+  (interactive)
+  (c-set-style "Linux")
+  (setq tab-width 8
+        indent-tabs-mode t))
