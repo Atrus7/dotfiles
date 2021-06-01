@@ -1,4 +1,4 @@
-(defconst cf-opinions-packages '(projectile)
+(defconst cf-opinions-packages '(projectile spaceline)
   "The list of Lisp packages required by the cf-opinions layer.")
 
 (defun cf-opinions/post-init-projectile()
@@ -21,4 +21,13 @@
        ))
     (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
     )
+  )
+
+
+(defun cf-opinions/post-init-spaceline()
+  (use-package spaceline
+    :defer t
+    :config
+    (spaceline-config)
+  )
   )

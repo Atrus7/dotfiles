@@ -173,7 +173,7 @@
                                       zetteldeft
                                       rainbow-mode
                                       ninja-mode
-                                      doom-modeline
+                                      ;; doom-modeline
                                       doom-themes
                                       arduino-mode
                                       ;; TODO remove once this is mainlined...
@@ -183,8 +183,8 @@
                                       ;;olivetti
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro
-                                    spaceline ;; use doom-modeline
                                     gnuplot
+                                    devdocs ;; Needs emacs-27.1
                                     treemacs-icons-dired
                                     )
    dotspacemacs-frozen-packages '()
@@ -225,7 +225,7 @@
                                :width normal
                                :powerline-scale 1.1)
 
-   dotspacemacs-mode-line-theme 'custom ;(spacemacs :separator bar :separator-scale 1.0)
+   dotspacemacs-mode-line-theme '(spacemacs :separator bar :separator-scale 1.0)
    dotspacemacs-fullscreen-at-startup nil
    dotspacemacs-fullscreen-use-non-native nil
    dotspacemacs-maximized-at-startup nil
