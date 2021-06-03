@@ -1,4 +1,4 @@
-(defconst cf-ide-packages '(lsp-mode cquery flycheck company company-lsp semantic))
+(defconst cf-ide-packages '(lsp-mode cquery flycheck company semantic))
 
 ;; IDE-like features generally slow emacs down. Offers a single On-Off switch for these features
 ;; Enables/Disables the following modes: company, flycheck, and lsp-mode
@@ -63,15 +63,15 @@
                       flycheck-clang-language-standard "c++11")))
     ))
 
-(defun cf-ide/init-company-lsp()
-  (use-package company-lsp
-    :defer t
-    :commands company-lsp
-    :config
-    (setq company-lsp-cache-candidates 'auto
-          company-lsp-async t
-          company-lsp-enable-recompletion t)
-    ))
+;; (defun cf-ide/init-company-lsp()
+;;   (use-package company-lsp
+;;     :defer t
+;;     :commands company-lsp
+;;     :config
+;;     (setq company-lsp-cache-candidates 'auto
+;;           company-lsp-async t
+;;           company-lsp-enable-recompletion t)
+;;     ))
 
 (defun cf-ide/post-init-flycheck()
   (use-package flycheck
