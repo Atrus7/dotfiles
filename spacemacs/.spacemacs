@@ -175,6 +175,7 @@
                                       ninja-mode
                                       ;; doom-modeline
                                       doom-themes
+                                      pdf-tools ;; for printing
                                       arduino-mode
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
@@ -338,6 +339,11 @@
 (defun dotspacemacs/user-config/experiments ()
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
+
+  (pdf-tools-install)
+  (evil-collection-pdf-setup)
+  (setq pdf-misc-print-program-executable "lpr")
+  (setq pdf-misc-print-program-args '("-o media=A4" "-o fitplot"))
 
   ;; (doom-modeline-init)
 

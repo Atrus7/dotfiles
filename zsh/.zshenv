@@ -28,3 +28,4 @@ export CXX="`which g++` -fdiagnostics-color=auto"
 
 # make Chrome scaling normal (also needs --force-device-scale-factor)
 export GDK_SCALE=1
+export PRINTER="Canon_MG3600_series"

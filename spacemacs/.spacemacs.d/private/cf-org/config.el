@@ -9,6 +9,9 @@
 
       )
 
+;; https://github.com/politza/pdf-tools
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+
 ;; Want to insert the word-count when clocking out.
 (setq org-log-note-clock-out t)
 (add-hook 'org-clock-in-hook 'cf/org-clock-in)
