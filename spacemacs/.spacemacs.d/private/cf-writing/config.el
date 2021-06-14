@@ -29,6 +29,7 @@
   (setq-local line-spacing 2)
   (org-indent-mode 1)
   (org-num-mode 1)
+  (olivetti-mode 1)
   ;; hide title / author ... keywords
   (setq-local org-hidden-keywords '(title author date startup))
 
