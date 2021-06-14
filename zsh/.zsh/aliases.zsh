@@ -22,8 +22,6 @@ alias cstwins_update="ssh cstwins 'cd /var/www/html/cstwins/; git pull; sudo apa
 alias ainstall="sudo apt-get install"
 
 #sudo commands
-alias pacman="sudo pacman"
-alias pip="sudo pip"
 alias :qa="sudo systemctl poweroff"
 alias reboot="sudo reboot"
 alias poweroff="sudo poweroff"

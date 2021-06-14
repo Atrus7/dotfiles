@@ -16,3 +16,11 @@
 
 ;; Somehow org-mode messes this up, making it Org-shift-down. Explicitly remap it
 (evil-define-key '(normal) org-mode-map (kbd "J") 'evil-join)
+
+(spacemacs/set-leader-keys-for-major-mode 'org-mode
+  "c" nil)
+
+(spacemacs/set-leader-keys-for-major-mode 'org-mode
+  "c i" 'cf-clock-in)
+(spacemacs/set-leader-keys-for-major-mode 'org-mode
+  "c o" 'cf-clock-out)

@@ -14,7 +14,16 @@
     (goto-char (point-min))
     (kill-new (number-to-string (count-matches "\\sw+")))))
 
-
+;; Ugly hack, make this better
+(defun cf-clock-out (args)
+  "Custom to get word count"
+  (interactive "P")
+  (cf/org-clock-out)
+  (call-interactively 'org-clock-out))
+(defun cf-clock-in (args)
+  (interactive "P")
+  (cf/org-clock-in)
+  (call-interactively 'org-clock-in))
 
 (defun cf/org-count-exported-words ()
   "This function exports the current buffer temporarily and runs word-count over the exported content. Gets the word count as a kill and prints it out."
