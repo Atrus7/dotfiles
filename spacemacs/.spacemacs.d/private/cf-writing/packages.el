@@ -66,16 +66,16 @@ Each entry is either:
   :status cf/writing-mode
   :on (progn
         (cf/writing-mode 1)
-        (load-theme 'poet t)
-        (doom-modeline-set-modeline 'writing-mode-line t)
-        (reload-buffer)
+        ;; (load-theme 'poet t)
+        ;; (doom-modeline-set-modeline 'writing-mode-line t)
+        ;; (reload-buffer)
         )
 
   :off (progn
          (cf/writing-mode -1)
-         (load-theme (car dotspacemacs-themes) t)
-         (doom-modeline-set-modeline 'main 'default)
-         (reload-buffer)
+         ;; (load-theme (car dotspacemacs-themes) t)
+         ;; (doom-modeline-set-modeline 'main 'default)
+         ;; (reload-buffer)
          )
 
   )
