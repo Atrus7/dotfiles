@@ -2,6 +2,14 @@
 (add-hook 'org-mode-hook 'visual-fill-column-mode)
 (setq visual-fill-column-width 100)
 
+(setq-default abbrev-mode t)
+;; save abbreviations upon exiting xemacs
+(setq save-abbrevs t)
+;; set the file storing the abbreviations
+(setq abbrev-file-name "~/dotfiles/spacemacs/.spacemacs.d/private/cf-writing/abbrevs.el")
+;; reads the abbreviations file on startup
+(quietly-read-abbrev-file)
+
 (defvar-local local-word-count nil)
 
 (add-hook 'after-save-hook 'cf/wc-update t)
