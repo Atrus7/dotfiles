@@ -31,6 +31,12 @@
                                                              ))
     (setq org-agenda-files (list(mapconcat 'eval '(org-directory "todo.org") "/")))
 
+    ;; Set the DONE font.
+    ;; In many of my org files, I don't want to track DONE lines with strikethrough, for example books.org
+    (set-face-attribute 'org-headline-done nil
+                        :foreground "slate grey"
+                        :strike-through nil)
+
     ;; remapping pomodoro thing
     (spacemacs/set-leader-keys-for-major-mode 'org-mode
       "p" 'org-priority)

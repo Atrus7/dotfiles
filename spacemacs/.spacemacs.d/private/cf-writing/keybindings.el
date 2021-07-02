@@ -3,6 +3,5 @@
 (evil-leader/set-key (kbd "w c") 'count-words)
 
 (evil-leader/set-key (kbd "t w") 'spacemacs/toggle-cf/writing-mode)
-(evil-leader/set-key (kbd "t w") 'spacemacs/toggle-cf/writing-mode)
 
 (evil-leader/set-key (kbd "o w d") 'cf/write-today)

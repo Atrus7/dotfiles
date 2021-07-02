@@ -27,8 +27,13 @@
   (setq-local org-num-max-level 2)
   (setq-local org-num-face nil)
   (setq-local line-spacing 2)
+  ;; Have org number headlines
+  ;; (org-num-mode 1)
+
+  ;; Org indent
   (org-indent-mode 1)
-  (org-num-mode 1)
+
+  ;; Center the buffer
   (olivetti-mode 1)
   ;; hide title / author ... keywords
   (setq-local org-hidden-keywords '(title author date startup))
