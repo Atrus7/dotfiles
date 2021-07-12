@@ -4,7 +4,11 @@
 
 ;;; Code:
 
-(defconst cf-org-packages '(helm flyspell-lazy org evil-org org-agenda)
+(defconst cf-org-packages '(helm
+                            flyspell-lazy
+                            org
+                            evil-org
+                            org-agenda)
   "The list of Lisp packages required by the cf-org layer.")
 
 (defun cf-org/post-init-evil-org()
@@ -29,7 +33,9 @@
                                                              (shell . t)
                                                              (C . t)
                                                              ))
-    (setq org-agenda-files (list(mapconcat 'eval '(org-directory "todo.org") "/")))
+
+    (setq org-agenda-files '("~/org/todo.org" "~/org/books.org"))
+    (setq org-agenda-custom-commands cf/custom-agenda)
 
     ;; Set the DONE font.
     ;; In many of my org files, I don't want to track DONE lines with strikethrough, for example books.org
@@ -45,6 +51,12 @@
 
     ;; turn list to checkbox.
     (spacemacs/set-leader-keys-for-major-mode 'org-mode (kbd "]") (lambda () (interactive) (org-toggle-checkbox '(4))))
+
+
+    (add-to-list 'org-modules 'org-habit t) ;; use org-habit
+    (setq org-habit-following-days 1 ;; Just include today
+          org-habit-completed-glyph ?✓
+          org-habit-show-done-always-green t)
 
     ;; blog publishing
     (spacemacs/declare-prefix (kbd "o p") "publishing")

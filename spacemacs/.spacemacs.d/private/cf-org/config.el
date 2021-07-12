@@ -1,4 +1,3 @@
-
 (setq org-hide-emphasis-markers t
       org-hide-block-startup t
       org-catch-invisible-edits 'smart)
@@ -7,6 +6,40 @@
       ;; Book reviews don't really need to track exactly when things get done by the hour...
       org-log-done-with-time nil
 
+      )
+
+(setq cf/custom-agenda
+      '(
+        ("n" "Agenda and all TODOs"
+         ((agenda #1="")
+          (alltodo #1#)))
+        ("b" "Books" todo "TO_READ" ((org-agenda-files '("~/org/books.org"))))
+        ("c" "Christopher's Agenda"
+         (
+          (agenda "" ((org-agenda-span 'day)
+                      (org-deadline-warning-days 3)
+                      (org-scheduled-past-days 1)
+                      (org-deadline-past-days 1)
+                      (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                      (org-agenda-overriding-header "TODAY:")
+                      (org-agenda-format-date "")
+                      ))
+          (tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "HIGH PRIORITY TASKS: ")))
+          (agenda "" ((org-agenda-span 'day)
+                      (org-deadline-warning-days 0)
+                      (org-agenda-sorting-strategy '(deadline-up))
+                      (org-agenda-skip-function 'cf/skip-entry-unless-overdue-deadline)
+                      (org-agenda-overriding-header "OVERDUE:")
+                      (org-agenda-format-date "")
+                      ))
+          (todo "TO_READ" ((org-agenda-files '("~/org/books.org"))
+                           (org-agenda-overriding-header "BOOK LIST:")
+
+                           ))
+          ;; (search "emacs" nil)
+          )))
       )
 
 ;; https://github.com/politza/pdf-tools

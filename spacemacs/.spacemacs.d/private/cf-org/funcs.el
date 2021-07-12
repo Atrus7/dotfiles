@@ -92,14 +92,6 @@
 (fset 'fix-highlight-format-ebook-export
       [?n ?d ?f ?- ?x ?j ?j ?v ?i ?p ?h ?h ?l ?v ?s ?\" ?k ?k ?J ?J ?i ?: return escape ?x])
 
-
-;; TODO implement
-;; (defun cf/org-archive-task ()
-;;   "Archive todo task"
-;;   (interactive)
-;;   )
-
-
 ;; IFTTT files org-captures into .org.txt files, so we want to refile all of those entries into their respective org files
 (defun cf/org-append-dictated-captures ()
   "Moves .org.txt entries into respective .org files and deletes .org files"
@@ -293,3 +285,19 @@ section headings and list items."
                              "\\|" (sentence-end))))
 
 (add-hook 'org-mode-hook #'org-auto-capitalize-headings-and-lists)
+
+(defun org-time-today ()
+  "Time in seconds today at 0:00.
+Returns the float number of seconds since the beginning of the
+epoch to the beginning of today (00:00)."
+  (float-time (apply 'encode-time
+                     (append '(0 0 0) (nthcdr 3 (decode-time))))))
+
+;; From https://github.com/fniessen/emacs-leuven/blob/master/org-leuven-agenda-views.txt
+(defun cf/skip-entry-unless-overdue-deadline ()
+  "Skip entries that have no deadline, or that have a deadline later than or equal to today."
+  (let* ((dl (org-entry-get nil "DEADLINE")))
+    (if (or (not dl)
+            (equal dl "")
+            (org-time>= dl (org-time-today)))
+        (progn (outline-next-heading) (point)))))
