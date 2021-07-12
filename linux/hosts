@@ -1,0 +1,28 @@
+127.0.0.1	localhost
+127.0.1.1	typewriter
+
+# Google shortcuts
+calendar.google.com/calendar/r c
+mail.google.com/ m
+
+127.0.1.1 youtube.com
+127.0.1.1 www.youtube.com
+127.0.1.1 https://www.youtube.com
+127.0.1.1 https://youtube.com
+127.0.1.1 http://www.youtube.com
+
+127.0.1.1 facebook.com
+127.0.1.1 www.facebook.com
+127.0.1.1 https://www.facebook.com
+127.0.1.1 http://www.facebook.com
+
+127.0.1.1 reddit.com
+127.0.1.1 www.reddit.com
+127.0.1.1 https://www.reddit.com
+127.0.1.1 http://www.reddit.com
+
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
