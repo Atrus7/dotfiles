@@ -1,3 +1,5 @@
+# Run to fix website access
+# sudo ln -s ~/dotfiles/linux/hosts /etc/hosts
 127.0.0.1	localhost
 127.0.1.1	typewriter
 
@@ -20,7 +22,6 @@ mail.google.com/ m
 127.0.1.1 www.reddit.com
 127.0.1.1 https://www.reddit.com
 127.0.1.1 http://www.reddit.com
-
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
