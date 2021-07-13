@@ -172,6 +172,7 @@
                                       nord-theme
                                       zetteldeft
                                       rainbow-mode
+                                      highlight
                                       ninja-mode
                                       ;; doom-modeline
                                       doom-themes
