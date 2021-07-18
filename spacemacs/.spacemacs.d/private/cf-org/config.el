@@ -1,5 +1,6 @@
 (setq org-hide-emphasis-markers t
-      org-hide-block-startup t
+      org-hide-block-startup t ;; close blocks on startup
+      org-startup-folded 'content ;; Just show headlines
       org-catch-invisible-edits 'smart)
 
 (setq org-log-done 'time
