@@ -6,6 +6,10 @@
 
 (spacemacs/set-leader-keys (kbd "x i") 'insert-char)
 
+;; Quick way to get a calculation in the buffer, SPC #
+(spacemacs/set-leader-keys (kbd "#") (lambda () (interactive)
+  (quick-calc t)))
+
 ;; Make macros handy
 (evil-global-set-key 'normal (kbd "Q") 'call-last-kbd-macro)
 (evil-global-set-key 'normal (kbd "C-q") 'name-last-kbd-macro)
