@@ -37,6 +37,8 @@
     (setq org-agenda-files '("~/org/todo.org" "~/org/books.org"))
     (setq org-agenda-custom-commands cf/custom-agenda)
 
+    (setq org-persp-startup-with-agenda "c")
+
     ;; Set the DONE font.
     ;; In many of my org files, I don't want to track DONE lines with strikethrough, for example books.org
     (set-face-attribute 'org-headline-done nil

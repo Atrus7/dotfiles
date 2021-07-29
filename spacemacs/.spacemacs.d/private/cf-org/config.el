@@ -5,9 +5,7 @@
 
 (setq org-log-done 'time
       ;; Book reviews don't really need to track exactly when things get done by the hour...
-      org-log-done-with-time nil
-
-      )
+      org-log-done-with-time nil)
 
 (setq cf/custom-agenda
       '(
@@ -18,7 +16,7 @@
         ("c" "Christopher's Agenda"
          (
           (agenda "" ((org-agenda-span 'day)
-                      (org-deadline-warning-days 3)
+                      (org-deadline-warning-days 0)
                       (org-scheduled-past-days 1)
                       (org-deadline-past-days 1)
                       (org-agenda-sorting-strategy '(scheduled-up deadline-up))
@@ -28,6 +26,19 @@
           (tags "PRIORITY=\"A\""
                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                  (org-agenda-overriding-header "HIGH PRIORITY TASKS: ")))
+          (agenda ""
+                (
+                 (org-agenda-span 'day)
+                 (org-agenda-start-day "+1d")
+                 (org-deadline-warning-days 0)
+                 (org-scheduled-past-days 0)
+                 (org-deadline-past-days 0)
+                 (org-habit-show-habits-only-for-today nil)
+                 (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                 (org-agenda-overriding-header "TOMORROW:")
+                 (org-agenda-format-date "")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 ))
           (agenda "" ((org-agenda-span 'day)
                       (org-deadline-warning-days 0)
                       (org-agenda-sorting-strategy '(deadline-up))
@@ -39,7 +50,6 @@
                            (org-agenda-overriding-header "BOOK LIST:")
 
                            ))
-          ;; (search "emacs" nil)
           )))
       )
 
