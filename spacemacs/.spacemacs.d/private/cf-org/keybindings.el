@@ -24,3 +24,9 @@
   "c i" 'cf-clock-in)
 (spacemacs/set-leader-keys-for-major-mode 'org-mode
   "c o" 'cf-clock-out)
+
+;; capital-w
+(spacemacs/declare-prefix (kbd "W") "Word Count...")
+(evil-leader/set-key (kbd "W c") 'count-words)
+(evil-leader/set-key (kbd "W g") 'cf/git-count-uncommitted-words)
+(evil-leader/set-key (kbd "W e") 'cf/org-count-exported-words)

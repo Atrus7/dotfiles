@@ -42,8 +42,15 @@
       (cf/wc-helper) ;; puts word count on killring
       )
     )
-  ;; (message (format "Exported content has %s words." (car kill-ring)))
+  (message (format "Exported content has %s words." (car kill-ring)))
   (string-to-number (car kill-ring))
+  )
+
+(defun cf/git-count-uncommitted-words ()
+  (interactive)
+  (message (format "Uncommitted changes have %s words."
+                   (replace-regexp-in-string "\n$" ""
+                                             (shell-command-to-string "~/bin/git_word_count.sh git_words_diff"))))
   )
 
 (defvar word-count-exported-in 0 "Word count of exported content only.")
