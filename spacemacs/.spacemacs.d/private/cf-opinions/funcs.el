@@ -144,6 +144,20 @@
     (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location)
     (message (format "Added \"%s\" to the private dictionary." (car word))))
   )
+
+;; Turn spelling errors into abbrevs
+(defun cf/flyspell-and-save-abbrev ()
+  "Call `flyspell-word', then create an abbrev for it.
+With prefix P, create local abbrev. Otherwise it will
+be global.
+If there's nothing wrong with the word at point, keep
+looking for a typo until the beginning of buffer. You can
+skip typos you don't want to fix with `SPC', and you can
+abort completely with `C-g'."
+  (interactive)
+  (let ((flyspell-abbrev-p t))
+    (call-interactively 'flyspell-correct-previous)))
+
 (defun cf/hidden-project-ag ()
   (interactive)
   ;; Want to enable hidden file finding for dotfiles

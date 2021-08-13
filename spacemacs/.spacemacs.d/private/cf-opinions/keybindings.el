@@ -111,6 +111,7 @@
 (define-key evil-normal-state-map (kbd "s") 'remove-surrounding-function)
 
 (evil-leader/set-key (kbd "S l") 'cf/learn-word)
+(evil-leader/set-key (kbd "S A") 'cf/flyspell-and-save-abbrev)
 
 (evil-leader/set-key "owl" 'cf/chrome-linux-ident)
 (evil-leader/set-key "owg" 'cf/chrome-linux-ident)
