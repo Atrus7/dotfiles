@@ -46,6 +46,12 @@
                       (org-agenda-overriding-header "OVERDUE:")
                       (org-agenda-format-date "")
                       ))
+
+          (todo "TODO" ((org-agenda-files '("~/org/todo.org"))
+                           (org-agenda-overriding-header "TODO LIST:")
+                           ;; (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+                           ))
           (todo "TO_READ" ((org-agenda-files '("~/org/books.org"))
                            (org-agenda-overriding-header "BOOK LIST:")
 
