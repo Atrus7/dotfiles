@@ -34,6 +34,7 @@
     visual-fill-column
     olivetti
     poet-theme
+    define-word
     printing)
   "The list of Lisp packages required by the cf-writing layer.
 
@@ -130,6 +131,16 @@ Each entry is either:
   (use-package poet-theme
     :defer t
     :config
+    )
+  )
+(setq define-word-displayfn-alist nil)
+(defun cf-writing/post-init-define-word ()
+  (use-package define-word
+    :defer t
+    :config
+    (setq define-word-displayfn-alist
+          (cl-loop for (service . _) in define-word-services
+                   collect (cons service #'cf/display-word)))
     )
   )
 

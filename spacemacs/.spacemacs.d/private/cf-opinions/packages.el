@@ -1,4 +1,4 @@
-(defconst cf-opinions-packages '(projectile spaceline)
+(defconst cf-opinions-packages '(projectile spaceline popwin)
   "The list of Lisp packages required by the cf-opinions layer.")
 
 (defun cf-opinions/post-init-projectile()
@@ -30,4 +30,12 @@
     :config
     (spaceline-config)
   )
+  )
+
+(defun cf-opinions/post-init-popwin()
+  (use-package popwin
+    :defer t
+    :config
+    (push '("*Define Word*" :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+    )
   )
