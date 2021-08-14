@@ -21,6 +21,44 @@
   (save-buffer)
   )
 
+;; fixup emdashes
+(defgroup typopunct nil
+  "Minor mode for typographical punctuation marks."
+  :group 'local)
+
+(defconst typopunct-en-dash
+  (decode-char 'ucs #x2013))
+
+(defconst typopunct-em-dash
+  (decode-char 'ucs #x2014))
+
+(defun typopunct-insert-typographical-dashes ()
+  "Insert a dashes, an en-dash or an em-dash."
+  (interactive)
+  (cond ((eq (char-before) ?-)
+	       (delete-char -1)
+	       (insert typopunct-en-dash))
+	      ((eq (char-before) typopunct-en-dash)
+	       (delete-char -1)
+	       (insert typopunct-em-dash))
+	      (t (insert ?-))))
+
+;; cleanup whitespace
+(defun full-replace (search replace)
+  (save-excursion
+    (beginning-of-buffer)
+    (replace-regexp search replace)
+    ))
+
+(defun cf/fixup-double-spaces ()
+  (interactive)
+  (full-replace "[.]  " "\. ")
+  (full-replace "[!]  " "! ")
+  (full-replace "[?]  " "? ")
+  (full-replace "[\"]  " "\" ")
+  )
+
+
 (defun cf/display-word (&rest args)
   "Create a buffer for display word instead of using messages.
 

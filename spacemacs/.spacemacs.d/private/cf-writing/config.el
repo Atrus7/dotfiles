@@ -16,12 +16,13 @@
   (let ((map (make-sparse-keymap)))
     (define-key map [remap evil-previous-line] 'evil-previous-visual-line)
     (define-key map [remap evil-next-line] 'evil-next-visual-line)
+    (define-key map [?-] 'typopunct-insert-typographical-dashes)
     map))
 
 (define-minor-mode cf/writing-mode ()
   :keymap writing-mode-map
   :group 'writing
-  :global t
+  :global nil
 
   (setq-local org-startup-folded nil)
   (setq-local org-level-color-stars-only nil)
@@ -44,8 +45,20 @@
   ;; hide title / author ... keywords
   (setq-local org-hidden-keywords '(title author date startup))
 
+  ;; Spelling stuff
+  (flyspell-mode-on)
+
   nil " Writing" '()
   )
+
+;; setup writing mode when we're in some writing/ dir
+(add-hook 'org-mode-hook
+          (lambda ()
+            (if (and (stringp buffer-file-name)
+                     (string-match "/writing/" buffer-file-name))
+                (cf/writing-mode))) t)
+
+
 ;; https://www.reddit.com/r/emacs/comments/4oc7pg/spellcheck_flyspellmode_underlines_disappear_when/
 ;; REDEFINE THIS FN, so flyspell doesn't de-activate.
 (defun ispell-pdict-save (&optional no-query force-save)
