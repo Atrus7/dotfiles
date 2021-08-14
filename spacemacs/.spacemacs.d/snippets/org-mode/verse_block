@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name: Quote Block (with horizontal block)
-# key: qu
+# name: Verse Block (With horizontal break)
+# key: ve
 # --
 --------------------------------------------------------------------------------
-#+BEGIN_QUOTE
+#+BEGIN_VERSE
 $0
-#+END_QUOTE
+#+END_VERSE
