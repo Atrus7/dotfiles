@@ -46,3 +46,22 @@
 
   nil " Writing" '()
   )
+;; https://www.reddit.com/r/emacs/comments/4oc7pg/spellcheck_flyspellmode_underlines_disappear_when/
+;; REDEFINE THIS FN, so flyspell doesn't de-activate.
+(defun ispell-pdict-save (&optional no-query force-save)
+  "CF-REDEFINED -- Check to see if the personal dictionary has been modified.
+If so, ask if it needs to be saved."
+  (interactive (list ispell-silently-savep t))
+  (if (and ispell-pdict-modified-p (listp ispell-pdict-modified-p))
+      (setq ispell-pdict-modified-p (car ispell-pdict-modified-p)))
+  (when (and (or ispell-pdict-modified-p force-save)
+	           (or no-query
+		             (y-or-n-p "Personal dictionary modified.  Save? ")))
+    (ispell-send-string "#\n")	; save dictionary
+    (message "Personal dictionary saved.")
+    ;; - (when flyspell-mode
+    ;;- (flyspell-word nil)
+    ;;- )
+    )
+  ;; unassert variable, even if not saved to avoid questioning.
+  (setq ispell-pdict-modified-p nil))
