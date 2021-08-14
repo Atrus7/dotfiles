@@ -12,8 +12,6 @@
 
 (defvar-local local-word-count nil)
 
-(add-hook 'after-save-hook 'cf/wc-update t)
-
 (defvar writing-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map [remap evil-previous-line] 'evil-previous-visual-line)
