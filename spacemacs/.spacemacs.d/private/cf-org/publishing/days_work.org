@@ -1,0 +1,3 @@
+#+OPTIONS: toc:nil author:nil timestamp:nil title:t date:t
+#+TITLE: Day's work - 
+# #+EXPORT_FILE_NAME: days_work.pdf
