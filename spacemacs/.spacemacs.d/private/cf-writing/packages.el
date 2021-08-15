@@ -35,6 +35,7 @@
     olivetti
     poet-theme
     define-word
+    mw-thesaurus
     printing)
   "The list of Lisp packages required by the cf-writing layer.
 
@@ -133,6 +134,13 @@ Each entry is either:
     :config
     )
   )
+
+(defun cf-writing/init-mw-thesaurus ()
+  (use-package mw-thesaurus
+    :defer t
+    :config
+    (setq mw-thesaurus--api-key "56a7c924-f464-469e-a32d-f25a7d82508e")))
+
 (setq define-word-displayfn-alist nil)
 (defun cf-writing/post-init-define-word ()
   (use-package define-word

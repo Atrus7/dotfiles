@@ -69,8 +69,7 @@ that may break."
   (let*
       ((buffer (get-buffer-create "*Define Word*"))
        (word (propertize (substring-no-properties (thing-at-point 'word)) 'face 'bold))
-       (header (format "DEFINING: %s \n" word) )
-)
+       (header (format "DEFINING: %s \n" word)))
 
     (set-buffer buffer)
     (erase-buffer)

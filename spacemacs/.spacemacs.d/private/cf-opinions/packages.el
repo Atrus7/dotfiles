@@ -36,6 +36,6 @@
   (use-package popwin
     :defer t
     :config
-    (push '("*Define Word*" :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+    (push '("*Define Word*" :dedicated t :position bottom :stick t :noselect t :height 0.3) popwin:special-display-config)
     )
   )
