@@ -1,14 +1,17 @@
 
 (evil-define-key 'normal org-mode-map
   (kbd "C-k") 'org-insert-link)
+
+;; quick cuts to show certain views
 (evil-define-key '(insert normal) org-mode-map
-  (kbd "M-1") (lambda () (interactive) (org-ctrl-c-tab 0)))
+  (kbd "M-1") (lambda () (interactive) (org-shifttab 1)))
 (evil-define-key '(insert normal) org-mode-map
-  (kbd "M-2") (lambda () (interactive) (org-ctrl-c-tab 1)))
+  (kbd "M-2") (lambda () (interactive) (org-shifttab 2)))
 (evil-define-key '(insert normal) org-mode-map
-  (kbd "M-3") (lambda () (interactive) (org-ctrl-c-tab 2)))
+  (kbd "M-3") (lambda () (interactive) (org-shifttab 3)))
+;; show everything
 (evil-define-key '(insert normal) org-mode-map
-  (kbd "M-4") (lambda () (interactive) (org-ctrl-c-tab 3)))
+  (kbd "M-4") (lambda () (interactive) (org-show-all '(headings drawers blocks))))
 
 
 ;; unbind the middle mouse key. When typing on laptop, I keep pressing it accidentally, triggering a yank.
