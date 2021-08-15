@@ -16,7 +16,7 @@
     :defer t
     :config
     ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
-    (evil-org-set-key-theme '(textobjects insert shift todo heading return))
+    (evil-org-set-key-theme '(textobjects insert todo heading return))
     ))
 
 (defun cf-org/post-init-org()
@@ -50,6 +50,8 @@
       "p" 'org-priority)
     (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
       "p" 'org-agenda-priority)
+    ;; Somehow org-mode messes this up, making it Org-shift-down. Explicitly remap it
+    (evil-define-key '(normal) org-mode-map (kbd "J") 'evil-join)
 
     ;; turn list to checkbox.
     (spacemacs/set-leader-keys-for-major-mode 'org-mode (kbd "]") (lambda () (interactive) (org-toggle-checkbox '(4))))

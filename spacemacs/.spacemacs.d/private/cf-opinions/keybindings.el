@@ -6,6 +6,8 @@
 
 (spacemacs/set-leader-keys (kbd "x i") 'insert-char)
 
+(spacemacs/set-leader-keys (kbd "b r") 'rename-buffer)
+
 ;; Quick way to get a calculation in the buffer, SPC #
 (spacemacs/set-leader-keys (kbd "#") (lambda () (interactive)
   (quick-calc t)))
