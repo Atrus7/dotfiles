@@ -124,4 +124,11 @@
    dotspacemacs-mode-line-theme '(spacemacs :separator bar :separator-scale 1.0))
   (spacemacs/toggle-mode-line-minor-modes-off)
   (spacemacs/toggle-mode-line-org-clock-on)
+
+  (spaceline-define-segment narrow
+    "Display Narrowed when buffer is narrowed."
+    (when (buffer-narrowed-p)
+      "Narrowed"))
+
+  (spaceline-spacemacs-theme 'narrow)
   )
