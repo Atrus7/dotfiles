@@ -100,10 +100,17 @@ Each entry is either:
     ;; set it to the right
     (define-key org-marginalia-mode-map (kbd "C-c C-a")
       #'org-marginalia-make-annotation)
-    (define-key org-marginalia-mode-map (kbd "C-c n }")
+    (define-key org-marginalia-mode-map (kbd "C-c n a")
+      #'org-marginalia-make-annotation)
+    (define-key org-marginalia-mode-map (kbd "C-c n d")
+      #'org-marginalia-remove)
+    (define-key org-marginalia-mode-map (kbd "C-c n n")
       #'org-marginalia-browse-forward)
-    (define-key org-marginalia-mode-map (kbd "C-c n {")
+    (define-key org-marginalia-mode-map (kbd "C-c n p")
       #'org-marginalia-browse-backward)
+
+    (setq org-marginalia-notes-file-path "annotation.org")
+    (set-face-attribute 'org-marginalia-highlighter nil :background "LightGoldenrod1" :underline "red")
     )
   )
 

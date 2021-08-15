@@ -7,6 +7,9 @@
       ;; Book reviews don't really need to track exactly when things get done by the hour...
       org-log-done-with-time nil)
 
+;; org v8 bundled with Emacs 24.4
+(setq org-odt-preferred-output-format "doc")
+
 (setq cf/custom-agenda
       '(
         ("n" "Agenda and all TODOs"

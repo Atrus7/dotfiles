@@ -126,3 +126,7 @@
 
 ;; TODO this doesn't work yet
 ;; (evil-global-set-key 'visual "S" 'evil-exchange)
+
+;; in visual mode, automatically default to surround characters
+(evil-global-set-key 'visual "\"" '(lambda () (interactive) (insert-pair nil ?\" ?\")) )
+(evil-global-set-key 'visual "\'" '(lambda () (interactive) (insert-pair nil ?\' ?\')) )
