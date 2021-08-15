@@ -5,3 +5,6 @@
 [submodule "linux/bin/i3lock"]
 	path = linux/bin/i3lock
 	url = https://github.com/Atrus7/i3lock
+[submodule "spacemacs/.spacemacs.d/external/org-marginalia"]
+	path = spacemacs/.spacemacs.d/external/org-marginalia
+	url = git@github.com:nobiot/org-marginalia.git

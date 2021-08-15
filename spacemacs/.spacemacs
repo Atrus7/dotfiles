@@ -41,6 +41,9 @@
 
   ;; TODO improve loading of local-external packages
   (require 'auto-capitalize)
+
+  (add-to-list 'load-path "~/.spacemacs.d/external/org-marginalia/")
+  (require 'org-marginalia)
   )
 
 (defun dotspacemacs/user-init ()

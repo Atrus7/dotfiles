@@ -32,8 +32,10 @@
 (defconst cf-writing-packages
   '(nanowrimo
     visual-fill-column
+    ;; annotate
     olivetti
     poet-theme
+    (org-marginalia :location local)
     define-word
     printing)
   "The list of Lisp packages required by the cf-writing layer.
@@ -82,6 +84,27 @@ Each entry is either:
   )
 
 
+(defun cf-writing/init-annotate ()
+  (use-package annotate
+    :defer t
+    :config
+    ;; set it to the right
+    (setq annotate-annotation-position-policy :margin)
+    )
+  )
+(defun cf-writing/init-org-marginalia ()
+  (use-package org-marginalia
+    :defer t
+    :config
+    ;; set it to the right
+    (define-key org-marginalia-mode-map (kbd "C-c C-a")
+      #'org-marginalia-make-annotation)
+    (define-key org-marginalia-mode-map (kbd "C-c n }")
+      #'org-marginalia-browse-forward)
+    (define-key org-marginalia-mode-map (kbd "C-c n {")
+      #'org-marginalia-browse-backward)
+    )
+  )
 
 (defun cf-writing/init-nanowrimo ()
   (use-package nanowrimo
