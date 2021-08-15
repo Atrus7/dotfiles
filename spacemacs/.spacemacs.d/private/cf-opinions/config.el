@@ -70,6 +70,10 @@
 ;; to make visual copy work inside of emacs in tmux
 (xterm-mouse-mode -1)
 
+;; Better mouse scrolling.
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+
 (add-hook 'focus-out-hook 'save-all)
 
 (setq vc-ignore-dir-regexp
@@ -120,4 +124,11 @@
    dotspacemacs-mode-line-theme '(spacemacs :separator bar :separator-scale 1.0))
   (spacemacs/toggle-mode-line-minor-modes-off)
   (spacemacs/toggle-mode-line-org-clock-on)
+
+  (spaceline-define-segment narrow
+    "Display Narrowed when buffer is narrowed."
+    (when (buffer-narrowed-p)
+      "Narrowed"))
+
+  (spaceline-spacemacs-theme 'narrow)
   )

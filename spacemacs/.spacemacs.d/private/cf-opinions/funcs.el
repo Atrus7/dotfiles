@@ -195,9 +195,9 @@ abort completely with `C-g'."
       (error "Buffer not visiting a file"))))
 
 (defun cf/delete-empty-newlines()
-    (interactive)
-    (evil-ex "%s/\n\n+/\n/g")
-    )
+  (interactive)
+  (evil-ex "%s/\n\n+/\n/g")
+  )
 (defun cf/log-mode ()
   "Examine logs"
   (interactive)

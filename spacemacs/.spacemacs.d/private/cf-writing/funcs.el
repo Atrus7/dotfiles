@@ -78,3 +78,35 @@ that may break."
     (apply 'insert args)
     (display-buffer buffer))
   )
+
+(defun narrow-todays-indirect-buffer ()
+  "Narrow to an indirect buffer for the day's writing."
+  (interactive)
+  (let ((old-name  buffer-file-name)
+        (new-name (format "*%s.%s*" (file-name-nondirectory buffer-file-name) (format-time-string "%m_%d_%y"))))
+    (spacemacs/narrow-to-region-indirect-buffer)
+    (rename-buffer new-name)))
+
+
+;;; org marginialia
+(defun org-marginalia-make-annotation ()
+  (interactive)
+  (let ((mark-end (region-end)))
+    (org-marginalia-mark (region-beginning) (region-end))
+    (org-marginalia-save)
+    (org-marginalia-open (1- mark-end))
+    (end-of-buffer)))
+
+
+(defun org-marginalia-browse-forward ()
+  (interactive)
+  (let ((buf (current-buffer)))
+    (org-marginalia-next) (org-marginalia-open (point))
+    (pop-to-buffer buf nil t)))
+
+
+(defun org-marginalia-browse-backward ()
+  (interactive)
+  (let ((buf (current-buffer)))
+    (org-marginalia-prev) (org-marginalia-open (point))
+    (pop-to-buffer buf nil t)))
