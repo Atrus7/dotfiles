@@ -79,3 +79,11 @@ that may break."
     (apply 'insert args)
     (display-buffer buffer))
   )
+
+(defun narrow-todays-indirect-buffer ()
+  "Narrow to an indirect buffer for the day's writing."
+  (interactive)
+  (let ((old-name  buffer-file-name)
+        (new-name (format "*%s.%s*" (file-name-nondirectory buffer-file-name) (format-time-string "%m_%d_%y"))))
+    (spacemacs/narrow-to-region-indirect-buffer)
+    (rename-buffer new-name)))

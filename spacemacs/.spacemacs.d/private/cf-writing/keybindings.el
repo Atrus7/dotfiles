@@ -5,4 +5,5 @@
 (evil-leader/set-key (kbd "t w") 'spacemacs/toggle-cf/writing-mode)
 
 (evil-leader/set-key (kbd "o w d") 'cf/write-today)
+(evil-leader/set-key (kbd "o w n") 'narrow-todays-indirect-buffer)
 (evil-leader/set-key (kbd "x .") 'define-word-at-point)

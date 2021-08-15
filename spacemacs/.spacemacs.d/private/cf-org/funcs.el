@@ -308,3 +308,11 @@ epoch to the beginning of today (00:00)."
             (equal dl "")
             (org-time>= dl (org-time-today)))
         (progn (outline-next-heading) (point)))))
+
+(defun cf/org-find-and-narrow-to-subtree ()
+  "Search a subtree and narrow to that subtree"
+  (interactive)
+  (widen)
+  (org-goto t)
+  (org-narrow-to-subtree)
+  )

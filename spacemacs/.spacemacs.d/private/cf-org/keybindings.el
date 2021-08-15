@@ -13,6 +13,7 @@
 (evil-define-key '(insert normal) org-mode-map
   (kbd "M-4") (lambda () (interactive) (org-show-all '(headings drawers blocks))))
 
+(evil-define-key '(normal) org-mode-map (kbd "<RET>") 'newline-below-point)
 
 ;; unbind the middle mouse key. When typing on laptop, I keep pressing it accidentally, triggering a yank.
 (evil-define-key '(normal insert visual) org-mode-map  [mouse-2] 'ignore)
@@ -27,6 +28,8 @@
   "c i" 'cf-clock-in)
 (spacemacs/set-leader-keys-for-major-mode 'org-mode
   "c o" 'cf-clock-out)
+(spacemacs/set-leader-keys-for-major-mode 'org-mode
+  "s N" 'cf/org-find-and-narrow-to-subtree)
 
 ;; capital-w
 (spacemacs/declare-prefix (kbd "W") "Word Count...")
