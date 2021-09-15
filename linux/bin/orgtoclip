@@ -1,0 +1,4 @@
+#!/bin/bash
+pandoc --from=org --to=html \
+| xclip -selection clipboard -target text/html \
+&> /dev/null

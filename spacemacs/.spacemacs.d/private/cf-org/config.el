@@ -8,7 +8,7 @@
       org-log-done-with-time nil)
 
 ;; org v8 bundled with Emacs 24.4
-(setq org-odt-preferred-output-format "doc")
+(setq org-odt-preferred-output-format "docx")
 
 (setq cf/custom-agenda
       '(
@@ -57,7 +57,6 @@
                            ))
           (todo "TO_READ" ((org-agenda-files '("~/org/books.org"))
                            (org-agenda-overriding-header "BOOK LIST:")
-
                            ))
           )))
       )
@@ -105,6 +104,8 @@
          "** TO_READ %?\n Entered on %U\n  %i\n ")
         ("m" "Misc" entry (file+headline ,(cf/get-orgfiles-path "misc.org") "Misc")
          "* %?\n Entered on %U\n  %i\n ")
+        ("q" "Quote" entry (file+headline ,(cf/get-orgfiles-path "quote.org") "Quote")
+         "* %? \n%i\n ")
         ("M" "Mail" entry (file+headline ,(cf/get-orgfiles-path "todo.org" ) "Tasks")
          "* TODO %? :mail:\n  %i\n %a ")
         ("w" "Weekly Review" entry (file+datetree ,(cf/get-orgfiles-path "weekly_review.org"))
@@ -119,10 +120,12 @@
  org-agenda-include-diary t
  org-deadline-warning-days 10)
 
+(setq org-html-head (cf/org-pull-template-from-file "~/blog/publishing/links.html"))
+
 (setq
- org-html-head (cf/org-pull-template-from-file "~/blog/publishing/links.html")
+ org-export-with-email nil
  org-html-preamble      t
- org-html-postamble     t
+ org-html-postamble     nil
  org-html-inline-images t
  org-html-preamble-format `(("en"
                              ,(cf/org-pull-template-from-file "~/blog/publishing/header.html"))))
