@@ -316,3 +316,45 @@ epoch to the beginning of today (00:00)."
   (org-goto t)
   (org-narrow-to-subtree)
   )
+
+(defun cf/html2org-paste ()
+  "Convert clipboard contents from HTML to Org and then paste (yank)."
+  (interactive)
+  (kill-new (shell-command-to-string "xclip -selection clipboard -o -t text/html | pandoc -f html -t json | pandoc -f json -t org --wrap none"))
+  (yank))
+
+(defun cf/org2html-copy ()
+  "Convert the contents of the current buffer or region from Org
+mode to HTML.  Store the result in the clipboard."
+  (interactive)
+  (if (use-region-p)
+      (shell-command-on-region (region-beginning)
+                               (region-end)
+                               "orgtoclip")
+    (shell-command-on-region (point-min)
+                             (point-max)
+                             "orgtoclip")))
+
+;; Modified org-publish-find-date function, to get date from file, rather than
+;; waiting. Used to determine order.
+;; (defun org-publish-find-date (file project)
+(defun cf/org-publish-find-date (file project)
+  "Find the date of FILE in PROJECT.
+This function assumes FILE is either a directory or an Org file.
+If FILE is an Org file and provides a DATE keyword use it.  In
+any other case use the file system's modification time.  Return
+time in `current-time' format."
+	(org-publish-cache-set-file-property
+	 file :date
+	   (let ((date (org-publish-find-property file :date project)))
+	     ;; DATE is a secondary string.  If it contains
+	     ;; a time-stamp, convert it to internal format.
+	     ;; Otherwise, use FILE modification time.
+	     (cond ((let ((ts (and (consp date) (assq 'timestamp date))))
+		      (and ts
+			   (let ((value (org-element-interpret-data ts)))
+			     (and (org-string-nw-p value)
+				  (org-time-string-to-time value))))))
+		   ((file-exists-p file)
+		    (file-attribute-modification-time (file-attributes file)))
+		   (t (error "No such file: \"%s\"" file))))))

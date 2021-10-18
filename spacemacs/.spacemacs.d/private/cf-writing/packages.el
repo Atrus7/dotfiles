@@ -169,7 +169,9 @@ Each entry is either:
   (use-package mw-thesaurus
     :defer t
     :config
-    (setq mw-thesaurus--api-key "56a7c924-f464-469e-a32d-f25a7d82508e")))
+    (setq mw-thesaurus--api-key "56a7c924-f464-469e-a32d-f25a7d82508e")
+)
+  )
 
 (setq define-word-displayfn-alist nil)
 (defun cf-writing/post-init-define-word ()
