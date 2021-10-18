@@ -210,6 +210,7 @@
     ("informaiton" "information" nil 0)
     ("iwth" "with" nil 1)
     ("jsut" "just" nil 0)
+    ("ot" "to" nil 0)
     ("layed" "laid" nil 0)
     ("nevermind" "never mind" nil 0)
     ("noone" "no one" nil 2)
@@ -296,4 +297,3 @@
 (define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-
