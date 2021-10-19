@@ -223,6 +223,7 @@
     ("sortof" "sort of" nil 0)
     ("taht" "that" nil 0)
     ("teh" "the" nil 0)
+    ("migth" "might" nil 0)
     ("thta" "that" nil 0)
     ("volkswagon" "Volkswagen" nil 0)
     ("waas" "was" nil 0)
@@ -296,4 +297,3 @@
 (define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-

@@ -215,6 +215,7 @@
 (defun dotspacemacs/init/display ()
   (setq-default
    dotspacemacs-themes '(
+                         cherry-blossom
                          leuven
                          doom-one-light
                          doom-one

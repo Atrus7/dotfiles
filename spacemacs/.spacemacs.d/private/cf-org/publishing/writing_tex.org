@@ -10,13 +10,21 @@
 # Less margins around doc.
 #+latex_header: \usepackage[margin=1in]{geometry} 
 
+# Hyphenate letters correctly.
 #+latex_header: \usepackage[T1]{fontenc}
+
 # Use Sans Serif font https://tug.org/FontCatalogue/accanthis/
 #+latex_header: \usepackage{accanthis}
+
 
 # more Unicode characters 
 # #+latex_header: \usepackage[utf8x]{inputenc}
 #+latex_header: \usepackage[utf8]{inputenc}
+#+latex_header: \usepackage{textcomp}
+
+# I use these stars for book reviews.
+#+latex_header: \DeclareUnicodeCharacter{2605}{\star}
+
 #+latex_header: \usepackage{newunicodechar}
 #+latex_header: \usepackage{titlesec}
 
