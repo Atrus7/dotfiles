@@ -345,7 +345,6 @@
   (if at-work (cf/work-post-loading))
   (savehist-mode nil)
 
-  (pdf-tools-install)
   (evil-collection-pdf-setup)
   (setq pdf-misc-print-program-executable "lpr")
   (setq pdf-misc-print-program-args '("-o media=A4" "-o fitplot"))

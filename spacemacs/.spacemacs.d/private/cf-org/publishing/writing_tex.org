@@ -16,6 +16,8 @@
 # Use Sans Serif font https://tug.org/FontCatalogue/accanthis/
 #+latex_header: \usepackage{accanthis}
 
+# Font Size
+#+LATEX_CLASS_OPTIONS: [12pt]
 
 # more Unicode characters 
 # #+latex_header: \usepackage[utf8x]{inputenc}
