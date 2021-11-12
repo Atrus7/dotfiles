@@ -13,6 +13,11 @@
   (setq-local local-word-count (count-words (point-min) (point-max)))
   )
 
+(defun add-quotes-to-font-lock-keywords ()
+  "highlight strings in a given mode."
+  (interactive)
+  (font-lock-add-keywords nil '(("\"\\(\\(?:.\\|\n\\)*?[^\\]\\)\"" 0 font-lock-string-face))))
+
 (defvar cf/writing-dir (expand-file-name "~/dropbox/writing"))
 (defun cf/write-today()
   (interactive)

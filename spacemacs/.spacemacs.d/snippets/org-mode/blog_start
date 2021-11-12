@@ -5,7 +5,7 @@
 
 #+OPTIONS: html-link-use-abs-url:nil
 #+OPTIONS: html-scripts:t  html5-fancy:nil tex:t
-#+OPTIONS: toc:t prop:("author")
+#+OPTIONS: toc:nil prop:("author")
 #+HTML_DOCTYPE: xhtml-strict
 #+HTML_CONTAINER: div
 #+DESCRIPTION:

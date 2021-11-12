@@ -1,1 +1,1 @@
-#+OPTIONS: toc:t author:t timestamp:nil title:t date:nil
+#+OPTIONS: author:t timestamp:nil title:t date:nil

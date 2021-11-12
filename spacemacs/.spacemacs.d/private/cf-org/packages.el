@@ -34,6 +34,10 @@
                                                              (C . t)
                                                              ))
 
+    ;; Adds support for multiple tags.
+    (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command . helm-org-completing-read-tags))
+    (add-to-list 'helm-completing-read-handlers-alist '(org-capture . helm-org-completing-read-tags))
+
     (setq org-agenda-files '("~/org/todo.org" "~/org/books.org"))
     (setq org-agenda-custom-commands cf/custom-agenda)
 
