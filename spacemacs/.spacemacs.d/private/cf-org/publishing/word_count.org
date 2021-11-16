@@ -1,0 +1,3 @@
+#+BEGIN_SRC emacs-lisp :exports results
+  (format "(Word Count %d)" (count-words (point-min) (point-max)))
+#+END_SRC

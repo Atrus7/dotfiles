@@ -1,0 +1,48 @@
+# This is a standalone formatting sheet for org that provides "Standard Manuscript Formatting. 
+
+# That is, 12pt font, (almost) Times New Roman, 1-inch margins, lower-right hand pagination, and indentation on all paragraphs except the first one.
+
+#+OPTIONS: toc:nil author:nil date:nil num:nil
+
+
+#+latex_class: article
+# Font Size
+#+LATEX_CLASS_OPTIONS: [12pt]
+
+# Correct Margins
+#+latex_header: \usepackage{setspace}
+#+latex_header: \usepackage[margin=1in]{geometry}
+
+
+# Get correct FONT.
+# Closest thing latex has to Times
+#+latex_header: \usepackage{mathptmx}
+# Hyphenate letters correctly.
+#+latex_header: \usepackage[T1]{fontenc}
+# more Unicode characters 
+#+latex_header: \usepackage[utf8]{inputenc}
+#+latex_header: \usepackage{newunicodechar}
+
+
+
+# Get page numbers bottom right.
+#+latex_header: \usepackage{lastpage}
+#+latex_header: \usepackage{fancyhdr}
+#+latex_header: \pagestyle{fancyplain}
+# % clear any old style settings
+#+latex_header: \fancyhead{}
+#+latex_header: \fancyfoot{}
+
+# % define new headers/footers
+#+latex_header: \rhead{Chris Findeisen}
+#+latex_header: \lhead{THE BROUHAHA}
+#+latex_header: \rfoot{\thepage}
+
+
+#+latex_header: \usepackage{titlesec}
+
+# Double spacing between lines
+#+latex_header_extra: \doublespacing
+# Give spaces between paragraphs.
+#+latex_header_extra: \setlength{\parskip}{1em}
+
