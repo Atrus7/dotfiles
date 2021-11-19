@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Section Break
+# key: sbr
+# --
+
+#+begin_center sectionbreak
+~* * *~
+#+end_center
