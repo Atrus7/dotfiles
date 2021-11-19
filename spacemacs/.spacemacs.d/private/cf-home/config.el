@@ -2,7 +2,8 @@
 (setq at-desk (string-equal (system-name) "desk"))
 (if at-desk
     (progn (load-theme 'cherry-blossom t)
-           (pdf-tools-install)
+           (with-eval-after-load "pdf-tools" (pdf-tools-install))
+
            (message "At my desktop.")
            )
   (progn

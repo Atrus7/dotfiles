@@ -207,6 +207,8 @@
     ("enitre" "entire" nil 0)
     ("htis" "this" nil 0)
     ("i'd" "I'd" nil 0)
+    ("i'm" "I'm" nil 0)
+    ("i'll" "I'll" nil 0)
     ("informaiton" "information" nil 0)
     ("iwth" "with" nil 1)
     ("jsut" "just" nil 0)
