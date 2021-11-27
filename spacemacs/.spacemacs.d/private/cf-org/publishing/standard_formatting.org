@@ -46,3 +46,4 @@
 # Give spaces between paragraphs.
 #+latex_header_extra: \setlength{\parskip}{1em}
 
+#+latex_header: \DeclareUnicodeCharacter{2665}{\heartsuit}

@@ -54,6 +54,17 @@
       "p" 'org-priority)
     (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
       "p" 'org-agenda-priority)
+
+    ;; better pdf exporting
+    (setq revert-without-query '(".pdf"))
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "<f5>")
+      (lambda() (interactive) (find-file-other-window
+                               (org-latex-export-to-pdf))
+
+        (pdf-view-goto-page 1)
+        )
+
+     )
     ;; Somehow org-mode messes this up, making it Org-shift-down. Explicitly remap it
     (evil-define-key '(normal) org-mode-map (kbd "J") 'evil-join)
 
