@@ -4,7 +4,6 @@
 
 #+OPTIONS: toc:nil author:nil date:nil num:nil
 
-
 #+latex_class: article
 # Font Size
 #+LATEX_CLASS_OPTIONS: [12pt]
@@ -46,4 +45,4 @@
 # Give spaces between paragraphs.
 #+latex_header_extra: \setlength{\parskip}{1em}
 
-#+latex_header: \DeclareUnicodeCharacter{2665}{\heartsuit}
+#+latex_header: \DeclareUnicodeCharacter{2665}{$\heartsuit$}
