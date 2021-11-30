@@ -38,11 +38,11 @@
   (decode-char 'ucs #x2014))
 
 (defun typopunct-insert-typographical-dashes ()
-  "Insert a dashes, an en-dash or an em-dash."
+  "Insert a dashes, an em-dash or an em-dash."
   (interactive)
   (cond ((eq (char-before) ?-)
 	       (delete-char -1)
-	       (insert typopunct-en-dash))
+	       (insert typopunct-em-dash))
 	      ((eq (char-before) typopunct-en-dash)
 	       (delete-char -1)
 	       (insert typopunct-em-dash))
