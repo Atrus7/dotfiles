@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Downloads a video to dropbox
+# requires youtube-dl to run
+# blows away /etc/hosts temporarily to get to yt
+
+if [ $# -lt 1 ] ; then
+    echo "bad usage"
+    exit 1
+fi
+
+readonly video_path=$1
+
+sudo rm /etc/hosts
+sudo touch /etc/hosts
+# pushd ~/dropbox/videos/
+
+youtube-dl -o '~/dropbox/videos/%(title)s.%(ext)s' -f "worstvideo[ext=mp4]+bestaudio[ext=m4a]/worst[ext=mp4]/worst" $1
+
+# mv youtube-dl-out/* ~/dropbox/videos
+# -f 'worstvideo[ext=mp4]+bestaudio[ext=m4a]/worstvideo[ext=mp4]'
+# popd
+
+# reinstate rules
+sudo ln -sf ~/dotfiles/linux/hosts /etc/hosts

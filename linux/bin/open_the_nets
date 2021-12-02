@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Blows away /etc/hosts for 20 minutes
+
+echo "Nets opened."
+sudo ln -sf ~/dotfiles/linux/permissive-hosts /etc/hosts
+
+echo "Sleeping."
+
+# sudo call wraps both commands so we don't have to reprompt after sleep.
+# sleep 20 min then reinstate rules
+sudo sh -c "sleep 1200 ; sudo ln -sf ${HOME}/dotfiles/linux/hosts /etc/hosts"
+
+echo "Permissions Revoked."

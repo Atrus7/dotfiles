@@ -1,0 +1,6 @@
+# Run to make things permissive.
+# Mainly I need this for very-specific scripts that need access to YT. Recommend something like this:
+#
+# sudo ln -sf ~/dotfiles/linux/permissive-hosts /etc/hosts
+# command that needs access
+# sudo ln -sf ~/dotfiles/linux/hosts /etc/hosts
