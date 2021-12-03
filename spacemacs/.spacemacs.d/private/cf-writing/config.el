@@ -31,7 +31,7 @@
   ;; org number headlines
   (setq-local org-num-skip-unnumbered t)
   (setq-local org-num-skip-footnotes t)
-  (setq-local org-num-max-level 2)
+  (setq-local org-num-max-level 1)
   (setq-local org-num-face nil)
   (setq-local line-spacing 2)
   ;; Have org number headlines
