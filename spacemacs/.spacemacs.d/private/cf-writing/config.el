@@ -48,6 +48,10 @@
   ;; Spelling stuff
   (flyspell-mode-on)
 
+  ;; Performance stuff
+  ; this causes issues in my larger edits...
+  (git-gutter+-mode -1)
+
   nil " Writing" '()
   )
 

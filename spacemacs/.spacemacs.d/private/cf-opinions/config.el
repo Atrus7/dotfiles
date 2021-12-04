@@ -132,3 +132,7 @@
 
   (spaceline-spacemacs-theme 'narrow)
   )
+
+
+;; Evil's own search impl isn't as performant as isearch is. Annoying when working in large buffers
+(setq evil-search-module 'isearch)
