@@ -8,6 +8,7 @@
                             flyspell-lazy
                             org
                             evil-org
+                            org-wc
                             org-agenda)
   "The list of Lisp packages required by the cf-org layer.")
 
@@ -144,4 +145,9 @@
     )
   )
 
+(defun cf-org/init-org-wc()
+  (use-package org-wc
+    :config
+    )
+  )
 ;;; packages.el ends here

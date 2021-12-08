@@ -37,8 +37,7 @@
     poet-theme
     (org-marginalia :location local)
     define-word
-    mw-thesaurus
-    printing)
+    mw-thesaurus)
   "The list of Lisp packages required by the cf-writing layer.
 
 Each entry is either:

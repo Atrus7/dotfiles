@@ -30,7 +30,6 @@
   "Spacemacs layers declarations and package configurations."
   (dotspacemacs/layers/config)
   (dotspacemacs/layers/packages)
-  (cf/external-packages)
   )
 
 
@@ -54,7 +53,9 @@
   "Configuration that cannot be delegated to layers."
   (dotspacemacs/user-config/toggles)
   (dotspacemacs/user-config/load-credentials)
-  (dotspacemacs/user-config/experiments))
+  (dotspacemacs/user-config/experiments)
+  (cf/external-packages)
+)
 
 ;;; Spacemacs/Layers
 ;;;; Local
@@ -177,6 +178,7 @@
                                       rainbow-mode
                                       highlight
                                       ninja-mode
+                                      evil-snipe
                                       ;; doom-modeline
                                       doom-themes
                                       pdf-tools ;; for printing
@@ -184,14 +186,11 @@
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
-                                      ;; helpful
-                                      ;;olivetti
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro
                                     gnuplot
                                     devdocs ;; Needs emacs-27.1
-                                    treemacs-icons-dired
-                                    )
+                                    treemacs-icons-dired)
    dotspacemacs-frozen-packages '()
    dotspacemacs-install-packages 'used-only
    ))
@@ -372,4 +371,13 @@
 
   (require 'printing)
   (pr-update-menus)
+
+  ;; evil-snipe
+  (evil-snipe-override-mode 1)
+  (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+  (setq evil-snipe-scope 'visible
+        evil-snipe-repeat-scope 'whole-visible
+        evil-snipe-spillover-scope 'whole-visible
+        evil-snipe-tab-increment t
+        olivetti-style t)
   )

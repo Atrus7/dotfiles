@@ -15,7 +15,7 @@
         ("n" "Agenda and all TODOs"
          ((agenda #1="")
           (alltodo #1#)))
-        ("b" "Books" todo "TO_READ" ((org-agenda-files '("~/org/books.org"))))
+        ("b" "Books" todo "TO_READ|READING" ((org-agenda-files '("~/org/books.org"))))
         ("c" "Christopher's Agenda"
          (
           (agenda "" ((org-agenda-span 'day)
@@ -55,7 +55,7 @@
                            ;; (org-agenda-sorting-strategy '(scheduled-up deadline-up))
                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
                            ))
-          (todo "TO_READ" ((org-agenda-files '("~/org/books.org"))
+          (todo "TO_READ|READING" ((org-agenda-files '("~/org/books.org"))
                            (org-agenda-overriding-header "BOOK LIST:")
                            ))
           )))

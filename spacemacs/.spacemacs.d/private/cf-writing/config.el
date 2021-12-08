@@ -48,12 +48,18 @@
   ;; Spelling stuff
   (flyspell-mode-on)
 
-  ;; Performance stuff
-  ; this causes issues in my larger edits...
-  (git-gutter+-mode -1)
 
   nil " Writing" '()
   )
+
+;; Performance stuff
+;; this causes issues in my larger edits...
+(with-eval-after-load
+    "git-gutter+"
+  (push 'org-mode git-gutter:disabled-modes)
+
+)
+;; (git-gutter+-mode -1)
 
 ;; setup writing mode when we're in some writing/ dir
 (add-hook 'org-mode-hook
