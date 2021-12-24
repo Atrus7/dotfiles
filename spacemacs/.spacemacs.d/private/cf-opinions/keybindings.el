@@ -116,7 +116,7 @@
 (evil-leader/set-key (kbd "S A") 'cf/flyspell-and-save-abbrev)
 
 (evil-leader/set-key "owl" 'cf/chrome-linux-ident)
-(evil-leader/set-key "owg" 'cf/chrome-linux-ident)
+(evil-leader/set-key "owg" 'cf/chrome-google)
 (evil-global-set-key 'normal "s" 'evil-exchange)
 
 (evil-leader/set-key "is" 'yas-insert-snippet)
