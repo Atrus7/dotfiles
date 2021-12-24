@@ -195,7 +195,7 @@
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
-    ("afterall" "After all" nil 1)
+    ("afterall" "after all" nil 1)
     ("alot" "a lot" nil 0)
     ("anywasy" "anyways" nil 0)
     ("aorund" "around" nil 0)
@@ -230,7 +230,8 @@
     ("thta" "that" nil 0)
     ("volkswagon" "Volkswagen" nil 0)
     ("waas" "was" nil 0)
-    ("wehn" "When" nil 0)
+    ("wehn" "when" nil 0)
+    ("deja" "déjà" nil 0)
    ))
 
 (define-abbrev-table 'outline-mode-abbrev-table '())
