@@ -14,7 +14,7 @@
   (dotspacemacs/init/startup))
 
 (defun dotspacemacs/init/pre-init ()
- (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
   (let ((work-file "~/dotfiles/work/work-init.el"))
     (defvar at-work (file-exists-p work-file))
     (if at-work
@@ -55,7 +55,7 @@
   (dotspacemacs/user-config/load-credentials)
   (dotspacemacs/user-config/experiments)
   (cf/external-packages)
-)
+  )
 
 ;;; Spacemacs/Layers
 ;;;; Local
@@ -93,7 +93,7 @@
     (org :variables
          org-want-todo-bindings t)
     (deft :variables
-         deft-zetteldeft t)
+      deft-zetteldeft t)
     (shell :variables
            shell-default-shell 'shell)
     spell-checking

@@ -19,6 +19,7 @@
     (define-key map [?-] 'typopunct-insert-typographical-dashes)
     map))
 
+
 (define-minor-mode cf/writing-mode ()
   :keymap writing-mode-map
   :group 'writing
@@ -40,13 +41,23 @@
   ;; Org indent
   (org-indent-mode 1)
 
+  ;; This interferes with olivetti.
+  (visual-fill-column-mode--disable)
   ;; Center the buffer
   (olivetti-mode 1)
   ;; hide title / author ... keywords
   (setq-local org-hidden-keywords '(title author date startup))
 
+  ;; Change the path for org-files if we're in a custom writing-project
+  (if (and (stringp buffer-file-name)
+           (string-match "/writing/projects" buffer-file-name))
+      (progn
+        (setq-local org-directory current-novel-path)))
+
   ;; Spelling stuff
   (flyspell-mode-on)
+
+  (git-gutter-mode -1)
 
 
   nil " Writing" '()
@@ -55,10 +66,11 @@
 ;; Performance stuff
 ;; this causes issues in my larger edits...
 (with-eval-after-load
-    "git-gutter+"
-  (push 'org-mode git-gutter:disabled-modes)
+    "git-gutter"
+  ;; (global-git-gutter-mode -1)
+  (setq git-gutter:disabled-modes '(fundamental-mode org-mode image-mode))
 
-)
+  )
 ;; (git-gutter+-mode -1)
 
 ;; setup writing mode when we're in some writing/ dir
