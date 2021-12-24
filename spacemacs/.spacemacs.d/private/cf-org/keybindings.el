@@ -1,6 +1,12 @@
 
+
+;; make these a better key.
+(evil-define-key '(visual normal) org-mode-map
+  (kbd "C-l") 'org-store-link)
 (evil-define-key 'normal org-mode-map
   (kbd "C-k") 'org-insert-link)
+(evil-define-key '(normal visual insert) 'global
+  (kbd "C-t") 'org-capture)
 
 ;; quick cuts to show certain views
 (evil-define-key '(insert normal) org-mode-map

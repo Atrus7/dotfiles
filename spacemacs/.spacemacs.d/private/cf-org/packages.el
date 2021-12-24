@@ -35,11 +35,74 @@
                                                              (C . t)
                                                              ))
 
+    ;; Headline "ignoring" via ox-extra
+    (require 'ox-extra)
+    (ox-extras-activate '(ignore-headlines))
+
     ;; Adds support for multiple tags.
     (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command . helm-org-completing-read-tags))
     (add-to-list 'helm-completing-read-handlers-alist '(org-capture . helm-org-completing-read-tags))
 
-    (setq org-agenda-files '("~/org/todo.org" "~/org/books.org"))
+    ;; Standard todos
+    (defvar cf/todo-files '("~/org/todo.org"))
+    ;; Add the novel todos
+    (if (file-exists-p (concat current-novel-path "todo.org"))
+        (add-to-list 'cf/todo-files (concat current-novel-path "todo.org")))
+
+    (defvar cf/book-files '("~/org/books.org"))
+    (setq org-agenda-files (append cf/todo-files cf/book-files))
+
+    (setq cf/custom-agenda
+      '(
+        ("n" "Agenda and all TODOs"
+         ((agenda #1="")
+          (alltodo #1#)))
+        ("b" "Books" todo "TO_READ|READING" ((org-agenda-files cf/book-files)))
+        ("c" "Christopher's Agenda"
+         (
+          (agenda "" ((org-agenda-span 'day)
+                      (org-deadline-warning-days 0)
+                      (org-scheduled-past-days 1)
+                      (org-deadline-past-days 1)
+                      (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                      (org-agenda-overriding-header "TODAY:")
+                      (org-agenda-format-date "")
+                      ))
+          (tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "HIGH PRIORITY TASKS: ")))
+          (agenda ""
+                (
+                 (org-agenda-span 'day)
+                 (org-agenda-start-day "+1d")
+                 (org-deadline-warning-days 0)
+                 (org-scheduled-past-days 0)
+                 (org-deadline-past-days 0)
+                 (org-habit-show-habits-only-for-today nil)
+                 (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                 (org-agenda-overriding-header "TOMORROW:")
+                 (org-agenda-format-date "")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 ))
+          (agenda "" ((org-agenda-span 'day)
+                      (org-deadline-warning-days 0)
+                      (org-agenda-sorting-strategy '(deadline-up))
+                      (org-agenda-skip-function 'cf/skip-entry-unless-overdue-deadline)
+                      (org-agenda-overriding-header "OVERDUE:")
+                      (org-agenda-format-date "")
+                      ))
+
+          (todo "TODO" ((org-agenda-files cf/todo-files)
+                           (org-agenda-overriding-header "TODO LIST:")
+                           ;; (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+                           ))
+          (todo "TO_READ|READING" ((org-agenda-files cf/book-files)
+                           (org-agenda-overriding-header "BOOK LIST:")
+                           ))
+          )))
+      )
+
     (setq org-agenda-custom-commands cf/custom-agenda)
 
     (setq org-persp-startup-with-agenda "c")

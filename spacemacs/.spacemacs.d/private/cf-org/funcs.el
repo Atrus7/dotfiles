@@ -140,7 +140,8 @@
     (if (and at-work (not (spacemacs/system-is-linux)))
         ;; tramp around
         (cf/get-desk-path file_path)
-      file_path
+      ;;otherwise just let org figure it out.
+      fname
       )))
 
 

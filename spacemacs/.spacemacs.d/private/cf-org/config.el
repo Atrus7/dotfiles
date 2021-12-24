@@ -10,56 +10,6 @@
 ;; org v8 bundled with Emacs 24.4
 (setq org-odt-preferred-output-format "docx")
 
-(setq cf/custom-agenda
-      '(
-        ("n" "Agenda and all TODOs"
-         ((agenda #1="")
-          (alltodo #1#)))
-        ("b" "Books" todo "TO_READ|READING" ((org-agenda-files '("~/org/books.org"))))
-        ("c" "Christopher's Agenda"
-         (
-          (agenda "" ((org-agenda-span 'day)
-                      (org-deadline-warning-days 0)
-                      (org-scheduled-past-days 1)
-                      (org-deadline-past-days 1)
-                      (org-agenda-sorting-strategy '(scheduled-up deadline-up))
-                      (org-agenda-overriding-header "TODAY:")
-                      (org-agenda-format-date "")
-                      ))
-          (tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "HIGH PRIORITY TASKS: ")))
-          (agenda ""
-                (
-                 (org-agenda-span 'day)
-                 (org-agenda-start-day "+1d")
-                 (org-deadline-warning-days 0)
-                 (org-scheduled-past-days 0)
-                 (org-deadline-past-days 0)
-                 (org-habit-show-habits-only-for-today nil)
-                 (org-agenda-sorting-strategy '(scheduled-up deadline-up))
-                 (org-agenda-overriding-header "TOMORROW:")
-                 (org-agenda-format-date "")
-                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 ))
-          (agenda "" ((org-agenda-span 'day)
-                      (org-deadline-warning-days 0)
-                      (org-agenda-sorting-strategy '(deadline-up))
-                      (org-agenda-skip-function 'cf/skip-entry-unless-overdue-deadline)
-                      (org-agenda-overriding-header "OVERDUE:")
-                      (org-agenda-format-date "")
-                      ))
-
-          (todo "TODO" ((org-agenda-files '("~/org/todo.org"))
-                           (org-agenda-overriding-header "TODO LIST:")
-                           ;; (org-agenda-sorting-strategy '(scheduled-up deadline-up))
-                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-                           ))
-          (todo "TO_READ|READING" ((org-agenda-files '("~/org/books.org"))
-                           (org-agenda-overriding-header "BOOK LIST:")
-                           ))
-          )))
-      )
 
 ;; https://github.com/politza/pdf-tools
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
@@ -87,9 +37,14 @@
 ;;     (insert-file-contents "~/.spacemacs.d/private/templates/weekly_review.org")
 ;;     (buffer-string)))
 
+(setq org-directory "~/org")
+
+;; symlink this to real path.
+(defvar current-novel-path (file-truename "~/writing/projects/current-novel/"))
+
 (setq org-capture-templates
       `(("T" "Linked-Todo" entry (file+headline ,(cf/get-orgfiles-path "todo.org" )"Tasks")
-         "* TODO %?\n %i \n %a\n  Entered on %U")
+         "* TODO %? %a\n %i \n")
         ("t" "Todo" entry (file+headline ,(cf/get-orgfiles-path "todo.org" )"Tasks")
          "* TODO %?\n  %i\n  Entered on %U")
         ("j" "Journal" entry (file+datetree ,(cf/get-orgfiles-path  "journal.org"))
@@ -107,11 +62,22 @@
         ("q" "Quote" entry (file+headline ,(cf/get-orgfiles-path "quote.org") "Quote")
          "* %? \n%i\n ")
         ("M" "Mail" entry (file+headline ,(cf/get-orgfiles-path "todo.org" ) "Tasks")
-         "* TODO %? :mail:\n  %i\n %a ")
-        ("w" "Weekly Review" entry (file+datetree ,(cf/get-orgfiles-path "weekly_review.org"))
-         ,(cf/org-pull-template-from-file  "~/.spacemacs.d/private/templates/weekly_review.org")
+         "* TODO %? :mail:\n  %i\n %a")
 
-)))
+        ;; ("w" "writing" entry (file+headline ,("todo.org")) "Tasks"
+        ;;  "* TODO %?\n %a\n ")
+
+        ;; identical to linked todo
+        ;; This will default to org-directory. Which we will set in writing projects.
+        ("n" "Novel Todo" entry (file+headline ,(concat current-novel-path "todo.org") "Tasks")
+         "* TODO %? %a\n %i \n")
+         ))
+
+;; relative file links should work.
+(setq org-link-search-must-match-exact-headline nil)
+
+
+
 (setq org-archive-location "~/org/archive.org::")
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
