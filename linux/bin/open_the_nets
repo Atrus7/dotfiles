@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 # Blows away /etc/hosts for 20 minutes
 
+# Checks to see if we should obey. Only allow this during the
+TIME=$(date '+%H%M%S')
+if [[ $TIME < 60000 ]] || [[ $TIME > 160000 ]] ; then
+    echo "No. Stay strong. Work till 4PM."
+    exit;
+fi
+
 echo "Nets opened."
 sudo ln -sf ~/dotfiles/linux/permissive-hosts /etc/hosts
 
