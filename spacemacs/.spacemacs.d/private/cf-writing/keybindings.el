@@ -7,4 +7,4 @@
 
 (evil-leader/set-key (kbd "t w") 'spacemacs/toggle-cf/writing-mode)
 ;; this will be "editing mode" eventually
-(evil-leader/set-key (kbd "t e") 'org-marginalia-mode)
+(evil-leader/set-key (kbd "t e") 'spacemacs/toggle-cf/editing-mode)

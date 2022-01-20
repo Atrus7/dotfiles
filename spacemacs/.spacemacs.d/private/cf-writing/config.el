@@ -19,6 +19,14 @@
     (define-key map [?-] 'typopunct-insert-typographical-dashes)
     map))
 
+(with-eval-after-load "writegood-mode"
+  (add-to-list 'writegood-weasel-words "just"))
+(define-minor-mode cf/editing-mode ()
+  ;; :keymap writing-mode-map
+  :group 'editing
+  :global nil
+  (writegood-mode 1)
+  )
 
 (define-minor-mode cf/writing-mode ()
   :keymap writing-mode-map
@@ -48,11 +56,10 @@
   ;; hide title / author ... keywords
   (setq-local org-hidden-keywords '(title author date startup))
 
-  ;; Change the path for org-files if we're in a custom writing-project
-  (if (and (stringp buffer-file-name)
-           (string-match "/writing/projects" buffer-file-name))
-      (progn
-        (setq-local org-directory current-novel-path)))
+  ;; Change something if we're in a custom writing-project
+  ;; (if (and (stringp buffer-file-name)
+  ;;          (string-match "/writing/projects" buffer-file-name))
+  ;;     (echo "writing"))
 
   ;; Spelling stuff
   (flyspell-mode-on)

@@ -46,6 +46,10 @@
   (add-to-list 'recentf-exclude ".*\.gpg")
   (add-to-list 'recentf-exclude "/sudo:.*"))
 
+(setq shell-default-shell 'vterm)
+(with-eval-after-load "vterm"
+  (setq vterm-shell "/bin/zsh"))
+
 (setq sh-make-vars-local nil          ; Don't edit any shell files except my own
       create-lockfiles nil
       vc-follow-symlinks t

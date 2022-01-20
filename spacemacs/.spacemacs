@@ -53,8 +53,8 @@
   "Configuration that cannot be delegated to layers."
   (dotspacemacs/user-config/toggles)
   (dotspacemacs/user-config/load-credentials)
-  (dotspacemacs/user-config/experiments)
   (cf/external-packages)
+  (dotspacemacs/user-config/experiments) ;; the very last thing
   )
 
 ;;; Spacemacs/Layers
@@ -361,8 +361,7 @@
 
   (setq deft-extensions '("org" "md" "txt")
         deft-directory (concat "~/org/deft/")
-        deft-recursive t
-        )
+        deft-recursive t)
   (use-package zetteldeft
     :after deft)
 
@@ -383,9 +382,6 @@
         evil-snipe-tab-increment t
         olivetti-style t)
 
-  (setq vterm-shell "/bin/zsh"
-        shell-default-shell 'vterm)
-
   (add-to-list 'purpose-user-mode-purposes '(org-mode . writing))
   (add-to-list 'purpose-user-mode-purposes '(pdf-view-mode . writing))
   (add-to-list 'purpose-user-name-purposes '("todo.org" . agenda))
@@ -395,8 +391,8 @@
   ;; Initial setup for layouts.
   (defvar cf/init-persp-file "/home/atrus/.spacemacs.d/private/cf-opinions/persp.el")
   (if (file-exists-p cf/init-persp-file)
-    (progn (org-agenda nil "c") ;; start agenda for the persp
-           (persp-mode 1)
-           (persp-load-state-from-file cf/init-persp-file))
+      (progn (org-agenda nil "c") ;; start agenda for the persp
+             (persp-mode 1)
+             (persp-load-state-from-file cf/init-persp-file))
     )
   )
