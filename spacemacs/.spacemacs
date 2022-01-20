@@ -175,10 +175,12 @@
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
                                       zetteldeft
+                                      modus-themes
                                       rainbow-mode
                                       highlight
                                       ninja-mode
                                       evil-snipe
+                                      writegood-mode
                                       ;; doom-modeline
                                       doom-themes
                                       pdf-tools ;; for printing
@@ -213,8 +215,8 @@
 ;;;; Display
 (defun dotspacemacs/init/display ()
   (setq-default
-   dotspacemacs-themes '(
-                         cherry-blossom
+   dotspacemacs-themes '(cherry-blossom
+                         modus-operandi
                          leuven
                          doom-one-light
                          doom-one

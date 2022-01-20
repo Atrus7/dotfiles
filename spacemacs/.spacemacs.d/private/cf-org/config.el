@@ -22,7 +22,8 @@
 ;; Don't indent the normal text
 (setq org-adapt-indentation nil)
 
-(setq org-refile-use-cache t)
+;; this is annoying after a while, when headers change
+(setq org-refile-use-cache nil)
 
 (setq org-enforce-todo-dependencies t)
 
@@ -71,7 +72,7 @@
         ;; This will default to org-directory. Which we will set in writing projects.
         ("n" "Novel Todo" entry (file+headline ,(concat current-novel-path "todo.org") "Tasks")
          "* TODO %? %a\n %i \n")
-         ))
+        ))
 
 ;; relative file links should work.
 (setq org-link-search-must-match-exact-headline nil)
@@ -90,11 +91,15 @@
 
 (setq
  org-export-with-email nil
+ org-export-with-toc nil
  org-html-preamble      t
  org-html-postamble     nil
  org-html-inline-images t
  org-html-preamble-format `(("en"
                              ,(cf/org-pull-template-from-file "~/blog/publishing/header.html"))))
+
+;; Cleanup tex files after pdf export
+;; (add-to-list 'org-latex-logfiles-extensions "tex")
 
 (setq server-blog-base "/ssh:webserver:/var/www/html/syscowboy/posts")
 (setq server-static-base "/ssh:webserver:/var/www/html/syscowboy/static")
@@ -129,10 +134,23 @@
          :sitemap-sort-files   anti-chronologically
          :sitemap-ignore-case  t
          :sitemap-title        "home"
-                               )
+         )
         ("blog-static"
          :base-directory "~/blog/posts/static"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"
          :publishing-directory ,server-static-base
          :recursive t
          :publishing-function org-publish-attachment)))
+
+(with-eval-after-load 'ox-latex
+;; For book publishing, we want the latex class to have no "parts". By default, org exports the top-level headings as Parts, second level as Chapters.
+  (add-to-list 'org-latex-classes
+             '("book-noparts"
+               "\\documentclass{book}"
+               ("\\chapter{%s}" . "\\chapter*{%s}")
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+)

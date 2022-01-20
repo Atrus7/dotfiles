@@ -46,6 +46,13 @@
   (string-to-number (car kill-ring))
   )
 
+(defun cf/org-count-exported-pages ()
+  (interactive)
+  (let* ((wperpage 300.0)
+         (words (cf/org-count-exported-words)) )
+
+    (message (format "Exported content has %s pages." (/ words wperpage)))))
+
 (defun cf/git-count-uncommitted-words ()
   (interactive)
   (message (format "Uncommitted changes have %s words."

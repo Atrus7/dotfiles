@@ -26,6 +26,13 @@
   (save-buffer)
   )
 
+(defun cf/print-num-copies ()
+  (interactive)
+  (let* ((n (read-number "Type a number: " 1))
+         (new (append pdf-misc-print-program-args (list (concat "-#" (number-to-string n)))))
+         (pdf-misc-print-program-args new))
+    (pdf-misc-print-document buffer-file-name)))
+
 ;; fixup emdashes
 (defgroup typopunct nil
   "Minor mode for typographical punctuation marks."
@@ -48,19 +55,26 @@
 	       (insert typopunct-em-dash))
 	      (t (insert ?-))))
 
-;; cleanup whitespace
+;; helper that replaces everywhere in buffer while keeping point
 (defun full-replace (search replace)
   (save-excursion
     (beginning-of-buffer)
     (replace-regexp search replace)
     ))
 
+;; cleanup whitespace
 (defun cf/fixup-double-spaces ()
   (interactive)
   (full-replace "[.]  " "\. ")
   (full-replace "[!]  " "! ")
   (full-replace "[?]  " "? ")
   (full-replace "[\"]  " "\" ")
+  )
+
+;; Cleanup org buffer, which won't fold two empty newlines before a new heading
+(defun cf/fixup-org-headlines ()
+  (interactive)
+  (full-replace "\n\n\n\\*" "\n\n*")
   )
 
 
@@ -115,3 +129,12 @@ that may break."
   (let ((buf (current-buffer)))
     (org-marginalia-prev) (org-marginalia-open (point))
     (pop-to-buffer buf nil t)))
+
+
+(defun highlight-trouble-words ()
+  (interactive)
+  (mapc 'highlight-phrase '(" just " " was " " is " " had "
+                            " has "))
+  ;; (highlight-regexp "just" 'hi-yellow)
+
+  )

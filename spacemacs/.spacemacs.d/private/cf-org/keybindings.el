@@ -5,8 +5,16 @@
   (kbd "C-l") 'org-store-link)
 (evil-define-key 'normal org-mode-map
   (kbd "C-k") 'org-insert-link)
+
+(evil-define-key 'normal org-mode-map
+  (kbd "C-a") (lambda () (interactive)(org-agenda nil "c")))
 (evil-define-key '(normal visual insert) 'global
   (kbd "C-t") 'org-capture)
+
+
+;; Used to be this way. Nice corollary with C-ret
+(evil-define-key '(insert normal visual) org-mode-map
+  (kbd "M-RET") #'org-meta-return)
 
 ;; quick cuts to show certain views
 (evil-define-key '(insert normal) org-mode-map
@@ -42,3 +50,5 @@
 (evil-leader/set-key (kbd "W c") 'count-words)
 (evil-leader/set-key (kbd "W g") 'cf/git-count-uncommitted-words)
 (evil-leader/set-key (kbd "W e") 'cf/org-count-exported-words)
+(evil-leader/set-key (kbd "W p") 'cf/org-count-exported-pages)
+(evil-leader/set-key (kbd "W o") 'org-wc-display)

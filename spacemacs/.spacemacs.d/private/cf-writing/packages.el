@@ -80,7 +80,6 @@ Each entry is either:
          ;; (doom-modeline-set-modeline 'main 'default)
          ;; (reload-buffer)
          )
-
   )
 
 
@@ -117,8 +116,7 @@ Each entry is either:
   (use-package nanowrimo
     :defer t
     :init
-    )
-  )
+    ))
 
 ;; (defun cf-writing/init-doom-modeline ()
 ;;   (use-package doom-modeline
