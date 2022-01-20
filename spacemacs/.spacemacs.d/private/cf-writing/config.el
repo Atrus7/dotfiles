@@ -65,8 +65,6 @@
   (flyspell-mode-on)
 
   (git-gutter-mode -1)
-
-
   nil " Writing" '()
   )
 
