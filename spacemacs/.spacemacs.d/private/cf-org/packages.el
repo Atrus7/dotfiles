@@ -54,9 +54,12 @@
 
     (setq cf/custom-agenda
       '(
-        ("n" "Agenda and all TODOs"
+        ("l" "Agenda and all TODOs"
          ((agenda #1="")
           (alltodo #1#)))
+        ("n" "Novel Work"
+         ((todo "TODO" ((org-agenda-files (list current-novel-path))
+                        (org-agenda-overriding-header "Novel Todos:")))))
         ("b" "Books" todo "TO_READ|READING" ((org-agenda-files cf/book-files)))
         ("c" "Christopher's Agenda"
          (
