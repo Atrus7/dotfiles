@@ -72,9 +72,11 @@
   )
 
 ;; Cleanup org buffer, which won't fold two empty newlines before a new heading
+;; Also handles useless newlines in blocks
 (defun cf/fixup-org-headlines ()
   (interactive)
-  (full-replace "\n\n\n\\*" "\n\n*")
+  (full-replace "\n\n\n+\\*" "\n\n*")
+  (full-replace "\n\n+#\\+END" "\n#+END")
   )
 
 

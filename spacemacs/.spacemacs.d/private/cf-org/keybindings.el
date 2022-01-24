@@ -6,11 +6,16 @@
 (evil-define-key 'normal org-mode-map
   (kbd "C-k") 'org-insert-link)
 
-(evil-define-key 'normal org-mode-map
-  (kbd "C-a") (lambda () (interactive)(org-agenda nil "c")))
+;; Make this always pull agenda
+;; (evil-define-key 'normal org-mode-map
+;;   (kbd "C-a") 'org-agenda)
+(evil-define-key nil org-agenda-mode-map
+  (kbd "C-a") 'org-agenda)
+(evil-define-key 'normal 'global
+  (kbd "C-a") 'org-agenda)
+
 (evil-define-key '(normal visual insert) 'global
   (kbd "C-t") 'org-capture)
-
 
 ;; Used to be this way. Nice corollary with C-ret
 (evil-define-key '(insert normal visual) org-mode-map
@@ -44,6 +49,11 @@
   "c o" 'cf-clock-out)
 (spacemacs/set-leader-keys-for-major-mode 'org-mode
   "s N" 'cf/org-find-and-narrow-to-subtree)
+
+(spacemacs/set-leader-keys-for-major-mode 'org-mode
+  "d D" 'cf/unschedule)
+(spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode
+  "d D" 'cf/unschedule)
 
 ;; capital-w
 (spacemacs/declare-prefix (kbd "W") "Word Count...")

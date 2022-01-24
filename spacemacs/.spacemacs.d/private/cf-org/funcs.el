@@ -366,3 +366,19 @@ time in `current-time' format."
 		   ((file-exists-p file)
 		    (file-attribute-modification-time (file-attributes file)))
 		   (t (error "No such file: \"%s\"" file))))))
+
+
+(defun cf/unschedule ()
+  "Remove any deadline and schedule from this entry"
+  (interactive)
+  ;; Calling with universal argument(4) cancels it.
+  (if (eq major-mode 'org-agenda-mode)
+      (progn
+        (org-agenda-schedule '(4))
+        (org-agenda-deadline '(4)))
+      (progn
+        (org-schedule '(4))
+        (org-deadline '(4)))
+)
+  (message "Schedule/Deadline timestamps cleared.")
+  )

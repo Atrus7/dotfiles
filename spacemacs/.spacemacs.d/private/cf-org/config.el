@@ -92,6 +92,7 @@
 (setq
  org-export-with-email nil
  org-export-with-toc nil
+ org-export-with-section-numbers nil
  org-html-preamble      t
  org-html-postamble     nil
  org-html-inline-images t
