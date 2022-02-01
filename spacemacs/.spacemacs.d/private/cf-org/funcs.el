@@ -25,9 +25,7 @@
   (cf/org-clock-in)
   (call-interactively 'org-clock-in))
 
-(defun cf/org-count-exported-words ()
-  "This function exports the current buffer temporarily and runs word-count over the exported content. Gets the word count as a kill and prints it out."
-  (interactive)
+(defun cf/export-to-org ()
   (let ((org-export-with-toc nil)
         (org-export-with-title nil)
         (org-export-with-author nil)
@@ -36,14 +34,22 @@
         (org-export-show-temporary-export-buffer nil)
         )
 
-    (org-org-export-as-org)
-    (save-window-excursion
-      (switch-to-buffer "*Org ORG Export*")
-      (cf/wc-helper) ;; puts word count on killring
-      )
-    )
+    (org-org-export-as-org)))
+
+(defun cf/org-count-exported-words ()
+  "This function exports the current buffer temporarily and runs word-count over the exported content. Gets the word count as a kill and prints it out."
+  (interactive)
+  (cf/export-to-org)
+  (cf/run-on-org-export 'cf/wc-helper)
   (message (format "Exported content has %s words." (car kill-ring)))
   (string-to-number (car kill-ring))
+  )
+
+(defun cf/run-on-org-export (f)
+  (save-window-excursion
+    (switch-to-buffer "*Org ORG Export*")
+    (funcall f) ;; puts word count on killring
+    )
   )
 
 (defun cf/org-count-exported-pages ()
@@ -335,6 +341,15 @@ epoch to the beginning of today (00:00)."
   "Convert the contents of the current buffer or region from Org
 mode to HTML.  Store the result in the clipboard."
   (interactive)
+  (cf/export-to-org)
+  (cf/run-on-org-export
+   (lambda ()(shell-command-on-region (point-min)
+                                      (point-max)
+                                      "orgtoclip"))))
+
+(defun cf/org2html-copy-fast ()
+  "Skip the org-export, just punch straight to html copy"
+  (interactive)
   (if (use-region-p)
       (shell-command-on-region (region-beginning)
                                (region-end)
@@ -354,18 +369,18 @@ any other case use the file system's modification time.  Return
 time in `current-time' format."
 	(org-publish-cache-set-file-property
 	 file :date
-	   (let ((date (org-publish-find-property file :date project)))
-	     ;; DATE is a secondary string.  If it contains
-	     ;; a time-stamp, convert it to internal format.
-	     ;; Otherwise, use FILE modification time.
-	     (cond ((let ((ts (and (consp date) (assq 'timestamp date))))
-		      (and ts
-			   (let ((value (org-element-interpret-data ts)))
-			     (and (org-string-nw-p value)
-				  (org-time-string-to-time value))))))
-		   ((file-exists-p file)
-		    (file-attribute-modification-time (file-attributes file)))
-		   (t (error "No such file: \"%s\"" file))))))
+	 (let ((date (org-publish-find-property file :date project)))
+	   ;; DATE is a secondary string.  If it contains
+	   ;; a time-stamp, convert it to internal format.
+	   ;; Otherwise, use FILE modification time.
+	   (cond ((let ((ts (and (consp date) (assq 'timestamp date))))
+		          (and ts
+			             (let ((value (org-element-interpret-data ts)))
+			               (and (org-string-nw-p value)
+				                  (org-time-string-to-time value))))))
+		       ((file-exists-p file)
+		        (file-attribute-modification-time (file-attributes file)))
+		       (t (error "No such file: \"%s\"" file))))))
 
 
 (defun cf/unschedule ()
@@ -376,9 +391,18 @@ time in `current-time' format."
       (progn
         (org-agenda-schedule '(4))
         (org-agenda-deadline '(4)))
-      (progn
-        (org-schedule '(4))
-        (org-deadline '(4)))
-)
+    (progn
+      (org-schedule '(4))
+      (org-deadline '(4)))
+    )
   (message "Schedule/Deadline timestamps cleared.")
   )
+
+;; https://stackoverflow.com/questions/18076328/org-mode-export-to-latex-suppress-generation-of-labels
+(defun latex-remove-org-mode-labels (text backend info)
+  "Org-mode automatically generates labels for headings despite explicit use of `#+LABEL`. This filter forcibly removes all automatically generated org-labels in headings."
+  (when (org-export-derived-backend-p backend 'latex)
+    (replace-regexp-in-string "\\\\label{sec:org[a-f0-9]+}\n" "" text)))
+
+(add-to-list 'org-export-filter-headline-functions
+             'latex-remove-org-mode-labels)
