@@ -3,7 +3,7 @@
 
 # Checks to see if we should obey. Only allow this during the
 TIME=$(date '+%H%M%S')
-if [[ $TIME -ge 60000 ]] && [[ $TIME -le 160000 ]] ; then
+if [[ ${TIME#0} -ge 60000 ]] && [[ ${TIME#0} -le 160000 ]] ; then
     echo "No. Stay strong. Work till 4PM."
     exit;
 fi

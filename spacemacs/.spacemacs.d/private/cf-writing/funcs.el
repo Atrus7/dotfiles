@@ -29,7 +29,7 @@
 (defun cf/print-num-copies ()
   (interactive)
   (let* ((n (read-number "Type a number: " 1))
-         (new (append pdf-misc-print-program-args (list (concat "-#" (number-to-string n)))))
+         (new (append pdf-misc-print-program-args (list (concat "-# " (number-to-string n)))))
          (pdf-misc-print-program-args new))
     (pdf-misc-print-document buffer-file-name)))
 
@@ -69,6 +69,7 @@
   (full-replace "[!]  " "! ")
   (full-replace "[?]  " "? ")
   (full-replace "[\"]  " "\" ")
+  (delete-trailing-whitespace)
   )
 
 ;; Cleanup org buffer, which won't fold two empty newlines before a new heading
@@ -77,6 +78,12 @@
   (interactive)
   (full-replace "\n\n\n+\\*" "\n\n*")
   (full-replace "\n\n+#\\+END" "\n#+END")
+  )
+
+(defun cf/cleanup-org-buffer()
+    (interactive)
+  (cf/fixup-double-spaces)
+  (cf/fixup-org-headlines)
   )
 
 
