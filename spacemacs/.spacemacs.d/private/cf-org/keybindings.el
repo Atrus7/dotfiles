@@ -50,6 +50,9 @@
 (spacemacs/set-leader-keys-for-major-mode 'org-mode
   "s N" 'cf/org-find-and-narrow-to-subtree)
 
+(evil-leader/set-key (kbd "fen") 'cf/find-novel)
+
+
 (spacemacs/set-leader-keys-for-major-mode 'org-mode
   "d D" 'cf/unschedule)
 (spacemacs/set-leader-keys-for-major-mode 'org-agenda-mode

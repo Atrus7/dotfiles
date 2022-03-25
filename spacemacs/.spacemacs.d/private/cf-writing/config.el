@@ -82,7 +82,9 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (if (and (stringp buffer-file-name)
-                     (string-match "/writing/" buffer-file-name))
+                     (or
+                      (string-match "/org/" buffer-file-name)
+                      (string-match "/writing/" buffer-file-name)))
                 (cf/writing-mode))) t)
 
 

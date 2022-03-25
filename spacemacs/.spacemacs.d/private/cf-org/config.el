@@ -43,6 +43,11 @@
 ;; symlink this to real path.
 (defvar current-novel-path (file-truename "~/writing/projects/current-novel/"))
 
+(defun cf/find-novel ()
+  "shortcut to private layers dir"
+  (interactive)
+  (helm-find-files-1 current-novel-path))
+
 (setq org-capture-templates
       `(("T" "Linked-Todo" entry (file+headline ,(cf/get-orgfiles-path "todo.org" )"Tasks")
          "* TODO %? %a\n %i \n")
@@ -102,6 +107,9 @@
 
 ;; Cleanup tex files after pdf export
 ;; (add-to-list 'org-latex-logfiles-extensions "tex")
+
+;; To keep all logfiles run this:
+;; (setq org-latex-logfiles-extensions '()) ;"bcf" "blg" "fdb_latexmk" "fls" "figlist" "idx" "log" "nav" "out" "ptc" "run.xml" "snm" "toc" "vrb" "xdv"))
 
 (setq server-blog-base "/ssh:webserver:/var/www/html/syscowboy/posts")
 (setq server-static-base "/ssh:webserver:/var/www/html/syscowboy/static")
