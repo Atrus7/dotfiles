@@ -26,6 +26,9 @@
   (save-buffer)
   )
 
+;; (add-to-list 'pdf-misc-print-program-args "-o sides=two-sided-long-edge")
+(setq pdf-misc-print-program-args  '("-o media=a4" "-o fitplot" "-o sides=two-sided-long-edge" "-o print-quality=3"))
+
 (defun cf/print-num-copies ()
   (interactive)
   (let* ((n (read-number "Type a number: " 1))
