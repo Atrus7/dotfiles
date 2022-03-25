@@ -40,11 +40,32 @@
 #+latex_header: \rfoot{\thepage}
 
 
-#+latex_header: \usepackage{titlesec}
-
 # Double spacing between lines
 #+latex_header_extra: \doublespacing
 # Give spaces between paragraphs.
 #+latex_header_extra: \setlength{\parskip}{1em}
 
 #+latex_header: \DeclareUnicodeCharacter{2665}{$\heartsuit$}
+
+
+# Epigraph code, so that chapter* works. Conflicts with titlesec.
+# https://tex.stackexchange.com/questions/245173/how-to-make-dropchapter-work-with-chapter-epigraph-package
+
+#+latex_header: \usepackage{etoolbox}
+#+latex_header: \makeatletter
+#+latex_header: \newlength{\@epidrop}
+#+latex_header: \newcommand{\@epidropdefault}{200\p@} % the default in report
+#+latex_header: \patchcmd{\@makechapterhead}{50\p@}{\@epidrop}{}{}
+#+latex_header: \patchcmd{\@makeschapterhead}{50\p@}{\@epidrop}{}{}
+#+latex_header: \renewcommand{\dropchapter}[1]{\setlength{\@epidrop}{#1}}
+#+latex_header: \renewcommand{\undodrop}{\dropchapter{\@epidropdefault}}
+#+latex_header: \undodrop
+#+latex_header: \makeatother
+
+# Currently there's a conflict with my epigraph code, since titlesec overrides makeschapterhead
+# Modifies chapter / titles
+#+latex_header: \usepackage{titlesec}
+# #+latex_header: \patchcmd{\titlespacing*\chapter}{50\p@}{\@epidrop}{}{}
+
+
+
