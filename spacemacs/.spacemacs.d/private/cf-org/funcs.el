@@ -193,11 +193,11 @@
 
 (defun cf/org-publish-file (&rest args)
   (interactive)
-  (org-publish-current-file)
+  (org-publish-current-file t)
   (browse-url-chrome (format "%s"
                              (replace-regexp-in-string
                               ".org" ".html"
-                              (replace-regexp-in-string "^.*/posts/" "http://syscowboy.com/" buffer-file-name))))
+                              (replace-regexp-in-string "^.*/posts/" "https://christopherfin.com/" buffer-file-name))))
   )
 
 ;; Wrapper for main publishing fn for addendums
@@ -404,5 +404,17 @@ time in `current-time' format."
   (when (org-export-derived-backend-p backend 'latex)
     (replace-regexp-in-string "\\\\label{sec:org[a-f0-9]+}\n" "" text)))
 
-(add-to-list 'org-export-filter-headline-functions
-             'latex-remove-org-mode-labels)
+;; (add-to-list 'org-export-filter-headline-functions
+;;              'latex-remove-org-mode-labels)
+
+
+(defun cf/org-publish-sitemap-custom (title list)
+  "Default site map, as a string.
+TITLE is the title of the site map.  LIST is an internal
+representation for the files to include, as returned by
+`org-list-to-lisp'.  PROJECT is the current project."
+
+  (concat "#+TITLE: " title "\n\n"
+          "Christopher Fin is an author writing in Texas. In a previous life, he worked as a software engineer in the FAANG world.\n\n"
+	        (org-list-to-org list)))
+

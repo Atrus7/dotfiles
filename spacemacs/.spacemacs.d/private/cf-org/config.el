@@ -87,17 +87,18 @@
  org-agenda-include-diary t
  org-deadline-warning-days 10)
 
-(setq org-html-head (cf/org-pull-template-from-file "~/blog/publishing/links.html"))
 
 (setq
  org-export-with-email nil
  org-export-with-toc nil
  org-export-with-section-numbers nil
  org-html-preamble      t
- org-html-postamble     nil
+ org-html-postamble     t
+ org-html-postamble-format `(("en" ,(cf/org-pull-template-from-file "~/blog/publishing/footer.html")))
  org-html-inline-images t
  org-html-preamble-format `(("en"
-                             ,(cf/org-pull-template-from-file "~/blog/publishing/header.html"))))
+                             ,(cf/org-pull-template-from-file "~/blog/publishing/header.html")))
+ org-html-head (cf/org-pull-template-from-file "~/blog/publishing/links.html"))
 
 ;; Cleanup tex files after pdf export
 ;; (add-to-list 'org-latex-logfiles-extensions "tex")
@@ -133,8 +134,10 @@
          :auto-sitemap         t
          :sitemap-sort-folders first
          :sitemap-sort-files   anti-chronologically
+         ;; :sitemap-format-entry cf/org-publish-entry-custom
+         :sitemap-function cf/org-publish-sitemap-custom
          :sitemap-ignore-case  t
-         :sitemap-title        "home"
+         :sitemap-title        "A Blog"
          )
         ("blog-static"
          :base-directory "~/blog/posts/static"
