@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: epigraph
+# key: <epi
+# --
+#+BEGIN_EXPORT org
+#+BEGIN_QUOTE epigraph-in-quote
+"//" —from _The Source_
+#+END_QUOTE
+#+END_EXPORT
+#+BEGIN_EXPORT latex
+\epigraphhead[120]{\epigraph{\emph{$0}}{—from \underline{the source}}}
+#+END_EXPORT

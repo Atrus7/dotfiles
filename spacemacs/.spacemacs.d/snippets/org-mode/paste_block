@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Pasted Quote Block
+# --
+#+BEGIN_QUOTE
+${1:`(current-kill 0)`}$0
+#+END_QUOTE

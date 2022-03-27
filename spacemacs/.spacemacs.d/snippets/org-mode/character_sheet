@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: Character Sheet
+# key: chct
+# --
+Character Sheet
+ - Age::
+ - Physical description::
+ - Job::
+
+ - Dialect::
+ - What narrator calls them on page::
+ - What they call other characters::

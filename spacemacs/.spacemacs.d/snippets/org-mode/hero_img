@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Hero image
+# key: hero-img
+# --
+
+#+ATTR_HTML: :class HeroImage
+`(helm-find-files-1 "~/blog/posts/static/post-imgs")`
