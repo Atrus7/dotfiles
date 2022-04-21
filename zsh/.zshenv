@@ -7,7 +7,7 @@ export BROWSER=chromium
 export EDITOR='emacsclient -c --alternate-editor=""'
 export VISUAL='emacs --no-desktop'
 export ALTERNATE_EDITOR=vim
-export TERM=rxvt-unicode
+export TERM=rxvt-unicode-256color
 
 #languages
 export LC_COLLATE=en_US.UTF-8
