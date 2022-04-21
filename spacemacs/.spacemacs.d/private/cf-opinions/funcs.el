@@ -156,6 +156,7 @@ skip typos you don't want to fix with `SPC', and you can
 abort completely with `C-g'."
   (interactive)
   (let ((flyspell-abbrev-p t))
+    (flyspell-word) ;; make sure it's marked as "wrong"
     (call-interactively 'flyspell-correct-previous)))
 
 (defun cf/hidden-project-ag ()
