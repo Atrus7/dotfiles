@@ -1,11 +1,24 @@
-(defun cf/org-archive-done-tasks ()
+(defun cf/org-archive-done-and-NA-tasks ()
+  "Archives all done and NA tasks within buffer."
+  (interactive)
+  (mapc 'cf/org-archive-task-keyword '("/DONE" "/NA"))
+  )
+(defun cf/org-archive-task-keyword (keyword)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
+     (setq org-map-continue-from (outline-previous-heading)))
+   keyword 'file))
+
+
+(defun cf/org-archive-NA-tasks ()
   "Archives all done tasks within buffer."
   (interactive)
   (org-map-entries
    (lambda ()
      (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
      (setq org-map-continue-from (outline-previous-heading)))
-   "/DONE" 'file)
+   "/NA" 'file)
   )
 
 (defun cf/wc-helper ()
@@ -94,15 +107,6 @@
   (with-helm-alive-p
     (helm-exit-and-execute-action 'helm-files-insert-as-static-link)))
 
-(defun cf/org-archive-NA-tasks ()
-  "Archives all done tasks within buffer."
-  (interactive)
-  (org-map-entries
-   (lambda ()
-     (org-archive-subtree) ; need to move cursor after archiving so it doesn't skip sequential done entries
-     (setq org-map-continue-from (outline-previous-heading)))
-   "/NA" 'file)
-  )
 
 ;; Insert [ ] to make a checkboxed list
 (fset 'insert-checkbox-at-line
@@ -414,7 +418,48 @@ TITLE is the title of the site map.  LIST is an internal
 representation for the files to include, as returned by
 `org-list-to-lisp'.  PROJECT is the current project."
 
-  (concat "#+TITLE: " title "\n\n"
-          "Christopher Fin is an author writing in Texas. In a previous life, he worked as a software engineer in the FAANG world.\n\n"
-	        (org-list-to-org list)))
+  (concat
+   "#+OPTIONS: html-link-use-abs-url:nil html-scripts:t  html5-fancy:nil tex:t title:nil \n\n"
+   "#+TITLE: " title "\n\n"
+   "#+ATTR_HTML: :class AuthorImage \n"
+   "https:/static/post-imgs/author-img.jpg \n\n"
+   "Christopher Fin is an author writing in Texas. In a previous life, he worked as a software engineer in the FAANG world.\n\n"
+          (org-list-to-org list)))
 
+
+(defun cf/org-publish-entry-custom (entry style project)
+  "Default format for site map ENTRY, as a string.
+ENTRY is a file name.  STYLE is the style of the sitemap.
+PROJECT is the current project."
+  (cond ((not (directory-name-p entry))
+	       (format "[[file:%s][%s]]"
+		             entry
+		             (org-publish-find-title entry project)
+		             ;; (org-publish-find-date entry project)
+
+))
+	      ((eq style 'tree)
+	       ;; Return only last subdir.
+	       (file-name-nondirectory (directory-file-name entry)))
+	      (t entry)))
+
+
+;; overriding function from org-html
+;; basically just want to avoid wrapping images in <p> tags...
+(defun org-html--wrap-image (contents info &optional caption label)
+  "Wrap CONTENTS string within an appropriate environment for images.
+INFO is a plist used as a communication channel.  When optional
+arguments CAPTION and LABEL are given, use them for caption and
+\"id\" attribute."
+  (let ((html5-fancy (org-html--html5-fancy-p info)))
+    (format (if html5-fancy "\n<figure%s>\n%s%s\n</figure>"
+	            "\n<div%s class=\"figure\">\n%s%s\n</div>")
+	          ;; ID.
+	          (if (org-string-nw-p label) (format " id=\"%s\"" label) "")
+	          ;; Contents.
+	          (if html5-fancy contents (format "%s" contents))
+	          ;; Caption.
+	          (if (not (org-string-nw-p caption)) ""
+	            (format (if html5-fancy "\n<figcaption>%s</figcaption>"
+			                  "\n<p>%s</p>")
+		                  caption)))))

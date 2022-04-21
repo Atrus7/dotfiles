@@ -23,7 +23,8 @@
 (setq org-adapt-indentation nil)
 
 ;; this is annoying after a while, when headers change
-(setq org-refile-use-cache nil)
+(setq org-refile-use-cache nil
+      org-link-file-path-type 'absolute)  ;; need this in case of files moving, relative links break everything.
 
 (setq org-enforce-todo-dependencies t)
 
@@ -135,7 +136,7 @@
          :section-numbers      nil
          :with-sub-superscript nil
          :with-todo-keywords   nil
-         ;:author              Chris Findeisen
+         ;:author              Christopher Fin
          :with-creator         nil
          :timestamp            t
          :exclude-tags         ("noexport" "todo")
@@ -143,9 +144,10 @@
          :sitemap-sort-folders first
          :sitemap-sort-files   anti-chronologically
          ;; :sitemap-format-entry cf/org-publish-entry-custom
-         :sitemap-function cf/org-publish-sitemap-custom
+         :sitemap-style        tree
+         :sitemap-function     cf/org-publish-sitemap-custom
          :sitemap-ignore-case  t
-         :sitemap-title        "A Blog"
+         :sitemap-title        "Christopher Fin | Blog"
          )
         ("blog-static"
          :base-directory "~/blog/posts/static"
