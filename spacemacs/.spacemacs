@@ -177,6 +177,7 @@
                                       zetteldeft
                                       modus-themes
                                       rainbow-mode
+                                      langtool
                                       highlight
                                       ninja-mode
                                       evil-snipe
@@ -372,6 +373,10 @@
 
   (require 'printing)
   (pr-update-menus)
+
+  ;; Langtool
+  (setq langtool-language-tool-jar "~/keep/LanguageTool-5.7-stable/languagetool-commandline.jar")
+
 
   ;; evil-snipe
   (evil-snipe-override-mode 1)
