@@ -14,8 +14,10 @@
 
 (defvar writing-mode-map
   (let ((map (make-sparse-keymap)))
+    ;; Move inside of paragraphs.
     (define-key map [remap evil-previous-line] 'evil-previous-visual-line)
     (define-key map [remap evil-next-line] 'evil-next-visual-line)
+    ;; Insert em-dashes when I want to.
     (define-key map [?-] 'typopunct-insert-typographical-dashes)
     map))
 
@@ -25,7 +27,9 @@
   ;; :keymap writing-mode-map
   :group 'editing
   :global nil
-  (writegood-mode 1)
+  ;; (writegood-mode 1)
+  (langtool-check-buffer)
+  (flyspell-buffer)
   )
 
 (define-minor-mode cf/writing-mode ()
@@ -41,6 +45,7 @@
   (setq-local org-num-skip-unnumbered t)
   (setq-local org-num-skip-footnotes t)
   (setq-local org-num-max-level 1)
+  (setq-local org-num-format-function #'cf/org-num-chapter-format)
   (setq-local org-num-face nil)
   (setq-local line-spacing 2)
   ;; Have org number headlines
