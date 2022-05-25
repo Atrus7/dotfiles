@@ -9,6 +9,12 @@
   (interactive)
   (call-process "~/bin/vlc_control.py" nil nil)
   )
+
+(defun cf/org-num-chapter-format (numbering)
+  "Makes number reflect chapter
+NUMBERING is a list of numbers."
+  (concat "[Ch " (mapconcat #'number-to-string numbering ".") "] "))
+
 (defun cf/wc-update ()
   (setq-local local-word-count (count-words (point-min) (point-max)))
   )
@@ -148,5 +154,4 @@ that may break."
   (mapc 'highlight-phrase '(" just " " was " " is " " had "
                             " has "))
   ;; (highlight-regexp "just" 'hi-yellow)
-
   )
