@@ -13,6 +13,7 @@
 
 ;; https://github.com/politza/pdf-tools
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+(setq-default pdf-view-display-size 'fit-height)
 
 ;; Want to insert the word-count when clocking out.
 (setq org-log-note-clock-out t)
