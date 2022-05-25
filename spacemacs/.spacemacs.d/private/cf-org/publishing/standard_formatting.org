@@ -4,7 +4,7 @@
 
 #+OPTIONS: toc:nil author:nil date:nil num:nil
 
-#+latex_class: article
+#+LATEX_CLASS: book
 # Font Size
 #+LATEX_CLASS_OPTIONS: [12pt]
 
@@ -12,19 +12,17 @@
 #+latex_header: \usepackage{setspace}
 #+latex_header: \usepackage[margin=1in]{geometry}
 
-
-# Get correct FONT.
-# Closest thing latex has to Times
+# Get Correct Font.
+# Closest thing LaTeX has to Times
 #+latex_header: \usepackage{mathptmx}
+
 # Hyphenate letters correctly.
 #+latex_header: \usepackage[T1]{fontenc}
-# more Unicode characters 
+
+# More Unicode characters 
 #+latex_header: \usepackage[utf8]{inputenc}
 #+latex_header: \usepackage{newunicodechar}
-
 #+latex_header: \usepackage{epigraph}
-
-
 
 # Get page numbers bottom right.
 #+latex_header: \usepackage{lastpage}
@@ -34,17 +32,20 @@
 #+latex_header: \fancyhead{}
 #+latex_header: \fancyfoot{}
 
-# % define new headers/footers
-#+latex_header: \rhead{Chris Findeisen}
-#+latex_header: \lhead{THE BROUHAHA}
-#+latex_header: \rfoot{\thepage}
-
-
 # Double spacing between lines
 #+latex_header_extra: \doublespacing
 # Give spaces between paragraphs.
 #+latex_header_extra: \setlength{\parskip}{1em}
 
+# Single-Quotes should work...
+# #+LaTeX_Header: \usepackage[german,english]{babel}
+# #+LaTeX_Header: \usepackage[babel=true,autostyle=true,german=quotes]{csquotes}
+# #+LaTeX_Header: \MakeOuterQuote{"}
+# #+LaTeX_Header: \MakeInnerQuote{´}
+# #+LaTeX: \selectlanguage{german}\EnableQuotes
+
+
+# Get specific unicode characters
 #+latex_header: \DeclareUnicodeCharacter{2665}{$\heartsuit$}
 
 
@@ -66,6 +67,4 @@
 # Modifies chapter / titles
 #+latex_header: \usepackage{titlesec}
 # #+latex_header: \patchcmd{\titlespacing*\chapter}{50\p@}{\@epidrop}{}{}
-
-
 
