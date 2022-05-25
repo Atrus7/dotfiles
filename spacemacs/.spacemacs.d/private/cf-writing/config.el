@@ -19,10 +19,17 @@
     (define-key map [?-] 'typopunct-insert-typographical-dashes)
     map))
 
+
+(defvar editing-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-n") 'langtool-goto-next-error)
+    map))
+
 (with-eval-after-load "writegood-mode"
   (add-to-list 'writegood-weasel-words "just"))
+
 (define-minor-mode cf/editing-mode ()
-  ;; :keymap writing-mode-map
+  :keymap editing-mode-map
   :group 'editing
   :global nil
   (writegood-mode 1)
