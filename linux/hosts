@@ -30,6 +30,7 @@ mail.google.com/ m
 0.0.0.0 nextdoor.com
 
 0.0.0.0 lichess.org
+0.0.0.0 chess.com
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
