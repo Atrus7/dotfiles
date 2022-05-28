@@ -10,7 +10,7 @@
 
 ;; Quick way to get a calculation in the buffer, SPC #
 (spacemacs/set-leader-keys (kbd "#") (lambda () (interactive)
-  (quick-calc t)))
+                                       (quick-calc t)))
 
 ;; Make macros handy
 (evil-global-set-key 'normal (kbd "Q") 'call-last-kbd-macro)
@@ -23,6 +23,13 @@
 (define-key global-map (kbd "M-l") #'evil-window-right)
 (define-key global-map (kbd "M-d") #'spacemacs/delete-window)
 
+;; This sets a number of org-commands and mirrors them in programming.
+;; prog folding
+(define-key evil-normal-state-map (kbd "M-1") #'evil-close-folds)
+(define-key evil-normal-state-map(kbd "M-2") #'evil-open-folds)
+(define-key evil-normal-state-map(kbd "TAB") #'evil-toggle-fold)
+(define-key evil-normal-state-map(kbd "C-c C-n") #'evil-forward-section-begin)
+(define-key evil-normal-state-map(kbd "C-c C-p") #'evil-backward-section-begin)
 ;; e in dired to edit
 (evil-define-key '(normal)
   dired-mode-map (kbd "e") 'wdired-change-to-wdired-mode)
