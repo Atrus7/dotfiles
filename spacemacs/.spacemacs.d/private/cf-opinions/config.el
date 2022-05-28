@@ -95,6 +95,7 @@
              "28800" "38400" "57600"   "115200"))
 
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
+(setq undo-tree-auto-save-history nil)
 
 (add-hook 'before-save-hook 'cf/delete-trailing-whitespace)
 

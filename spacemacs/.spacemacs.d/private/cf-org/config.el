@@ -13,7 +13,7 @@
 
 ;; https://github.com/politza/pdf-tools
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-(setq-default pdf-view-display-size 'fit-height)
+(setq-default pdf-view-display-size 'fit-page)
 
 ;; Want to insert the word-count when clocking out.
 (setq org-log-note-clock-out t)
@@ -23,8 +23,11 @@
 ;; Don't indent the normal text
 (setq org-adapt-indentation nil)
 
-;; this is annoying after a while, when headers change
-(setq org-refile-use-cache nil
+
+(setq org-refile-use-cache nil ;; this is annoying after a while, when headers change
+      org-refile-use-outline-path t
+      org-outline-path-complete-in-steps nil
+      org-goto-interface 'outline-path-completion
       org-link-file-path-type 'absolute)  ;; need this in case of files moving, relative links break everything.
 
 (setq org-enforce-todo-dependencies t)
@@ -99,6 +102,7 @@
  org-export-with-email nil
  org-export-with-toc nil
  org-export-with-section-numbers nil
+ org-export-with-sub-superscripts nil
  org-html-preamble      t
  org-html-postamble     t
  org-html-postamble-format `(("en" ,(cf/org-pull-template-from-file "~/blog/publishing/footer.html")))
@@ -152,7 +156,7 @@
          )
         ("blog-static"
          :base-directory "~/blog/posts/static"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"
+         :base-extension "css\\|js\\|png\\|mp4\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|otf\\|ico"
          :publishing-directory ,server-static-base
          :recursive t
          :publishing-function org-publish-attachment)))

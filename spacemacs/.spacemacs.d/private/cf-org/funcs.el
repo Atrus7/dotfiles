@@ -331,7 +331,7 @@ epoch to the beginning of today (00:00)."
   "Search a subtree and narrow to that subtree"
   (interactive)
   (widen)
-  (org-goto t)
+  (org-goto)
   (org-narrow-to-subtree)
   )
 
