@@ -93,9 +93,23 @@
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
+
+(setq holiday-local-holidays
+      '((holiday-fixed 2 29 "Wedding Anniversary")
+        (holiday-fixed 3 19 "C- Birthday")
+        (holiday-fixed 4 11 "Dating Anniversary")
+        (holiday-fixed 2 7 "R- Birthday")
+        (holiday-fixed 10 31 "A- Birthday")
+        (holiday-fixed 2 23 "K- Birthday")
+        (holiday-fixed 9 10 "B- Birthday")))
+
 (setq
  org-agenda-include-diary t
- org-deadline-warning-days 10)
+ org-deadline-warning-days 10
+ calendar-holidays (append holiday-general-holidays holiday-local-holidays
+                           holiday-christian-holidays holiday-solar-holidays))
+
+
 
 
 (setq
