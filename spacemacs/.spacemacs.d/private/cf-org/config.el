@@ -60,8 +60,6 @@
          "* TODO %?\n  %i\n  Entered on %U")
         ("j" "Journal" entry (file+datetree ,(cf/get-orgfiles-path  "journal.org"))
          "* %?\nEntered on %U\n  %i\n")
-        ("d" "daily" entry (file+datetree ,(cf/get-orgfiles-path  "daily.org"))
-         "* TODO %?\n %i\n SCHEDULED: %t ")
         ("i" "Idea" entry (file+headline ,(cf/get-orgfiles-path "ideas.org") "Ideas")
          "* %i%?\n  Noted on %U \n  ")
         ("c" "Code" entry (file+headline ,(cf/get-orgfiles-path "code_snippets.org") "Code Snippets")
