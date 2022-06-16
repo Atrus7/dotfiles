@@ -50,7 +50,7 @@
         (add-to-list 'cf/todo-files (concat current-novel-path "todo.org")))
 
     (defvar cf/book-files '("~/org/books.org"))
-    (setq org-agenda-files (append cf/todo-files cf/book-files))
+    (setq org-agenda-files (append cf/todo-files '("~/org/diary.org") cf/book-files))
 
     (setq cf/custom-agenda
       '(

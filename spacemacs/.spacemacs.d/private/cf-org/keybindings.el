@@ -13,6 +13,8 @@
   (kbd "C-a") 'org-agenda)
 (evil-define-key 'normal 'global
   (kbd "C-a") 'org-agenda)
+(define-key org-agenda-mode-map (kbd "c") 'cfw:open-org-calendar)
+
 
 (evil-define-key '(normal visual insert) 'global
   (kbd "C-t") 'org-capture)

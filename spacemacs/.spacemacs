@@ -175,6 +175,8 @@
    dotspacemacs-additional-packages '(solarized-theme
                                       nord-theme
                                       zetteldeft
+                                      calfw
+                                      calfw-org
                                       modus-themes
                                       rainbow-mode
                                       langtool
