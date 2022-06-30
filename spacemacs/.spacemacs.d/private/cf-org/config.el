@@ -130,7 +130,7 @@
 ;; (setq org-latex-logfiles-extensions '()) ;"bcf" "blg" "fdb_latexmk" "fls" "figlist" "idx" "log" "nav" "out" "ptc" "run.xml" "snm" "toc" "vrb" "xdv"))
 
 (setq server-blog-base "/ssh:webserver:/var/www/html/syscowboy/posts")
-(setq server-static-base "/ssh:webserver:/var/www/html/syscowboy/static")
+(setq server-static-base "/rsync:webserver:/var/www/html/syscowboy/static")
 
 ;; website related
 (setq org-publish-project-alist
@@ -160,7 +160,7 @@
          :auto-sitemap         t
          :sitemap-sort-folders first
          :sitemap-sort-files   anti-chronologically
-         ;; :sitemap-format-entry cf/org-publish-entry-custom
+         :sitemap-format-entry cf/org-publish-entry-custom
          :sitemap-style        tree
          :sitemap-function     cf/org-publish-sitemap-custom
          :sitemap-ignore-case  t
