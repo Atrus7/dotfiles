@@ -118,7 +118,7 @@
     csv
     (spell-checking :variables spell-checking-enable-by-default nil)
     ;; extra-langs ;; AKA "extra-langs" on master
-    python
+    (python :variables python-shell-interpreter "python3")
     scheme
     vimscript
     yaml

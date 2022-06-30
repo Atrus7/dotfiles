@@ -146,7 +146,7 @@
 
     ;; blog publishing
     (spacemacs/declare-prefix (kbd "o p") "publishing")
-    (evil-leader/set-key (kbd "a o p") 'org-publish)
+    (evil-leader/set-key (kbd "o p p") 'org-publish)
     (evil-leader/set-key (kbd "o p a") 'org-publish-all)
     (evil-leader/set-key (kbd "o p f") 'cf/org-publish-file)
     ;; remapping over table
