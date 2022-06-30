@@ -73,6 +73,7 @@
     cf-mac
     cf-opinions
     cf-org
+    cf-py
     cf-scheme
     cf-ssh
     cf-writing
@@ -118,7 +119,11 @@
     csv
     (spell-checking :variables spell-checking-enable-by-default nil)
     ;; extra-langs ;; AKA "extra-langs" on master
-    (python :variables python-shell-interpreter "python3")
+    (python :variables python-shell-interpreter "ipython3"
+            python-backend 'anaconda
+            python-formatter 'yapf
+            python-format-on-save t
+            )
     scheme
     vimscript
     yaml
