@@ -27,7 +27,7 @@
 ;; prog folding
 (define-key evil-normal-state-map (kbd "M-1") #'evil-close-folds)
 (define-key evil-normal-state-map (kbd "M-2") #'evil-open-folds)
-(define-key evil-normal-state-map (kbd "TAB") #'evil-toggle-fold)
+;; (define-key evil-normal-state-map (kbd "TAB") #'evil-toggle-fold)
 
 (define-key prog-mode-map (kbd "C-c C-n") #'evil-forward-section-begin)
 (define-key prog-mode-map (kbd "C-c C-p") #'evil-backward-section-begin)
