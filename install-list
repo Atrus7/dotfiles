@@ -16,3 +16,6 @@ texlive-fonts-extra
 
 pandoc
 libghc-pandoc-types-dev
+
+
+pip3 install flake8 epc importmagic ipython
