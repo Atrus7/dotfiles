@@ -40,6 +40,14 @@
 
 (setq magit-use-sticky-arguments "selected")
 
+
+(defun my-diff-long-lines ()
+  "Disable `truncate-lines' in the current buffer."
+  (setq-local truncate-lines nil)
+  (setq-local magit-diff-refine-hunk t))
+
+(add-hook 'magit-diff-mode-hook #'my-diff-long-lines)
+
 ;; files that require a password are annoying if they hang around
 (with-eval-after-load
     "recentf"

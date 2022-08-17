@@ -182,6 +182,7 @@
                                       zetteldeft
                                       calfw
                                       calfw-org
+                                      org-fancy-priorities
                                       modus-themes
                                       rainbow-mode
                                       langtool

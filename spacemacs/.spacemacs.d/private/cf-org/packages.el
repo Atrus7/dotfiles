@@ -9,7 +9,8 @@
                             org
                             evil-org
                             org-wc
-                            org-agenda)
+                            org-agenda
+                            org-fancy-priorities)
   "The list of Lisp packages required by the cf-org layer.")
 
 (defun cf-org/post-init-evil-org()
@@ -53,58 +54,58 @@
     (setq org-agenda-files (append cf/todo-files '("~/org/diary.org") cf/book-files))
 
     (setq cf/custom-agenda
-      '(
-        ("l" "Agenda and all TODOs"
-         ((agenda #1="")
-          (alltodo #1#)))
-        ("n" "Novel Work"
-         ((todo "TODO" ((org-agenda-files (list current-novel-path))
-                        (org-agenda-overriding-header "Novel Todos:")))))
-        ("b" "Books" todo "TO_READ|READING" ((org-agenda-files cf/book-files)))
-        ("c" "Christopher's Agenda"
-         (
-          (agenda "" ((org-agenda-span 'day)
-                      (org-deadline-warning-days 0)
-                      (org-scheduled-past-days 1)
-                      (org-deadline-past-days 1)
-                      (org-agenda-sorting-strategy '(scheduled-up deadline-up))
-                      (org-agenda-overriding-header "TODAY:")
-                      (org-agenda-format-date "")
-                      ))
-          (tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "HIGH PRIORITY TASKS: ")))
-          (agenda ""
-                (
-                 (org-agenda-span 'day)
-                 (org-agenda-start-day "+1d")
-                 (org-deadline-warning-days 0)
-                 (org-scheduled-past-days 0)
-                 (org-deadline-past-days 0)
-                 (org-habit-show-habits-only-for-today nil)
-                 (org-agenda-sorting-strategy '(scheduled-up deadline-up))
-                 (org-agenda-overriding-header "TOMORROW:")
-                 (org-agenda-format-date "")
-                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 ))
-          (agenda "" ((org-agenda-span 'day)
-                      (org-deadline-warning-days 0)
-                      (org-agenda-sorting-strategy '(deadline-up))
-                      (org-agenda-skip-function 'cf/skip-entry-unless-overdue-deadline)
-                      (org-agenda-overriding-header "OVERDUE:")
-                      (org-agenda-format-date "")
-                      ))
+          '(
+            ("l" "Agenda and all TODOs"
+             ((agenda #1="")
+              (alltodo #1#)))
+            ("n" "Novel Work"
+             ((todo "TODO" ((org-agenda-files (list current-novel-path))
+                            (org-agenda-overriding-header "Novel Todos:")))))
+            ("b" "Books" todo "TO_READ|READING" ((org-agenda-files cf/book-files)))
+            ("c" "Christopher's Agenda"
+             (
+              (agenda "" ((org-agenda-span 'day)
+                          (org-deadline-warning-days 0)
+                          (org-scheduled-past-days 1)
+                          (org-deadline-past-days 1)
+                          (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                          (org-agenda-overriding-header "TODAY:")
+                          (org-agenda-format-date "")
+                          ))
+              (tags "PRIORITY=\"A\""
+                    ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                     (org-agenda-overriding-header "HIGH PRIORITY TASKS: ")))
+              (agenda ""
+                      (
+                       (org-agenda-span 'day)
+                       (org-agenda-start-day "+1d")
+                       (org-deadline-warning-days 0)
+                       (org-scheduled-past-days 0)
+                       (org-deadline-past-days 0)
+                       (org-habit-show-habits-only-for-today nil)
+                       (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                       (org-agenda-overriding-header "TOMORROW:")
+                       (org-agenda-format-date "")
+                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                       ))
+              (agenda "" ((org-agenda-span 'day)
+                          (org-deadline-warning-days 0)
+                          (org-agenda-sorting-strategy '(deadline-up))
+                          (org-agenda-skip-function 'cf/skip-entry-unless-overdue-deadline)
+                          (org-agenda-overriding-header "OVERDUE:")
+                          (org-agenda-format-date "")
+                          ))
 
-          (todo "TODO" ((org-agenda-files cf/todo-files)
-                           (org-agenda-overriding-header "TODO LIST:")
-                           ;; (org-agenda-sorting-strategy '(scheduled-up deadline-up))
-                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-                           ))
-          (todo "TO_READ|READING" ((org-agenda-files cf/book-files)
-                           (org-agenda-overriding-header "BOOK LIST:")
-                           ))
-          )))
-      )
+              (todo "TODO" ((org-agenda-files cf/todo-files)
+                            (org-agenda-overriding-header "TODO LIST:")
+                            ;; (org-agenda-sorting-strategy '(scheduled-up deadline-up))
+                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+                            ))
+              (todo "TO_READ|READING" ((org-agenda-files cf/book-files)
+                                       (org-agenda-overriding-header "BOOK LIST:")
+                                       ))
+              )))
+          )
 
     (setq org-agenda-custom-commands cf/custom-agenda)
 
@@ -131,7 +132,7 @@
         (pdf-view-goto-page 1)
         )
 
-     )
+      )
     ;; Somehow org-mode messes this up, making it Org-shift-down. Explicitly remap it
     (evil-define-key '(normal) org-mode-map (kbd "J") 'evil-join)
 
@@ -216,4 +217,15 @@
     :config
     )
   )
+
+(defun cf-org/init-org-fancy-priorities ()
+  (use-package org-fancy-priorities
+    :ensure t
+    :hook
+    (org-mode . org-fancy-priorities-mode)
+    :config
+    (setq org-fancy-priorities-list '("P0" "P1" "P2" "P4")))
+  )
+
+
 ;;; packages.el ends here

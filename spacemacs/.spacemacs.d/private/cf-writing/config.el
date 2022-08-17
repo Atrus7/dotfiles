@@ -27,6 +27,16 @@
     (define-key map (kbd "C-n") 'langtool-goto-next-error)
     map))
 
+
+;; Make better diffs for writing...
+(defun my-diff-long-lines ()
+  "Disable `truncate-lines' in the current buffer."
+  (setq-local truncate-lines nil)
+  (setq-local magit-diff-refine-hunk t))
+
+(add-hook 'magit-status-mode-hook #'my-diff-long-lines)
+
+
 (with-eval-after-load "writegood-mode"
   (add-to-list 'writegood-weasel-words "just"))
 
