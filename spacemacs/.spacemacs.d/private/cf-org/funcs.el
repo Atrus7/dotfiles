@@ -421,9 +421,11 @@ representation for the files to include, as returned by
   (concat
    "#+OPTIONS: html-link-use-abs-url:nil html-scripts:t  html5-fancy:nil tex:t title:nil \n\n"
    "#+TITLE: " title "\n\n"
+   "# Don't modify this file. It's auto-generated. Instead, modify cf/org-publish-sitemap-custom.\n"
    "#+ATTR_HTML: :class AuthorImage \n"
    "https:/static/post-imgs/author-img.jpg \n\n"
-   "Christopher Fin is an author writing in Texas. In a previous life, he worked as a software engineer in the FAANG world.\n\n"
+   "Christopher Fin is a software engineer and author in Texas. He's worked as a software engineer in the FAANG world.
+\n\n"
           (org-list-to-org list)))
 
 
@@ -437,10 +439,12 @@ PROJECT is the current project."
 		             (org-publish-find-title entry project)
 		             ;; (org-publish-find-date entry project)
 
-))
+                 )
+
+         )
 	      ((eq style 'tree)
-	       ;; Return only last subdir.
-	       (file-name-nondirectory (directory-file-name entry)))
+	       ;; Return only last subdir, capitalized.
+	       (capitalize (file-name-nondirectory (directory-file-name entry))))
 	      (t entry)))
 
 

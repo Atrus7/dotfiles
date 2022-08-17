@@ -33,6 +33,9 @@ mail.google.com/ m
 0.0.0.0 chess.com
 0.0.0.0 www.chess.com
 
+# 0.0.0.0 vocal.media
+# 0.0.0.0 www.vocal.media
+
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
