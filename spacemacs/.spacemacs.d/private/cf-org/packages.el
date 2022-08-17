@@ -224,7 +224,14 @@
     :hook
     (org-mode . org-fancy-priorities-mode)
     :config
-    (setq org-fancy-priorities-list '("P0" "P1" "P2" "P4")))
+    (setq org-fancy-priorities-list '("P0" "P1" "P2" "P4")
+          org-priority-faces '((?A  :background "VioletRed1")
+                               (?B :background "Goldenrod1")
+      )
+
+
+    ))
+
   )
 
 

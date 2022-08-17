@@ -40,6 +40,7 @@
 
   ;; TODO improve loading of local-external packages
   (require 'auto-capitalize)
+  (require 'hl-line+)
 
   (add-to-list 'load-path "~/.spacemacs.d/external/org-marginalia/")
   (require 'org-marginalia)
@@ -339,6 +340,8 @@
   ;; TODO(uncomment, Right now causing this unfixed issued https://github.com/Malabarba/aggressive-indent-mode/issues/138)
   ;; (spacemacs/toggle-aggressive-indent-globally-on)
   (global-highlight-parentheses-mode 1)
+  (global-hl-line-mode 0)
+  (toggle-hl-line-when-idle 1)
   (rainbow-delimiters-mode-enable))
 
 
