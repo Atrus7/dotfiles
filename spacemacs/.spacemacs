@@ -340,8 +340,6 @@
   ;; TODO(uncomment, Right now causing this unfixed issued https://github.com/Malabarba/aggressive-indent-mode/issues/138)
   ;; (spacemacs/toggle-aggressive-indent-globally-on)
   (global-highlight-parentheses-mode 1)
-  (global-hl-line-mode 0)
-  (toggle-hl-line-when-idle 1)
   (rainbow-delimiters-mode-enable))
 
 

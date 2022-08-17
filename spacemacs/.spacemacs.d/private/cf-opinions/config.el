@@ -34,7 +34,11 @@
   )
 
 
+(global-hl-line-mode 0)
+(toggle-hl-line-when-idle 1)
+
 ;; Dired
+(add-hook 'dired-mode-hook 'hl-line-mode)
 (setq dired-listing-switches
       "-AFhlv")
 
