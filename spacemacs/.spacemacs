@@ -325,7 +325,7 @@
 (defun dotspacemacs/init/startup ()
   (setq-default
    dotspacemacs-verbose-loading nil
-   spacemacs-buffer-logo-title "[ Welcome Home ]"
+   spacemacs-buffer-logo-title "[ SYSTEM COWBOY ]"
    dotspacemacs-startup-banner (concat dotspacemacs-directory "img/banner.png")
    dotspacemacs-startup-lists '((agenda . 5) (bookmarks . 5) (recents . 5))
    dotspacemacs-startup-buffer-responsive t
