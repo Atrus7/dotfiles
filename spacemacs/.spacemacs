@@ -40,6 +40,7 @@
 
   ;; TODO improve loading of local-external packages
   (require 'auto-capitalize)
+  (require 'hl-line+)
 
   (add-to-list 'load-path "~/.spacemacs.d/external/org-marginalia/")
   (require 'org-marginalia)
@@ -182,6 +183,7 @@
                                       zetteldeft
                                       calfw
                                       calfw-org
+                                      org-fancy-priorities
                                       modus-themes
                                       rainbow-mode
                                       langtool
