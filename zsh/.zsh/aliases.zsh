@@ -26,6 +26,8 @@ alias :qa="sudo systemctl poweroff"
 alias reboot="sudo reboot"
 alias poweroff="sudo poweroff"
 
+alias flip_video="ffmpeg -f v4l2 -i /dev/video0  -vf 'transpose=1,transpose=1,format=yuv420p,hflip' -f v4l2 /dev/video2"
+
 alias "cd ..."="cd ../.."
 alias "cd ...."="cd ../../.."
 alias "cd ....."="cd ../../../.."
