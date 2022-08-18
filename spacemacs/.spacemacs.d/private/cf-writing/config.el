@@ -58,6 +58,9 @@
   (setq-local org-level-color-stars-only nil)
   (setq-local org-hide-leading-stars t)
 
+  ;; Don't accidentally get out of my buffer...usually not doing a lot of cross-buffer jumps when writing.
+  (setq-local evil-jumps-cross-buffers nil)
+
   ;; org number headlines
   (setq-local org-num-skip-unnumbered t)
   (setq-local org-num-skip-footnotes t)

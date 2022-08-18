@@ -89,10 +89,18 @@ NUMBERING is a list of numbers."
   (full-replace "\n\n+#\\+END" "\n#+END")
   )
 
+
+;; He said, "This is how you end dialogue," => He said, "This is how you end dialogue."
+(defun cf/fixup-comma-quotes-ending-sentence ()
+  (interactive)
+  (full-replace ",\"$" ".\"")
+  )
+
 (defun cf/cleanup-org-buffer()
     (interactive)
   (cf/fixup-double-spaces)
   (cf/fixup-org-headlines)
+  (cf/fixup-comma-quotes-ending-sentence)
   )
 
 
