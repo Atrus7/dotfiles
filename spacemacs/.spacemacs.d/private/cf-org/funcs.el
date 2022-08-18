@@ -371,6 +371,10 @@ This function assumes FILE is either a directory or an Org file.
 If FILE is an Org file and provides a DATE keyword use it.  In
 any other case use the file system's modification time.  Return
 time in `current-time' format."
+  (if (stringp project) (let ((project (assoc project org-publish-project-alist)))
+
+
+ ;
 	(org-publish-cache-set-file-property
 	 file :date
 	 (let ((date (org-publish-find-property file :date project)))
@@ -384,7 +388,7 @@ time in `current-time' format."
 				                  (org-time-string-to-time value))))))
 		       ((file-exists-p file)
 		        (file-attribute-modification-time (file-attributes file)))
-		       (t (error "No such file: \"%s\"" file))))))
+		       (t (error "No such file: \"%s\"" file))))))))
 
 
 (defun cf/unschedule ()
