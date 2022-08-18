@@ -34,8 +34,10 @@
   )
 
 
-(global-hl-line-mode 0)
-(toggle-hl-line-when-idle 1)
+(with-eval-after-load 'hl-line+
+  (global-hl-line-mode 0)
+  (toggle-hl-line-when-idle 1)
+  )
 
 ;; Dired
 (add-hook 'dired-mode-hook 'hl-line-mode)
