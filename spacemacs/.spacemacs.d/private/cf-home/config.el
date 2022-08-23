@@ -7,8 +7,13 @@
            (message "At my desktop.")
            )
   (progn
-    (message "At laptop."))
-  )
+    (message "At laptop.")
+
+    ;; On my laptop, the pgup and down keys are really close to my keyboard. Accidentally hit them all the time.
+    (with-eval-after-load 'bind-key (unbind-key (kbd "<next>") 'global-map)
+     (unbind-key (kbd "<prior>") 'global-map)
+     (unbind-key (kbd "C-<next>") 'global-map)
+     (unbind-key (kbd "C-<prior>") 'global-map))))
 
 
 ;; To be the default opinions of my home setup. Particular to outside programs that are installed on my machine other than emacs.
