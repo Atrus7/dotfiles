@@ -12,3 +12,4 @@ ExecStartPost=/usr/bin/sleep 1
 
 [Install]
 WantedBy=sleep.target
+WantedBy=suspend.target
