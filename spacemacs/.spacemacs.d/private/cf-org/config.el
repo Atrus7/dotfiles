@@ -107,8 +107,11 @@
  calendar-holidays (append holiday-general-holidays holiday-local-holidays
                            holiday-christian-holidays holiday-solar-holidays))
 
-
-
+(setq org-agenda-sorting-strategy
+      '((agenda habit-down time-up category-keep priority-down)
+        (todo   category-keep priority-down)
+        (tags   priority-down category-keep)
+        (search category-keep)))
 
 (setq
  org-export-with-email nil

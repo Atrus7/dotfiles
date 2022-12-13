@@ -96,10 +96,16 @@ NUMBERING is a list of numbers."
   (full-replace ",\"$" ".\"")
   )
 
+(defun cf/replace-smart-quotes ()
+  (full-replace "“" "\"")
+  (full-replace "”" "\"")
+  )
+
 (defun cf/cleanup-org-buffer()
     (interactive)
   (cf/fixup-double-spaces)
   (cf/fixup-org-headlines)
+  (cf/replace-smart-quotes)
   (cf/fixup-comma-quotes-ending-sentence)
   )
 

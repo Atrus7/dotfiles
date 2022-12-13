@@ -384,7 +384,9 @@
   (pr-update-menus)
 
   ;; Langtool
-  (setq langtool-language-tool-jar "~/keep/LanguageTool-5.7-stable/languagetool-commandline.jar")
+  (setq langtool-language-tool-jar "~/keep/LanguageTool-5.7-stable/languagetool-commandline.jar"
+        langtool-disabled-rules '("WHITESPACE_RULE" "SENTENCE_WHITESPACE")
+        )
 
 
   ;; evil-snipe
