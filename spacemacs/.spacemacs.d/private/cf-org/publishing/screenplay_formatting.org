@@ -1,0 +1,8 @@
+#+latex_header: \usepackage{hardmarg}
+
+#+LATEX_CLASS: screenplay
+# Font Size
+#+LATEX_CLASS_OPTIONS: [12pt]
+
+#+OPTIONS: toc:nil author:nil date:nil num:nil
+
