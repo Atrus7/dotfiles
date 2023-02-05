@@ -8,13 +8,18 @@ if [[ ${TIME#0} -ge 60000 ]] && [[ ${TIME#0} -le 160000 ]] ; then
     exit;
 fi
 
+cleanup() {
+    echo "Permissions Revoked."
+    # sudo call wraps both commands so we don't have to reprompt after sleep.
+    # sleep 20 min then reinstate rules
+    sudo ln -sf ${HOME}/dotfiles/linux/hosts /etc/hosts
+}
+
+trap cleanup SIGINT
+
 echo "Nets opened."
 sudo ln -sf ~/dotfiles/linux/permissive-hosts /etc/hosts
 
 echo "Sleeping."
-
-# sudo call wraps both commands so we don't have to reprompt after sleep.
-# sleep 20 min then reinstate rules
 sudo sh -c "sleep 1200 ; sudo ln -sf ${HOME}/dotfiles/linux/hosts /etc/hosts"
-
 echo "Permissions Revoked."
