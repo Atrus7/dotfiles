@@ -54,6 +54,8 @@ xset r rate 200 35
 # xrandr --fbmm 286x179
 # xrandr --output DP1 --auto --left-of eDP1
 
+xrandr --output DP-5 --right-of HDMI-0
+
 ###############
 #Ideal Desktop#
 ###############

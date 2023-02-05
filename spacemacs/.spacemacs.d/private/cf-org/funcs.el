@@ -421,6 +421,7 @@ time in `current-time' format."
 TITLE is the title of the site map.  LIST is an internal
 representation for the files to include, as returned by
 `org-list-to-lisp'.  PROJECT is the current project."
+  (let ((filtered-list (remove '("[[file:about.org][About]]") list)))
 
   (concat
    "#+OPTIONS: html-link-use-abs-url:nil html-scripts:t  html5-fancy:nil tex:t title:nil \n\n"
@@ -428,28 +429,27 @@ representation for the files to include, as returned by
    "# Don't modify this file. It's auto-generated. Instead, modify cf/org-publish-sitemap-custom.\n"
    "#+ATTR_HTML: :class AuthorImage \n"
    "https:/static/post-imgs/author-img.jpg \n\n"
-   "Christopher Fin is a software engineer and author in Texas. He's worked as a software engineer in the FAANG world.
-\n\n"
-          (org-list-to-org list)))
+          (org-list-to-org filtered-list)))
+  )
 
 
+;; ((string-equal entry "about.org") "")
 (defun cf/org-publish-entry-custom (entry style project)
   "Default format for site map ENTRY, as a string.
 ENTRY is a file name.  STYLE is the style of the sitemap.
 PROJECT is the current project."
-  (cond ((not (directory-name-p entry))
+  (cond
+   ((not (directory-name-p entry))
 	       (format "[[file:%s][%s]]"
 		             entry
 		             (org-publish-find-title entry project)
 		             ;; (org-publish-find-date entry project)
-
-                 )
-
-         )
+                 ))
 	      ((eq style 'tree)
 	       ;; Return only last subdir, capitalized.
 	       (capitalize (file-name-nondirectory (directory-file-name entry))))
-	      (t entry)))
+	      (t entry)
+))
 
 
 ;; overriding function from org-html

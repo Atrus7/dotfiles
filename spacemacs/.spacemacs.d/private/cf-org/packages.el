@@ -72,7 +72,7 @@
                           (org-agenda-overriding-header "TODAY:")
                           (org-agenda-format-date "")
                           ))
-              (tags "PRIORITY=\"A\""
+              (tags "PRIORITY=\"0\""
                     ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                      (org-agenda-overriding-header "HIGH PRIORITY TASKS: ")))
               (agenda ""
@@ -238,11 +238,7 @@
                                (?1 :foreground "DarkOrange4" :background "LightGoldenrod")
                                (?2 :foreground "gray20" :background "gray")
                                (?3 :foreground "gray20" :background "gray")
-                               (?4 :foreground "gray20" :background "gray")
-)
-
-
-    ))
+                               (?4 :foreground "gray20" :background "gray"))))
 
   )
 
