@@ -107,8 +107,11 @@
  calendar-holidays (append holiday-general-holidays holiday-local-holidays
                            holiday-christian-holidays holiday-solar-holidays))
 
-
-
+(setq org-agenda-sorting-strategy
+      '((agenda habit-down time-up category-keep priority-down)
+        (todo   category-keep priority-down)
+        (tags   priority-down category-keep)
+        (search category-keep)))
 
 (setq
  org-export-with-email nil
@@ -183,5 +186,15 @@
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+
+             )
+  (add-to-list 'org-latex-classes
+               '("screenplay"
+                 "\\documentclass{screenplay}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\intslug{%s}" . "\\intslug{%s}")
+                 ("\\begin{dialogue}{%s}"  "\\end{dialogue}"  "\\begin{dialogue}{%s}" "\\end{dialogue}" )
+                 ))
+
 )

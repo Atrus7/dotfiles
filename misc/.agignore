@@ -1,0 +1,18 @@
+# Some basic agignore files
+/log/
+/logs/
+/tmp/
+*.sql
+*.csv
+*.tsv
+*.css
+*.scss
+*.old
+*.xml
+*.html
+*.plist
+*.pdf
+*.log
+*.jpg
+*.png
+*.tex
