@@ -15,3 +15,8 @@ work/
 /zsh/.zsh/priv.zsh
 /i3/.i3/logfile
 /spacemacs/.spacemacs.d/private/cf-opinions/persp.el
+
+*.pdf
+*.tex
+/spacemacs/.spacemacs.d/private/cf-org/publishing/latex_setup.org
+/spacemacs/.spacemacs.d/private/local/
