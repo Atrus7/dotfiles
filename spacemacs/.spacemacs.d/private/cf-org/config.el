@@ -186,5 +186,15 @@
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+
+             )
+  (add-to-list 'org-latex-classes
+               '("screenplay"
+                 "\\documentclass{screenplay}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\intslug{%s}" . "\\intslug{%s}")
+                 ("\\begin{dialogue}{%s}"  "\\end{dialogue}"  "\\begin{dialogue}{%s}" "\\end{dialogue}" )
+                 ))
+
 )

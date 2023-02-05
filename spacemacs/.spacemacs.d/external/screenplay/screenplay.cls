@@ -73,7 +73,7 @@ released under the GNU General Public License]
 \newlength{\dialgutter}
 \setlength{\dialgutter}{0.2in}
 \addtolength{\dialwidth}{\dialgutter}
-\newcommand*{\dialtab}{\hspace*{1.5in}}
+\newcommand*{\dialtab}{\hspace*{1.0in}}
 \newcommand*{\dialnametab}{\hspace*{1.2in}}
 \newlength{\parenwidth}
 \setlength{\parenwidth}{1.5in}
