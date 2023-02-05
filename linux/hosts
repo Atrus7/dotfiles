@@ -14,10 +14,19 @@ mail.google.com/ m
 0.0.0.0 https://youtube.com
 0.0.0.0 http://www.youtube.com
 
+0.0.0.0 instagram.com
+0.0.0.0 www.instagram.com
+0.0.0.0 https://www.instagram.com
+0.0.0.0 https://instagram.com
+0.0.0.0 http://www.instagram.com
+
 0.0.0.0 facebook.com
 0.0.0.0 www.facebook.com
 0.0.0.0 https://www.facebook.com
 0.0.0.0 http://www.facebook.com
+
+0.0.0.0 twitter.com
+0.0.0.0 www.twitter.com
 
 0.0.0.0 reddit.com
 0.0.0.0 www.reddit.com
