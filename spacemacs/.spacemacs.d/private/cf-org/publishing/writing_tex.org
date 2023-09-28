@@ -14,7 +14,8 @@
 #+latex_header: \usepackage[T1]{fontenc}
 
 # Use Sans Serif font https://tug.org/FontCatalogue/accanthis/
-#+latex_header: \usepackage{accanthis}
+# Use times new Roman font
+#+latex_header: \usepackage{mathptmx}
 
 # Font Size
 #+LATEX_CLASS_OPTIONS: [12pt]

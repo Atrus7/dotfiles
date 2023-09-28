@@ -51,6 +51,7 @@
 (defun cf/find-novel ()
   "shortcut to private layers dir"
   (interactive)
+  (setq current-novel-path (file-truename "~/writing/projects/current-novel/"))
   (helm-find-files-1 current-novel-path))
 
 (setq org-capture-templates

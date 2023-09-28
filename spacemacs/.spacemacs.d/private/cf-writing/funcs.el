@@ -181,3 +181,33 @@ that may break."
                             " has "))
   ;; (highlight-regexp "just" 'hi-yellow)
   )
+
+(defun add-or-update-centered-block-under-level-2-headings ()
+  ;; idea is for when you have chapter-headings, but want the subchapters to be numbered a'la Under The Dome
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (let ((count 0)
+          (current-level 1))
+      (while (re-search-forward org-heading-regexp nil t)
+        (let ((level (length (match-string-no-properties 1))))
+          (if (= level 1)
+              (setq count 0 current-level 1)
+            (when (= level 2)
+              (setq count (1+ count))
+              (let* ((end (save-excursion (org-end-of-subtree t t)))
+                     (block-start (search-forward "#+begin_center numberedbreak" end t))
+                     (block-end (when block-start (line-end-position 2))))
+                (if (and block-start block-end)
+                    (progn
+                      (goto-char block-start)
+                      (forward-line 1)
+                      (delete-region (point) block-end)
+                      (insert (number-to-string count)))
+                  (progn
+                    (end-of-line)
+                    (insert (format "\n#+begin_center numberedbreak\n%d\n#+end_center" count))))))))))))
+
+
+;; Bind the function to a key for easy execution, for example:
+;; (global-set-key (kbd "C-c s") 'add-or-update-centered-block-under-level-2-headings)

@@ -4,3 +4,9 @@
 # sudo ln -sf ~/dotfiles/linux/permissive-hosts /etc/hosts
 # command that needs access
 # sudo ln -sf ~/dotfiles/linux/hosts /etc/hosts
+
+
+# NEVERS THIS IS A WRITING COMPUTER.
+# 0.0.0.0 lichess.org
+# 0.0.0.0 chess.com
+# 0.0.0.0 www.chess.com
