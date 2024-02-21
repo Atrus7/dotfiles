@@ -359,6 +359,7 @@
   (evil-collection-pdf-setup)
   (setq pdf-misc-print-program-executable "lpr")
   (setq pdf-misc-print-program-args '("-o media=A4" "-o fitplot"))
+  (pdf-tools-install) ; Standard activation command
 
   ;; (doom-modeline-init)
 
