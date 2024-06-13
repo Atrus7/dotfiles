@@ -87,7 +87,7 @@
   ;;     (echo "writing"))
 
   ;; Spelling stuff
-  (flyspell-mode-on)
+  (turn-on-flyspell)
 
   (git-gutter-mode -1)
   nil " Writing" '()

@@ -125,13 +125,15 @@
 
     ;; better pdf exporting
     (setq revert-without-query '(".pdf"))
-    (evil-define-key '(normal insert visual) org-mode-map (kbd "<f5>")
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "<f6>")
+      'org-odt-export-to-odt)
+
+      (evil-define-key '(normal insert visual) org-mode-map (kbd "<f5>")
       (lambda() (interactive) (find-file-other-window
                                (org-latex-export-to-pdf))
 
         (pdf-view-goto-page 1)
         )
-
       )
     ;; Somehow org-mode messes this up, making it Org-shift-down. Explicitly remap it
     (evil-define-key '(normal) org-mode-map (kbd "J") 'evil-join)
@@ -187,6 +189,12 @@
     (evil-define-key 'evilified org-agenda-mode-map (kbd "M-k") nil)
     (evil-define-key 'evilified org-agenda-mode-map (kbd "M-l") nil)
     (evil-define-key 'evilified org-agenda-mode-map (kbd "M-d") nil)
+
+    (evil-define-key nil org-agenda-mode-map
+      (kbd "C-a") 'org-agenda)
+    (evil-define-key 'normal 'global
+      (kbd "C-a") 'org-agenda)
+    (define-key org-agenda-mode-map (kbd "c") 'cfw:open-org-calendar)
     )
   )
 

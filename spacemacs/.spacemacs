@@ -48,6 +48,10 @@
 
 (defun dotspacemacs/user-init ()
   "Package independent settings to run before `dotspacemacs/user-config'."
+  (add-to-list 'configuration-layer-elpa-archives
+               '("ox-odt" . "https://kjambunathan.github.io/elpa/")
+               '("org" . "http://orgmode.org/elpa/")
+               )
   (setq custom-file "~/.spacemacs.d/.custom-settings.el"))
 
 (defun dotspacemacs/user-config ()
@@ -117,6 +121,7 @@
     javascript
     swift
     markdown
+    systemd
     csv
     (spell-checking :variables spell-checking-enable-by-default nil)
     ;; extra-langs ;; AKA "extra-langs" on master
@@ -178,28 +183,31 @@
 
 (defun dotspacemacs/layers/packages ()
   (setq-default
-   dotspacemacs-additional-packages '(solarized-theme
-                                      nord-theme
-                                      zetteldeft
+   dotspacemacs-additional-packages '(;; doom-modeline
+                                      arduino-mode
                                       calfw
                                       calfw-org
-                                      org-fancy-priorities
-                                      modus-themes
-                                      rainbow-mode
-                                      langtool
-                                      highlight
-                                      ninja-mode
-                                      evil-snipe
-                                      writegood-mode
-                                      ;; doom-modeline
                                       doom-themes
+                                      evil-snipe
+                                      highlight
+                                      langtool
+                                      modus-themes
+                                      ninja-mode
+                                      nord-theme
+                                      org-fancy-priorities
+                                      ox-odt
                                       pdf-tools ;; for printing
-                                      arduino-mode
+                                      solarized-theme
+                                      rainbow-mode
+                                      writegood-mode
+                                      zetteldeft
                                       ;; TODO remove once this is mainlined...
                                       yasnippet-snippets
                                       ;; (evil-adjust :location (recipe :fetcher github :repo "troyp/evil-adjust"))
                                       )
    dotspacemacs-excluded-packages '(org-pomodoro
+                                    org-projectile ; requires Emacs 28
+                                    org-rich-yank ;; giving error of `'org-rich-yank--store: Symbol’s value as variable is void: element`
                                     gnuplot
                                     devdocs ;; Needs emacs-27.1
                                     treemacs-icons-dired)
@@ -309,8 +317,6 @@
 ;;;; Packages
 
 (defun dotspacemacs/init/packages ()
-  (add-to-list 'package-archives
-               '("org" . "http://orgmode.org/elpa/") t)
   (setq-default
    dotspacemacs-default-package-repository nil
    dotspacemacs-elpa-https t

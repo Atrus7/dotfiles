@@ -9,11 +9,6 @@
 ;; Make this always pull agenda
 ;; (evil-define-key 'normal org-mode-map
 ;;   (kbd "C-a") 'org-agenda)
-(evil-define-key nil org-agenda-mode-map
-  (kbd "C-a") 'org-agenda)
-(evil-define-key 'normal 'global
-  (kbd "C-a") 'org-agenda)
-(define-key org-agenda-mode-map (kbd "c") 'cfw:open-org-calendar)
 
 
 (evil-define-key '(normal visual insert) 'global
