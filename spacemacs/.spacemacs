@@ -49,7 +49,9 @@
 (defun dotspacemacs/user-init ()
   "Package independent settings to run before `dotspacemacs/user-config'."
   (add-to-list 'configuration-layer-elpa-archives
-               '("ox-odt" . "https://kjambunathan.github.io/elpa/"))
+               '("ox-odt" . "https://kjambunathan.github.io/elpa/")
+               '("org" . "http://orgmode.org/elpa/")
+               )
   (setq custom-file "~/.spacemacs.d/.custom-settings.el"))
 
 (defun dotspacemacs/user-config ()
