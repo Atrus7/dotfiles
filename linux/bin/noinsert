@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Your mileage may vary :: xmodmap -pke | grep -i insert
+xmodmap -e "keycode 118 ="
