@@ -9,6 +9,23 @@
 
 ;; org v8 bundled with Emacs 24.4
 (setq org-odt-preferred-output-format "docx")
+;(add-to-list 'org-odt-caption-and-xref-settings '(:FIGURE: :caption-position below :caption-format
+ ;                                                           (caption)
+  ;                                                          :xref-format
+   ;                                                         (value)))
+
+      ;; '(("figure" "value" "" "")  ;; Remove "Figure " preamble from figure captions
+
+;; (defun my-org-odt-filter-latex (text backend info)
+;;   "Replace LaTeX commands with ODT-compatible equivalents."
+;;   (when (org-export-derived-backend-p backend 'odt)
+;;     (replace-regexp-in-string "\\\\newpage" "<text:p text:style-name=\"PageBreak\"/>" text)))
+;; (add-to-list 'org-export-filter-final-output-functions 'my-org-odt-filter-latex)
+
+;; (add-to-list 'org-export-filter-plain-text-functions
+;;              'my-org-odt-filter-latex)
+
+
 
 
 ;; https://github.com/politza/pdf-tools

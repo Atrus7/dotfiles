@@ -132,3 +132,46 @@ If so, ask if it needs to be saved."
     )
   ;; unassert variable, even if not saved to avoid questioning.
   (setq ispell-pdict-modified-p nil))
+
+(defun character-names-regex (names)
+  "Create a regex pattern to match character names and their possessive forms."
+  (concat "\\b\\("
+          (mapconcat 'identity names "\\|")
+          "\\)\\(\\|'s\\)\\b"))
+
+(defun highlight-character-names ()
+  "Highlight character names in prose with a subtle style."
+  (let ((names (get-org-character-names)))
+    (when names
+
+  (font-lock-add-keywords
+   nil
+   `((,(character-names-regex names)
+      (1 'font-lock-keyword-face)  ;; Subtle highlighting for names
+      (2 'font-lock-keyword-face)  ;; Subtle highlighting for possessive forms
+      ))))
+    ))
+
+(defun highlight-prose-syntax ()
+  "Highlight quotations and character names in prose."
+  (font-lock-add-keywords
+   nil
+   '(
+     ;; Highlight quotations in green, including the quotes
+     ("\"\\([^\"\n]*\\(?:\n[^\"\n][^\"\n]*\\)*\\)\"\\|\"\\([^\"\n]*\\(?:\n[^\"\n][^\"\n]*\\)*\\)\n\n"
+      (0 'font-lock-string-face t))
+     ))
+  (highlight-character-names)
+  (font-lock-update)
+  )
+
+(defun get-org-character-names ()
+  "Extract character names from the #+CHARACTER_NAMES keyword in the current buffer."
+  (let ((case-fold-search t)
+        (names nil))
+    (save-excursion
+      (goto-char (point-min))
+      (when (re-search-forward "^#\\+CHARACTER_NAMES: \\(.*\\)$" nil t)
+        (setq names (split-string (match-string 1) ",\\s-*"))))
+    names))
+(add-hook 'cf/writing-mode-hook 'highlight-prose-syntax)
