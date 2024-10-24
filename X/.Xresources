@@ -10,8 +10,7 @@ URxvt.internalBorder: 19
 URxvt.cursorBlink: true
 URxvt.scrollBar: false
 
-
-URxvt.perl-ext-common: default,matcher,selection-to-clipboard
+URxvt.perl-ext-common: default,matcher,selection-to-clipboard,-confirm-paste
 URxvt.clipboard.autocopy: true
 URxvt.iso14755: False
 URxvt.iso14755_52: False

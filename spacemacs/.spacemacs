@@ -234,7 +234,7 @@
 (defun dotspacemacs/init/display ()
   (setq-default
    dotspacemacs-themes '(cherry-blossom
-                         modus-operandi
+                         ;; modus-operandi
                          leuven
                          doom-one-light
                          doom-one
