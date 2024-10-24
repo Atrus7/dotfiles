@@ -9,6 +9,7 @@
                             org
                             evil-org
                             org-wc
+                            ox-odt
                             org-agenda
                             org-fancy-priorities)
   "The list of Lisp packages required by the cf-org layer.")
@@ -195,6 +196,16 @@
     (evil-define-key 'normal 'global
       (kbd "C-a") 'org-agenda)
     (define-key org-agenda-mode-map (kbd "c") 'cfw:open-org-calendar)
+    )
+  )
+(defun cf-org/post-init-ox-odt ()
+  (use-package org-odt
+    :defer t
+    :config
+    (add-to-list 'org-odt-caption-and-xref-settings '(:FIGURE: :caption-position below :caption-format
+                                                               (caption)
+                                                               :xref-format
+                                                               (value)))
     )
   )
 
