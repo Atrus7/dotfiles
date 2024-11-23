@@ -199,7 +199,7 @@
     )
   )
 (defun cf-org/post-init-ox-odt ()
-  (use-package org-odt
+  (use-package ox-odt
     :defer t
     :config
     (add-to-list 'org-odt-caption-and-xref-settings '(:FIGURE: :caption-position below :caption-format

@@ -23,3 +23,6 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ## For laptop, start the i3lock.service
 sudo ln -s i3lock.service /etc/systemd/system/i3lock.service
 systemctl enable i3lock
+
+## Animated wallpapers
+you need libsdl2-dev, follow paperview README.md

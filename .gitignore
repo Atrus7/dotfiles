@@ -20,3 +20,4 @@ work/
 *.tex
 /spacemacs/.spacemacs.d/private/cf-org/publishing/latex_setup.org
 /spacemacs/.spacemacs.d/private/local/
+/linux/bin/start_wallpaper

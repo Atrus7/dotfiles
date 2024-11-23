@@ -8,3 +8,6 @@
 [submodule "spacemacs/.spacemacs.d/external/org-marginalia"]
 	path = spacemacs/.spacemacs.d/external/org-marginalia
 	url = git@github.com:nobiot/org-marginalia.git
+[submodule "linux/bin/paperview"]
+	path = linux/bin/paperview
+	url = https://github.com/glouw/paperview.git
