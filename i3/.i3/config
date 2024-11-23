@@ -6,7 +6,9 @@
 font pango:DejaVu Sans Mono 9, Icons 9
 
 # Wallpaper: make it look good to start with
-exec feh --bg-scale ~/pictures/wallpaper.png
+# exec feh --bg-scale ~/pictures/wallpaper.png
+exec ~/bin/start_wallpaper
+
 
 ## Variables
 
@@ -254,24 +256,15 @@ bar {
 
         #	verbose true
         colors {
-          background #F5f5f5
-          statusline #303030
+          background #303030
+          statusline #b8bb26
 
-          focused_workspace  #00ced1 #00ced1 #303030
-          active_workspace   #A2b5cd #A2b5cd #000000
-          inactive_workspace #F5f5f5 #F5f5f5 #888888
-          urgent_workspace   #fb4934 #fb4934 #303030
+          focused_workspace  #4c7899 #285577 #ffffff
+          active_workspace   #333333 #5f676a #ffffff
+          inactive_workspace #333333 #222222 #888888
+          urgent_workspace   #2f343a #900000 #ffffff
         }
 }
-
-## Colors
-# class                 border  backgr. text    indicator child_border
-client.focused          #00ced1 #00ced1 #000000 #00ced1   #00ced1
-client.focused_inactive #A2b5cd #A2b5cd #000000 #484e50   #A2b5cd
-client.unfocused        #F5f5f5 #F5f5f5 #888888 #292d2e   #222222
-client.urgent           #fb4934 #fb4934 #303030 #fb4934   #fb4934
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-# client.background       #ffffff
 
 ## i3 Special Modes
 
@@ -330,7 +323,8 @@ exec urxvtd -q -f -o
 exec --no-startup-id i3-msg 'workspace $tag4; exec $browser --enable-native-gpu-memory-buffers;'
 
 # make first urxvt transparent
-exec --no-startup-id i3-msg ' workspace $tag1; exec ~/bin/transparent_term'
+# doesn't work great with animated wallpapers
+# exec --no-startup-id i3-msg ' workspace $tag1; exec ~/bin/transparent_term'
 
 # Start emacs last since it will appear in the active workspace and it takes a while to load frame.
 exec --no-startup-id i3-msg 'workspace $tag2; exec /usr/bin/emacs;'

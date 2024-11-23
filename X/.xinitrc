@@ -16,10 +16,10 @@ if [ -f $sysmodmap ]; then
     xmodmap $sysmodmap
 fi
 if [ "$HOST" = "desk" ]; then
-    xrdb -merge "$HOME/.Xcolors/paper_color"
+    xrdb -merge "$HOME/.Xcolors/fall_green"
 else
-     xrdb -merge "$HOME/.Xcolors/gruvbox"
-     xrdb -merge "$HOME/.Xcolors/gruvbox_urxvt256"
+    xrdb -merge "$HOME/.Xcolors/gruvbox"
+    xrdb -merge "$HOME/.Xcolors/gruvbox_urxvt256"
 fi
 
 if [ -f "$userresources" ]; then
