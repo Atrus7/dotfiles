@@ -24,5 +24,8 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 sudo ln -s i3lock.service /etc/systemd/system/i3lock.service
 systemctl enable i3lock
 
+## For keyboard
+sudo ln  X/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+
 ## Animated wallpapers
 you need libsdl2-dev, follow paperview README.md

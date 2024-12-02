@@ -4254,6 +4254,7 @@
     ("ive" "I've" nil :count 0)
     ("iwth" "with" nil :count 6)
     ("jepoardize" "jeopardize" nil :count 0)
+    ("jepoardy" "jeopardy" nil :count 0)
     ("jsut" "just" nil :count 5)
     ("judgement" "judgment" nil :count 14)
     ("kailah" "Kailah" nil :count 0)
@@ -4316,7 +4317,7 @@
     ("quanties" "quantities" nil :count 0)
     ("questionaires" "questionnaires" nil :count 0)
     ("quintissential" "quintessential" nil :count 0)
-    ("racous" "raucous" nil :count 2)
+    ("racous" "raucous" nil :count 3)
     ("racously" "raucously" nil :count 0)
     ("reconassaince" "reconnaissance" nil :count 0)
     ("rectanglular" "rectangular" nil :count 0)
@@ -4394,3 +4395,4 @@
     ("youll" "you'll" nil :count 1)
     ("youre" "You're" nil :count 0)
    ))
+
