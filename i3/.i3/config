@@ -333,6 +333,9 @@ exec --no-startup-id i3-msg 'exec /usr/bin/dropbox start'
 
 exec --no-startup-id i3-msg 'exec ${HOME}/.i3/i3-battery-popup -n -I 2 -t 2m'
 
+# redshift for nightlight.
+exec --no-startup-id i3-msg 'exec redshift'
+
 exec spotify
 
 
