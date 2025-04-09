@@ -23,3 +23,5 @@ pandoc --from html "$HTML_PATH" --html-q-tags --wrap=none --to org -o "$NEW_FILE
 
 echo "$ORIG_FILE_PATH   --------->"
 echo "$NEW_FILENAME"
+
+format_org_to_ios_quotes.py $NEW_FILENAME
