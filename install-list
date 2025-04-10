@@ -10,6 +10,7 @@ rofi
 feh
 redshift
 syndaemon
+dnsmasq
 xclip
 texlive
 texlive-latex-extra
