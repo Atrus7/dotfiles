@@ -46,6 +46,12 @@
   :global nil
   ;; (writegood-mode 1)
   (langtool-check-buffer)
+
+  (evil-define-key '(normal) org-mode-map (kbd "C-n") 'langtool-goto-next-error)
+  (setq
+   langtool-disabled-rules
+   '("WHITESPACE_RULE" "SENTENCE_WHITESPACE" "PRP_VB" "COMMA_COMPOUND_SENTENCE" "ENGLISH_WORD_REPEAT_BEGINNING_RULE" "PRP_PAST_PART" "OUTTA")
+   )
   (flyspell-buffer)
   )
 
