@@ -95,6 +95,8 @@
   ;; Spelling stuff
   (turn-on-flyspell)
 
+  (company-mode -1)
+
   (git-gutter-mode -1)
   nil " Writing" '()
   )
