@@ -33,7 +33,7 @@ def transform_quotes(input_file_path):
 
     for quote in quotes:
         # Remove "Location" and "Highlight" information
-        quote = re.sub(r'Location \d+|Highlight\s?\(.*?\)', '', quote)
+        quote = re.sub(r'Quote|Location \d+|Highlight\s?\(.*?\)', '', quote)
 
         # Extract page number if available
         page_match = re.search(r'Page \d+', quote)
@@ -48,7 +48,7 @@ def transform_quotes(input_file_path):
         is_kindle_note_match = re.search(r'^\s?Note ', quote)
         quote = re.sub(r'^.*Page \d+.*$', '', quote, flags=re.MULTILINE).strip()
 
-        quote = re.sub(r"\n", '', quote).strip()
+        # quote = re.sub(r"\n", '', quote).strip()
 
         if not quote:
             continue  # Skip empty quotes
