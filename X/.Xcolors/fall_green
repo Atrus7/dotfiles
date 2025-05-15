@@ -15,8 +15,8 @@ URxvt*fading: 0
 URxvt*tintColor: #ffffff
 URxvt*shading: 0
 URxvt*inheritPixmap: False
-URxvt*background: #212121
-URxvt*foreground: #D2C5BC
+URxvt.background: #212121
+URxvt.foreground: #D2C5BC
 !#D2C5BC
 !black
 URxvt*color0:#777777
