@@ -130,6 +130,7 @@
             python-formatter 'yapf
             python-format-on-save t
             )
+    rust
     scheme
     vimscript
     yaml

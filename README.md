@@ -29,3 +29,14 @@ sudo ln  X/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 
 ## Animated wallpapers
 you need libsdl2-dev, follow paperview README.md
+
+## For i3-status rust client
+Follow something from here: https://doc.rust-lang.org/cargo/getting-started/installation.html
+
+Then do this:
+
+cargo install i3status-rs
+
+## Install Everything we use
+vim dotfiles/install-list
+sudo apt-get install $(cat dotfiles/install-list)

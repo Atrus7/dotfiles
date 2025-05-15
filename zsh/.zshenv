@@ -32,3 +32,4 @@ export PRINTER="MG3600LAN"
 
 # "Canon_MG3600_series"
 # export PRINTER="Canon_MG3600_series"
+. "$HOME/.cargo/env"

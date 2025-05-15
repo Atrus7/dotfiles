@@ -22,7 +22,7 @@ URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 
 
-URxvt.font: xft:monospace:size=7
+URxvt.font: xft:monospace:size=10
 
 
 ! Rofi

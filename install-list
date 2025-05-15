@@ -19,5 +19,9 @@ texlive-fonts-extra
 pandoc
 libghc-pandoc-types-dev
 
+playerctl
+fonts-font-awesome
+clang libpipewire-0.3-dev libsensors-dev libpulse-dev libssl-dev
+fzf
 
 pip3 install flake8 epc importmagic ipython

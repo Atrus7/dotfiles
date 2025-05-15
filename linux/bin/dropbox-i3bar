@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+status=$(dropbox status | grep -v Syncing | head -1)
+case "$status" in
+  "Up to date")     icon="✓"  ;;   # check mark
+  *"Downloading"*)  icon="↓"  ;;   # down arrow
+  *"Uploading"*)    icon="↑"  ;;   # up arrow
+  *"Indexing"*)     icon="↻"  ;;   # circle arrow
+  *"Syncing"*)     icon="↻"  ;;   # circle arrow
+  *)                icon="⚠"  ;;
+esac
+
+echo "Dropbox: $icon"        # full_text
