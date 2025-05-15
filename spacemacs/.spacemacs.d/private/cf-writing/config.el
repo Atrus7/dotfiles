@@ -183,3 +183,14 @@ If so, ask if it needs to be saved."
         (setq names (split-string (match-string 1) ",\\s-*"))))
     names))
 (add-hook 'cf/writing-mode-hook 'highlight-prose-syntax)
+
+(defun cf/unbind-markdown-window-keys ()
+  "Restore M-h/j/k/l in markdown-mode so they aren't hijacked."
+  (dolist (key '("M-h" "M-j" "M-k" "M-l"))
+    ;; Remove bindings in Emacs state
+    (define-key markdown-mode-map (kbd key) nil)
+    ;; Remove bindings in all Evil states
+    (dolist (state '(normal insert visual motion))
+      (evil-define-key state markdown-mode-map (kbd key) nil))))
+
+(add-hook 'markdown-mode-hook #'cf/unbind-markdown-window-keys)
