@@ -56,7 +56,7 @@ critical_mem = 90             # turns theme.critical at ≥90%
 # ── Wi‑Fi ─────────────────────────────────────────────────────────────────────
 [[block]]
 block        = "net"
-device = "wlp5s0"
+device = "wlp"
 format       = " $signal_strength [$ssid] "
 
 [[block.click]]
