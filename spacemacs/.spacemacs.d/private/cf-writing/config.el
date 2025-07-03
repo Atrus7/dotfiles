@@ -80,6 +80,11 @@
   ;; Org indent
   (org-indent-mode 1)
 
+  ;; Org return shouldn't auto-indent or add a new list, as we want predictable typing. Always left-justified.
+  (setq-local evil-org-special-o/O '(table-row))
+  (setq-local evil-auto-indent nil)
+
+
   ;; This interferes with olivetti.
   (visual-fill-column-mode--disable)
   ;; Center the buffer

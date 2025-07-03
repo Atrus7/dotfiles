@@ -133,7 +133,7 @@
       (lambda() (interactive) (find-file-other-window
                                (org-latex-export-to-pdf))
 
-        (pdf-view-goto-page 1)
+        ;; (pdf-view-goto-page 1)
         )
       )
     ;; Somehow org-mode messes this up, making it Org-shift-down. Explicitly remap it

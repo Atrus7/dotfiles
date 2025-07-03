@@ -30,6 +30,11 @@ block    = "cpu"
 interval = 2
 format   = " $utilization"
 
+[[block.click]]
+button = "left"
+cmd = "urxvtc -e  bash -c 'htop'"
+# ── bash -c 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 15; read -n 1'"
+
 
 # ── MEM ───────────────────────────────────────────────────────────────────────
 [[block]]
@@ -53,6 +58,10 @@ critical_mem = 90             # turns theme.critical at ≥90%
 block        = "net"
 device = "wlp5s0"
 format       = " $signal_strength [$ssid] "
+
+[[block.click]]
+button = "left"
+cmd = "cinnamon-settings network"
 
 # ── Ethernet ─────────────────────────────────────────────────────────────────
 # [[block]]

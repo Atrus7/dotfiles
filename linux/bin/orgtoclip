@@ -1,4 +1,4 @@
 #!/bin/bash
-pandoc --from=org --to=html \
+pandoc --from=org --to=html -L ${HOME}/dotfiles/spacemacs/.spacemacs.d/private/cf-org/publishing/html_controller.lua \
 | xclip -selection clipboard -target text/html \
 &> /dev/null
