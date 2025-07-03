@@ -1,0 +1,7 @@
+
+#+BEGIN_EXPORT latex
+\dropchapter{2in}
+\setlength\epigraphwidth{.8\textwidth}
+\setlength\epigraphrule{0pt}
+\renewcommand{\epigraphflush}{center}
+#+END_EXPORT
